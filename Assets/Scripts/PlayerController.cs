@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float turnSpeed = 360f;
 
     private Vector2 inputData;
     private CharacterController controller;
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
             var relative = (transform.position + new Vector3(inputData.x, 0, inputData.y)) - transform.position;
             var rotation = Quaternion.LookRotation(relative, Vector3.up);
         
-            transform.rotation = rotation;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnSpeed * Time.deltaTime);
         }
     }
     
