@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private float speed;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float boostSpeed = 7f;
     [SerializeField] private float turnSpeed = 360f;
 
     private Vector2 inputData;
@@ -26,11 +28,21 @@ public class PlayerController : MonoBehaviour
         {
             inputData = Movement_canceled.ReadValue<Vector2>();
         };
+
+        inputMap.Player.Boost.performed += Boost_performed =>
+        {
+            speed = boostSpeed;
+        };
+
+        inputMap.Player.Boost.canceled += Boost_canceled =>
+        {
+            speed = moveSpeed;
+        };
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        speed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -54,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (correctedDir.magnitude > 1f)
             correctedDir.Normalize();
         
-        controller.Move(correctedDir * moveSpeed * Time.deltaTime);
+        controller.Move(correctedDir * speed * Time.deltaTime);
     }
 
     private void Look()
