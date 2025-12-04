@@ -9081,6 +9081,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1552123256}
     - target: {fileID: 179386275180482994, guid: 798e6e3b49c07d74aabf83731fbc8da8, type: 3}
+      propertyPath: searchTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 179386275180482994, guid: 798e6e3b49c07d74aabf83731fbc8da8, type: 3}
+      propertyPath: searchDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 179386275180482994, guid: 798e6e3b49c07d74aabf83731fbc8da8, type: 3}
       propertyPath: waypoints.Array.size
       value: 4
       objectReference: {fileID: 0}
