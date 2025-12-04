@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class BaseEnemyFSM : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class BaseEnemyFSM : MonoBehaviour
         kPatrol,
         kPursuit,
         kAttack,
-        kFlee
+        kSearch
     }
     
     public MindStates current_mind_state_;
@@ -26,15 +27,22 @@ public class BaseEnemyFSM : MonoBehaviour
 
     public GameObject fireEffect;
     
+    //Patrolling
     public List<Transform> waypoints;
     private Transform currentTarget;
     private int index = 0;
-
     private bool isMoving = true;
     private bool atEnd = false;
     private bool isReversing = false;
+    public float patrolWaitTime = 2.0f;
 
-    public float waitTime = 2.0f;
+    //Searching for player
+    private Vector3 searchDir;
+    private bool isSearching = false;
+    public float searchDistance = 5.0f;
+    public float searchTime = 10.0f;
+    private float searchEndTime;
+    private Vector3 forwardPoint;
 
     private void Awake()
     {
@@ -71,9 +79,9 @@ public class BaseEnemyFSM : MonoBehaviour
         }else if(current_mind_state_ == MindStates.kAttack)
         {
             MindAttack();
-        }else if(current_mind_state_ == MindStates.kFlee)
+        }else if(current_mind_state_ == MindStates.kSearch)
         {
-            MindFlee();
+            MindSearch();
         }
 
         
@@ -90,8 +98,8 @@ public class BaseEnemyFSM : MonoBehaviour
         if (index < waypoints.Count && !isReversing)
         {
             //Pause for set seconds before going to first waypoint
-            if (index == 1)
-                yield return new WaitForSeconds(waitTime);
+            if (index == 1 &&!isSearching)
+                yield return new WaitForSeconds(patrolWaitTime);
             
             currentTarget = waypoints[index];
         }
@@ -101,7 +109,7 @@ public class BaseEnemyFSM : MonoBehaviour
             if (!atEnd)
             {
                 atEnd = true;
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(patrolWaitTime);
             }
 
             index--;
@@ -133,7 +141,6 @@ public class BaseEnemyFSM : MonoBehaviour
     void MindPatrol()
     {
         BodyPatrol();
-        Debug.Log("Starting Patrol");
 
         if(sight_sensor_.detected_object_ != null)
         {
@@ -148,8 +155,8 @@ public class BaseEnemyFSM : MonoBehaviour
 
         if(sight_sensor_.detected_object_ == null)
         {
-            fireEffect.SetActive(false);
-            current_mind_state_ = MindStates.kWait;
+            
+            current_mind_state_ = MindStates.kSearch;
             return;
         }
 
@@ -180,11 +187,33 @@ public class BaseEnemyFSM : MonoBehaviour
             current_mind_state_ = MindStates.kWait;
         }
     }
-    
-    void MindFlee()
+
+    void MindSearch()
     {
-        BodyFlee();
-        Debug.Log("Fleeing");
+        //Set end of search time
+        if (!isSearching)
+        {
+            searchEndTime = Time.time + searchTime;
+            isSearching = true;
+        }
+        
+        if (sight_sensor_.detected_object_ != null)
+        {
+            current_mind_state_ = MindStates.kPursuit;
+            isSearching = false;
+            return;
+        }
+        
+        BodySearch();
+        
+        //If search time has ended, go back to patrol
+        if (Time.time > searchEndTime)
+        {
+            isSearching = false;
+            FindNearestWaypoint();
+            fireEffect.SetActive(false);
+            current_mind_state_ = MindStates.kPatrol;
+        }
     }
 
     void BodyWait()
@@ -194,6 +223,7 @@ public class BaseEnemyFSM : MonoBehaviour
     
     void BodyPatrol()
     {
+        Debug.Log("Starting Patrol");
         //If in patrol state, start following waypoints
         if (current_mind_state_ == MindStates.kPatrol && agent_.isStopped)
         {
@@ -212,6 +242,7 @@ public class BaseEnemyFSM : MonoBehaviour
         }
         
     }
+    
     void BodyPursuit()
     {
         if (agent_ != null && sight_sensor_.detected_object_ != null)
@@ -232,10 +263,39 @@ public class BaseEnemyFSM : MonoBehaviour
         //atacar o algo
         //sight_sensor_.detected_object_.attachedRigidbody.AddForce(dir * 1500);
     }
-    
-    void BodyFlee()
-    {
 
+    void BodySearch()
+    {
+        agent_.isStopped = false;
+
+        Debug.Log("Searching");
+        forwardPoint = agent_.transform.position + transform.forward * searchDistance;
+        agent_.SetDestination(forwardPoint);
+    }
+
+    void FindNearestWaypoint()
+    {
+        Transform nearestWaypoint = null;
+        float nearestDistance = float.MaxValue;
+
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            float distance = Vector3.Distance(transform.position, waypoints[i].position);
+            
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestWaypoint = waypoints[i];
+            }
+        }
+        
+        if (nearestWaypoint != null)
+        {
+            agent_.isStopped = false;
+            agent_.SetDestination(nearestWaypoint.position);
+            currentTarget = nearestWaypoint;
+            index = waypoints.IndexOf(nearestWaypoint);
+        }
     }
 
     private void OnDrawGizmos()
