@@ -31,7 +31,6 @@ public class EnemyAttackState : EnemyState
         //If player gets too far, switch back to pursuit
         if (distanceToTarget > enemy.attack_distance_ * enemy.stop_attack_distance_multiplier)
         {
-            
             stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
         }
     }

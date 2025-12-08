@@ -23,7 +23,7 @@ public class BaseEnemy : MonoBehaviour
     public List<Transform> waypoints;
     public Transform currentTarget;
     private int index = 0;
-    private bool isMoving = true;
+    //private bool isMoving = true;
     private bool atEnd = false;
     private bool isReversing = false;
     public float patrolWaitTime = 2.0f;
@@ -123,7 +123,7 @@ public class BaseEnemy : MonoBehaviour
         
         //Move to next waypoint
         agent_.SetDestination(currentTarget.position);
-        isMoving = true;
+        //isMoving = true;
     }
     
     public void FindNearestWaypoint()
