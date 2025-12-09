@@ -13,9 +13,13 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput inputMap;
 
+    public Smoke smoke;
+    public GameObject smokeEmitter;
+
     private void Awake()
     {
         controller = gameObject.AddComponent<CharacterController>();
+        smoke = GetComponent<Smoke>();
         
         inputMap = new PlayerInput();
 
@@ -37,6 +41,13 @@ public class PlayerController : MonoBehaviour
         inputMap.Player.Boost.canceled += Boost_canceled =>
         {
             speed = moveSpeed;
+        };
+
+        inputMap.Player.Smoke.performed += Smoke_performed =>
+        {
+            VFXManager.Instance.SpawnSmoke();
+            //Play smoking animation
+            //freeze player controls for time
         };
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
