@@ -12,16 +12,6 @@ public class Sight : MonoBehaviour
 
     public Collider detected_object_;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-
-
-
-    }
-
-
     // Update is called once per frame
     void Update()
     {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,11 @@ public class PlayerController : MonoBehaviour
 
     public Smoke smoke;
     public GameObject smokeEmitter;
+
+    [SerializeField] private GameObject forceField;
+    [SerializeField] float freezeDuration = 2f;
+    
+    private bool isFrozen = false;
 
     private void Awake()
     {
@@ -54,6 +60,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         speed = moveSpeed;
+        forceField.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
     private void CorrectMovement()
     {
+        if (isFrozen)
+            return;
+        
         Vector3 rawDir = new Vector3(inputData.x, 0, inputData.y);
         
         //Camera rotated 135 degrees for isometric view
@@ -78,6 +88,34 @@ public class PlayerController : MonoBehaviour
             correctedDir.Normalize();
         
         controller.Move(correctedDir * speed * Time.deltaTime);
+    }
+
+    public void FreezeMovement()
+    {
+        if (isFrozen)
+            return;
+
+        StartCoroutine(FreezePlayer());
+    }
+
+    private IEnumerator FreezePlayer()
+    {
+        isFrozen = true;
+
+        if (forceField != null)
+        {
+            forceField.transform.position = transform.position;
+            forceField.SetActive(true);
+        }
+        
+        yield return new WaitForSeconds(freezeDuration);
+
+        if (forceField != null)
+        {
+            forceField.SetActive(false);
+        }
+        
+        isFrozen = false;
     }
 
     private void Look()

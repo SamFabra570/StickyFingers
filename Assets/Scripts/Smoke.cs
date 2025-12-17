@@ -32,7 +32,7 @@ public class Smoke : MonoBehaviour
         blowSmoke.Play();
         Debug.Log("Set cloud pos, NO SPAWN YET");
         smokeCloud.transform.SetPositionAndRotation(cloudPos.transform.position, cloudPos.transform.rotation);
-        StartCoroutine(SpawnCloud(cloudPos, waitTime));
+        //StartCoroutine(SpawnCloud(cloudPos, waitTime));
     }
     
     private IEnumerator SpawnCloud(GameObject cloudPos, float time)

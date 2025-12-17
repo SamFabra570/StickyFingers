@@ -23,7 +23,7 @@ public class BaseEnemy : MonoBehaviour
     public List<Transform> waypoints;
     public Transform currentTarget;
     private int index = 0;
-    //private bool isMoving = true;
+    private bool isMovingToWaypoint = false;
     private bool atEnd = false;
     private bool isReversing = false;
     public float patrolWaitTime = 2.0f;
@@ -85,45 +85,38 @@ public class BaseEnemy : MonoBehaviour
 
     public IEnumerator MoveToNextWaypoint()
     {
-        if (!isReversing)
+        //if moving, don't call again
+        if (isMovingToWaypoint)
+            yield break;
+
+        isMovingToWaypoint = true;
+
+        if (waypoints == null || waypoints.Count == 0)
         {
-            index++;
+            isMovingToWaypoint = false;
+            yield break;
         }
         
-        //If not at last waypoint and not in reverse
-        if (index < waypoints.Count && !isReversing)
-        {
-            //Pause for set seconds before going to first waypoint
-            if (index == 1 &&!isSearching)
-                yield return new WaitForSeconds(patrolWaitTime);
-            
-            currentTarget = waypoints[index];
-        }
-        else
-        {
-            //If at last waypoint pause for set seconds
-            if (!atEnd)
-            {
-                atEnd = true;
-                yield return new WaitForSeconds(patrolWaitTime);
-            }
+        //Pause movement at each waypoint
+        agent_.isStopped = true;
+        yield return new WaitForSeconds(patrolWaitTime);
 
-            index--;
-            isReversing = true;
+        //Clamp waypoint index
+        index = Mathf.Clamp(index, 0, waypoints.Count - 1);
+        
+        index++;
 
-            //If next waypoint is the first point, reset isReversing and atEnd
-            if (index == 0)
-            {
-                isReversing = false;
-                atEnd = false;
-            }
-            
-            currentTarget = waypoints[index];
-        }
+        //Loop if reached the last waypoint
+        if (index >= waypoints.Count)
+            index = 0;
+        
+        currentTarget = waypoints[index];
         
         //Move to next waypoint
+        agent_.isStopped = false;
         agent_.SetDestination(currentTarget.position);
-        //isMoving = true;
+        
+        isMovingToWaypoint = false;
     }
     
     public void FindNearestWaypoint()

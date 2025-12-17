@@ -15,23 +15,12 @@ public class VFXManager : MonoBehaviour
     {
         Instance = this;
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Instantiate smoke effects, call blowsmoke
     public void SpawnSmoke()
     {
         GameObject smoke = Instantiate(smokePrefab);
-        GameObject cloud = Instantiate(smokeCloudPrefab);
+        //GameObject cloud = Instantiate(smokeCloudPrefab);
         Smoke smokeScript = smoke.GetComponent<Smoke>();
         smokeScript.BlowSmoke(smokeEmitter, cloudPos, cloudWaitTime);
     }

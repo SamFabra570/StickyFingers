@@ -18,12 +18,6 @@ public class EnemyPatrolState : EnemyState
         {
             enemy.FindNearestWaypoint();
         }
-
-        //Start moving if enemy has waypoint target
-        if (enemy.waypoints.Count > 0 && enemy.currentTarget != null)
-        {
-            enemy.StartCoroutine(enemy.MoveToNextWaypoint());
-        }
     }
 
     public override void LogicUpdate()
@@ -36,9 +30,9 @@ public class EnemyPatrolState : EnemyState
             stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
         }
         
-        else if (enemy.currentTarget != null && Vector3.Distance(enemy.transform.position, enemy.currentTarget.position) <= 2f)
+        //Move to next waypoint when reached
+        else if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
         {
-            //Move to next waypoint when reached
             enemy.StartCoroutine(enemy.MoveToNextWaypoint());
         }
     }
