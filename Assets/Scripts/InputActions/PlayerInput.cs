@@ -118,6 +118,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""88f9e121-485a-4b4f-a202-7f0859ea15fe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P_Animation"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fd7c9b2-350b-4ae6-8e6e-05592d56790b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +270,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Smoke"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb91b39a-3451-4eb5-be45-2b3a47a86e8e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38362b38-2953-4bc6-bd1c-502fb62861f8"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P_Animation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -263,6 +303,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
         m_Player_Smoke = m_Player.FindAction("Smoke", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_P_Animation = m_Player.FindAction("P_Animation", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -346,6 +388,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Boost;
     private readonly InputAction m_Player_Smoke;
+    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_P_Animation;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -369,6 +413,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Smoke".
         /// </summary>
         public InputAction @Smoke => m_Wrapper.m_Player_Smoke;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P_Animation".
+        /// </summary>
+        public InputAction @P_Animation => m_Wrapper.m_Player_P_Animation;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -404,6 +456,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Smoke.started += instance.OnSmoke;
             @Smoke.performed += instance.OnSmoke;
             @Smoke.canceled += instance.OnSmoke;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @P_Animation.started += instance.OnP_Animation;
+            @P_Animation.performed += instance.OnP_Animation;
+            @P_Animation.canceled += instance.OnP_Animation;
         }
 
         /// <summary>
@@ -424,6 +482,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Smoke.started -= instance.OnSmoke;
             @Smoke.performed -= instance.OnSmoke;
             @Smoke.canceled -= instance.OnSmoke;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @P_Animation.started -= instance.OnP_Animation;
+            @P_Animation.performed -= instance.OnP_Animation;
+            @P_Animation.canceled -= instance.OnP_Animation;
         }
 
         /// <summary>
@@ -485,5 +549,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSmoke(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P_Animation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP_Animation(InputAction.CallbackContext context);
     }
 }

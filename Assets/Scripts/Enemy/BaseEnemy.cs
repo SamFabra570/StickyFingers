@@ -24,13 +24,11 @@ public class BaseEnemy : MonoBehaviour
     public Transform currentTarget;
     private int index = 0;
     private bool isMovingToWaypoint = false;
-    private bool atEnd = false;
-    private bool isReversing = false;
     public float patrolWaitTime = 2.0f;
 
     //Searching for player
     private Vector3 searchDir;
-    private bool isSearching = false;
+    //private bool isSearching = false;
     public float searchDistance = 5.0f;
     public float searchTime = 10.0f;
     private Vector3 forwardPoint;

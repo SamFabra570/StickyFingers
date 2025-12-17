@@ -95,8 +95,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1419939239580165402}
   - {fileID: 1156142758305655508}
+  - {fileID: 1419939239580165402}
   - {fileID: 5407052581741257079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -196,6 +196,8 @@ MonoBehaviour:
   turnSpeed: 360
   smoke: {fileID: 0}
   smokeEmitter: {fileID: 0}
+  forceField: {fileID: 0}
+  freezeDuration: 2
 --- !u!1 &7945150919521066269
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +211,7 @@ GameObject:
   - component: {fileID: 8906323171007331409}
   - component: {fileID: 8867011562685697405}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: MongusGoggles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

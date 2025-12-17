@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 inputData;
     private CharacterController controller;
+    private Animator animator;
 
     private PlayerInput inputMap;
 
@@ -21,10 +22,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float freezeDuration = 2f;
     
     private bool isFrozen = false;
+    
+    private bool gogglesUp = false;
 
     private void Awake()
     {
         controller = gameObject.AddComponent<CharacterController>();
+        animator = gameObject.GetComponent<Animator>();
+        
         smoke = GetComponent<Smoke>();
         
         inputMap = new PlayerInput();
@@ -54,6 +59,16 @@ public class PlayerController : MonoBehaviour
             VFXManager.Instance.SpawnSmoke();
             //Play smoking animation
             //freeze player controls for time
+        };
+
+        inputMap.Player.Pause.performed += Pause_performed =>
+        {
+            UIManager.Instance.ShowPauseScreen();
+        };
+
+        inputMap.Player.P_Animation.performed += P_Animation_performed =>
+        {
+            PlayGogglesAnim();
         };
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -116,6 +131,21 @@ public class PlayerController : MonoBehaviour
         }
         
         isFrozen = false;
+    }
+
+    private void PlayGogglesAnim()
+    {
+        if (!gogglesUp)
+        {
+            gogglesUp = true;
+            animator.SetBool("P_Trigger", true);
+        }
+        
+        else if (gogglesUp)
+        {
+            gogglesUp = false;
+            animator.SetBool("P_Trigger", false);
+        }
     }
 
     private void Look()
