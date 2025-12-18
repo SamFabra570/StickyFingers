@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject pauseScreen;
+    public GameObject inventoryScreen;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         pauseScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -23,15 +25,35 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void ShowPauseScreen()
+    public void ShowScreen(string screenName)
     {
-        pauseScreen.SetActive(true);
+        if (screenName == "Pause")
+        {
+            if (!inventoryScreen.activeSelf)
+            {
+                pauseScreen.SetActive(true);
+            }
+        }
+        
+        if (screenName == "Inventory")
+        {
+            if (!pauseScreen.activeSelf)
+            {
+                inventoryScreen.SetActive(true);
+            }
+        }
+            
+        
         GameManager.Instance.PauseGame(1);
     }
 
-    public void HidePauseScreen()
+    public void HideScreen(string screenName)
     {
-        pauseScreen.SetActive(false);
-        GameManager.Instance.PauseGame(2);
+        if (screenName == "Pause") 
+            pauseScreen.SetActive(false);
+        if (screenName == "Inventory")
+            inventoryScreen.SetActive(false);
+        
+        GameManager.Instance.PauseGame(0);
     }
 }

@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Boost",
+                    "name": "Sprint",
                     "type": "Button",
                     "id": "7a8bcf90-a883-46c3-9adb-df86de454798",
                     "expectedControlType": "",
@@ -46,6 +46,24 @@
                     "name": "P_Animation",
                     "type": "Button",
                     "id": "2fd7c9b2-350b-4ae6-8e6e-05592d56790b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "8273bba5-4fe2-4edf-b315-52e3e10c3f11",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "df6dd561-be63-4b89-b480-91f9ec21d2ee",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -170,7 +188,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Boost",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -198,12 +216,67 @@
                 },
                 {
                     "name": "",
+                    "id": "8eda496d-75ce-427c-8591-d644de85c45d",
+                    "path": "<Gamepad>/start",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "38362b38-2953-4bc6-bd1c-502fb62861f8",
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "P_Animation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e45d6f6e-d8ca-437a-a245-49cc42b3bfe5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15f5d3f7-7093-4007-af27-145d4a0e4b19",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aaf34285-bd02-4399-86ef-a537fe4745ba",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29450bd3-287d-4476-8274-05ee3c8e2689",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

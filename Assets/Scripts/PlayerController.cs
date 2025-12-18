@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private PlayerInput inputMap;
+    private bool isPaused = false;
 
     public Smoke smoke;
     public GameObject smokeEmitter;
@@ -44,12 +45,12 @@ public class PlayerController : MonoBehaviour
             inputData = Movement_canceled.ReadValue<Vector2>();
         };
 
-        inputMap.Player.Boost.performed += Boost_performed =>
+        inputMap.Player.Sprint.performed += Sprint_performed =>
         {
             speed = boostSpeed;
         };
 
-        inputMap.Player.Boost.canceled += Boost_canceled =>
+        inputMap.Player.Sprint.canceled += Sprint_canceled =>
         {
             speed = moveSpeed;
         };
@@ -63,12 +64,42 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.Pause.performed += Pause_performed =>
         {
-            UIManager.Instance.ShowPauseScreen();
+            switch (isPaused)
+            {
+                case true:
+                    isPaused = false;
+                    UIManager.Instance.HideScreen("Pause");
+                    break;
+                case false:
+                    isPaused = true;
+                    UIManager.Instance.ShowScreen("Pause");
+                    break;
+            }
         };
 
         inputMap.Player.P_Animation.performed += P_Animation_performed =>
         {
             PlayGogglesAnim();
+        };
+        
+        inputMap.Player.Interact.performed += Interact_performed =>
+        {
+            //Add interact functionality here
+        };
+        
+        inputMap.Player.Inventory.performed += Inventory_performed =>
+        {
+            switch (isPaused)
+            {
+                case true:
+                    isPaused = false;
+                    UIManager.Instance.HideScreen("Inventory");
+                    break;
+                case false:
+                    isPaused = true;
+                    UIManager.Instance.ShowScreen("Inventory");
+                    break;
+            }
         };
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
