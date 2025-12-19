@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController Instance;
+    
     private float speed;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float boostSpeed = 7f;
@@ -21,13 +25,16 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject forceField;
     [SerializeField] float freezeDuration = 2f;
-    
     private bool isFrozen = false;
+
+    private int interactType;
     
     private bool gogglesUp = false;
 
     private void Awake()
     {
+        Instance = this;
+        
         controller = gameObject.AddComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
         
@@ -84,7 +91,7 @@ public class PlayerController : MonoBehaviour
         
         inputMap.Player.Interact.performed += Interact_performed =>
         {
-            //Add interact functionality here
+            Interact(interactType);
         };
         
         inputMap.Player.Inventory.performed += Inventory_performed =>
@@ -176,6 +183,58 @@ public class PlayerController : MonoBehaviour
         {
             gogglesUp = false;
             animator.SetBool("P_Trigger", false);
+        }
+    }
+
+    private void Interact(int interactionType)
+    {
+        //Interact - object pickup
+        if (interactionType == 0)
+        {
+            
+        }
+
+        //Interact - hide (closet)
+        if (interactionType == 1)
+        {
+            
+        }
+
+        //Interact - NPC
+        if (interactionType == 2)
+        {
+            
+        }
+        
+        //Interact - Computer
+        if (interactionType == 3)
+        {
+            
+        }
+        
+        //Interact - Doors
+        if (interactionType == 4)
+        {
+            
+        }
+
+        //Interact - interactable (distraction objects)
+        if (interactionType == 5)
+        {
+            
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Object"))
+        {
+            interactType = 0;
+        }
+        
+        if (other.CompareTag("Closet"))
+        {
+            interactType = 1;
         }
     }
 
