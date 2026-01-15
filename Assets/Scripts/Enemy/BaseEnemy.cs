@@ -39,7 +39,8 @@ public class BaseEnemy : MonoBehaviour
 
     private void Awake()
     {
-        agent_ = GetComponentInParent<NavMeshAgent>();
+        agent_ = GetComponent<NavMeshAgent>();
+        
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created

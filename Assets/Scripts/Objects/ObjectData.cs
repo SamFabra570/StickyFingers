@@ -8,9 +8,13 @@ public class ObjectData : ScriptableObject
         Sellable,
         Collectible
     }
-    
-    public string objectName;
-    public GameObject worldModel;
+
+    public string id;
+    public string displayName;
+    public Sprite icon;
+    public GameObject prefab;
     public int value;
+    public float weight;
+    //public string description;
     public ObjectType type;
 }
