@@ -68,6 +68,8 @@ public class AbilityManager : MonoBehaviour
     {
         yield return new WaitForSeconds(slot.ability.duration);
         
+        slot.ability.Deactivate(gameObject);
+        
         slot.isActive = false;
         slot.cooldownRemaining = slot.ability.cooldown;
     }

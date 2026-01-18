@@ -8,4 +8,6 @@ public abstract class Ability : ScriptableObject
     public float cooldown;
 
     public abstract void Activate(GameObject user);
+    
+    public abstract void Deactivate(GameObject user);
 }
