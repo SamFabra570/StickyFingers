@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d313588b3b4ce742b33571fe50f8b19, type: 3}
+  m_Name: InvisibilityCloak
+  m_EditorClassIdentifier: Assembly-CSharp::InvisibilityCloakAbility
+  abilityName: Invisibility Cloak
+  icon: {fileID: 0}
+  cooldown: 15
+  cooldownRemaining: 11.877692
+  duration: 10

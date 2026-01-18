@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7109ec2a5c6e9040a5b93b6d854b08f, type: 3}
+  m_Name: Phase
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseAbility
+  abilityName: Phase
+  icon: {fileID: 0}
+  cooldown: 30
+  cooldownRemaining: 0
+  duration: 5

@@ -62,13 +62,6 @@ public class PlayerController : MonoBehaviour
             speed = moveSpeed;
         };
 
-        inputMap.Player.Smoke.performed += Smoke_performed =>
-        {
-            VFXManager.Instance.SpawnSmoke();
-            //Play smoking animation
-            //freeze player controls for time
-        };
-
         inputMap.Player.Pause.performed += Pause_performed =>
         {
             switch (isPaused)
@@ -108,6 +101,23 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         };
+
+        inputMap.Player.Ability1.performed += Ability1_performed =>
+        {
+            AbilityManager.Instance.ActivateAbility(0);
+        };
+        
+        inputMap.Player.Ability2.performed += Ability2_performed =>
+        {
+            AbilityManager.Instance.ActivateAbility(1);
+        };
+        
+        inputMap.Player.Ability3.performed += Ability3_performed =>
+        {
+            AbilityManager.Instance.ActivateAbility(2);
+        };
+        
+        
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

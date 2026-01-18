@@ -25,15 +25,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Smoke",
-                    "type": "Button",
-                    "id": "aa7a5a86-6278-4079-9339-ad1fbeb0db99",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "88f9e121-485a-4b4f-a202-7f0859ea15fe",
@@ -64,6 +55,33 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "df6dd561-be63-4b89-b480-91f9ec21d2ee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability1",
+                    "type": "Button",
+                    "id": "1c6a924e-ef69-442f-8c31-df3a7c2f8ed1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability2",
+                    "type": "Button",
+                    "id": "23c51491-2de4-4f0c-a27e-e92c2609a2fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability3",
+                    "type": "Button",
+                    "id": "f49fa654-fd9d-433a-ad65-640df2c9995a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -194,17 +212,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e6efc391-179e-40d6-a1d7-c9c77a795b04",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Smoke",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cb91b39a-3451-4eb5-be45-2b3a47a86e8e",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -277,6 +284,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b1fcd62-dabe-4521-b904-2740fe18c68c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d148b136-7b1a-43ff-8410-f12e56c1d625",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7ab1031-8469-4383-8a2b-8d1aab1ad511",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
