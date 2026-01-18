@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     private static PlayerController Instance;
     
+    [SerializeField] AbilityCooldownUI ability1UI;
+    [SerializeField] AbilityCooldownUI ability2UI;
+    [SerializeField] AbilityCooldownUI ability3UI;
+    
     private float speed;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float boostSpeed = 7f;
@@ -37,8 +41,6 @@ public class PlayerController : MonoBehaviour
         
         controller = gameObject.AddComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
-        
-        smoke = GetComponent<Smoke>();
         
         inputMap = new PlayerInput();
 
@@ -105,16 +107,19 @@ public class PlayerController : MonoBehaviour
         inputMap.Player.Ability1.performed += Ability1_performed =>
         {
             AbilityManager.Instance.ActivateAbility(0);
+            ability1UI.SetAbilityActive();
         };
         
         inputMap.Player.Ability2.performed += Ability2_performed =>
         {
             AbilityManager.Instance.ActivateAbility(1);
+            ability2UI.SetAbilityActive();
         };
         
         inputMap.Player.Ability3.performed += Ability3_performed =>
         {
             AbilityManager.Instance.ActivateAbility(2);
+            ability3UI.SetAbilityActive();
         };
         
         

@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/InvisibilityCloak")]
 public class InvisibilityCloakAbility : Ability
 {
-    public float duration;
+    //public float duration;
     
     public override void Activate(GameObject user)
     {

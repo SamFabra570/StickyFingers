@@ -5,6 +5,8 @@ public class AbilityCooldownUI : MonoBehaviour
 {
     [Range (0,2)]
     public int slotIndex;
+
+    private bool isActive;
     
     public Image cooldownFill;
 
@@ -13,21 +15,23 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         AbilitySlot slot = AbilityManager.Instance.GetAbility(slotIndex);
 
-        if (slot.ability.cooldown <= 0f)
+        if (slot.cooldownRemaining > 0)
         {
-            cooldownFill.fillAmount = 0;
-            return;
+            float normalizedCooldown = slot.cooldownRemaining / slot.ability.cooldown;
+        
+            cooldownFill.fillAmount = normalizedCooldown;
         }
         
-        if (slot.ability == null)
-        {
-            cooldownFill.fillAmount = 0;
-            return;
-        }
+        if (slot.IsReady())
+            isActive = false;
+    }
 
-        float normalizedCooldown = slot.cooldownRemaining / slot.ability.cooldown;
-        
-        cooldownFill.fillAmount = normalizedCooldown;
-        //Debug.Log(slot.cooldownRemaining);
+    public void SetAbilityActive()
+    {
+        if (!isActive)
+        {
+            cooldownFill.fillAmount = 1;
+            isActive = true;
+        }
     }
 }

@@ -19529,6 +19529,7 @@ MonoBehaviour:
     cooldownRemaining: 0
   - ability: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}
     cooldownRemaining: 0
+  inUse: 0
 --- !u!1 &1697235538
 GameObject:
   m_ObjectHideFlags: 0
@@ -23835,6 +23836,18 @@ PrefabInstance:
       propertyPath: smoke
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 987195410549008897, guid: c54719dd78d9fd3419b88f7b69d27fff, type: 3}
+      propertyPath: ability1UI
+      value: 
+      objectReference: {fileID: 1950668214}
+    - target: {fileID: 987195410549008897, guid: c54719dd78d9fd3419b88f7b69d27fff, type: 3}
+      propertyPath: ability2UI
+      value: 
+      objectReference: {fileID: 922359203}
+    - target: {fileID: 987195410549008897, guid: c54719dd78d9fd3419b88f7b69d27fff, type: 3}
+      propertyPath: ability3UI
+      value: 
+      objectReference: {fileID: 734415099}
     - target: {fileID: 987195410549008897, guid: c54719dd78d9fd3419b88f7b69d27fff, type: 3}
       propertyPath: boostSpeed
       value: 10

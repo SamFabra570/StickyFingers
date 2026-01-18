@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class AbilityManager : MonoBehaviour
 
         Instance = this;
 
-        // Reset all equipped abilities
+        //Reset all equipped abilities
         foreach (var slot in abilities)
         {
             if (slot != null)
@@ -30,7 +31,9 @@ public class AbilityManager : MonoBehaviour
         foreach (var slot in abilities)
         {
             if (slot?.ability != null)
+            {
                 slot.UpdateCooldown(Time.deltaTime);
+            }
         }
     }
 
@@ -43,22 +46,29 @@ public class AbilityManager : MonoBehaviour
         }
         
         AbilitySlot slot = abilities[slotIndex];
+        
+        if (slot.ability == null)
+            return;
 
         //Check if ability is ready, if not, exit method
         if (!slot.IsReady())
         {
-            Debug.Log(slot.ability.name + " on cooldown!");
+            Debug.Log(slot.ability.name + " not ready!");
             return;
         }
-            
-
-        if (slot.ability == null)
-            return;
         
-        //Trigger ability
+        slot.isActive = true;
         slot.ability.Activate(gameObject);
+
+        StartCoroutine(StartCooldown(slot));
+    }
+
+    //Wait for duration to end before starting cooldown
+    private IEnumerator StartCooldown(AbilitySlot slot)
+    {
+        yield return new WaitForSeconds(slot.ability.duration);
         
-        //Reset cooldown
+        slot.isActive = false;
         slot.cooldownRemaining = slot.ability.cooldown;
     }
 

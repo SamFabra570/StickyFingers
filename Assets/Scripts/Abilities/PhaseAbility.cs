@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/PhaseAbility")]
 public class PhaseAbility : Ability
 {
-    public float duration;
+    //public float duration;
     
     public override void Activate(GameObject user)
     {

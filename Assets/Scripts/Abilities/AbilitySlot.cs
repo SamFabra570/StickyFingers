@@ -5,11 +5,12 @@ public class AbilitySlot
 {
     public Ability ability;
     public float cooldownRemaining;
+    public bool isActive;
 
     //Returns true if off cooldown, false if still on cooldown
     public bool IsReady()
     {
-        return cooldownRemaining <= 0f;
+        return cooldownRemaining <= 0f && !isActive;
     }
 
     //Updates cooldown timer
