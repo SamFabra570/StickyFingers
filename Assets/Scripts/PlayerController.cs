@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float freezeDuration = 2f;
     private bool isFrozen;
 
+    private GameObject objectToSteal;
     private int interactType;   
     
     private bool gogglesUp;
@@ -85,7 +86,18 @@ public class PlayerController : MonoBehaviour
         
         inputMap.Player.Interact.performed += Interact_performed =>
         {
-            Interact(interactType);
+            switch (interactType)
+            {
+                case 0:
+                    StealObject(objectToSteal);
+                    Debug.Log("Steal object");
+                    break;
+                case 1:
+                    //Interact();
+                    Debug.Log("Interact");
+                    break;
+            }
+            
         };
         
         inputMap.Player.Inventory.performed += Inventory_performed =>
@@ -215,55 +227,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Interact(int interactionType)
-    {
-        //Interact - object pickup
-        if (interactionType == 0)
-        {
-            
-        }
-
-        //Interact - hide (closet)
-        if (interactionType == 1)
-        {
-            
-        }
-
-        //Interact - NPC
-        if (interactionType == 2)
-        {
-            
-        }
-        
-        //Interact - Computer
-        if (interactionType == 3)
-        {
-            
-        }
-        
-        //Interact - Doors
-        if (interactionType == 4)
-        {
-            
-        }
-
-        //Interact - interactable (distraction objects)
-        if (interactionType == 5)
-        {
-            
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Object"))
         {
             interactType = 0;
+            //Add object outline
+            objectToSteal = other.gameObject;
         }
-        
-        if (other.CompareTag("Closet"))
+        else if (other.CompareTag("Interactable"))
         {
             interactType = 1;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Object"))
+        {
+            objectToSteal = null;
         }
     }
 
@@ -286,6 +268,13 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputMap.Disable();
+    }
+
+    private void StealObject(GameObject obj)
+    {
+        //Add object to inventory
+        Debug.Log("Add " + obj.name + " to inventory");
+        obj.SetActive(false);
     }
 
     public void ActivatePhase()
