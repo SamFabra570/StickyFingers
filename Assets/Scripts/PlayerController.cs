@@ -297,4 +297,15 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.layer = 6;
     }
+
+    public void ActivateShield()
+    {
+        forceField.transform.position = transform.position;
+        forceField.SetActive(true);
+    }
+
+    public void DeactivateShield()
+    {
+        forceField.SetActive(false);
+    }
 }

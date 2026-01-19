@@ -19526,7 +19526,7 @@ MonoBehaviour:
   - ability: {fileID: 11400000, guid: 8fa91a51a64c60c4799421d260cb91bb, type: 2}
     cooldownRemaining: 0
     isActive: 0
-  - ability: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}
+  - ability: {fileID: 11400000, guid: f49291e3b278b7a4abaece952719b125, type: 2}
     cooldownRemaining: 0
     isActive: 0
   - ability: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}
