@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float freezeDuration = 2f;
     private bool isFrozen;
 
-    private int interactType;
+    private int interactType;   
     
     private bool gogglesUp;
 
@@ -101,6 +101,11 @@ public class PlayerController : MonoBehaviour
                     UIManager.Instance.ShowScreen("Inventory");
                     break;
             }
+        };
+
+        inputMap.Player.ResetCooldown.performed += ResetCooldown_performed =>
+        {
+            AbilityManager.Instance.ResetAbilityCooldowns();
         };
 
         inputMap.Player.Ability1.performed += Ability1_performed =>
@@ -281,5 +286,15 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputMap.Disable();
+    }
+
+    public void ActivatePhase()
+    {
+        gameObject.layer = 7;
+    }
+
+    public void DeactivatePhase()
+    {
+        gameObject.layer = 6;
     }
 }

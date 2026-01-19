@@ -18,12 +18,7 @@ public class AbilityManager : MonoBehaviour
 
         Instance = this;
 
-        //Reset all equipped abilities
-        foreach (var slot in abilities)
-        {
-            if (slot != null)
-                slot.cooldownRemaining = 0f;
-        }
+        ResetAbilityCooldowns();
     }
 
     private void Update()
@@ -91,5 +86,15 @@ public class AbilityManager : MonoBehaviour
         }
         
         return abilities[slotIndex];
+    }
+
+    public void ResetAbilityCooldowns()
+    {
+        //Reset all equipped abilities
+        foreach (var slot in abilities)
+        {
+            if (slot != null)
+                slot.cooldownRemaining = 0f;
+        }
     }
 }
