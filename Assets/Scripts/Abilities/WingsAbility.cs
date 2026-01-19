@@ -3,17 +3,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Wings")]
 public class WingsAbility : Ability
 {
-    public float speedModifier;
+    public float flyHeight = 2f;
+    public float flySpeed = 10f;
     
     public override void Activate(GameObject user)
     {
-        //Add logic here
+        PlayerController.Instance.heightOffset = flyHeight;
+        PlayerController.Instance.speed = flySpeed;
         Debug.Log("Wings Activated");
     }
     
     public override void Deactivate(GameObject user)
     {
-        //Deactivation logic here
+        PlayerController.Instance.heightOffset = 0;
+        PlayerController.Instance.speed = 5f;
         Debug.Log("Wings Deactivated");
     }
 }

@@ -6,13 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private static PlayerController Instance;
+    public static PlayerController Instance;
     
     [SerializeField] AbilityCooldownUI ability1UI;
     [SerializeField] AbilityCooldownUI ability2UI;
     [SerializeField] AbilityCooldownUI ability3UI;
     
-    private float speed;
+    public float speed = 1f;
+    public float heightOffset;
+    private float lastHeightOffset;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float boostSpeed = 7f;
     [SerializeField] private float turnSpeed = 360f;
@@ -22,18 +24,15 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private PlayerInput inputMap;
-    private bool isPaused = false;
-
-    public Smoke smoke;
-    public GameObject smokeEmitter;
+    private bool isPaused;
 
     [SerializeField] private GameObject forceField;
     [SerializeField] float freezeDuration = 2f;
-    private bool isFrozen = false;
+    private bool isFrozen;
 
     private int interactType;
     
-    private bool gogglesUp = false;
+    private bool gogglesUp;
 
     private void Awake()
     {
@@ -127,7 +126,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed = moveSpeed;
+        speed *= moveSpeed;
         forceField.SetActive(false);
     }
 
@@ -154,8 +153,18 @@ public class PlayerController : MonoBehaviour
         
         if (correctedDir.magnitude > 1f)
             correctedDir.Normalize();
+
+        //Save base move data
+        Vector3 moveDelta = correctedDir * speed * Time.deltaTime;
         
-        controller.Move(correctedDir * speed * Time.deltaTime);
+        //Calculate height offset and apply to base move
+        float heightDelta = heightOffset - lastHeightOffset;
+        Vector3 heightMove = Vector3.up * heightDelta;
+        
+        //Final movement
+        controller.Move(moveDelta + heightMove);
+        
+        lastHeightOffset = heightOffset;
     }
 
     public void FreezeMovement()
