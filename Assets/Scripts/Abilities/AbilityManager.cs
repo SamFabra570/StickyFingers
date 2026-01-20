@@ -28,6 +28,7 @@ public class AbilityManager : MonoBehaviour
             if (slot?.ability != null)
             {
                 slot.UpdateCooldown(Time.deltaTime);
+                slot.UpdateDuration(Time.deltaTime);
             }
         }
     }
@@ -51,8 +52,8 @@ public class AbilityManager : MonoBehaviour
             Debug.Log(slot.ability.name + " not ready!");
             return;
         }
-        
-        slot.isActive = true;
+
+        slot.StartDuration();
         slot.ability.Activate(gameObject);
 
         StartCoroutine(StartCooldown(slot));

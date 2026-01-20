@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -5,6 +6,7 @@ public class AbilitySlot
 {
     public Ability ability;
     public float cooldownRemaining;
+    public float durationRemaining;
     public bool isActive;
 
     //Returns true if off cooldown, false if still on cooldown
@@ -24,5 +26,27 @@ public class AbilitySlot
             if (cooldownRemaining < 0f)
                 cooldownRemaining = 0f;
         }
+    }
+
+    public void StartDuration()
+    {
+        durationRemaining = ability.duration;
+        isActive = true;
+    }
+
+    public void UpdateDuration(float deltaTime)
+    {
+        if (!isActive)
+            return;
+        
+        durationRemaining -= deltaTime;
+        
+        if (durationRemaining <= 0)
+        {
+            durationRemaining = 0f;
+            isActive = false;
+        }
+        
+        
     }
 }
