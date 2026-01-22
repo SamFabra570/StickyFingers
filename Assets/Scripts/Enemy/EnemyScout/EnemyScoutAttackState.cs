@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 public class EnemyScoutAttackState : EnemyScoutState
 {
     private float distanceToTarget;
@@ -30,33 +30,30 @@ public class EnemyScoutAttackState : EnemyScoutState
         if (enemy.sight_sensor_.detected_object_ != null)
         {
             distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.sight_sensor_.detected_object_.transform.position);
+            enemy.agent_.isStopped = true;
 
-            if (distanceToTarget <= enemy.attack_distance_)
+            if (Time.time >= lastAttackTime + attackCooldown)
             {
-                enemy.agent_.isStopped = true;
-
-                if (Time.time >= lastAttackTime + attackCooldown)
+                PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
+                if (player != null)
                 {
-                    PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
-                    if (player != null)
-                    {
-                        player.FreezeMovement();
-                        Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
-                        lastAttackTime = Time.time;
-                        
-                    }
+                    player.FreezeMovement();
+                    Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
+                    lastAttackTime = Time.time;
+                    enemy.gameObject.SetActive(false);
                 }
             }
+            
             else
             {
                 enemy.agent_.isStopped = false;
             }
             
             //If player gets too far, switch back to pursuit
-            if (distanceToTarget > enemy.attack_distance_ * enemy.stop_attack_distance_multiplier)
+            /*if (distanceToTarget > enemy.attack_distance_ * enemy.stop_attack_distance_multiplier)
             {
                 stateMachine.ChangeState(new EnemyScoutPursuitState(enemy, stateMachine, animationController, "Pursuit"));
-            }
+            }*/
         }
         //If player no longer detected, go back to patrol
         else if (enemy.sight_sensor_.detected_object_ == null)

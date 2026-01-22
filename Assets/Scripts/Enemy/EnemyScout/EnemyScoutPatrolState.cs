@@ -27,7 +27,7 @@ public class EnemyScoutPatrolState : EnemyScoutState
         //Switch to pursuit when player is detected
         if (enemy.sight_sensor_.detected_object_ != null)
         {
-            stateMachine.ChangeState(new EnemyScoutPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Pursuit"));
         }
         
         //Move to next waypoint when reached

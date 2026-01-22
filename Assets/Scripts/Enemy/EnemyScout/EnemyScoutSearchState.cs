@@ -24,7 +24,7 @@ public class EnemyScoutSearchState : EnemyScoutState
         //Change to pursuit when detecting player
         if (enemy.sight_sensor_.detected_object_ != null)
         {
-            stateMachine.ChangeState(new EnemyScoutPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Pursuit"));
         }
         
         //Keep moving forward while searching
