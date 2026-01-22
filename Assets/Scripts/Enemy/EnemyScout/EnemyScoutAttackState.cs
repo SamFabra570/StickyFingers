@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAttackState : EnemyState
+public class EnemyScoutAttackState : EnemyScoutState
 {
     private float distanceToTarget;
 
@@ -8,7 +8,7 @@ public class EnemyAttackState : EnemyState
     private float lastAttackTime = -Mathf.Infinity;
     
     
-    public EnemyAttackState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyScoutAttackState(BaseScoutEnemy _enemy, EnemyScoutStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -41,7 +41,7 @@ public class EnemyAttackState : EnemyState
                     if (player != null)
                     {
                         player.FreezeMovement();
-                        InventorySystem.instance.Remove(player.inventoryItem);
+                        Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
                         lastAttackTime = Time.time;
                         
                     }
@@ -55,15 +55,16 @@ public class EnemyAttackState : EnemyState
             //If player gets too far, switch back to pursuit
             if (distanceToTarget > enemy.attack_distance_ * enemy.stop_attack_distance_multiplier)
             {
-                stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+                stateMachine.ChangeState(new EnemyScoutPursuitState(enemy, stateMachine, animationController, "Pursuit"));
             }
         }
         //If player no longer detected, go back to patrol
         else if (enemy.sight_sensor_.detected_object_ == null)
         {
-            stateMachine.ChangeState(new EnemyPatrolState(enemy, stateMachine, animationController, "Patrol"));
+            stateMachine.ChangeState(new EnemyScoutPatrolState(enemy, stateMachine, animationController, "Patrol"));
         }
         
         
     }
 }
+

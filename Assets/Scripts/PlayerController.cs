@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private int interactType;   
     
     private bool gogglesUp;
-
+    public InventoryItemData inventoryItem;
     private void Awake()
     {
         Instance = this;
