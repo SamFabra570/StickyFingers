@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputData;
     private CharacterController controller;
     private Animator animator;
+    
+    //Camera
+    [SerializeField] private Transform cameraPivot;
+    [SerializeField] private IsometricCamera cameraScript;
 
     private PlayerInput inputMap;
     private bool isPaused;
@@ -30,17 +34,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float freezeDuration = 2f;
     private bool isFrozen;
 
+    public bool isInvisible;
+
+    private Renderer rend;
+    
+    public Material basePlayerMat;
+    public Material intangibleMat;
+    public Material invisibleMat;
+
     private GameObject objectToSteal;
     private int interactType;   
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
+    
     private void Awake()
     {
         Instance = this;
         
         controller = gameObject.AddComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
+        rend = GetComponent<Renderer>();
         
         inputMap = new PlayerInput();
 
@@ -52,6 +66,16 @@ public class PlayerController : MonoBehaviour
         inputMap.Player.Movement.canceled += Movement_canceled =>
         {
             inputData = Movement_canceled.ReadValue<Vector2>();
+        };
+
+        inputMap.Player.RotateCameraLeft.performed += RotateCameraLeft_performed =>
+        {
+            cameraScript.RotateCamera(1);
+        };
+        
+        inputMap.Player.RotateCameraRight.performed += RotateCameraLeft_performed =>
+        {
+            cameraScript.RotateCamera(-1);
         };
 
         inputMap.Player.Sprint.performed += Sprint_performed =>
@@ -162,7 +186,7 @@ public class PlayerController : MonoBehaviour
         Vector3 rawDir = new Vector3(inputData.x, 0, inputData.y);
         
         //Camera rotated 135 degrees for isometric view
-        Quaternion camRotation = Quaternion.Euler(0, 135, 0);
+        Quaternion camRotation = Quaternion.Euler(0, cameraPivot.eulerAngles.y, 0);
 
         //Rotate direction so input fits isometric camera
         Vector3 correctedDir = camRotation * rawDir;
@@ -279,12 +303,26 @@ public class PlayerController : MonoBehaviour
 
     public void ActivatePhase()
     {
-        gameObject.layer = 7;
+        gameObject.layer = LayerMask.NameToLayer("Intangible");
+        rend.material = intangibleMat;
     }
 
     public void DeactivatePhase()
     {
-        gameObject.layer = 6;
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        rend.material = basePlayerMat;
+    }
+    
+    public void ActivateInvisibility()
+    {
+        isInvisible = true;
+        rend.material = invisibleMat;
+    }
+    
+    public void DeactivateInvisibility()
+    {
+        isInvisible = false;
+        rend.material = basePlayerMat;
     }
 
     public void ActivateShield()
@@ -297,4 +335,6 @@ public class PlayerController : MonoBehaviour
     {
         forceField.SetActive(false);
     }
+
+    
 }

@@ -8,6 +8,7 @@ public class Sight : MonoBehaviour
     public float distance_;
     public float angle_;
     public LayerMask sensor_layer_;
+    public LayerMask sensor_layer_2;
     public LayerMask obstacles_layer_;
 
     public Collider detected_object_;
@@ -15,13 +16,18 @@ public class Sight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_ | sensor_layer_2);
 
         detected_object_ = null;
 
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider single_collider = colliders[i];
+
+            PlayerController player = single_collider.GetComponent<PlayerController>();
+
+            if (player != null && player.isInvisible)
+                continue;
 
             Vector3 dir_to_collider = Vector3.Normalize(single_collider.bounds.center - transform.position);
 
