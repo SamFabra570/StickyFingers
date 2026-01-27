@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject forceField;
     [SerializeField] float freezeDuration = 2f;
-    private bool isFrozen;
+    public bool isFrozen;
 
     public GameObject wings;
 
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public Material invisibleMat;
 
     private GameObject objectToSteal;
+    private GameObject interactable;
     private int interactType;   
     
     private bool gogglesUp;
@@ -112,6 +114,9 @@ public class PlayerController : MonoBehaviour
         
         inputMap.Player.Interact.performed += Interact_performed =>
         {
+            if (objectToSteal == null && interactable == null)
+                return;
+            
             switch (interactType)
             {
                 case 0:
@@ -119,7 +124,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Steal object");
                     break;
                 case 1:
-                    //Interact();
+                    Interact(interactable);
                     Debug.Log("Interact");
                     break;
             }
@@ -256,15 +261,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Add object outline
         if (other.CompareTag("Object"))
         {
             interactType = 0;
-            //Add object outline
             objectToSteal = other.gameObject;
         }
         else if (other.CompareTag("Interactable"))
         {
             interactType = 1;
+            interactable = other.gameObject;
         }
     }
 
@@ -273,6 +279,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Object"))
         {
             objectToSteal = null;
+        }
+        if (other.CompareTag("Interactable"))
+        {
+            interactable = null;
         }
     }
 
@@ -295,6 +305,19 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputMap.Disable();
+    }
+
+    public void Interact(GameObject obj)
+    {
+        if (obj.name == "Portal")
+        {
+            SceneManager.LoadScene("Game");
+        }
+        else if (obj.name == "PlanningDesk")
+        {
+            HUB_UIManager.Instance.TogglePlanningUI(1);
+            FreezeMovement();
+        }
     }
 
     private void StealObject(GameObject obj)

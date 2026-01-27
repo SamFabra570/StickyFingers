@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("HUB");
     }
 
     public void QuitGame()
