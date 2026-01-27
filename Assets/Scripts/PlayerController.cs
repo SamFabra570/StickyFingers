@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float freezeDuration = 2f;
     private bool isFrozen;
 
+    public GameObject wings;
+
     public bool isInvisible;
 
     private Renderer rend;
@@ -169,6 +171,7 @@ public class PlayerController : MonoBehaviour
     {
         speed *= moveSpeed;
         forceField.SetActive(false);
+        wings.SetActive(false);
     }
 
     // Update is called once per frame
