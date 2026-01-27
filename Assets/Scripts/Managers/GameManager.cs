@@ -31,14 +31,14 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(int pauseState)
     {
-        if (pauseState == 0)
+        switch (pauseState)
         {
-            Time.timeScale = 1;
-        }
-        
-        if (pauseState == 1)
-        {
-            Time.timeScale = 0;
+            case 0:
+                Time.timeScale = 1;
+                break;
+            case 1:
+                Time.timeScale = 0;
+                break;
         }
     }
 }

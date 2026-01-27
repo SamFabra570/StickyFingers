@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -54,6 +55,12 @@ public class UIManager : MonoBehaviour
         if (screenName == "Inventory")
             inventoryScreen.SetActive(false);
         
+        GameManager.Instance.PauseGame(0);
+    }
+    
+    public void LoadScene()
+    {
+        SceneManager.LoadScene("MainMenu");
         GameManager.Instance.PauseGame(0);
     }
 }

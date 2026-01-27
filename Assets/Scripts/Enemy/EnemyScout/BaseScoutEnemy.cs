@@ -72,14 +72,18 @@ public class BaseScoutEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (stateMachine._CurrentState != null)
-            stateMachine._CurrentState.LogicUpdate();
+        if (stateMachine._CurrentState == null)
+            return;
+            
+        stateMachine._CurrentState.LogicUpdate();
     }
     
     void FixedUpdate()
     {
-        if (stateMachine._CurrentState != null)
-            stateMachine._CurrentState.PhysicsUpdate();
+        if (stateMachine._CurrentState == null)
+            return;
+            
+        stateMachine._CurrentState.PhysicsUpdate();
     }
 
     public IEnumerator MoveToNextWaypoint()
