@@ -41,7 +41,7 @@ public class EnemyAttackState : EnemyState
                     if (player != null)
                     {
                         player.FreezeMovement();
-                        InventorySystem.instance.Remove(player.inventoryItem);
+                        GameManager.Instance.inventorySystem.Remove(player.inventoryItem);
                         lastAttackTime = Time.time;
                         
                     }

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    /*public InventorySystem inventorySystem;
-    public InventoryItemData item1;
-    public InventoryItemData item2;*/
+    public static GameManager Instance { get; private set; }
+    public InventorySystem inventorySystem;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        this.inventorySystem = new InventorySystem();
         Instance = this;
-        /*Instance.inventorySystem = new InventorySystem();
-        inventorySystem.Add(item1);
-        inventorySystem.Add(item2);*/
+        DontDestroyOnLoad(this);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

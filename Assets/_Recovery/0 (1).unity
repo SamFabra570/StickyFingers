@@ -16254,30 +16254,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: height_
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: material_
-      value: 
-      objectReference: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: meshColor_.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: meshColor_.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: meshColor_.g
-      value: 0.09428357
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: meshColor_.r
-      value: 0.6830188
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21578,30 +21554,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: height_
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: material_
-      value: 
-      objectReference: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.r
-      value: 0.6679245
-      objectReference: {fileID: 0}
     - target: {fileID: 7211758846144302244, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
       propertyPath: m_Name
       value: Scout (1)
@@ -22656,10 +22608,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
-      propertyPath: material_
-      value: 
-      objectReference: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
-    - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
       propertyPath: meshColor_.a
       value: 1
       objectReference: {fileID: 0}
@@ -22669,11 +22617,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
       propertyPath: meshColor_.g
-      value: 0.07001062
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
       propertyPath: meshColor_.r
-      value: 0.9924528
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8208512660649897342, guid: a36c166269fd2154d99ced21d8a44a18, type: 3}
       propertyPath: sensor_layer_2.m_Bits
@@ -23074,30 +23022,6 @@ PrefabInstance:
     - target: {fileID: 539088908456221352, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: height_
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: material_
-      value: 
-      objectReference: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.g
-      value: 0.027989816
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
-      propertyPath: meshColor_.r
-      value: 0.645283
       objectReference: {fileID: 0}
     - target: {fileID: 3966281437442592765, guid: d332953d0f3b90e4ea957ef509b1cbba, type: 3}
       propertyPath: sensor_layer_2.m_Bits

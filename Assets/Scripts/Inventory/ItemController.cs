@@ -6,7 +6,7 @@ public class ItemController : MonoBehaviour
     public InventoryItemData referenceItem;
     public void OnHandlePickupItem(InventoryItemData source)
     {
-        InventorySystem.instance.Add(referenceItem);
+        GameManager.Instance.inventorySystem.Add(referenceItem);
         Destroy(gameObject);
     }
 

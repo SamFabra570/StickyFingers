@@ -1,25 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class InventorySystem : MonoBehaviour
+[Serializable]
+public class InventorySystem 
 {
-    public static InventorySystem instance;
     private Dictionary<InventoryItemData, InventoryItem> m_itemDictionary;
     public List<InventoryItem> inventory;
-    
-    private void Awake()
-    {
-        instance = this;
-        instance.inventory= new List<InventoryItem>();
-        instance.m_itemDictionary= new Dictionary<InventoryItemData, InventoryItem>();
-    }
 
-    /*public InventorySystem()
+    public InventorySystem()
     {
         inventory= new List<InventoryItem>();
         m_itemDictionary= new Dictionary<InventoryItemData, InventoryItem>();
-    }*/
+    }
 
     public void Add(InventoryItemData referenceData)
     {
