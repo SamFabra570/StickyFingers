@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AbilityCooldownUI ability2UI;
     [SerializeField] AbilityCooldownUI ability3UI;
     
-    public float speed = 1f;
+    
+    public float speed = 1f; //m/s
     public float heightOffset;
     private float lastHeightOffset;
     [SerializeField] private float moveSpeed = 5f;
