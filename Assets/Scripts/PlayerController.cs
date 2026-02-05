@@ -8,11 +8,12 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
+
+    private AbilityFeedback feedback;
     
     [SerializeField] AbilityCooldownUI ability1UI;
     [SerializeField] AbilityCooldownUI ability2UI;
     [SerializeField] AbilityCooldownUI ability3UI;
-    
     
     public float speed = 1f; //m/s
     public float heightOffset;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         controller = gameObject.AddComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
         rend = GetComponent<Renderer>();
+        feedback = GetComponent<AbilityFeedback>();
         
         inputMap = new PlayerInput();
 
@@ -154,18 +156,21 @@ public class PlayerController : MonoBehaviour
         {
             AbilityManager.Instance.ActivateAbility(0);
             ability1UI.SetAbilityActive();
+            feedback.GetAbilitySlot(0);
         };
         
         inputMap.Player.Ability2.performed += Ability2_performed =>
         {
             AbilityManager.Instance.ActivateAbility(1);
             ability2UI.SetAbilityActive();
+            feedback.GetAbilitySlot(1);
         };
         
         inputMap.Player.Ability3.performed += Ability3_performed =>
         {
             AbilityManager.Instance.ActivateAbility(2);
             ability3UI.SetAbilityActive();
+            feedback.GetAbilitySlot(2);
         };
         
         

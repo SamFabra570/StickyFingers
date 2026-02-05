@@ -5,12 +5,12 @@ using UnityEngine;
 public class AbilitySlot
 {
     public Ability ability;
+    public AbilityState state = AbilityState.Ready;
+    
     public float cooldownRemaining;
     public float durationThreshold;
     public float durationRemaining;
     public bool isActive;
-
-    public AbilityState state = AbilityState.Ready;
 
     //Returns true if off cooldown, false if still on cooldown
     public bool IsReady()
@@ -30,6 +30,7 @@ public class AbilitySlot
             if (cooldownRemaining < 0f)
             {
                 state = AbilityState.Ready;
+                Debug.Log("((Ready) Changed state: " + state);
                 cooldownRemaining = 0f;
             }
                 
@@ -41,6 +42,9 @@ public class AbilitySlot
         durationRemaining = ability.duration;
         durationThreshold = ability.duration * 0.3f;
         isActive = true;
+        state  = AbilityState.Active;
+        
+        Debug.Log("((Active) Changed state: " + state);
     }
 
     public void UpdateDuration(float deltaTime)
@@ -50,19 +54,18 @@ public class AbilitySlot
         
         durationRemaining -= deltaTime;
 
-        if (durationRemaining < durationThreshold)
+        if (durationRemaining < durationThreshold && state == AbilityState.Active)
         {
             state = AbilityState.Ending;
-            Debug.Log("change state: " + state);
+            Debug.Log("((Ending) Changed state: " + state);
         }
         
-        if (durationRemaining <= 0)
+        if (durationRemaining <= 0 && state != AbilityState.Cooldown)
         {
             durationRemaining = 0f;
-            state = AbilityState.Cooldown;
+            AbilityManager.Instance.DeactivateAbility(this);
+            Debug.Log("((Cooldown) Changed state: " + state);
             isActive = false;
         }
-        
-        
     }
 }

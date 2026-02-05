@@ -6,39 +6,53 @@ using UnityEngine.XR;
 public class AbilityFeedback : MonoBehaviour
 {
     [SerializeField] private int slotIndex;
-    private AbilitySlot slot;
+    //private AbilitySlot slot;
     
     [SerializeField] private float blinkSpeed = 0.2f;
     [SerializeField] private Renderer playerRend;
     [SerializeField] private Material baseColour;
 
     private Coroutine blinkRoutine;
-    private AbilityState previousState =  AbilityState.Ready;
+    private AbilityState previousState;
 
     private void Start()
     {
         playerRend = PlayerController.Instance.rend;
         baseColour = PlayerController.Instance.basePlayerMat;
+
+        AbilitySlot slot =  AbilityManager.Instance.GetAbility(slotIndex);
+        previousState = slot.state;
+        
+        Debug.Log("ability feedback started");
     }
 
     // Update is called once per frame
     void Update()
     {
-        slot = AbilityManager.Instance.GetAbility(slotIndex);
-        
-        if (slot != null)
-            return;
+        AbilitySlot currentSlot = AbilityManager.Instance.GetAbility(slotIndex);
 
-        if (slot.state != previousState)
+        if (currentSlot == null)
+            return;
+        
+        Debug.Log("CurrentState: " + currentSlot.state);
+        Debug.Log("PreviousState: " + previousState);
+
+        if (currentSlot.state != previousState)
         {
-            Debug.Log("attempt to activate based on state");
-            StateChange(slot.state);
-            previousState = slot.state;
+            Debug.Log("Updated state: " + currentSlot.state);
+            StateChange(currentSlot.state);
+            previousState = currentSlot.state;
         }
+    }
+
+    public void GetAbilitySlot(int slot)
+    {
+        slotIndex = slot;
     }
     
     private void StateChange(AbilityState state)
     {
+        Debug.Log("trying to activate based on state");
         switch (state)
         {
             case AbilityState.Active:
@@ -47,10 +61,12 @@ public class AbilityFeedback : MonoBehaviour
 
             case AbilityState.Ending:
                 Debug.Log("Start blinking bruh");
-                blinkRoutine = StartCoroutine(Blink());
+                if (blinkRoutine == null)
+                    blinkRoutine = StartCoroutine(Blink());
                 break;
 
             case AbilityState.Cooldown:
+                StopBlink();
                 break;
             
             case AbilityState.Ready:
@@ -65,7 +81,10 @@ public class AbilityFeedback : MonoBehaviour
         {
             playerRend.material = baseColour;
             yield return new WaitForSeconds(blinkSpeed);
+            
+            AbilitySlot slot = AbilityManager.Instance.GetAbility(slotIndex);
             playerRend.material = slot.ability.abilityColour;
+            
             yield return new WaitForSeconds(blinkSpeed);
         }
         

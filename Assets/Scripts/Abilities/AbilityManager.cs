@@ -8,6 +8,8 @@ public class AbilityManager : MonoBehaviour
     
     public AbilitySlot[] abilities = new AbilitySlot[3];
 
+    private AbilityState state;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,21 +54,15 @@ public class AbilityManager : MonoBehaviour
             Debug.Log(slot.ability.name + " not ready!");
             return;
         }
-
+        
         slot.StartDuration();
         slot.ability.Activate(gameObject);
-        slot.state = AbilityState.Active;
-
-        StartCoroutine(StartCooldown(slot));
     }
 
-    //Wait for duration to end before starting cooldown
-    private IEnumerator StartCooldown(AbilitySlot slot)
+    public void DeactivateAbility(AbilitySlot slot)
     {
-        yield return new WaitForSeconds(slot.ability.duration);
-        
         slot.ability.Deactivate(gameObject);
-        
+             
         slot.isActive = false;
         slot.cooldownRemaining = slot.ability.cooldown;
         slot.state = AbilityState.Cooldown;
