@@ -6,6 +6,7 @@ public class AbilitySlot
 {
     public Ability ability;
     public float cooldownRemaining;
+    public float durationThreshold;
     public float durationRemaining;
     public bool isActive;
 
@@ -25,14 +26,20 @@ public class AbilitySlot
         {
             cooldownRemaining -= deltaTime;
 
+            //Cooldown done
             if (cooldownRemaining < 0f)
+            {
+                state = AbilityState.Ready;
                 cooldownRemaining = 0f;
+            }
+                
         }
     }
 
     public void StartDuration()
     {
         durationRemaining = ability.duration;
+        durationThreshold = ability.duration * 0.3f;
         isActive = true;
     }
 
@@ -42,10 +49,17 @@ public class AbilitySlot
             return;
         
         durationRemaining -= deltaTime;
+
+        if (durationRemaining < durationThreshold)
+        {
+            state = AbilityState.Ending;
+            Debug.Log("change state: " + state);
+        }
         
         if (durationRemaining <= 0)
         {
             durationRemaining = 0f;
+            state = AbilityState.Cooldown;
             isActive = false;
         }
         

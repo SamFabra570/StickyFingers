@@ -6,14 +6,14 @@ using UnityEngine.XR;
 public class AbilityFeedback : MonoBehaviour
 {
     [SerializeField] private int slotIndex;
-    AbilitySlot slot;
+    private AbilitySlot slot;
     
     [SerializeField] private float blinkSpeed = 0.2f;
-    private Renderer playerRend;
-    private Material baseColour;
+    [SerializeField] private Renderer playerRend;
+    [SerializeField] private Material baseColour;
 
     private Coroutine blinkRoutine;
-    private AbilityState previousState;
+    private AbilityState previousState =  AbilityState.Ready;
 
     private void Start()
     {
@@ -31,6 +31,7 @@ public class AbilityFeedback : MonoBehaviour
 
         if (slot.state != previousState)
         {
+            Debug.Log("attempt to activate based on state");
             StateChange(slot.state);
             previousState = slot.state;
         }
@@ -45,10 +46,13 @@ public class AbilityFeedback : MonoBehaviour
                 break;
 
             case AbilityState.Ending:
+                Debug.Log("Start blinking bruh");
                 blinkRoutine = StartCoroutine(Blink());
                 break;
 
             case AbilityState.Cooldown:
+                break;
+            
             case AbilityState.Ready:
                 StopBlink();
                 break;
@@ -57,9 +61,14 @@ public class AbilityFeedback : MonoBehaviour
 
     private IEnumerator Blink()
     {
-        playerRend.material = baseColour;
-        yield return new WaitForSeconds(blinkSpeed);
-        playerRend.material = slot.ability.abilityColour;
+        while (true)
+        {
+            playerRend.material = baseColour;
+            yield return new WaitForSeconds(blinkSpeed);
+            playerRend.material = slot.ability.abilityColour;
+            yield return new WaitForSeconds(blinkSpeed);
+        }
+        
     }
 
     private void StopBlink()

@@ -55,6 +55,7 @@ public class AbilityManager : MonoBehaviour
 
         slot.StartDuration();
         slot.ability.Activate(gameObject);
+        slot.state = AbilityState.Active;
 
         StartCoroutine(StartCooldown(slot));
     }
@@ -68,6 +69,7 @@ public class AbilityManager : MonoBehaviour
         
         slot.isActive = false;
         slot.cooldownRemaining = slot.ability.cooldown;
+        slot.state = AbilityState.Cooldown;
     }
 
     public void EquipAbility(int slotIndex, AbilitySlot ability)

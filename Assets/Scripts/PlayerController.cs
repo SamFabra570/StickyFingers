@@ -337,5 +337,14 @@ public class PlayerController : MonoBehaviour
         forceField.SetActive(false);
     }
 
+    public void ResetColour()
+    {
+        rend.material = basePlayerMat;
+    }
+
+    public void SetPlayerColour(Material abilityColour)
+    {
+        rend.material = abilityColour;
+    }
     
 }
