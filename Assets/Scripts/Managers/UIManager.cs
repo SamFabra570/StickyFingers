@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject pauseScreen;
     public GameObject inventoryScreen;
+    
+    public TextMeshProUGUI textTotalWeight;
+    public TextMeshProUGUI textTotalBounty;
 
     private void Awake()
     {
@@ -16,6 +20,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        //Debug.Log(GameManager.Instance.inventorySystem.totalWeight);
+        //Debug.Log(textTotalWeight.name);
+        textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
+        textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
     }
@@ -24,6 +32,12 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateTotals()
+    {
+        textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
+        textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
     }
 
     public void ShowScreen(string screenName)

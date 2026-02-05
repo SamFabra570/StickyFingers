@@ -4,7 +4,7 @@ public class EnemyAttackState : EnemyState
 {
     private float distanceToTarget;
 
-    private float attackCooldown = 2.5f;
+    private float attackCooldown = 1f;
     private float lastAttackTime = -Mathf.Infinity;
     
     
