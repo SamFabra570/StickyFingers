@@ -40,11 +40,9 @@ public class PlayerController : MonoBehaviour
 
     public bool isInvisible;
 
-    private Renderer rend;
+    public Renderer rend;
     
     public Material basePlayerMat;
-    public Material intangibleMat;
-    public Material invisibleMat;
 
     private GameObject objectToSteal;
     private GameObject interactable;
@@ -326,30 +324,6 @@ public class PlayerController : MonoBehaviour
         //Add object to inventory
         Debug.Log("Add " + obj.name + " to inventory");
         obj.SetActive(false);
-    }
-
-    public void ActivatePhase()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Intangible");
-        rend.material = intangibleMat;
-    }
-
-    public void DeactivatePhase()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Player");
-        rend.material = basePlayerMat;
-    }
-    
-    public void ActivateInvisibility()
-    {
-        isInvisible = true;
-        rend.material = invisibleMat;
-    }
-    
-    public void DeactivateInvisibility()
-    {
-        isInvisible = false;
-        rend.material = basePlayerMat;
     }
 
     public void ActivateShield()

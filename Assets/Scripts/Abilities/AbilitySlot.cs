@@ -9,10 +9,12 @@ public class AbilitySlot
     public float durationRemaining;
     public bool isActive;
 
+    public AbilityState state = AbilityState.Ready;
+
     //Returns true if off cooldown, false if still on cooldown
     public bool IsReady()
     {
-        return cooldownRemaining <= 0f && !isActive;
+        return state ==  AbilityState.Ready;
     }
 
     //Updates cooldown timer
