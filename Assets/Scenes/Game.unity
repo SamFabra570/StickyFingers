@@ -6802,7 +6802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &494504815
 Transform:
   m_ObjectHideFlags: 0
@@ -10268,7 +10268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9064398, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.95820796, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19835,6 +19835,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 708699f1c15d21a4b8c623300e556180, type: 3}
       propertyPath: m_Name
       value: Nivel_jardin_prueba
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 708699f1c15d21a4b8c623300e556180, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1177137496709476531, guid: 708699f1c15d21a4b8c623300e556180, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
