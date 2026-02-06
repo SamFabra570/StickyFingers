@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class Sight : MonoBehaviour
 {
@@ -9,31 +10,24 @@ public class Sight : MonoBehaviour
     public float distance_;
     public float angle_;
     public float height_;
-    public Color meshColor_;
     public LayerMask sensor_layer_;
     public LayerMask sensor_layer_2;
     public LayerMask obstacles_layer_;
-    public GameObject meshObject;
-    public Material material_;
-    Mesh mesh;
+    
     public Collider detected_object_;
 
+    //new vision cone
+   //the vision cone will be made up of triangles, the higher this value is the pretier the vision cone will be
     private void Start()
     {
-        mesh = CreateWedgemesh();
-        mesh.name = "Vision";
-        meshObject = new GameObject("Mesh Object",typeof(MeshRenderer),typeof(MeshFilter));
-        meshObject.GetComponent<MeshFilter>().mesh = mesh;
-        meshObject.GetComponent<MeshRenderer>().material = material_;
-        meshObject.transform.position = transform.position;
-        meshObject.transform.rotation = transform.rotation;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        meshObject.transform.position = transform.position;
-        meshObject.transform.rotation = transform.rotation;
+        
+        //meshObject.transform.rotation = transform.rotation;
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_ | sensor_layer_2);
 
         detected_object_ = null;
@@ -81,16 +75,17 @@ public class Sight : MonoBehaviour
         Vector3 left_dir = Quaternion.Euler(0.0f, -angle_, 0.0f) * transform.forward;
         Gizmos.DrawRay(transform.position, left_dir * distance_);
 
-        if (mesh)
+        /*if (mesh)
         {
             Gizmos.color = meshColor_;
             Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
             //meshObject.GetComponent<MeshFilter>().mesh = mesh;
-        }
+        }*/
     }
 
     private Mesh CreateWedgemesh()
     {
+        
         Mesh mesh = new Mesh();
         int segments = 10;
         int numTriangles = (segments *4)+2+2;
@@ -169,10 +164,6 @@ public class Sight : MonoBehaviour
         return mesh;
     }
 
-    private void OnValidate()
-    {
-        mesh=CreateWedgemesh();
-    }
-
     
+
 }
