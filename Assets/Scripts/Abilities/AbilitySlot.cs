@@ -22,7 +22,7 @@ public class AbilitySlot
     public void UpdateCooldown(float deltaTime)
     {
         //If cooldownRemaining, count down time every frame 
-        if (cooldownRemaining > 0f)
+        if (state == AbilityState.Cooldown)
         {
             cooldownRemaining -= deltaTime;
 
@@ -30,7 +30,6 @@ public class AbilitySlot
             if (cooldownRemaining < 0f)
             {
                 state = AbilityState.Ready;
-                Debug.Log("((Ready) Changed state: " + state);
                 cooldownRemaining = 0f;
             }
                 
@@ -43,8 +42,6 @@ public class AbilitySlot
         durationThreshold = ability.duration * 0.3f;
         isActive = true;
         state  = AbilityState.Active;
-        
-        Debug.Log("((Active) Changed state: " + state);
     }
 
     public void UpdateDuration(float deltaTime)
@@ -57,14 +54,12 @@ public class AbilitySlot
         if (durationRemaining < durationThreshold && state == AbilityState.Active)
         {
             state = AbilityState.Ending;
-            Debug.Log("((Ending) Changed state: " + state);
         }
         
         if (durationRemaining <= 0 && state != AbilityState.Cooldown)
         {
             durationRemaining = 0f;
             AbilityManager.Instance.DeactivateAbility(this);
-            Debug.Log("((Cooldown) Changed state: " + state);
             isActive = false;
         }
     }

@@ -16,4 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   abilityColour: {fileID: 2100000, guid: a4cce5f763bcc0e4fb8b8fb7a7654bf2, type: 2}
   duration: 5
+  warningThreshold: 0.3
   cooldown: 30

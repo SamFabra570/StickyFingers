@@ -155,21 +155,18 @@ public class PlayerController : MonoBehaviour
         inputMap.Player.Ability1.performed += Ability1_performed =>
         {
             AbilityManager.Instance.ActivateAbility(0);
-            ability1UI.SetAbilityActive();
             feedback.GetAbilitySlot(0);
         };
         
         inputMap.Player.Ability2.performed += Ability2_performed =>
         {
             AbilityManager.Instance.ActivateAbility(1);
-            ability2UI.SetAbilityActive();
             feedback.GetAbilitySlot(1);
         };
         
         inputMap.Player.Ability3.performed += Ability3_performed =>
         {
             AbilityManager.Instance.ActivateAbility(2);
-            ability3UI.SetAbilityActive();
             feedback.GetAbilitySlot(2);
         };
         

@@ -93,7 +93,11 @@ public class AbilityManager : MonoBehaviour
         foreach (var slot in abilities)
         {
             if (slot != null)
+            {
                 slot.cooldownRemaining = 0f;
+                slot.state = AbilityState.Ready;
+            }
+                
         }
     }
 }

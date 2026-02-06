@@ -8,13 +8,13 @@ public class InvisibilityCloakAbility : Ability
     {
         PlayerController.Instance.SetPlayerColour(abilityColour);
         PlayerController.Instance.isInvisible = true;
-        Debug.Log("Invisibility Activated");
+        //Debug.Log("Invisibility Activated");
     }
     
     public override void Deactivate(GameObject user)
     {
         PlayerController.Instance.ResetColour();
         PlayerController.Instance.isInvisible = false;
-        Debug.Log("Invisibility Deactivated");
+        //Debug.Log("Invisibility Deactivated");
     }
 }

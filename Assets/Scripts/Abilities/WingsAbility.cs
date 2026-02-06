@@ -12,7 +12,7 @@ public class WingsAbility : Ability
         PlayerController.Instance.speed = flySpeed;
         PlayerController.Instance.wings.SetActive(true);
         PlayerController.Instance.SetPlayerColour(abilityColour);
-        Debug.Log("Wings Activated");
+        //Debug.Log("Wings Activated");
     }
     
     public override void Deactivate(GameObject user)
@@ -21,6 +21,6 @@ public class WingsAbility : Ability
         PlayerController.Instance.speed = 5f;
         PlayerController.Instance.wings.SetActive(false);
         PlayerController.Instance.ResetColour();
-        Debug.Log("Wings Deactivated");
+        //Debug.Log("Wings Deactivated");
     }
 }

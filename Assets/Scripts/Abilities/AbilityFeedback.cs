@@ -22,8 +22,6 @@ public class AbilityFeedback : MonoBehaviour
 
         AbilitySlot slot =  AbilityManager.Instance.GetAbility(slotIndex);
         previousState = slot.state;
-        
-        Debug.Log("ability feedback started");
     }
 
     // Update is called once per frame
@@ -33,13 +31,10 @@ public class AbilityFeedback : MonoBehaviour
 
         if (currentSlot == null)
             return;
-        
-        Debug.Log("CurrentState: " + currentSlot.state);
-        Debug.Log("PreviousState: " + previousState);
 
         if (currentSlot.state != previousState)
         {
-            Debug.Log("Updated state: " + currentSlot.state);
+            Debug.Log(currentSlot.ability.name + ": Updated state - " + currentSlot.state);
             StateChange(currentSlot.state);
             previousState = currentSlot.state;
         }
@@ -52,7 +47,6 @@ public class AbilityFeedback : MonoBehaviour
     
     private void StateChange(AbilityState state)
     {
-        Debug.Log("trying to activate based on state");
         switch (state)
         {
             case AbilityState.Active:
@@ -60,7 +54,6 @@ public class AbilityFeedback : MonoBehaviour
                 break;
 
             case AbilityState.Ending:
-                Debug.Log("Start blinking bruh");
                 if (blinkRoutine == null)
                     blinkRoutine = StartCoroutine(Blink());
                 break;

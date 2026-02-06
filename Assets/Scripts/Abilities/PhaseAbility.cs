@@ -8,14 +8,14 @@ public class PhaseAbility : Ability
     {
         PlayerController.Instance.SetPlayerColour(abilityColour);
         PlayerController.Instance.gameObject.layer = LayerMask.NameToLayer("Intangible");
-        Debug.Log("Phase Activated");
+        //Debug.Log("Phase Activated");
     }
     
     public override void Deactivate(GameObject user)
     {
         PlayerController.Instance.ResetColour();
         PlayerController.Instance.gameObject.layer = LayerMask.NameToLayer("Player");
-        Debug.Log("Phase Deactivated");
+        //Debug.Log("Phase Deactivated");
     }
     
 }
