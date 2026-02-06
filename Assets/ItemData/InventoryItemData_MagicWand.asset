@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 2
   itemType: 0
-  itemName: ' Magic Wand'
+  itemName: Magic Wand
   itemDescription: harry you are a wizard
   itemWeight: 5
   itemPrice: 200

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textTotalWeight;
     public TextMeshProUGUI textTotalBounty;
 
+    public GameObject objectPickupNotif;
+    public TextMeshProUGUI textNameNotif;
+    public TextMeshProUGUI textWeightNotif;
+    public TextMeshProUGUI textValueNotif;
+
     private void Awake()
     {
         Instance = this;
@@ -26,12 +32,24 @@ public class UIManager : MonoBehaviour
         textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
+        objectPickupNotif.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowItemPickupNotif(InventoryItemData itemData)
     {
+        StartCoroutine(ItemPickupNotif(itemData));
+    }
+
+    private IEnumerator ItemPickupNotif(InventoryItemData itemData)
+    {
+        textNameNotif.SetText(itemData.itemName);
+        textWeightNotif.SetText("Weight: " + itemData.itemWeight);
+        textValueNotif.SetText("Value: " + itemData.itemPrice);
+        objectPickupNotif.SetActive(true);
         
+        yield return new WaitForSeconds(2.5f);
+
+        objectPickupNotif.SetActive(false);
     }
 
     public void UpdateTotals()

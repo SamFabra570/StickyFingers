@@ -16,7 +16,7 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         AbilitySlot slot = AbilityManager.Instance.GetAbility(slotIndex);
 
-        if (slot.cooldownRemaining > 0)
+        if (slot.state ==  AbilityState.Cooldown)
         {
             cooldownFill.fillAmount = 1;
             float normalizedCooldown = slot.cooldownRemaining / slot.ability.cooldown;
@@ -24,7 +24,7 @@ public class AbilityCooldownUI : MonoBehaviour
             cooldownFill.fillAmount = normalizedCooldown;
         }
         
-        if (slot.state ==  AbilityState.Active)
+        if (slot.state ==  AbilityState.Active |  slot.state ==  AbilityState.Ending)
         {
             float normalizedDuration = slot.durationRemaining / slot.ability.duration;
         

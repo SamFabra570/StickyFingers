@@ -31,7 +31,9 @@ public class InventorySystem
             inventory.Add(newItem);
             m_itemDictionary.Add(referenceData, newItem);
         }
+        
         UIManager.Instance.UpdateTotals();
+        UIManager.Instance.ShowItemPickupNotif(referenceData);
     }
     
     public void Remove(InventoryItemData referenceData)
