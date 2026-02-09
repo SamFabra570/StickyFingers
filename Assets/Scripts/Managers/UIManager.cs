@@ -15,7 +15,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textTotalBounty;
 
     public GameObject objectPickupNotif;
+    public GameObject objectRemoveNotif;
     public TextMeshProUGUI textNameNotif;
+    public TextMeshProUGUI textRemoveNameNotif;
     public TextMeshProUGUI textWeightNotif;
     public TextMeshProUGUI textValueNotif;
 
@@ -33,11 +35,17 @@ public class UIManager : MonoBehaviour
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
         objectPickupNotif.SetActive(false);
+        objectRemoveNotif.SetActive(false);
     }
 
     public void ShowItemPickupNotif(InventoryItemData itemData)
     {
         StartCoroutine(ItemPickupNotif(itemData));
+    }
+
+    public void ShowItemRemoveNotif(InventoryItemData itemData)
+    {
+        StartCoroutine(ItemRemoveNotif(itemData));
     }
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)
@@ -50,6 +58,16 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
         objectPickupNotif.SetActive(false);
+    }
+    
+    private IEnumerator ItemRemoveNotif(InventoryItemData itemData)
+    {
+        textRemoveNameNotif.SetText("- " + itemData.itemName);
+        objectRemoveNotif.SetActive(true);
+        
+        yield return new WaitForSeconds(2.5f);
+
+        objectRemoveNotif.SetActive(false);
     }
 
     public void UpdateTotals()

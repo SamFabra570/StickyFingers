@@ -51,7 +51,8 @@ public class InventorySystem
                 m_itemDictionary.Remove(referenceData);
             }
         }
-        
+
+        UIManager.Instance.ShowItemRemoveNotif(referenceData);
         UIManager.Instance.UpdateTotals();
     }
 

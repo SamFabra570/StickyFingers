@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     
     public Material basePlayerMat;
 
-    private GameObject objectToSteal;
+    private ItemController objectToSteal;
     private GameObject interactable;
     private int interactType;   
     
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             switch (interactType)
             {
                 case 0:
-                    StealObject(objectToSteal);
+                    StealObject();
                     Debug.Log("Steal object");
                     break;
                 case 1:
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Object"))
         {
             interactType = 0;
-            objectToSteal = other.gameObject;
+            objectToSteal = other.GetComponent<ItemController>();
         }
         else if (other.CompareTag("Interactable"))
         {
@@ -285,6 +285,13 @@ public class PlayerController : MonoBehaviour
         {
             interactable = null;
         }
+    }
+
+    private void StealObject()
+    {
+        //Add object to inventory
+        objectToSteal.Pickup();
+        Debug.Log("Add " + objectToSteal.name + " to inventory");
     }
 
     private void Look()
@@ -321,12 +328,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void StealObject(GameObject obj)
-    {
-        //Add object to inventory
-        Debug.Log("Add " + obj.name + " to inventory");
-        obj.SetActive(false);
-    }
+    
 
     public void ActivateShield()
     {
