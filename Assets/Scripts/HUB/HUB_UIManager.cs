@@ -24,12 +24,6 @@ public class HUB_UIManager : MonoBehaviour
         TogglePlanningUI(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void TogglePlanningUI(int status)
     {
         switch (status)

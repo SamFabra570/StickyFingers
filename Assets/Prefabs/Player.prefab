@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 6829586981103127943}
   - component: {fileID: 5447146543190700706}
   - component: {fileID: 6362559549422800968}
+  - component: {fileID: 5780873342141897033}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -400,7 +401,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1156142758305655508}
@@ -511,11 +512,11 @@ MonoBehaviour:
   cameraScript: {fileID: 0}
   forceField: {fileID: 2826084008003131337}
   freezeDuration: 2
+  isFrozen: 0
   wings: {fileID: 3011595244263410902}
   isInvisible: 0
+  rend: {fileID: 0}
   basePlayerMat: {fileID: 2100000, guid: fe65d19502e8db34cb856151b13ef69a, type: 2}
-  intangibleMat: {fileID: 2100000, guid: a4cce5f763bcc0e4fb8b8fb7a7654bf2, type: 2}
-  invisibleMat: {fileID: 2100000, guid: 0abcbadfd2de8fa4ba3e55ec3495128e, type: 2}
   inventoryItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
 --- !u!114 &7927132834306372734
 MonoBehaviour:
@@ -531,15 +532,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityManager
   abilities:
   - ability: {fileID: 11400000, guid: 8fa91a51a64c60c4799421d260cb91bb, type: 2}
+    state: 0
     cooldownRemaining: 0
+    durationThreshold: 0
     durationRemaining: 0
     isActive: 0
   - ability: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}
+    state: 0
     cooldownRemaining: 0
+    durationThreshold: 0
     durationRemaining: 0
     isActive: 0
   - ability: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}
+    state: 0
     cooldownRemaining: 0
+    durationThreshold: 0
     durationRemaining: 0
     isActive: 0
 --- !u!208 &6829586981103127943
@@ -607,6 +614,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &5780873342141897033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4128997ad2946d34da24694523e3cd0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityFeedback
+  slotIndex: 0
+  blinkSpeed: 0.2
+  playerRend: {fileID: 0}
+  baseColour: {fileID: 0}
 --- !u!1 &7945150919521066269
 GameObject:
   m_ObjectHideFlags: 0
