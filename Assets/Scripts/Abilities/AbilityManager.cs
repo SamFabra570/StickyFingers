@@ -14,11 +14,12 @@ public class AbilityManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
             return;
         }
 
         Instance = this;
+        DontDestroyOnLoad(this);
 
         ResetAbilityCooldowns();
     }
@@ -74,6 +75,11 @@ public class AbilityManager : MonoBehaviour
             Debug.LogWarning("EquipAbility: Invalid Slot Index");
         
         abilities[slotIndex] = ability;
+    }
+
+    public void DequipAbility(int slotIndex)
+    {
+        abilities[slotIndex] = null;
     }
 
     public AbilitySlot GetAbility(int slotIndex)

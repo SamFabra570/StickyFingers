@@ -34,7 +34,7 @@ public class AbilityFeedback : MonoBehaviour
 
         if (currentSlot.state != previousState)
         {
-            Debug.Log(currentSlot.ability.name + ": Updated state - " + currentSlot.state);
+            //Debug.Log(currentSlot.ability.name + ": Updated state - " + currentSlot.state);
             StateChange(currentSlot.state);
             previousState = currentSlot.state;
         }

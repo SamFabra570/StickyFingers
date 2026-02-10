@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
     public InventorySystem inventorySystem;
 
     private void Awake()
@@ -14,21 +15,10 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
-        this.inventorySystem = new InventorySystem();
         Instance = this;
         DontDestroyOnLoad(this);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inventorySystem = new InventorySystem();
     }
 
     public void PauseGame(int pauseState)

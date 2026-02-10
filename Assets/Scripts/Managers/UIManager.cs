@@ -30,12 +30,18 @@ public class UIManager : MonoBehaviour
     {
         //Debug.Log(GameManager.Instance.inventorySystem.totalWeight);
         //Debug.Log(textTotalWeight.name);
-        textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
-        textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
+        if (textTotalWeight != null) 
+            textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
+        if (textTotalBounty != null) 
+            textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
+        if (objectPickupNotif != null) 
+            objectPickupNotif.SetActive(false); 
+        if (objectRemoveNotif != null) 
+            objectRemoveNotif.SetActive(false); 
+        
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
-        objectPickupNotif.SetActive(false);
-        objectRemoveNotif.SetActive(false);
+        
     }
 
     public void ShowItemPickupNotif(InventoryItemData itemData)

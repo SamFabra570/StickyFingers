@@ -22,11 +22,12 @@ public class IsometricCamera : MonoBehaviour
 
     private void Awake()
     {
-        offset = transform.position - target.position;
+        
     }
 
     private void Start()
     {
+        offset = transform.position - target.position;
         targetRotation = Quaternion.Euler(45f, baseAngle, 0f);
         pivot.rotation = targetRotation;
     }
@@ -34,6 +35,13 @@ public class IsometricCamera : MonoBehaviour
     private void Update()
     {
         pivot.rotation = Quaternion.Slerp(pivot.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+    
+    public void SetRefs(Transform targetTransform, Transform pivotTransform)
+    {
+        target = targetTransform;
+        pivot = pivotTransform;
+        offset = transform.position - target.position;
     }
 
     private void LateUpdate()

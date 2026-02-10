@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public AbilitySlot ability;
+    
     public Image image;
     [HideInInspector] public Transform parentAfterDrag;
     

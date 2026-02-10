@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 1f; //m/s
     public float heightOffset;
     private float lastHeightOffset;
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float boostSpeed = 7f;
     [SerializeField] private float turnSpeed = 360f;
 
@@ -54,7 +54,16 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        
         Instance = this;
+        
+        if (SceneManager.GetActiveScene().name != "GameTesting") 
+            DontDestroyOnLoad(this);
         
         controller = gameObject.AddComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
@@ -178,6 +187,9 @@ public class PlayerController : MonoBehaviour
         speed *= moveSpeed;
         forceField.SetActive(false);
         wings.SetActive(false);
+        
+        interactable = null;
+        objectToSteal = null;
     }
 
     // Update is called once per frame
@@ -189,6 +201,9 @@ public class PlayerController : MonoBehaviour
 
     private void CorrectMovement()
     {
+        if(SceneManager.GetActiveScene().name == "MainMenu") 
+            return;
+        
         if (isFrozen)
             return;
         
@@ -308,14 +323,40 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         inputMap.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         inputMap.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(SceneManager.GetActiveScene().name == "MainMenu") 
+            return;
+        
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn");
+        
+        if (spawnPoint != null)
+            transform.position = spawnPoint.transform.position;
+    
+        //Rebind camera on spawn
+        cameraScript = FindFirstObjectByType<IsometricCamera>();
+        
+        if (cameraScript != null)
+        {
+            cameraPivot = cameraScript.transform;
+            cameraScript.SetRefs(transform, cameraPivot);
+        }
+        else
+        {
+            Debug.LogWarning("Camera not found in scene!");
+        }
     }
 
-    public void Interact(GameObject obj)
+    private void Interact(GameObject obj)
     {
         if (obj.name == "Portal")
         {
@@ -327,8 +368,6 @@ public class PlayerController : MonoBehaviour
             FreezeMovement();
         }
     }
-
-    
 
     public void ActivateShield()
     {

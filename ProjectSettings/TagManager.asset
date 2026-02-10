@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Object
   - Interactable
+  - Slot1
+  - Slot2
+  - Slot3
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX
