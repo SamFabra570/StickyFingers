@@ -15,10 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AbilityCooldownUI ability2UI;
     [SerializeField] AbilityCooldownUI ability3UI;
     
-    public float speed = 1f; //m/s
+    public float speed = 3.5f; //m/s
     public float heightOffset;
     private float lastHeightOffset;
-    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float boostSpeed = 7f;
     [SerializeField] private float turnSpeed = 360f;
 
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed *= moveSpeed;
+        speed = moveSpeed;
         forceField.SetActive(false);
         wings.SetActive(false);
         
@@ -364,7 +364,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (obj.name == "PlanningDesk")
         {
-            HUB_UIManager.Instance.TogglePlanningUI(1);
+            HUB_UIManager.Instance.TogglePlanningUI("Show");
             FreezeMovement();
         }
     }

@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShieldAbility
   abilityName: Shield
   icon: {fileID: 0}
+  abilityColour: {fileID: 2100000, guid: e76b35b6a28903d44a3926c7940120a7, type: 2}
   duration: 1.5
+  warningThreshold: 0.3
   cooldown: 15

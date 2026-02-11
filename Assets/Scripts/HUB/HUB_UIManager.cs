@@ -6,6 +6,8 @@ public class HUB_UIManager : MonoBehaviour
     public static HUB_UIManager Instance;
 
     public Canvas planningUI;
+    public GameObject loadoutScreen;
+    public GameObject detailsScreen;
 
     private void Awake()
     {
@@ -21,20 +23,30 @@ public class HUB_UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TogglePlanningUI(0);
+        TogglePlanningUI("Close");
     }
 
-    public void TogglePlanningUI(int status)
+    public void TogglePlanningUI(string status)
     {
         switch (status)
         {
-            case 0:
+            case "Close":
                 planningUI.enabled = false;
                 if (PlayerController.Instance.isFrozen)
                     PlayerController.Instance.isFrozen = false;
                 break;
-            case 1:
+            case "Show":
                 planningUI.enabled = true;
+                detailsScreen.SetActive(true);
+                loadoutScreen.SetActive(false);
+                break;
+            case "Details":
+                loadoutScreen.SetActive(false);
+                detailsScreen.SetActive(true);
+                break;
+            case "Loadout":
+                detailsScreen.SetActive(false);
+                loadoutScreen.SetActive(true);
                 break;
         }
     }

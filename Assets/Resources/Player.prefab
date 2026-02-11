@@ -505,7 +505,7 @@ MonoBehaviour:
   ability3UI: {fileID: 0}
   speed: 1
   heightOffset: 0
-  moveSpeed: 3.5
+  moveSpeed: 5
   boostSpeed: 10
   turnSpeed: 360
   cameraPivot: {fileID: 0}

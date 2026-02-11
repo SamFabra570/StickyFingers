@@ -8,6 +8,8 @@ public class AbilityManager : MonoBehaviour
     
     public AbilitySlot[] abilities = new AbilitySlot[3];
 
+    public AbilitySlot activeSlot;
+
     private AbilityState state;
 
     private void Awake()
@@ -38,6 +40,12 @@ public class AbilityManager : MonoBehaviour
 
     public void ActivateAbility(int slotIndex)
     {
+        if (activeSlot.ability != null)
+        {
+            Debug.Log("Ability already active");
+            return;
+        }
+        
         if (slotIndex < 0 || slotIndex >= abilities.Length)
         {
             Debug.LogWarning("ActivateAbility: Invalid Slot Index");
@@ -46,8 +54,13 @@ public class AbilityManager : MonoBehaviour
         
         AbilitySlot slot = abilities[slotIndex];
         
+        activeSlot.ability = slot.ability;
+
         if (slot.ability == null)
+        {
+            Debug.Log("ability not equipped");
             return;
+        }
 
         //Check if ability is ready, if not, exit method
         if (!slot.IsReady())
@@ -67,6 +80,9 @@ public class AbilityManager : MonoBehaviour
         slot.isActive = false;
         slot.cooldownRemaining = slot.ability.cooldown;
         slot.state = AbilityState.Cooldown;
+        
+        if (activeSlot.ability == slot.ability)
+            activeSlot.ability = null;
     }
 
     public void EquipAbility(int slotIndex, AbilitySlot ability)
@@ -95,6 +111,8 @@ public class AbilityManager : MonoBehaviour
 
     public void ResetAbilityCooldowns()
     {
+        activeSlot.ability = null;
+        
         //Reset all equipped abilities
         foreach (var slot in abilities)
         {
