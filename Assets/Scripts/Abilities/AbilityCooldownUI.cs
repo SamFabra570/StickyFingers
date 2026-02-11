@@ -7,6 +7,7 @@ public class AbilityCooldownUI : MonoBehaviour
     public int slotIndex;
 
     public Image abilityFrame;
+    public Image abilityIcon;
     public Image cooldownFill;
     public Image durationFill;
 
@@ -15,14 +16,16 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         AbilityManager manager = AbilityManager.Instance;
         AbilitySlot slot = manager.GetAbility(slotIndex);
+        
+        SetFrameColour(slot);
 
         if (slot == null || slot.ability == null)
         {
-            SetFrameColour(slot);
+            abilityIcon.gameObject.SetActive(false);
             return;
         }
         
-        SetFrameColour(slot);
+        SetIcon(slot);
         
         bool anotherAbilityActive = manager.activeSlot != null 
                                     && manager.activeSlot.ability != null 
@@ -80,6 +83,11 @@ public class AbilityCooldownUI : MonoBehaviour
         bool isActiveAbility = slot.ability == manager.activeSlot.ability;
         
         return isActiveAbility;
+    }
+
+    private void SetIcon(AbilitySlot slot)
+    {
+        abilityIcon.sprite = slot.ability.icon;
     }
     
 }

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: InvisibilityCloak
   m_EditorClassIdentifier: Assembly-CSharp::InvisibilityCloakAbility
   abilityName: Invisibility Cloak
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7234beb6c48cc9a49a9086887649302c, type: 3}
   abilityColour: {fileID: 2100000, guid: 0abcbadfd2de8fa4ba3e55ec3495128e, type: 2}
   duration: 10
+  warningThreshold: 0.3
   cooldown: 15
