@@ -8,6 +8,7 @@ public class HUB_UIManager : MonoBehaviour
     public Canvas planningUI;
     public GameObject loadoutScreen;
     public GameObject detailsScreen;
+    public Animator detailsScreenAnim;
 
     private void Awake()
     {
@@ -37,16 +38,18 @@ public class HUB_UIManager : MonoBehaviour
                 break;
             case "Show":
                 planningUI.enabled = true;
-                detailsScreen.SetActive(true);
-                loadoutScreen.SetActive(false);
+                //detailsScreen.SetActive(true);
+                //loadoutScreen.SetActive(true);
                 break;
             case "Details":
-                loadoutScreen.SetActive(false);
-                detailsScreen.SetActive(true);
+                detailsScreenAnim.Play("ShowDetails");
+                //loadoutScreen.SetActive(false);
+                //detailsScreen.SetActive(true);
                 break;
             case "Loadout":
-                detailsScreen.SetActive(false);
-                loadoutScreen.SetActive(true);
+                detailsScreenAnim.Play("HideDetails");
+                //detailsScreen.SetActive(false);
+                //loadoutScreen.SetActive(true);
                 break;
         }
     }
