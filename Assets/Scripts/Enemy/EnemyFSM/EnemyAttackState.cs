@@ -21,6 +21,7 @@ public class EnemyAttackState : EnemyState
 
         enemy.agent_.stoppingDistance = enemy.attack_distance_;
         enemy.agent_.isStopped = true;
+        
     }
 
     public override void LogicUpdate()
@@ -42,6 +43,7 @@ public class EnemyAttackState : EnemyState
                     {
                         player.FreezeMovement();
                         GameManager.Instance.inventorySystem.Remove(player.inventoryItem);
+                        UIManager.Instance.ShowItemStolen(player.inventoryItem);
                         lastAttackTime = Time.time;
                         
                     }

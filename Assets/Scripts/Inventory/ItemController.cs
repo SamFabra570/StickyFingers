@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] private InventoryItemData referenceItem;
+    [SerializeField] public InventoryItemData referenceItem;
 
     public void Pickup()
     {

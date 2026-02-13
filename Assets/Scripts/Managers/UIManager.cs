@@ -13,7 +13,12 @@ public class UIManager : MonoBehaviour
     
     public TextMeshProUGUI textTotalWeight;
     public TextMeshProUGUI textTotalBounty;
-
+    
+    public TextMeshProUGUI textWeightPreview;
+    public TextMeshProUGUI textBountyPreview;
+    public GameObject objectWeightPreview;
+    public GameObject objectBountyPreview;
+    
     public GameObject objectPickupNotif;
     public GameObject objectRemoveNotif;
     public TextMeshProUGUI textNameNotif;
@@ -53,6 +58,11 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(ItemRemoveNotif(itemData));
     }
+    
+    public void ShowItemStolen(InventoryItemData itemData)
+    {
+        StartCoroutine(itemStolen(itemData));
+    }
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)
     {
@@ -80,6 +90,39 @@ public class UIManager : MonoBehaviour
     {
         textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
         textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
+    }
+    
+    public void showPreviewItem(InventoryItemData itemData)
+    {
+        textWeightPreview.color = Color.green;
+        textWeightPreview.SetText("+ " + itemData.itemWeight);
+        textBountyPreview.color = Color.green;
+        textBountyPreview.SetText("+ " + itemData.itemPrice);
+        objectWeightPreview.SetActive(true);
+        objectBountyPreview.SetActive(true);
+        
+    }
+    
+    public void disablePreview()
+    {
+        objectWeightPreview.SetActive(false);
+        objectBountyPreview.SetActive(false);
+        
+    }
+    
+    public IEnumerator itemStolen(InventoryItemData itemData)
+    {
+        textWeightPreview.color = Color.red;
+        textWeightPreview.SetText("- " + itemData.itemWeight);
+        textBountyPreview.color = Color.red;
+        textBountyPreview.SetText("- " + itemData.itemPrice);
+        objectWeightPreview.SetActive(true);
+        objectBountyPreview.SetActive(true);
+        
+        yield return new WaitForSeconds(4f);
+        
+        objectWeightPreview.SetActive(false);
+        objectBountyPreview.SetActive(false);
     }
 
     public void ShowScreen(string screenName)

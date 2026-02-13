@@ -282,6 +282,8 @@ public class PlayerController : MonoBehaviour
         {
             interactType = 0;
             objectToSteal = other.GetComponent<ItemController>();
+            
+            UIManager.Instance.showPreviewItem(objectToSteal.referenceItem);
         }
         else if (other.CompareTag("Interactable"))
         {
@@ -292,9 +294,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        UIManager.Instance.disablePreview();
         if (other.CompareTag("Object"))
         {
             objectToSteal = null;
+            
         }
         if (other.CompareTag("Interactable"))
         {
@@ -306,6 +310,7 @@ public class PlayerController : MonoBehaviour
     {
         //Add object to inventory
         objectToSteal.Pickup();
+        UIManager.Instance.disablePreview();
         Debug.Log("Add " + objectToSteal.name + " to inventory");
     }
 
