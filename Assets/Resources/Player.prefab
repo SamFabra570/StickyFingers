@@ -380,10 +380,10 @@ GameObject:
   - component: {fileID: 1920151274861030196}
   - component: {fileID: 987195410549008897}
   - component: {fileID: 7927132834306372734}
+  - component: {fileID: 5780873342141897033}
   - component: {fileID: 6829586981103127943}
   - component: {fileID: 5447146543190700706}
   - component: {fileID: 6362559549422800968}
-  - component: {fileID: 5780873342141897033}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -506,7 +506,7 @@ MonoBehaviour:
   speed: 1
   heightOffset: 0
   moveSpeed: 5
-  boostSpeed: 10
+  boostSpeed: 7.5
   turnSpeed: 360
   cameraPivot: {fileID: 0}
   cameraScript: {fileID: 0}
@@ -549,6 +549,29 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  activeSlot:
+    ability: {fileID: 0}
+    state: 0
+    cooldownRemaining: 0
+    durationThreshold: 0
+    durationRemaining: 0
+    isActive: 0
+--- !u!114 &5780873342141897033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4128997ad2946d34da24694523e3cd0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityFeedback
+  slotIndex: 0
+  blinkSpeed: 0.2
+  playerRend: {fileID: 0}
+  baseColour: {fileID: 0}
 --- !u!208 &6829586981103127943
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -614,22 +637,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5780873342141897033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7031276868296371547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4128997ad2946d34da24694523e3cd0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AbilityFeedback
-  slotIndex: 0
-  blinkSpeed: 0.2
-  playerRend: {fileID: 0}
-  baseColour: {fileID: 0}
 --- !u!1 &7945150919521066269
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
 
     private AbilityFeedback feedback;
     
+    [Header ("Ability Refs")]
     [SerializeField] AbilityCooldownUI ability1UI;
     [SerializeField] AbilityCooldownUI ability2UI;
     [SerializeField] AbilityCooldownUI ability3UI;
     
+    [Header ("Player Movement")]
     public float speed = 3.5f; //m/s
     public float heightOffset;
     private float lastHeightOffset;
@@ -27,16 +29,19 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     
     //Camera
+    [Header ("Camera Refs")]
     [SerializeField] private Transform cameraPivot;
     [SerializeField] private IsometricCamera cameraScript;
 
     private PlayerInput inputMap;
     private bool isPaused;
 
+    [Header ("Freeze Player Checks")]
     [SerializeField] private GameObject forceField;
     [SerializeField] float freezeDuration = 2f;
     public bool isFrozen;
 
+    [Header ("Ability Checks")]
     public GameObject wings;
 
     public bool isInvisible;

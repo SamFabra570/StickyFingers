@@ -7,7 +7,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Awake()
     {
-        if(SceneManager.GetActiveScene().name == "MainMenu") return;
+        if(SceneManager.GetActiveScene().name == "MainMenu") 
+            return;
         
         if (PlayerController.Instance == null)
         {

@@ -8,9 +8,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
     public GameObject inventoryScreen;
     
+    [Header ("HUD UI Refs")]
     public TextMeshProUGUI textTotalWeight;
     public TextMeshProUGUI textTotalBounty;
     
@@ -19,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject objectWeightPreview;
     public GameObject objectBountyPreview;
     
+    [Header ("Object Pick Up Notification Refs")]
     public GameObject objectPickupNotif;
     public GameObject objectRemoveNotif;
     public TextMeshProUGUI textNameNotif;

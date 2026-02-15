@@ -1,6 +1,5 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
         
         inventorySystem = new InventorySystem();
     }
-
     public void PauseGame(int pauseState)
     {
         switch (pauseState)
@@ -32,5 +30,11 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 break;
         }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over: YOU LOSE");
+        SceneManager.LoadScene("Post-Game");
     }
 }
