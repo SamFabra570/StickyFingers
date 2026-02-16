@@ -143,7 +143,6 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Interact");
                     break;
             }
-            
         };
         
         inputMap.Player.Inventory.performed += Inventory_performed =>
@@ -192,6 +191,9 @@ public class PlayerController : MonoBehaviour
         speed = moveSpeed;
         forceField.SetActive(false);
         wings.SetActive(false);
+
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         
         interactable = null;
         objectToSteal = null;
@@ -206,7 +208,7 @@ public class PlayerController : MonoBehaviour
 
     private void CorrectMovement()
     {
-        if(SceneManager.GetActiveScene().name == "MainMenu") 
+        if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Post-Game") 
             return;
         
         if (isFrozen)
@@ -340,6 +342,21 @@ public class PlayerController : MonoBehaviour
     {
         inputMap.Disable();
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void ToggleCursor()
+    {
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -135,6 +135,7 @@ public class UIManager : MonoBehaviour
             if (!inventoryScreen.activeSelf)
             {
                 pauseScreen.SetActive(true);
+                //PlayerController.Instance.ToggleCursor();
             }
         }
         
@@ -143,6 +144,7 @@ public class UIManager : MonoBehaviour
             if (!pauseScreen.activeSelf)
             {
                 inventoryScreen.SetActive(true);
+                //PlayerController.Instance.ToggleCursor();
             }
         }
             
@@ -152,10 +154,17 @@ public class UIManager : MonoBehaviour
 
     public void HideScreen(string screenName)
     {
-        if (screenName == "Pause") 
+        if (screenName == "Pause")
+        {
             pauseScreen.SetActive(false);
+            //PlayerController.Instance.ToggleCursor();
+        }
+
         if (screenName == "Inventory")
+        {
             inventoryScreen.SetActive(false);
+            //PlayerController.Instance.ToggleCursor();
+        }
         
         GameManager.Instance.PauseGame(0);
     }
