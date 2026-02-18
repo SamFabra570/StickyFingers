@@ -32,7 +32,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void EndGame()
     {
         Debug.Log("Game Over: YOU LOSE");
         SceneManager.LoadScene("Post-Game");

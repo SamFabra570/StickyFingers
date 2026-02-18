@@ -34,7 +34,7 @@ public class TimeManager : MonoBehaviour
         if (remainingTime <= 0)
         {
             timerText.text = ("0:00");
-            GameManager.Instance.GameOver();
+            GameManager.Instance.EndGame();
         }
             
     }

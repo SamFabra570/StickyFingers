@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
+    public bool portalCharged = false;
     
     private void Awake()
     {
@@ -301,9 +302,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        UIManager.Instance.disablePreview();
         if (other.CompareTag("Object"))
         {
+            UIManager.Instance.disablePreview();
             objectToSteal = null;
             
         }
@@ -387,7 +388,16 @@ public class PlayerController : MonoBehaviour
     {
         if (obj.name == "Portal")
         {
-            SceneManager.LoadScene("Game");
+            ExitPortal portalClass = obj.GetComponent<ExitPortal>();
+            if (portalClass.state == PortalState.Charged)
+            {
+                if (SceneManager.GetActiveScene().name == "Game")
+                    GameManager.Instance.EndGame();
+                
+                if (SceneManager.GetActiveScene().name == "HUB")
+                    GameManager.Instance.StartGame();
+            }
+                
         }
         else if (obj.name == "PlanningDesk")
         {
