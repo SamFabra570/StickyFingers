@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -12,11 +10,15 @@ public class TimeManager : MonoBehaviour
     private bool lastMinute;
     
     [SerializeField] private TextMeshProUGUI timerText;
-    
+    [SerializeField] private GameObject lastMinuteEffect;
+
+    public PortalSpawner portalSpawner;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         remainingTime = countdownTime;
+        lastMinuteEffect.SetActive(false);
     }
 
     private void Update()
@@ -27,8 +29,7 @@ public class TimeManager : MonoBehaviour
         if (!lastMinute && remainingTime <= 60)
         {
             lastMinute = true;
-            //Add exit portal method here
-            Debug.Log("EXIT PORTAL APPEARS");
+            LastMinute();
         }
 
         if (remainingTime <= 0)
@@ -37,6 +38,12 @@ public class TimeManager : MonoBehaviour
             GameManager.Instance.EndGame();
         }
             
+    }
+
+    private void LastMinute()
+    {
+        portalSpawner.SpawnPortal();
+        lastMinuteEffect.SetActive(true);
     }
 
     private void UpdateTimerText()

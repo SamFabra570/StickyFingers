@@ -386,20 +386,25 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(GameObject obj)
     {
-        if (obj.name == "Portal")
+        if (obj.TryGetComponent(out ExitPortal portalClass))
         {
-            ExitPortal portalClass = obj.GetComponent<ExitPortal>();
             if (portalClass.state == PortalState.Charged)
             {
                 if (SceneManager.GetActiveScene().name == "Game")
+                {
+                    Debug.Log("End Game FROM PORTAL");
                     GameManager.Instance.EndGame();
+                }
+                    
                 
                 if (SceneManager.GetActiveScene().name == "HUB")
                     GameManager.Instance.StartGame();
             }
-                
+
+            return;
         }
-        else if (obj.name == "PlanningDesk")
+        
+        if (obj.name == "PlanningDesk")
         {
             HUB_UIManager.Instance.TogglePlanningUI("Show");
             FreezeMovement();

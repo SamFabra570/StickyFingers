@@ -3186,11 +3186,6 @@ PrefabInstance:
       addedObject: {fileID: 741631007}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
---- !u!23 &760957378 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2846625110238655383, guid: 5f52355789e07734493649f36b444139, type: 3}
-  m_PrefabInstance: {fileID: 1535546356}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &762585231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4490,34 +4485,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350012869}
   m_CullTransparentMesh: 1
---- !u!1 &1366051664 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1102023177858975033, guid: 5f52355789e07734493649f36b444139, type: 3}
-  m_PrefabInstance: {fileID: 1535546356}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1366051665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366051664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d643698f1b43fdb4d8a93304c45ce72e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExitPortal
-  state: 0
-  chargeTime: 5
-  chargePercent: 0
-  portalAnim: {fileID: 1366051666}
-  portalBase: {fileID: 760957378}
-  portalChargedMat: {fileID: 2100000, guid: e6c51895bf52f9d4daf889860fb80051, type: 2}
---- !u!95 &1366051666 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 383604241911183321, guid: 5f52355789e07734493649f36b444139, type: 3}
-  m_PrefabInstance: {fileID: 1535546356}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1444986736
 GameObject:
   m_ObjectHideFlags: 0
@@ -4818,10 +4785,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 383604241911183321, guid: 5f52355789e07734493649f36b444139, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1102023177858975033, guid: 5f52355789e07734493649f36b444139, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -4866,26 +4829,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7497564141488586362, guid: 5f52355789e07734493649f36b444139, type: 3}
-      propertyPath: m_Radius
-      value: 1.3
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9113710654102792223, guid: 5f52355789e07734493649f36b444139, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1102023177858975033, guid: 5f52355789e07734493649f36b444139, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1366051665}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f52355789e07734493649f36b444139, type: 3}
 --- !u!1 &1636963832
 GameObject:
