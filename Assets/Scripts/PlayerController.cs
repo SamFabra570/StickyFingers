@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
-    public bool portalCharged = false;
     
     private void Awake()
     {

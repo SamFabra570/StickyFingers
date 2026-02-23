@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e367337c60cf214f9ec07bd46288da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  countdownTime: 300
+  countdownTime: 65
   timerText: {fileID: 444233885}
   lastMinuteEffect: {fileID: 295620740}
   portalSpawner: {fileID: 420916480}
