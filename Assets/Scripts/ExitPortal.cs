@@ -38,7 +38,7 @@ public class ExitPortal : MonoBehaviour
             if (currentCharge >= chargeTime)
             {
                 state = PortalState.Charged;
-                PlayerController.Instance.portalCharged = true;
+                //PlayerController.Instance.portalCharged = true;
             }
                 
         }
