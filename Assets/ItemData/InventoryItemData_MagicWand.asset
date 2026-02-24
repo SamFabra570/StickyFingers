@@ -18,5 +18,5 @@ MonoBehaviour:
   itemDescription: harry you are a wizard
   itemWeight: 5
   itemPrice: 200
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0e30f026fe39489478ec60d56b867f84, type: 3}
   prefab: {fileID: 5989388894603941869, guid: 878518af07f5b684096f1148b8497bf4, type: 3}

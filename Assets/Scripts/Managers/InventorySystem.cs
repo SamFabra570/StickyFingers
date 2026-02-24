@@ -6,6 +6,8 @@ public class InventorySystem
 {
     private Dictionary<InventoryItemData, InventoryItem> m_itemDictionary;
     public List<InventoryItem> inventory;
+    public ItemSlot[] itemSlots;
+    public int freeSlot = 0;
     public float totalWeight;
     public float totalBounty;
 
@@ -24,14 +26,16 @@ public class InventorySystem
         if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
         {
             value.AddToStack();
+            refreshInventory();
         }
         else
         {
             InventoryItem newItem = new InventoryItem(referenceData);
             inventory.Add(newItem);
             m_itemDictionary.Add(referenceData, newItem);
+            itemSlots[freeSlot].AddItem(newItem);
+            freeSlot++;
         }
-        
         UIManager.Instance.UpdateTotals();
         UIManager.Instance.ShowItemPickupNotif(referenceData);
     }
@@ -54,6 +58,14 @@ public class InventorySystem
 
         UIManager.Instance.ShowItemRemoveNotif(referenceData);
         UIManager.Instance.UpdateTotals();
+    }
+
+    public void refreshInventory()
+    {
+        for(int i=0; i<freeSlot; i++)
+        {
+            itemSlots[i].updateItem();
+        }
     }
 
     private void Update()

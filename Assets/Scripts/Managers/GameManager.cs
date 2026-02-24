@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
+    public ItemSlot[] itemSlots;
     public InventorySystem inventorySystem;
 
     private void Awake()
@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
         inventorySystem = new InventorySystem();
+        inventorySystem.itemSlots = itemSlots;
     }
     public void PauseGame(int pauseState)
     {
