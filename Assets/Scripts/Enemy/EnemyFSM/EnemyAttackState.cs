@@ -41,7 +41,7 @@ public class EnemyAttackState : EnemyState
                     PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
                     if (player != null)
                     {
-                        player.FreezeMovement();
+                        player.FreezeMovement(2);
                         GameManager.Instance.inventorySystem.Remove(player.inventoryItem);
                         UIManager.Instance.ShowItemStolen(player.inventoryItem);
                         lastAttackTime = Time.time;

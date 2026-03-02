@@ -37,7 +37,7 @@ public class EnemyScoutAttackState : EnemyScoutState
                 PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
                 if (player != null)
                 {
-                    player.FreezeMovement();
+                    player.FreezeMovement(2);
                     Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
                     lastAttackTime = Time.time;
                     enemy.gameObject.SetActive(false);

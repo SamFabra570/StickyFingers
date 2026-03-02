@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e367337c60cf214f9ec07bd46288da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  countdownTime: 65
+  countdownTime: 300
   timerText: {fileID: 444233885}
   lastMinuteEffect: {fileID: 295620740}
   portalSpawner: {fileID: 420916480}
@@ -994,9 +994,10 @@ GameObject:
   - component: {fileID: 53066918}
   - component: {fileID: 53066917}
   - component: {fileID: 53066916}
+  - component: {fileID: 53066919}
   m_Layer: 0
   m_Name: GhostArm (2)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1031,7 +1032,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1093,6 +1094,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53066914}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &53066919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53066914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1 &63829511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4217,9 +4233,10 @@ GameObject:
   - component: {fileID: 274303677}
   - component: {fileID: 274303676}
   - component: {fileID: 274303675}
+  - component: {fileID: 274303678}
   m_Layer: 0
   m_Name: GhostArm (1)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4254,7 +4271,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4316,6 +4333,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274303673}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &274303678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274303673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1001 &275753089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8340,9 +8372,10 @@ GameObject:
   - component: {fileID: 487324550}
   - component: {fileID: 487324549}
   - component: {fileID: 487324548}
+  - component: {fileID: 487324551}
   m_Layer: 0
   m_Name: GhostArm (6)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8377,7 +8410,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8439,6 +8472,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487324546}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &487324551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487324546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1 &491644373
 GameObject:
   m_ObjectHideFlags: 0
@@ -16470,9 +16518,10 @@ GameObject:
   - component: {fileID: 1094490352}
   - component: {fileID: 1094490351}
   - component: {fileID: 1094490350}
+  - component: {fileID: 1094490353}
   m_Layer: 0
   m_Name: GhostArm (3)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16507,7 +16556,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -16569,6 +16618,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094490348}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1094490353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094490348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1 &1124732203
 GameObject:
   m_ObjectHideFlags: 0
@@ -16581,9 +16645,10 @@ GameObject:
   - component: {fileID: 1124732207}
   - component: {fileID: 1124732206}
   - component: {fileID: 1124732205}
+  - component: {fileID: 1124732208}
   m_Layer: 0
   m_Name: GhostArm (5)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16618,7 +16683,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -16680,6 +16745,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124732203}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1124732208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124732203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!43 &1129987291
 Mesh:
   m_ObjectHideFlags: 0
@@ -19435,6 +19515,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!4 &1218614687 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7669007764230810731, guid: 3aeae8388272949429b8625d3035ce34, type: 3}
+  m_PrefabInstance: {fileID: 7250081935318755676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1225841790
 GameObject:
   m_ObjectHideFlags: 0
@@ -22167,7 +22252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1409508090
 Transform:
   m_ObjectHideFlags: 0
@@ -23426,11 +23511,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547576409}
   m_Mesh: {fileID: -8747834811594462425, guid: a67c101be4d778542810af96eadb4d0a, type: 3}
---- !u!4 &1553961315 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 250298746446481432, guid: 3aeae8388272949429b8625d3035ce34, type: 3}
-  m_PrefabInstance: {fileID: 7250081935318755676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1567015425
 GameObject:
   m_ObjectHideFlags: 0
@@ -26149,7 +26229,7 @@ Transform:
   - {fileID: 334201982}
   - {fileID: 724631021}
   - {fileID: 1585991610}
-  - {fileID: 1553961315}
+  - {fileID: 1218614687}
   - {fileID: 1734097265}
   - {fileID: 549891711}
   - {fileID: 1790173891}
@@ -27475,9 +27555,10 @@ GameObject:
   - component: {fileID: 1886528250}
   - component: {fileID: 1886528249}
   - component: {fileID: 1886528248}
+  - component: {fileID: 1886528251}
   m_Layer: 0
   m_Name: GhostArm (4)
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27512,7 +27593,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -27574,6 +27655,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886528246}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1886528251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886528246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1001 &1886833329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27973,9 +28069,10 @@ GameObject:
   - component: {fileID: 1910341594}
   - component: {fileID: 1910341593}
   - component: {fileID: 1910341592}
+  - component: {fileID: 1910341595}
   m_Layer: 0
   m_Name: GhostArm
-  m_TagString: Untagged
+  m_TagString: MashEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28010,7 +28107,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -28072,6 +28169,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910341590}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1910341595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910341590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbcd8344ab579643b6adfa8d2ced20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMash
+  buttonPressNeeded: 20
+  maxEventTime: 15
+  timeRemaining: 0
 --- !u!1 &1911524670
 GameObject:
   m_ObjectHideFlags: 0
@@ -32326,7 +32438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &888032691597384292
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33090,7 +33202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1584565720949848896
 GameObject:
   m_ObjectHideFlags: 0
@@ -34724,7 +34836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2487341866476063503
 GameObject:
   m_ObjectHideFlags: 0
@@ -36432,7 +36544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &3381689583141184952
 GameObject:
   m_ObjectHideFlags: 0
@@ -39614,7 +39726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5456832632134592067
 Transform:
   m_ObjectHideFlags: 0
@@ -40134,7 +40246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5825246597231328624
 Transform:
   m_ObjectHideFlags: 0
@@ -44504,7 +44616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &7692095027027671569
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ TagManager:
   - Slot2
   - Slot3
   - PlayerSpawn
+  - MashEvent
   layers:
   - Default
   - TransparentFX

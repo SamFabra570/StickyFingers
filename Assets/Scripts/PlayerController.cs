@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
 
     private ItemController objectToSteal;
     private GameObject interactable;
-    private int interactType;   
+    private int interactType;
+
+    public ButtonMash buttonMashObj;
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
@@ -134,13 +136,20 @@ public class PlayerController : MonoBehaviour
             
             switch (interactType)
             {
+                //Stealable Object
                 case 0:
                     StealObject();
                     Debug.Log("Steal object");
                     break;
+                //Interactable Object
                 case 1:
                     Interact(interactable);
                     Debug.Log("Interact");
+                    break;
+                //Mash Event
+                case 2:
+                    buttonMashObj.MashEvent();
+                    Debug.Log("Mashing button");
                     break;
             }
         };
@@ -239,15 +248,15 @@ public class PlayerController : MonoBehaviour
         lastHeightOffset = heightOffset;
     }
 
-    public void FreezeMovement()
+    public void FreezeMovement(float freezeDuration)
     {
         if (isFrozen)
             return;
 
-        StartCoroutine(FreezePlayer());
+        StartCoroutine(FreezePlayer(freezeDuration));
     }
 
-    private IEnumerator FreezePlayer()
+    private IEnumerator FreezePlayer(float freezeDur)
     {
         isFrozen = true;
 
@@ -257,7 +266,7 @@ public class PlayerController : MonoBehaviour
             forceField.SetActive(true);
         }
         
-        yield return new WaitForSeconds(freezeDuration);
+        yield return new WaitForSeconds(freezeDur);
 
         if (forceField != null)
         {
@@ -297,6 +306,13 @@ public class PlayerController : MonoBehaviour
             interactType = 1;
             interactable = other.gameObject;
         }
+        else if (other.CompareTag("MashEvent"))
+        {
+            interactType = 2;
+            interactable = other.gameObject;
+
+            buttonMashObj = interactable.GetComponent<ButtonMash>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -310,6 +326,12 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Interactable"))
         {
             interactable = null;
+        }
+
+        if (other.CompareTag("MashEvent"))
+        {
+            interactable = null;
+            buttonMashObj = null;
         }
     }
 
@@ -406,7 +428,7 @@ public class PlayerController : MonoBehaviour
         if (obj.name == "PlanningDesk")
         {
             HUB_UIManager.Instance.TogglePlanningUI("Show");
-            FreezeMovement();
+            FreezeMovement(0);
         }
     }
 
