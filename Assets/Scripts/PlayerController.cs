@@ -17,12 +17,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AbilityCooldownUI ability3UI;
     
     [Header ("Player Movement")]
-    public float speed = 3.5f; //m/s
+    [SerializeField] private float baseMoveSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 7f;
+
+    public float abilityMoveSpeed;
+    private bool isSprinting;
+
+    private float currentSpeed;
+    
+    [SerializeField] private float turnSpeed = 360f;
+    
+    [Header ("Player Gravity")]
+    public bool useGravity = true;
+    public float yVelocity;
+    [SerializeField] private float gravityMultiplier = 1f;
     public float heightOffset;
     private float lastHeightOffset;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float boostSpeed = 7f;
-    [SerializeField] private float turnSpeed = 360f;
 
     private Vector2 inputData;
     private CharacterController controller;
@@ -101,12 +111,12 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.Sprint.performed += Sprint_performed =>
         {
-            speed = boostSpeed;
+            isSprinting = true;
         };
 
         inputMap.Player.Sprint.canceled += Sprint_canceled =>
         {
-            speed = moveSpeed;
+            isSprinting = false;
         };
 
         inputMap.Player.Pause.performed += Pause_performed =>
@@ -197,7 +207,6 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed = moveSpeed;
         forceField.SetActive(false);
         wings.SetActive(false);
 
@@ -211,16 +220,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CorrectMovement();
+        UpdateSpeed();
+        
+        if (!isFrozen) 
+            CorrectMovement();
+        
         Look();
+    }
+
+    private void UpdateSpeed()
+    {
+        if (abilityMoveSpeed > 0)
+        {
+            currentSpeed = abilityMoveSpeed;
+            return;
+        }
+
+        if (isSprinting)
+            currentSpeed = sprintSpeed;
+        else
+            currentSpeed = baseMoveSpeed;
     }
 
     private void CorrectMovement()
     {
         if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Post-Game") 
-            return;
-        
-        if (isFrozen)
             return;
         
         Vector3 rawDir = new Vector3(inputData.x, 0, inputData.y);
@@ -234,16 +258,25 @@ public class PlayerController : MonoBehaviour
         
         if (correctedDir.magnitude > 1f)
             correctedDir.Normalize();
+        
+        //Add base gravity
+        if (controller.isGrounded && yVelocity < 0)
+            yVelocity = -2f;
+
+        if (useGravity) 
+            yVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
 
         //Save base move data
-        Vector3 moveDelta = correctedDir * speed * Time.deltaTime;
+        Vector3 moveDelta = correctedDir * currentSpeed;
         
         //Calculate height offset and apply to base move
         float heightDelta = heightOffset - lastHeightOffset;
         Vector3 heightMove = Vector3.up * heightDelta;
+
+        moveDelta.y = yVelocity;
         
         //Final movement
-        controller.Move(moveDelta + heightMove);
+        controller.Move((moveDelta + heightMove)  * Time.deltaTime);
         
         lastHeightOffset = heightOffset;
     }
@@ -289,6 +322,11 @@ public class PlayerController : MonoBehaviour
             gogglesUp = false;
             animator.SetBool("P_Trigger", false);
         }
+    }
+
+    public void MovePlayerUp(float amount)
+    {
+        controller.Move(Vector3.up * amount);
     }
 
     private void OnTriggerEnter(Collider other)

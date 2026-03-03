@@ -8,8 +8,11 @@ public class WingsAbility : Ability
     
     public override void Activate(GameObject user)
     {
-        PlayerController.Instance.heightOffset = flyHeight;
-        PlayerController.Instance.speed = flySpeed;
+        PlayerController.Instance.useGravity = false;
+        PlayerController.Instance.yVelocity = 0f;
+        PlayerController.Instance.MovePlayerUp(flyHeight);
+        
+        PlayerController.Instance.abilityMoveSpeed = flySpeed;
         PlayerController.Instance.wings.SetActive(true);
         PlayerController.Instance.SetPlayerColour(abilityColour);
         //Debug.Log("Wings Activated");
@@ -17,8 +20,8 @@ public class WingsAbility : Ability
     
     public override void Deactivate(GameObject user)
     {
-        PlayerController.Instance.heightOffset = 0;
-        PlayerController.Instance.speed = 5f;
+        PlayerController.Instance.useGravity = true;
+        PlayerController.Instance.abilityMoveSpeed = 0;
         PlayerController.Instance.wings.SetActive(false);
         PlayerController.Instance.ResetColour();
         //Debug.Log("Wings Deactivated");
