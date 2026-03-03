@@ -17,13 +17,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AbilityCooldownUI ability3UI;
     
     [Header ("Player Movement")]
+    private float currentSpeed;
+    private bool isSprinting;
     [SerializeField] private float baseMoveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 7f;
-
+    [SerializeField] private float frozenFloorSpeed = 12f;
     public float abilityMoveSpeed;
-    private bool isSprinting;
 
-    private float currentSpeed;
+    private Vector3 horizontalVelocity;
+    
+    [SerializeField] private float acceleration = 40f;
+    [SerializeField] private float deceleration = 50f;
+    [SerializeField] private float rotationSpeed = 720f;
+    [SerializeField] private float turnAccelerationBonus = 20f;
     
     [SerializeField] private float turnSpeed = 360f;
     
@@ -50,6 +56,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject forceField;
     [SerializeField] float freezeDuration = 2f;
     public bool isFrozen;
+    private bool isFloorFrozen;
 
     [Header ("Ability Checks")]
     public GameObject wings;
@@ -238,6 +245,8 @@ public class PlayerController : MonoBehaviour
 
         if (isSprinting)
             currentSpeed = sprintSpeed;
+        else if (isFloorFrozen)
+            currentSpeed = frozenFloorSpeed;
         else
             currentSpeed = baseMoveSpeed;
     }
@@ -251,34 +260,64 @@ public class PlayerController : MonoBehaviour
         
         //Camera rotated 135 degrees for isometric view
         Quaternion camRotation = Quaternion.Euler(0, cameraPivot.eulerAngles.y, 0);
-
-        //Rotate direction so input fits isometric camera
         Vector3 correctedDir = camRotation * rawDir;
         correctedDir.y = 0;
         
-        if (correctedDir.magnitude > 1f)
-            correctedDir.Normalize();
-        
+        float inputMagnitude = Mathf.Clamp01(correctedDir.magnitude);
+        if (inputMagnitude > 0f)
+            correctedDir = correctedDir.normalized * inputMagnitude;
+    
+        //Acceleration system
+        Vector3 targetVelocity = correctedDir * currentSpeed;
+
+        float turnDot = 0f;
+        if (horizontalVelocity.sqrMagnitude > 0.01f && correctedDir != Vector3.zero)
+        {
+            turnDot = Vector3.Dot(horizontalVelocity.normalized, correctedDir);
+        }
+
+        float currentAcceleration = acceleration;
+    
+        //Snappy turns
+        if (turnDot < 0.5f)
+            currentAcceleration += turnAccelerationBonus;
+
+        if (correctedDir != Vector3.zero)
+        {
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, 
+                currentAcceleration * Time.deltaTime);
+        }
+        else
+        {
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero,
+                deceleration * Time.deltaTime);
+        }
+    
+        //Rotation based on velocity
+        if (horizontalVelocity.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(horizontalVelocity);
+
+            float dynamicRotationSpeed = rotationSpeed;
+
+            if (turnDot < 0.3f)
+                dynamicRotationSpeed *= 1.5f;
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,
+                dynamicRotationSpeed * Time.deltaTime);
+        }
+    
         //Add base gravity
         if (controller.isGrounded && yVelocity < 0)
             yVelocity = -2f;
 
         if (useGravity) 
             yVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
-
-        //Save base move data
-        Vector3 moveDelta = correctedDir * currentSpeed;
-        
-        //Calculate height offset and apply to base move
-        float heightDelta = heightOffset - lastHeightOffset;
-        Vector3 heightMove = Vector3.up * heightDelta;
-
-        moveDelta.y = yVelocity;
-        
+    
         //Final movement
-        controller.Move((moveDelta + heightMove)  * Time.deltaTime);
-        
-        lastHeightOffset = heightOffset;
+        Vector3 moveDelta = horizontalVelocity;
+        moveDelta.y = yVelocity;
+        controller.Move(moveDelta * Time.deltaTime);
     }
 
     public void FreezeMovement(float freezeDuration)
@@ -287,6 +326,25 @@ public class PlayerController : MonoBehaviour
             return;
 
         StartCoroutine(FreezePlayer(freezeDuration));
+    }
+
+    public void ToggleIcyFloor(bool isFloorIcy)
+    {
+        switch (isFloorIcy)
+        {
+            case true:
+                Debug.Log("slippy slidey");
+                acceleration = 5;
+                deceleration = 1f;
+                isFloorFrozen = true;
+                break;
+            case false:
+                Debug.Log("back 2 normal");
+                acceleration = 40;
+                deceleration = 50;
+                isFloorFrozen = false;
+                break;
+        }
     }
 
     private IEnumerator FreezePlayer(float freezeDur)

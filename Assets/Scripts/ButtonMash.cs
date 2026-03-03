@@ -27,6 +27,7 @@ public class ButtonMash : MonoBehaviour
             {
                 timeRemaining = maxEventTime;
                 ToggleMashingEvent(false);
+                Destroy(gameObject);
             }
         }
     }

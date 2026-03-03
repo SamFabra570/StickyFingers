@@ -135,15 +135,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3011595244263410902}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.92387867, z: -0, w: 0.38268548}
+  m_LocalPosition: {x: -0.033181608, y: 0.091, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1853312863492655079}
   - {fileID: 353547091886761199}
   m_Father: {fileID: 6159478961986830444}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -135, z: 0}
 --- !u!1 &6215060885910745967
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,11 +503,18 @@ MonoBehaviour:
   ability1UI: {fileID: 0}
   ability2UI: {fileID: 0}
   ability3UI: {fileID: 0}
-  speed: 1
-  heightOffset: 0
-  moveSpeed: 5
-  boostSpeed: 7.5
+  baseMoveSpeed: 5
+  sprintSpeed: 7
+  abilityMoveSpeed: 0
+  acceleration: 40
+  deceleration: 50
+  rotationSpeed: 720
+  turnAccelerationBonus: 20
   turnSpeed: 360
+  useGravity: 1
+  yVelocity: 0
+  gravityMultiplier: 1
+  heightOffset: 0
   cameraPivot: {fileID: 0}
   cameraScript: {fileID: 0}
   forceField: {fileID: 2826084008003131337}
@@ -517,6 +524,7 @@ MonoBehaviour:
   isInvisible: 0
   rend: {fileID: 0}
   basePlayerMat: {fileID: 2100000, guid: fe65d19502e8db34cb856151b13ef69a, type: 2}
+  buttonMashObj: {fileID: 0}
   inventoryItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
 --- !u!114 &7927132834306372734
 MonoBehaviour:
@@ -664,13 +672,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7945150919521066269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: 0.38268343}
-  m_LocalPosition: {x: 0.246, y: 0.55, z: -0.238}
+  m_LocalRotation: {x: -0, y: 0.0000021755693, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0.35}
   m_LocalScale: {x: 0.57777, y: 0.2068529, z: 0.39893}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6159478961986830444}
-  m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7678065310193474753
 MeshFilter:
   m_ObjectHideFlags: 0

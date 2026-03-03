@@ -239,6 +239,17 @@
                 },
                 {
                     "name": "",
+                    "id": "59ffc628-bdeb-4917-afc1-afc3b92d4bcd",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cb91b39a-3451-4eb5-be45-2b3a47a86e8e",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
