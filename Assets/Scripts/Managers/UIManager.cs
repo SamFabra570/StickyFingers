@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textRemoveNameNotif;
     public TextMeshProUGUI textWeightNotif;
     public TextMeshProUGUI textValueNotif;
+    
+    public Sprite emptySprite;
 
     private void Awake()
     {
@@ -163,6 +165,10 @@ public class UIManager : MonoBehaviour
         if (screenName == "Inventory")
         {
             inventoryScreen.SetActive(false);
+            GameManager.Instance.inventorySystem.DeselectAllSlots();
+            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
+            GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
+            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
             //PlayerController.Instance.ToggleCursor();
         }
         

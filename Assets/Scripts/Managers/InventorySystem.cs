@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
 [Serializable]
 public class InventorySystem 
 {
@@ -10,6 +13,12 @@ public class InventorySystem
     public int freeSlot = 0;
     public float totalWeight;
     public float totalBounty;
+    
+    public Image itemDescriptionImage;
+    public TMP_Text itemDescriptionNameText;
+    public TMP_Text itemDescriptionText;
+    
+    public Sprite emptySprite;
 
     public InventorySystem()
     {
@@ -26,7 +35,7 @@ public class InventorySystem
         if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
         {
             value.AddToStack();
-            refreshInventory();
+            RefreshInventory();
         }
         else
         {
@@ -42,30 +51,86 @@ public class InventorySystem
     
     public void Remove(InventoryItemData referenceData)
     {
-        
-        
-        if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
+
+        if (referenceData != null)
         {
-            value.RemoveFromStack();
-            if (value.stackSize == 0)
+            if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
             {
+                value.RemoveFromStack();
                 totalBounty -= referenceData.itemPrice;
                 totalWeight -= referenceData.itemWeight;
-                inventory.Remove(value);
-                m_itemDictionary.Remove(referenceData);
+                if (value.stackSize == 0)
+                {
+                    inventory.Remove(value);
+                    m_itemDictionary.Remove(referenceData);
+                    freeSlot--;
+                }
+                RefreshInventory();
             }
+            UIManager.Instance.ShowItemRemoveNotif(referenceData);
+            UIManager.Instance.UpdateTotals();
         }
 
-        UIManager.Instance.ShowItemRemoveNotif(referenceData);
-        UIManager.Instance.UpdateTotals();
+        
     }
 
-    public void refreshInventory()
+    public void DeselectAllSlots()
     {
-        for(int i=0; i<freeSlot; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
+            itemSlots[i].selectedShader.SetActive(false);
+        }
+    }
+
+    public void RefreshInventory()
+    {
+        int i = 0;
+        Debug.Log(inventory.Count);
+        if (inventory.Count == 0)
+        {
+            itemSlots[0].item.data=null;
+            itemSlots[0].item.stackSize=0;
+            itemSlots[0].updateItem();
+        }
+
+        while (i < inventory.Count)
+        {
+            itemSlots[i].item = inventory[i];
+            itemSlots[i].updateItem();
+            i++;
+        }
+
+        for(int j=i+1; i<itemSlots.Length; i++)
+        {
+            itemSlots[i].item = new InventoryItem(null);
+            itemSlots[i].item.stackSize = 0;
             itemSlots[i].updateItem();
         }
+        DeselectAllSlots();
+        GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
+        GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
+        GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
+    }
+    
+    public void SellInventory()
+    {
+        
+        GameManager.Instance.totalDebt-= totalBounty;
+        Debug.Log(GameManager.Instance.totalDebt);
+        inventory= new List<InventoryItem>();
+        m_itemDictionary= new Dictionary<InventoryItemData, InventoryItem>();
+        totalBounty = 0;
+        totalWeight = 0;
+        for(int i=0; i<itemSlots.Length; i++)
+        {
+            itemSlots[i].item = new InventoryItem(null);
+            itemSlots[i].item.stackSize = 0;
+            itemSlots[i].updateItem();
+        }
+        DeselectAllSlots();
+        GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
+        GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
+        GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
     }
 
     private void Update()

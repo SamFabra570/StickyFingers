@@ -201,8 +201,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -308,10 +308,13 @@ MonoBehaviour:
     data: {fileID: 0}
     stackSize: 0
   isFull: 0
+  emptySprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   priceText: {fileID: 8130213314572286256}
   weightText: {fileID: 7883731015120713427}
   quantityText: {fileID: 4689092941291300544}
   image: {fileID: 2107189480682593757}
+  selectedShader: {fileID: 5892841790576880546}
+  isSelected: 0
 --- !u!1 &4804356290385119052
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5359}
+  m_AnchoredPosition: {x: 0, y: -0.53590393}
   m_SizeDelta: {x: 10.7172, y: 11.7889}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &840053941048419895
