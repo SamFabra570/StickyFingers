@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUB_UIManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class HUB_UIManager : MonoBehaviour
     public GameObject loadoutScreen;
     public GameObject detailsScreen;
     public Animator detailsScreenAnim;
+
+    public Slider debtPaidFill;
+    [SerializeField] private float totalDebt;
+    public float debtPaid;
 
     private void Awake()
     {
@@ -38,19 +43,21 @@ public class HUB_UIManager : MonoBehaviour
                 break;
             case "Show":
                 planningUI.enabled = true;
-                //detailsScreen.SetActive(true);
-                //loadoutScreen.SetActive(true);
+                CalculateDebtRemaining();
                 break;
             case "Details":
                 detailsScreenAnim.Play("ShowDetails");
-                //loadoutScreen.SetActive(false);
-                //detailsScreen.SetActive(true);
                 break;
             case "Loadout":
                 detailsScreenAnim.Play("HideDetails");
-                //detailsScreen.SetActive(false);
-                //loadoutScreen.SetActive(true);
                 break;
         }
+    }
+
+    private void CalculateDebtRemaining()
+    {   
+        float debtRemaining = totalDebt - debtPaid;
+        float normalizedDebt = debtRemaining / totalDebt;
+        debtPaidFill.value = 1 - normalizedDebt;
     }
 }
