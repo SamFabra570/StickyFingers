@@ -14,37 +14,34 @@ public class GameManager : MonoBehaviour
     public TMP_Text itemDescriptionText;
     public Sprite emptySprite;
 
+    public float maxDebt;
     public float totalDebt;
+    public float maxWeight;
+    public bool runState;
 
     private void Awake()
     {
-        /*if (instance == null)
-        {
+        if (Instance == null)
+        { 
             //initialize the players inventory
-            instance = this;
-            instance.eggsRecovered=0;
+            Instance = this;
+            Instance.inventorySystem = new InventorySystem();
+            Instance.inventorySystem.itemSlots = itemSlots;
+            Instance.inventorySystem.itemDescriptionImage = itemDescriptionImage;
+            Instance.inventorySystem.itemDescriptionNameText = itemDescriptionNameText;
+            Instance.inventorySystem.itemDescriptionText = itemDescriptionText;
+            Instance.totalDebt = 10000;
+            Instance.maxDebt = 10000;
+            Instance.maxWeight = 50;
+            Instance.itemDescriptionImage.sprite = emptySprite;
+            Instance.runState = false;
         }
-        else if (instance != this)
+        else if (Instance != null )
         {
-            instance.eggsRecovered=0;
-            instance.textComponent = this.textComponent;
+            Destroy(gameObject);
         }
-        DontDestroyOnLoad(instance);*/ 
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject); 
         
-        Instance.inventorySystem = new InventorySystem();
-        Instance.inventorySystem.itemSlots = itemSlots;
-        Instance.inventorySystem.itemDescriptionImage = itemDescriptionImage;
-        Instance.inventorySystem.itemDescriptionNameText = itemDescriptionNameText;
-        Instance.inventorySystem.itemDescriptionText = itemDescriptionText;
-        Instance.totalDebt = 10000;
-
     }
     public void PauseGame(int pauseState)
     {
@@ -67,6 +64,8 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("Game Over: YOU LOSE");
+        Instance.inventorySystem.SellInventory(runState);
+        Debug.Log(GameManager.Instance.totalDebt);
         SceneManager.LoadScene("Post-Game");
     }
 }

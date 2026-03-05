@@ -510,7 +510,7 @@ public class PlayerController : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == "Game")
                 {
                     Debug.Log("End Game FROM PORTAL");
-                    GameManager.Instance.inventorySystem.SellInventory();
+                    GameManager.Instance.runState=true;
                     GameManager.Instance.EndGame();
                 }
                     
