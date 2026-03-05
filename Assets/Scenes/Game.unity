@@ -9478,7 +9478,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1961894545}
   - {fileID: 909532683}
   - {fileID: 711547967}
   - {fileID: 25112287}
@@ -29528,11 +29527,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960438657}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1961894545 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 432545998343087032, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
-  m_PrefabInstance: {fileID: 120150328132882005}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1964602097
 GameObject:
   m_ObjectHideFlags: 0
@@ -31915,19 +31909,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 574102155}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 432545998343087032, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -668.9563
+      value: 30.024475
       objectReference: {fileID: 0}
     - target: {fileID: 432545998343087032, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432545998343087032, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3890.2231
+      value: 19.85205
       objectReference: {fileID: 0}
     - target: {fileID: 432545998343087032, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49845,6 +49839,7 @@ MeshCollider:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 120150328132882005}
   - {fileID: 574102155}
   - {fileID: 8905828807079113212}
   - {fileID: 1383187606}
