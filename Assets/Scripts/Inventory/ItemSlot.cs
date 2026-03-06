@@ -66,27 +66,31 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnLeftClick()
     {
-        GameManager.Instance.inventorySystem.DeselectAllSlots();
+        InventorySystem inventory =
+            GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
+        inventory.DeselectAllSlots();
         selectedShader.SetActive(true);
         isSelected = true;
         if (this.item.data != null)
         {
-            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText(item.data.itemName);
-            GameManager.Instance.inventorySystem.itemDescriptionText.SetText(item.data.itemDescription);
-            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = item.data.icon;
+            inventory.itemDescriptionNameText.SetText(item.data.itemName);
+            inventory.itemDescriptionText.SetText(item.data.itemDescription);
+            inventory.itemDescriptionImage.sprite = item.data.icon;
         }
         else
         {
-            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
+            inventory.itemDescriptionNameText.SetText("");
+            inventory.itemDescriptionText.SetText("");
+            inventory.itemDescriptionImage.sprite = emptySprite;
         }
 
     }
     
     public void OnRightClick()
     {
-        GameManager.Instance.inventorySystem.Remove(item.data);
-        GameManager.Instance.inventorySystem.DeselectAllSlots();
+        InventorySystem inventory =
+            GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
+        inventory.Remove(item.data);
+        inventory.DeselectAllSlots();
     }
 }

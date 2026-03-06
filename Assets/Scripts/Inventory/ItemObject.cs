@@ -6,7 +6,7 @@ public class ItemObject : MonoBehaviour
 
     public void OnHandlePickupItem(InventoryItemData source)
     {
-        GameManager.Instance.inventorySystem.Add(referenceItem);
+        GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem.Add(referenceItem);
         Destroy(gameObject);
     }
 }

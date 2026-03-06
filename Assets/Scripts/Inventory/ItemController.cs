@@ -7,7 +7,7 @@ public class ItemController : MonoBehaviour
 
     public void Pickup()
     {
-        GameManager.Instance.inventorySystem.Add(referenceItem);
+        GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem.Add(referenceItem);
         Destroy(gameObject);
     }
 }

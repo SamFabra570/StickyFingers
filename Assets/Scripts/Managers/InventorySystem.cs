@@ -85,7 +85,6 @@ public class InventorySystem
     public void RefreshInventory()
     {
         int i = 0;
-        Debug.Log(inventory.Count);
         if (inventory.Count == 0)
         {
             itemSlots[0].item.data=null;
@@ -107,49 +106,24 @@ public class InventorySystem
             itemSlots[i].updateItem();
         }
         DeselectAllSlots();
-        GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
+        /*GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
         GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-        GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
+        GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;*/
+        itemDescriptionNameText.SetText("");
+        itemDescriptionText.SetText("");
+        itemDescriptionImage.sprite = emptySprite;
     }
     
     
     public void SellInventory(bool runState)
     {
-        //check safe slot
+        //check safe slot-pending for dev
         if (runState)
         {
             GameManager.Instance.totalDebt-= totalBounty;
-            inventory= new List<InventoryItem>();
-            m_itemDictionary= new Dictionary<InventoryItemData, InventoryItem>();
-            totalBounty = 0;
-            totalWeight = 0;
-            for(int i=0; i<itemSlots.Length; i++)
-            {
-                itemSlots[i].item = new InventoryItem(null);
-                itemSlots[i].item.stackSize = 0;
-                itemSlots[i].updateItem();
-            }
-            DeselectAllSlots();
-            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
         }
         else
         {
-            inventory= new List<InventoryItem>();
-            m_itemDictionary= new Dictionary<InventoryItemData, InventoryItem>();
-            totalBounty = 0;
-            totalWeight = 0;
-            for(int i=0; i<itemSlots.Length; i++)
-            {
-                itemSlots[i].item = new InventoryItem(null);
-                itemSlots[i].item.stackSize = 0;
-                itemSlots[i].updateItem();
-            }
-            DeselectAllSlots();
-            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
         }
 
     }

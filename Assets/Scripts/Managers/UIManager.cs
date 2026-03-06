@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textValueNotif;
     
     public Sprite emptySprite;
+    
+    public InventorySystem inventory;
 
     private void Awake()
     {
@@ -40,14 +42,17 @@ public class UIManager : MonoBehaviour
     {
         //Debug.Log(GameManager.Instance.inventorySystem.totalWeight);
         //Debug.Log(textTotalWeight.name);
+        if (SceneManager.GetActiveScene().name == "Game")
+            inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
         if (textTotalWeight != null) 
-            textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
+            textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
         if (textTotalBounty != null) 
-            textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
+            textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
         if (objectPickupNotif != null) 
             objectPickupNotif.SetActive(false); 
         if (objectRemoveNotif != null) 
             objectRemoveNotif.SetActive(false); 
+        
         
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
@@ -93,8 +98,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTotals()
     {
-        textTotalWeight.SetText("Total Weight: "+GameManager.Instance.inventorySystem.totalWeight);
-        textTotalBounty.SetText("Total Bounty: "+GameManager.Instance.inventorySystem.totalBounty);
+        textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
+        textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
     }
     
     public void showPreviewItem(InventoryItemData itemData)
@@ -164,11 +169,12 @@ public class UIManager : MonoBehaviour
 
         if (screenName == "Inventory")
         {
+            
             inventoryScreen.SetActive(false);
-            GameManager.Instance.inventorySystem.DeselectAllSlots();
-            GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-            GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;
+            inventory.DeselectAllSlots();
+            inventory.itemDescriptionNameText.SetText("");
+            inventory.itemDescriptionText.SetText("");
+            inventory.itemDescriptionImage.sprite = emptySprite;
             //PlayerController.Instance.ToggleCursor();
         }
         
