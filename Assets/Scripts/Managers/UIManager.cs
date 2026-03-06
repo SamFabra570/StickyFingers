@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class UIManager : MonoBehaviour
     [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
     public GameObject inventoryScreen;
+
+    [Header("Weight UI Refs")] 
+    public Image weightFill;
+    public Sprite weightFillGreen;
+    public Sprite weightFillYellow;
+    public Sprite weightFillRed;
+
+    public GameObject mageSpawnNotif;
     
     [Header ("HUD UI Refs")]
     public TextMeshProUGUI textTotalWeight;
@@ -43,7 +52,11 @@ public class UIManager : MonoBehaviour
         //Debug.Log(GameManager.Instance.inventorySystem.totalWeight);
         //Debug.Log(textTotalWeight.name);
         if (SceneManager.GetActiveScene().name == "Game")
+        {
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
+            weightFill = GameObject.Find("WeightFill").GetComponent<Image>();
+        }
+            
         if (textTotalWeight != null) 
             textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
         if (textTotalBounty != null) 
@@ -52,11 +65,38 @@ public class UIManager : MonoBehaviour
             objectPickupNotif.SetActive(false); 
         if (objectRemoveNotif != null) 
             objectRemoveNotif.SetActive(false); 
+        if (mageSpawnNotif != null)
+            mageSpawnNotif.SetActive(false);
         
         
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
         
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            UpdateWeightUI();
+        }
+    }
+
+    public void UpdateWeightUI()
+    {
+        float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
+        weightFill.fillAmount = normalizedWeight;
+        
+        if (normalizedWeight > 0.7f)
+        {
+            weightFill.sprite = weightFillRed;
+        }
+        else if (normalizedWeight <= 0.7f &&  normalizedWeight > 0.3f)
+        {
+            weightFill.sprite = weightFillYellow;
+        }
+        else
+            weightFill.sprite = weightFillGreen;
     }
 
     public void ShowItemPickupNotif(InventoryItemData itemData)
@@ -72,6 +112,20 @@ public class UIManager : MonoBehaviour
     public void ShowItemStolen(InventoryItemData itemData)
     {
         StartCoroutine(itemStolen(itemData));
+    }
+
+    public void ShowMageSpawnNotif()
+    {
+        StartCoroutine(MageSpawnNotif());
+    }
+    
+    private IEnumerator MageSpawnNotif()
+    {
+        mageSpawnNotif.SetActive(true);
+        
+        yield return new WaitForSeconds(2.5f);
+
+        mageSpawnNotif.SetActive(false);
     }
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)

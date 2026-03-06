@@ -332,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: maxWeight
-      value: 500
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: totalDebt

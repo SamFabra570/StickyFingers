@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         rend = GetComponent<Renderer>();
         feedback = GetComponent<AbilityFeedback>();
+
+        //cameraScript = FindFirstObjectByType<IsometricCamera>();
         
         inputMap = new PlayerInput();
 
@@ -242,6 +244,9 @@ public class PlayerController : MonoBehaviour
             currentSpeed = abilityMoveSpeed;
             return;
         }
+
+        if (SceneManager.GetActiveScene().name != "Game")
+            isFloorFrozen = false;
 
         if (isSprinting)
             currentSpeed = sprintSpeed;
@@ -481,6 +486,8 @@ public class PlayerController : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "MainMenu") 
             return;
+
+        Debug.Log("Find camera, scene: " + SceneManager.GetActiveScene().name);
         
         GameObject spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn");
         

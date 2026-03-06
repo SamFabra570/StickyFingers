@@ -29,6 +29,8 @@ public class HUB_UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        totalDebt = GameManager.Instance.maxDebt;
+        
         TogglePlanningUI("Close");
     }
 
@@ -56,7 +58,8 @@ public class HUB_UIManager : MonoBehaviour
 
     private void CalculateDebtRemaining()
     {   
-        float debtRemaining = totalDebt - debtPaid;
+        //GameManager.Instance.maxDebt -= totalDebt;
+        float debtRemaining = GameManager.Instance.totalDebt;
         float normalizedDebt = debtRemaining / totalDebt;
         debtPaidFill.value = 1 - normalizedDebt;
     }
