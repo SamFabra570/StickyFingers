@@ -43,7 +43,7 @@ public class AbilityCooldownUI : MonoBehaviour
             return;
         }
         
-        //Ability active
+        //Ability active - duration fill
         if (IsThisActiveAbility(slot, manager) && 
             (slot.state ==  AbilityState.Active ||  slot.state ==  AbilityState.Ending))
         {

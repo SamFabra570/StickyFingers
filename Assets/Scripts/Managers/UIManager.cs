@@ -15,13 +15,19 @@ public class UIManager : MonoBehaviour
 
     [Header("Weight UI Refs")] 
     public Image weightFill;
+    public Image weightPreviewFill;
     public Sprite weightFillGreen;
     public Sprite weightFillYellow;
     public Sprite weightFillRed;
 
+    [Header ("Mage UI Refs")]
     public GameObject mageSpawnNotif;
+
+    [Header("HUD UI Refs")] 
+    public TextMeshProUGUI interactText;
+
+    public GameObject portalSpawnNotif;
     
-    [Header ("HUD UI Refs")]
     public TextMeshProUGUI textTotalWeight;
     public TextMeshProUGUI textTotalBounty;
     
@@ -67,7 +73,15 @@ public class UIManager : MonoBehaviour
             objectRemoveNotif.SetActive(false); 
         if (mageSpawnNotif != null)
             mageSpawnNotif.SetActive(false);
+        if (portalSpawnNotif != null)
+            portalSpawnNotif.SetActive(false);
         
+        
+        if (interactText != null)
+        {
+            interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
+            interactText.gameObject.SetActive(false);
+        }
         
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
@@ -82,21 +96,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateWeightUI()
+    public void ToggleInteractText(bool showText, string interactType)
     {
-        float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
-        weightFill.fillAmount = normalizedWeight;
+        if (!showText)
+        {
+            interactText.gameObject.SetActive(false);
+            return;
+        }
+
+        switch (interactType)
+        {
+            case "Object":
+                interactText.SetText("Press 'F' to steal");
+                break;
+            case "Interactable":
+                interactText.SetText("Press 'F' to interact");
+                break;
+            case "MashEvent":
+                interactText.SetText("Press 'F' to mash");
+                break;
+        }
         
-        if (normalizedWeight > 0.7f)
-        {
-            weightFill.sprite = weightFillRed;
-        }
-        else if (normalizedWeight <= 0.7f &&  normalizedWeight > 0.3f)
-        {
-            weightFill.sprite = weightFillYellow;
-        }
-        else
-            weightFill.sprite = weightFillGreen;
+        interactText.gameObject.SetActive(true);
     }
 
     public void ShowItemPickupNotif(InventoryItemData itemData)
@@ -118,6 +139,11 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(MageSpawnNotif());
     }
+
+    public void ShowPortalSpawnNotif()
+    {
+        StartCoroutine(PortalSpawnNotif());
+    }
     
     private IEnumerator MageSpawnNotif()
     {
@@ -126,6 +152,15 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
         mageSpawnNotif.SetActive(false);
+    }
+    
+    private IEnumerator PortalSpawnNotif()
+    {
+        portalSpawnNotif.SetActive(true);
+        
+        yield return new WaitForSeconds(2.5f);
+
+        portalSpawnNotif.SetActive(false);
     }
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)
@@ -156,8 +191,30 @@ public class UIManager : MonoBehaviour
         textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
     }
     
+    private void UpdateWeightUI()
+    {
+        float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
+        weightFill.fillAmount = normalizedWeight;
+        
+        //Change UI colour based on weight
+        if (normalizedWeight > 0.66f)
+        {
+            weightFill.sprite = weightFillRed;
+        }
+        else if (normalizedWeight <= 0.66f &&  normalizedWeight > 0.3f)
+        {
+            weightFill.sprite = weightFillYellow;
+        }
+        else
+            weightFill.sprite = weightFillGreen;
+    }
+    
     public void showPreviewItem(InventoryItemData itemData)
     {
+        float previewWeight = inventory.totalWeight + itemData.itemWeight;
+        float normalizedWeightPreview = previewWeight / GameManager.Instance.maxWeight;
+        weightPreviewFill.fillAmount = normalizedWeightPreview;
+        
         textWeightPreview.color = Color.green;
         textWeightPreview.SetText("+ " + itemData.itemWeight);
         textBountyPreview.color = Color.green;
@@ -169,6 +226,8 @@ public class UIManager : MonoBehaviour
     
     public void disablePreview()
     {
+        weightPreviewFill.fillAmount = 0f;
+        
         objectWeightPreview.SetActive(false);
         objectBountyPreview.SetActive(false);
         

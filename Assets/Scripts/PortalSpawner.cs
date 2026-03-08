@@ -23,6 +23,7 @@ public class PortalSpawner : MonoBehaviour
         Transform randomPoint = portalPoints[Random.Range(0, portalPoints.Length)];
         Instantiate(portalPrefab, randomPoint.position, randomPoint.rotation);
         
+        UIManager.Instance.ShowPortalSpawnNotif();
         Debug.Log("PORTAL SPAWNED PORTAL SPAWNED");
     }
 }

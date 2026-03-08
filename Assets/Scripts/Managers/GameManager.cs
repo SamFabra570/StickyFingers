@@ -12,10 +12,6 @@ public class GameManager : MonoBehaviour
     public float maxWeight;
     public bool runState;
 
-    public Transform mageSpawn;
-    [SerializeField] private GameObject magePrefab;
-    [SerializeField] private GameObject mage;
-
     private void Awake()
     {
         if (Instance == null)
@@ -51,18 +47,8 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         //Debug.Log("Game Over: YOU LOSE");
-        Destroy(mage);
         GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem.SellInventory(runState);
         SceneManager.LoadScene("Post-Game");
         runState = false;
-    }
-
-    public void SpawnMage()
-    {
-        GameObject prefab = Resources.Load<GameObject>("Mage");
-        mage = Instantiate(prefab);
-        mage.transform.position = mageSpawn.position;
-        
-        UIManager.Instance.ShowMageSpawnNotif();
     }
 }

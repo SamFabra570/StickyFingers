@@ -39,7 +39,7 @@ public class EnemyScoutAttackState : EnemyScoutState
                 {
                     player.FreezeMovement(2);
                     Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
-                    GameManager.Instance.SpawnMage();
+                    MageSpawner.Instance.SpawnMage();
                     lastAttackTime = Time.time;
                     enemy.gameObject.SetActive(false);
                 }

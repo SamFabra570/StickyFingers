@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,8 +25,16 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (PlayerController.Instance != null)
         {
-            MovePlayerToSpawn(PlayerController.Instance.transform);
+            //MovePlayerToSpawn(PlayerController.Instance.transform);
+            StartCoroutine(MovePlayerNextFrame());
         }
+    }
+    
+    private IEnumerator MovePlayerNextFrame()
+    {
+        yield return null; //wait one frame
+
+        MovePlayerToSpawn(PlayerController.Instance.transform);
     }
 
     private void MovePlayerToSpawn(Transform player)

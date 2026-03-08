@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: maxDebt
-      value: 10000
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: maxWeight
@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: totalDebt
-      value: 10000
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: inventorySystem.emptySprite
@@ -3025,6 +3025,17 @@ Transform:
   - {fileID: 1702677057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &890194697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4382695016865252629, guid: d627b7244c0f4934ba78e6ca7922c579, type: 3}
+  m_PrefabInstance: {fileID: 1884907366}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &894404564
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,6 +4955,10 @@ PrefabInstance:
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 1884907368}
+    - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
+      propertyPath: interactText
+      value: 
+      objectReference: {fileID: 890194697}
     - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
       propertyPath: inventoryScreen
       value: 

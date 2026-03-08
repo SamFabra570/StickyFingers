@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeed = 7f;
     [SerializeField] private float frozenFloorSpeed = 12f;
     public float abilityMoveSpeed;
+    
+    [Range (0, 2)]
+    public int weightLevel; //0 - Light, 1 - Normal, 2 - Overweight
 
     private Vector3 horizontalVelocity;
     
@@ -37,8 +40,6 @@ public class PlayerController : MonoBehaviour
     public bool useGravity = true;
     public float yVelocity;
     [SerializeField] private float gravityMultiplier = 1f;
-    public float heightOffset;
-    private float lastHeightOffset;
 
     private Vector2 inputData;
     private CharacterController controller;
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
                 //Stealable Object
                 case 0:
                     StealObject();
+                    UIManager.Instance.ToggleInteractText(false, "");
                     Debug.Log("Steal object");
                     break;
                 //Interactable Object
@@ -401,11 +403,13 @@ public class PlayerController : MonoBehaviour
             objectToSteal = other.GetComponent<ItemController>();
             
             UIManager.Instance.showPreviewItem(objectToSteal.referenceItem);
+            UIManager.Instance.ToggleInteractText(true, other.tag);
         }
         else if (other.CompareTag("Interactable"))
         {
             interactType = 1;
             interactable = other.gameObject;
+            UIManager.Instance.ToggleInteractText(true, other.tag);
         }
         else if (other.CompareTag("MashEvent"))
         {
@@ -413,7 +417,10 @@ public class PlayerController : MonoBehaviour
             interactable = other.gameObject;
 
             buttonMashObj = interactable.GetComponent<ButtonMash>();
+            UIManager.Instance.ToggleInteractText(true, other.tag);
         }
+        
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -434,6 +441,8 @@ public class PlayerController : MonoBehaviour
             interactable = null;
             buttonMashObj = null;
         }
+        
+        UIManager.Instance.ToggleInteractText(false, "");
     }
 
     private void StealObject()

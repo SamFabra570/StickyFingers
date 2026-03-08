@@ -12,6 +12,7 @@ TagManager:
   - PlayerSpawn
   - MashEvent
   - IceFloor
+  - MageSpawn
   layers:
   - Default
   - TransparentFX
