@@ -132,7 +132,7 @@ public class UIManager : MonoBehaviour
     
     public void ShowItemStolen(InventoryItemData itemData)
     {
-        StartCoroutine(itemStolen(itemData));
+        StartCoroutine(ItemStolen(itemData));
     }
 
     public void ShowMageSpawnNotif()
@@ -209,7 +209,7 @@ public class UIManager : MonoBehaviour
             weightFill.sprite = weightFillGreen;
     }
     
-    public void showPreviewItem(InventoryItemData itemData)
+    public void ShowPreviewItem(InventoryItemData itemData)
     {
         float previewWeight = inventory.totalWeight + itemData.itemWeight;
         float normalizedWeightPreview = previewWeight / GameManager.Instance.maxWeight;
@@ -224,7 +224,7 @@ public class UIManager : MonoBehaviour
         
     }
     
-    public void disablePreview()
+    public void DisablePreview()
     {
         weightPreviewFill.fillAmount = 0f;
         
@@ -233,7 +233,7 @@ public class UIManager : MonoBehaviour
         
     }
     
-    public IEnumerator itemStolen(InventoryItemData itemData)
+    private IEnumerator ItemStolen(InventoryItemData itemData)
     {
         textWeightPreview.color = Color.red;
         textWeightPreview.SetText("- " + itemData.itemWeight);
@@ -267,9 +267,9 @@ public class UIManager : MonoBehaviour
                 //PlayerController.Instance.ToggleCursor();
             }
         }
-            
         
         GameManager.Instance.PauseGame(1);
+        PlayerController.Instance.isPaused = true;
     }
 
     public void HideScreen(string screenName)
@@ -292,6 +292,7 @@ public class UIManager : MonoBehaviour
         }
         
         GameManager.Instance.PauseGame(0);
+        PlayerController.Instance.isPaused = false;
     }
     
     public void LoadScene()

@@ -51,11 +51,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private IsometricCamera cameraScript;
 
     private PlayerInput inputMap;
-    private bool isPaused;
+    public bool isPaused;
 
     [Header ("Freeze Player Checks")]
     [SerializeField] private GameObject forceField;
-    [SerializeField] float freezeDuration = 2f;
+    //[SerializeField] float freezeDuration = 2f;
     public bool isFrozen;
     private bool isFloorFrozen;
 
@@ -134,11 +134,9 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
-                    isPaused = false;
                     UIManager.Instance.HideScreen("Pause");
                     break;
                 case false:
-                    isPaused = true;
                     UIManager.Instance.ShowScreen("Pause");
                     break;
             }
@@ -180,11 +178,9 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
-                    isPaused = false;
                     UIManager.Instance.HideScreen("Inventory");
                     break;
                 case false:
-                    isPaused = true;
                     UIManager.Instance.ShowScreen("Inventory");
                     break;
             }
@@ -402,7 +398,7 @@ public class PlayerController : MonoBehaviour
             interactType = 0;
             objectToSteal = other.GetComponent<ItemController>();
             
-            UIManager.Instance.showPreviewItem(objectToSteal.referenceItem);
+            UIManager.Instance.ShowPreviewItem(objectToSteal.referenceItem);
             UIManager.Instance.ToggleInteractText(true, other.tag);
         }
         else if (other.CompareTag("Interactable"))
@@ -427,7 +423,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Object"))
         {
-            UIManager.Instance.disablePreview();
+            UIManager.Instance.DisablePreview();
             objectToSteal = null;
             
         }
@@ -449,7 +445,7 @@ public class PlayerController : MonoBehaviour
     {
         //Add object to inventory
         objectToSteal.Pickup();
-        UIManager.Instance.disablePreview();
+        UIManager.Instance.DisablePreview();
         Debug.Log("Add " + objectToSteal.name + " to inventory");
     }
 
