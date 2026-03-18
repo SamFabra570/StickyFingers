@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraPivot;
     [SerializeField] private IsometricCamera cameraScript;
 
-    private PlayerInput inputMap;
+    public PlayerInput inputMap;
     public bool isPaused;
 
     [Header ("Freeze Player Checks")]
@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         //cameraScript = FindFirstObjectByType<IsometricCamera>();
         
         inputMap = new PlayerInput();
+        //inputMap = GetComponent<PlayerInput>();
 
         inputMap.Player.Movement.performed += Movement_performed =>
         {
@@ -134,9 +135,12 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
+                    inputMap.UI.Disable();
+                    inputMap.Player.Enable();
                     UIManager.Instance.HideScreen("Pause");
                     break;
                 case false:
+                    
                     UIManager.Instance.ShowScreen("Pause");
                     break;
             }
@@ -178,9 +182,13 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
+                    inputMap.UI.Disable();
+                    inputMap.Player.Enable();
                     UIManager.Instance.HideScreen("Inventory");
                     break;
                 case false:
+                    inputMap.UI.Enable();
+                    inputMap.Player.Disable();
                     UIManager.Instance.ShowScreen("Inventory");
                     break;
             }

@@ -1,17 +1,27 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-
+    
+    public InputActionReference cancelAction;
+    
     [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
     public GameObject inventoryScreen;
+    
+    [SerializeField] private GameObject pauseMenuFirstButton;
+    [SerializeField] private GameObject invMenuFirstObject;
+
+    private EventSystem eventSystem;
 
     [Header("Weight UI Refs")] 
     public Image weightFill;
@@ -51,6 +61,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        eventSystem = EventSystem.current;
     }
 
     private void Start()
@@ -94,6 +106,84 @@ public class UIManager : MonoBehaviour
         {
             UpdateWeightUI();
         }
+    }
+
+    private void OnEnable()
+    {
+        cancelAction.action.performed += OnCancel;
+        cancelAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        cancelAction.action.performed -= OnCancel;
+        cancelAction.action.Disable();
+    }
+
+    private void OnCancel(InputAction.CallbackContext context)
+    {
+        if (pauseScreen.activeSelf)
+            HideScreen("Pause");
+        if (inventoryScreen.activeSelf)
+            HideScreen("Inventory");
+        
+    }
+
+    public void ShowScreen(string screenName)
+    {
+        if (screenName == "Pause")
+        {
+            if (!inventoryScreen.activeSelf)
+            {
+                pauseScreen.SetActive(true);
+                eventSystem.SetSelectedGameObject(pauseMenuFirstButton);
+                //PlayerController.Instance.ToggleCursor();
+            }
+        }
+        
+        if (screenName == "Inventory")
+        {
+            if (!pauseScreen.activeSelf)
+            {
+                inventoryScreen.SetActive(true);
+                //eventSystem.SetSelectedGameObject(invMenuFirstObject);
+                //PlayerController.Instance.ToggleCursor();
+            }
+        }
+        
+        PlayerController.Instance.inputMap.UI.Enable();
+        PlayerController.Instance.inputMap.Player.Disable();
+        
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
+        
+        GameManager.Instance.PauseGame(1);
+        PlayerController.Instance.isPaused = true;
+    }
+
+    public void HideScreen(string screenName)
+    {
+        if (screenName == "Pause")
+        {
+            pauseScreen.SetActive(false);
+            //PlayerController.Instance.ToggleCursor();
+        }
+
+        if (screenName == "Inventory")
+        {
+            
+            inventoryScreen.SetActive(false);
+            inventory.DeselectAllSlots();
+            inventory.itemDescriptionNameText.SetText("");
+            inventory.itemDescriptionText.SetText("");
+            inventory.itemDescriptionImage.sprite = emptySprite;
+            //PlayerController.Instance.ToggleCursor();
+        }
+        
+        PlayerController.Instance.inputMap.UI.Disable();
+        PlayerController.Instance.inputMap.Player.Enable();
+        
+        GameManager.Instance.PauseGame(0);
+        PlayerController.Instance.isPaused = false;
     }
 
     public void ToggleInteractText(bool showText, string interactType)
@@ -246,53 +336,6 @@ public class UIManager : MonoBehaviour
         
         objectWeightPreview.SetActive(false);
         objectBountyPreview.SetActive(false);
-    }
-
-    public void ShowScreen(string screenName)
-    {
-        if (screenName == "Pause")
-        {
-            if (!inventoryScreen.activeSelf)
-            {
-                pauseScreen.SetActive(true);
-                //PlayerController.Instance.ToggleCursor();
-            }
-        }
-        
-        if (screenName == "Inventory")
-        {
-            if (!pauseScreen.activeSelf)
-            {
-                inventoryScreen.SetActive(true);
-                //PlayerController.Instance.ToggleCursor();
-            }
-        }
-        
-        GameManager.Instance.PauseGame(1);
-        PlayerController.Instance.isPaused = true;
-    }
-
-    public void HideScreen(string screenName)
-    {
-        if (screenName == "Pause")
-        {
-            pauseScreen.SetActive(false);
-            //PlayerController.Instance.ToggleCursor();
-        }
-
-        if (screenName == "Inventory")
-        {
-            
-            inventoryScreen.SetActive(false);
-            inventory.DeselectAllSlots();
-            inventory.itemDescriptionNameText.SetText("");
-            inventory.itemDescriptionText.SetText("");
-            inventory.itemDescriptionImage.sprite = emptySprite;
-            //PlayerController.Instance.ToggleCursor();
-        }
-        
-        GameManager.Instance.PauseGame(0);
-        PlayerController.Instance.isPaused = false;
     }
     
     public void LoadScene()

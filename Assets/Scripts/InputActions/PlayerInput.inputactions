@@ -416,7 +416,7 @@
                 {
                     "name": "",
                     "id": "1b1f0fe0-04c0-4354-b3b5-4a551c065f37",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -438,7 +438,7 @@
                 {
                     "name": "",
                     "id": "f676c513-5cc5-4411-af1d-8729574997b8",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -453,6 +453,15 @@
             "id": "e64243c6-ddfe-4f4b-9b58-37b65faa7bac",
             "actions": [
                 {
+                    "name": "Point",
+                    "type": "PassThrough",
+                    "id": "9049d247-d1b9-422f-813f-18a314f10372",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Navigate",
                     "type": "PassThrough",
                     "id": "10b37d71-e92d-4b00-8388-d6e941f00191",
@@ -462,7 +471,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Select",
+                    "name": "Submit",
                     "type": "Button",
                     "id": "3b4ee1cf-68df-43cd-b76b-f840068f48b9",
                     "expectedControlType": "",
@@ -471,7 +480,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Back",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "e5a72e93-a09f-4948-a648-9d9fc6e42af8",
                     "expectedControlType": "",
@@ -484,15 +493,6 @@
                     "type": "Button",
                     "id": "e2b3b513-b965-4524-9347-a4bb0c331ad8",
                     "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Point",
-                    "type": "PassThrough",
-                    "id": "9049d247-d1b9-422f-813f-18a314f10372",
-                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -568,7 +568,7 @@
                 {
                     "name": "up",
                     "id": "650dc1d9-2563-4a1f-ae76-0119627e5de4",
-                    "path": "<Joystick>/stick/up",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -579,7 +579,7 @@
                 {
                     "name": "down",
                     "id": "abd773af-7ded-4338-8877-aaf88e277d77",
-                    "path": "<Joystick>/stick/down",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -590,7 +590,7 @@
                 {
                     "name": "left",
                     "id": "8c8d91cd-e5df-410b-a703-7a0b0bcd751a",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -601,7 +601,7 @@
                 {
                     "name": "right",
                     "id": "b2bae8e2-6b98-4c59-92bf-7a69f2650e8a",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -671,7 +671,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -682,7 +682,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -693,7 +693,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Back",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -701,17 +701,6 @@
                     "name": "",
                     "id": "8bb947d3-0736-4cde-a586-4b879b64b958",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7b16c18e-57f5-436b-a55b-864eebea7b98",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
