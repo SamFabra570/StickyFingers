@@ -16,9 +16,6 @@ public class EnemyAttackState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        
-        Debug.Log("ATTACK STATE");
-
         enemy.agent_.stoppingDistance = enemy.attack_distance_;
         enemy.agent_.isStopped = true;
         

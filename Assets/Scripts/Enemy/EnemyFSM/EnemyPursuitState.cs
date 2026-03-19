@@ -12,7 +12,6 @@ public class EnemyPursuitState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        
         enemy.fireEffect.SetActive(true);
     }
 

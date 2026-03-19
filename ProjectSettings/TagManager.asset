@@ -13,6 +13,7 @@ TagManager:
   - MashEvent
   - IceFloor
   - MageSpawn
+  - Enemy
   layers:
   - Default
   - TransparentFX

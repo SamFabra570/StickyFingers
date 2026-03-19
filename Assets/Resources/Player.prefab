@@ -143,6 +143,85 @@ MonoBehaviour:
   anisotropy: -0.217
   scattering: 2
   radius: 0.53
+--- !u!1 &2188519940088483173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5886890822548947912}
+  - component: {fileID: 4437587336150526827}
+  - component: {fileID: 4146313502766882808}
+  m_Layer: 0
+  m_Name: SoundGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5886890822548947912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188519940088483173}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.48132855, y: 0.0074100494, z: 0.13535714}
+  m_LocalScale: {x: 4, y: 1, z: 1.4285713}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6159478961986830444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4437587336150526827
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188519940088483173}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4146313502766882808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188519940088483173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3890679e12f0e924484880be3e399122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundPlayer
+  distance_: 2
+  angle_: 180
+  height_: 10
+  sensor_layer_:
+    serializedVersion: 2
+    m_Bits: 256
+  sensor_layer_2:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacles_layer_:
+    serializedVersion: 2
+    m_Bits: 1
+  detected_object_: {fileID: 0}
 --- !u!1 &2201933445579731402
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +775,7 @@ Transform:
   - {fileID: 1552750469070931223}
   - {fileID: 6414361086847194175}
   - {fileID: 7573293503745997305}
+  - {fileID: 5886890822548947912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &795615795163098966
@@ -796,6 +876,7 @@ MonoBehaviour:
   sprintSpeed: 7
   frozenFloorSpeed: 12
   abilityMoveSpeed: 0
+  weightLevel: 0
   acceleration: 40
   deceleration: 50
   rotationSpeed: 720
@@ -804,11 +885,10 @@ MonoBehaviour:
   useGravity: 1
   yVelocity: 0
   gravityMultiplier: 1
-  heightOffset: 0
   cameraPivot: {fileID: 0}
   cameraScript: {fileID: 0}
+  isPaused: 0
   forceField: {fileID: 2826084008003131337}
-  freezeDuration: 2
   isFrozen: 0
   wings: {fileID: 3011595244263410902}
   isInvisible: 0

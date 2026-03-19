@@ -23,7 +23,7 @@ public class BaseEnemy : MonoBehaviour
     public List<Transform> waypoints;
     public Transform currentTarget;
     private int index = 0;
-    private bool isMovingToWaypoint = false;
+    public bool isMovingToWaypoint = false;
     public float patrolWaitTime = 2.0f;
 
     //Searching for player

@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
+    private Collider detectedEnemy; 
     
     private void Awake()
     {
@@ -236,7 +237,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateSpeed();
-        
+        detectedEnemy = GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().detected_object_;
+        if (detectedEnemy!=null)
+        {
+            Transform soundLocation = transform;
+            
+            if(detectedEnemy.gameObject.GetComponent<BaseEnemy>()!=null)  
+                detectedEnemy.gameObject.GetComponent<BaseEnemy>().agent_.SetDestination(soundLocation.position) ;
+            else if(detectedEnemy.gameObject.GetComponent<BaseScoutEnemy>()!=null)  
+                detectedEnemy.gameObject.GetComponent<BaseScoutEnemy>().agent_.SetDestination(soundLocation.position);
+            else if(detectedEnemy.gameObject.GetComponent<BaseMageEnemy>()!=null)  
+                detectedEnemy.gameObject.GetComponent<BaseMageEnemy>().agent_.SetDestination(soundLocation.position);
+        }
         if (!isFrozen) 
             CorrectMovement();
         
@@ -255,11 +267,19 @@ public class PlayerController : MonoBehaviour
             isFloorFrozen = false;
 
         if (isSprinting)
+        {
             currentSpeed = sprintSpeed;
+            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 4f;
+        }
         else if (isFloorFrozen)
             currentSpeed = frozenFloorSpeed;
         else
+        {
             currentSpeed = baseMoveSpeed;
+            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 2f;
+        }
+
+        
     }
 
     private void CorrectMovement()

@@ -50,13 +50,16 @@ public class Sight : MonoBehaviour
             {
                 if(!Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit,  obstacles_layer_))
                 {
+                    
                     Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
                     detected_object_ = single_collider;
+                    Debug.Log(detected_object_.name);
                     break;
                 }
                 else
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.green);
+                    detected_object_ = single_collider;
                 }
             }
         }
