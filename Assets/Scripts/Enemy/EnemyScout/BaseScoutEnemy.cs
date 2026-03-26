@@ -36,7 +36,8 @@ public class BaseScoutEnemy : MonoBehaviour
     //Attacking
     public float attack_distance_ = 2.0f;
     public float stop_attack_distance_multiplier = 1.2f;
-
+    
+    [SerializeField] public bool isBeingSeen;
     private void Awake()
     {
         agent_ = GetComponent<NavMeshAgent>();

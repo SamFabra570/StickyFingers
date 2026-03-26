@@ -53,7 +53,6 @@ public class Sight : MonoBehaviour
                     
                     Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
                     detected_object_ = single_collider;
-                    Debug.Log(detected_object_.name);
                     break;
                 }
                 else

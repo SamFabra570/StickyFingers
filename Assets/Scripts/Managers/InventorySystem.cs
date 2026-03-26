@@ -45,6 +45,8 @@ public class InventorySystem
             itemSlots[freeSlot].AddItem(newItem);
             freeSlot++;
         }
+
+        GameManager.Instance.UpdateSpeed(totalWeight);
         UIManager.Instance.UpdateTotals();
         UIManager.Instance.ShowItemPickupNotif(referenceData);
     }
@@ -67,6 +69,7 @@ public class InventorySystem
                 }
                 RefreshInventory();
             }
+            GameManager.Instance.UpdateSpeed(totalWeight);
             UIManager.Instance.ShowItemRemoveNotif(referenceData);
             UIManager.Instance.UpdateTotals();
         }

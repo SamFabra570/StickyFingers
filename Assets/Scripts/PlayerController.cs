@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header ("Player Movement")]
     private float currentSpeed;
     private bool isSprinting;
-    [SerializeField] private float baseMoveSpeed = 5f;
+    [SerializeField] public float baseMoveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 7f;
     [SerializeField] private float frozenFloorSpeed = 12f;
     public float abilityMoveSpeed;
