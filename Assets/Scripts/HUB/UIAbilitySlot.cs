@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class UIAbilitySlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] private GameObject equippedAbility;
-    
-    private void Update()
+
+    private void OnTransformChildrenChanged()
     {
         if (transform.childCount == 0)
             ResetAbilitySlot();
@@ -29,21 +29,18 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
         if (gameObject.CompareTag("Slot1"))
         {
             AbilityManager.Instance.EquipAbility(0, slot);
-            //equippedAbility = abilityObject.gameObject;
             Debug.Log("Ability 1 set" + slot.ability);
         }
             
         else if (gameObject.CompareTag("Slot2"))
         {
             AbilityManager.Instance.EquipAbility(1, slot);
-            //equippedAbility = abilityObject.gameObject;
             Debug.Log("Ability 2 set" + slot.ability);
         }
             
         else if (gameObject.CompareTag("Slot3"))
         {
             AbilityManager.Instance.EquipAbility(2, slot);
-            //equippedAbility = abilityObject.gameObject;
             Debug.Log("Ability 3 set: " + slot.ability);
         }
     }

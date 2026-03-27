@@ -12,8 +12,6 @@ public class HUB_UIManager : MonoBehaviour
 
     [Header("Planning UI Refs")]
     public Canvas planningUI;
-    public GameObject loadoutScreen;
-    public GameObject detailsScreen;
     public Animator detailsScreenAnim;
     public GameObject readyButton;
 
@@ -24,7 +22,9 @@ public class HUB_UIManager : MonoBehaviour
     public EventSystem eventSystem;
     
     [Header ("Ability Slot UI Refs")]
-    public int selectedSlot;
+    public GameObject selectedSlot;
+    public GameObject selectedAbility;
+    
     public GameObject slot1;
     public GameObject slot2;
     public GameObject slot3;
@@ -80,8 +80,6 @@ public class HUB_UIManager : MonoBehaviour
                 eventSystem.SetSelectedGameObject(slot1);
                 break;
         }
-        
-        
     }
 
     private void CalculateDebtRemaining()
@@ -92,28 +90,45 @@ public class HUB_UIManager : MonoBehaviour
         debtPaidFill.value = 1 - normalizedDebt;
     }
 
-    public void SelectAbilitySlot(int slotNumber)
+    public void SelectAbilitySlot()
     {
+        selectedSlot = eventSystem.currentSelectedGameObject;
+        
         eventSystem.SetSelectedGameObject(firstAbility);
         cancelType = "BackToSlotSelect";
-        selectedSlot = slotNumber;
     }
 
     public void SelectAbility()
     {
-        switch (selectedSlot)
+        selectedAbility =  eventSystem.currentSelectedGameObject;
+        DraggableItem slot = selectedAbility.GetComponentInChildren<DraggableItem>();
+        
+        switch (selectedSlot.name)
         {
-            case 0:
+            case "AbilitySlot1":
+                AbilityManager.Instance.EquipAbility(0, slot.ability);
+                Debug.Log("Ability 1 set" + slot.ability);
+                
                 eventSystem.SetSelectedGameObject(slot2);
                 break;
-            case 1:
+            case "AbilitySlot2":
+                AbilityManager.Instance.EquipAbility(1, slot.ability);
+                Debug.Log("Ability 2 set" + slot.ability);
+                
                 eventSystem.SetSelectedGameObject(slot3);
                 break;
-            case 2:
+            case "AbilitySlot3":
+                AbilityManager.Instance.EquipAbility(2, slot.ability);
+                Debug.Log("Ability 3 set" + slot.ability);
+                
                 eventSystem.SetSelectedGameObject(readyButton);
                 cancelType = "BackToSlot3";
                 break;
         }
+        
+        slot.transform.SetParent(selectedSlot.transform);
+        
+        selectedSlot = null;
     }
     
     private void OnEnable()

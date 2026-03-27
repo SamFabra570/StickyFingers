@@ -349,7 +349,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""8eda496d-75ce-427c-8591-d644de85c45d"",
                     ""path"": ""<Gamepad>/start"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",

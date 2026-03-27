@@ -88,7 +88,10 @@ public class AbilityManager : MonoBehaviour
     public void EquipAbility(int slotIndex, AbilitySlot ability)
     {
         if (slotIndex < 0 || slotIndex >= abilities.Length)
+        {
             Debug.LogWarning("EquipAbility: Invalid Slot Index");
+            return;
+        }
         
         abilities[slotIndex] = ability;
     }
