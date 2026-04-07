@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        AbilityManager.Instance.DeactivateAbilitiesGameOver();
         //Debug.Log("Game Over: YOU LOSE");
         GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem.SellInventory(runState);
         SceneManager.LoadScene("Post-Game");

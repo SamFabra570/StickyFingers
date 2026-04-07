@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Decoy")]
-public class DecoyAbility : Ability
+[CreateAssetMenu(menuName = "Abilities/Lockpick")]
+public class LockpickAbility : Ability
 {
     public override void Activate(GameObject user)
     {

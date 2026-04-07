@@ -85,6 +85,22 @@ public class AbilityManager : MonoBehaviour
             activeSlot.ability = null;
     }
 
+    public void DeactivateAbilitiesGameOver()
+    {
+        foreach (var slot in abilities)
+        {
+            if (slot?.ability != null)
+            {
+                slot.ability.Deactivate(gameObject);
+                slot.isActive = false;
+                slot.state = AbilityState.Ready;
+                
+                if (activeSlot.ability == slot.ability)
+                    activeSlot.ability = null;
+            }
+        }
+    }
+
     public void EquipAbility(int slotIndex, AbilitySlot ability)
     {
         if (slotIndex < 0 || slotIndex >= abilities.Length)

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c575bd3b10b6654bbc672a1fa6b4266, type: 3}
-  m_Name: Decoy
-  m_EditorClassIdentifier: Assembly-CSharp::DecoyAbility
-  abilityName: Decoy
+  m_Script: {fileID: 11500000, guid: ca7fff3d5e27b18478ea7c215fff9a5d, type: 3}
+  m_Name: Lockpick
+  m_EditorClassIdentifier: Assembly-CSharp::LockpickAbility
+  abilityName: LockPick
   icon: {fileID: 0}
-  abilityColour: {fileID: 0}
-  duration: 10
+  abilityColour: {fileID: 2100000, guid: 9d0b5c989707fc64c8afc11d2643a613, type: 2}
+  duration: 5
   warningThreshold: 0.3
-  cooldown: 40
+  cooldown: 10

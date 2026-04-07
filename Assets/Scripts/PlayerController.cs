@@ -23,9 +23,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeed = 7f;
     [SerializeField] private float frozenFloorSpeed = 12f;
     public float abilityMoveSpeed;
-    
-    [Range (0, 2)]
-    public int weightLevel; //0 - Light, 1 - Normal, 2 - Overweight
 
     private Vector3 horizontalVelocity;
     
@@ -35,6 +32,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnAccelerationBonus = 20f;
     
     [SerializeField] private float turnSpeed = 360f;
+
+    [Header("Weight Mechanic")] 
+    [SerializeField] private float currentWeight;
+    
+    public float encumberedThreshold = 0.4f;
+    public float overencumberedThreshold = 0.7f;
+
+    //Value to subtract from speed
+    public float encumberedSpeedModifier = -1;
+    public float overencumberedSpeedModifier = -3;
     
     [Header ("Player Gravity")]
     public bool useGravity = true;
@@ -61,6 +68,7 @@ public class PlayerController : MonoBehaviour
 
     [Header ("Ability Checks")]
     public GameObject wings;
+    public GameObject vacuumZone;
 
     public bool isInvisible;
 
@@ -136,8 +144,8 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
-                    inputMap.UI.Disable();
-                    inputMap.Player.Enable();
+                    //inputMap.UI.Disable();
+                    //inputMap.Player.Enable();
                     UIManager.Instance.HideScreen("Pause");
                     break;
                 case false:
@@ -161,10 +169,17 @@ public class PlayerController : MonoBehaviour
             {
                 //Stealable Object
                 case 0:
-                    StealObject();
-                    UIManager.Instance.ToggleInteractText(false, "");
-                    Debug.Log("Steal object");
+                    if (currentWeight <= 1)
+                    {
+                        StealObject();
+                        UIManager.Instance.ToggleInteractText(false, "");
+                        Debug.Log("Steal object");
+                        
+                    }
+                    else
+                        Debug.Log("UR SO FAT U CANT EVEN STEAL ANYMORE");
                     break;
+                    
                 //Interactable Object
                 case 1:
                     Interact(interactable);
@@ -183,13 +198,13 @@ public class PlayerController : MonoBehaviour
             switch (isPaused)
             {
                 case true:
-                    inputMap.UI.Disable();
-                    inputMap.Player.Enable();
+                    //inputMap.UI.Disable();
+                    //inputMap.Player.Enable();
                     UIManager.Instance.HideScreen("Inventory");
                     break;
                 case false:
-                    inputMap.UI.Enable();
-                    inputMap.Player.Disable();
+                    //inputMap.UI.Enable();
+                    //inputMap.Player.Disable();
                     UIManager.Instance.ShowScreen("Inventory");
                     break;
             }
@@ -257,9 +272,14 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpeed()
     {
+        currentWeight = UIManager.Instance.normalizedWeight;
+        
+        //If ability is active, override speed
         if (abilityMoveSpeed > 0)
         {
             currentSpeed = abilityMoveSpeed;
+            acceleration = 40;
+            deceleration = 50;
             return;
         }
 
@@ -268,18 +288,54 @@ public class PlayerController : MonoBehaviour
 
         if (isSprinting)
         {
-            currentSpeed = sprintSpeed;
+            //Light
+            if (currentWeight < encumberedThreshold)
+            {
+                currentSpeed = sprintSpeed;
+            }
+            //Heavy
+            else if (currentWeight >= encumberedThreshold &&  currentWeight < overencumberedThreshold)
+            {
+                currentSpeed = sprintSpeed + encumberedSpeedModifier;
+            }
+            //Fat as shit
+            else if (currentWeight >= overencumberedThreshold)
+            {
+                currentSpeed = sprintSpeed + overencumberedSpeedModifier;
+            }
+            
             GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 4f;
         }
         else if (isFloorFrozen)
+        {
             currentSpeed = frozenFloorSpeed;
+            acceleration = 5;
+            deceleration = 1f;
+        }
+            
+        //Base settings
         else
         {
-            currentSpeed = baseMoveSpeed;
+            //Light
+            if (currentWeight < encumberedThreshold)
+            {
+                currentSpeed = baseMoveSpeed;
+            }
+            //Heavy
+            else if (currentWeight >= encumberedThreshold &&  currentWeight < overencumberedThreshold)
+            {
+                currentSpeed = baseMoveSpeed + encumberedSpeedModifier;
+            }
+            //Fat as shit
+            else if (currentWeight >= overencumberedThreshold)
+            {
+                currentSpeed = baseMoveSpeed + overencumberedSpeedModifier;
+            }
+            
+            acceleration = 40;
+            deceleration = 50;
             GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 2f;
         }
-
-        
     }
 
     private void CorrectMovement()
@@ -365,14 +421,10 @@ public class PlayerController : MonoBehaviour
         {
             case true:
                 Debug.Log("slippy slidey");
-                acceleration = 5;
-                deceleration = 1f;
                 isFloorFrozen = true;
                 break;
             case false:
                 Debug.Log("back 2 normal");
-                acceleration = 40;
-                deceleration = 50;
                 isFloorFrozen = false;
                 break;
         }

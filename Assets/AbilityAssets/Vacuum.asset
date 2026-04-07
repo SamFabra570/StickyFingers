@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VacuumAbility
   abilityName: Vacuum
   icon: {fileID: 0}
-  abilityColour: {fileID: 0}
-  duration: 10
+  abilityColour: {fileID: 2100000, guid: f99840d89d54a444f91e9fbe6fa78672, type: 2}
+  duration: 5
   warningThreshold: 0.3
-  cooldown: 60
+  cooldown: 40

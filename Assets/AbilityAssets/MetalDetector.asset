@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MetalDetectorAbility
   abilityName: Metal Detector
   icon: {fileID: 0}
-  abilityColour: {fileID: 0}
+  abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
   duration: 10
   warningThreshold: 0.3
   cooldown: 30

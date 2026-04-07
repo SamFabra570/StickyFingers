@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     private EventSystem eventSystem;
 
     [Header("Weight UI Refs")] 
+    public float normalizedWeight;
+    
     public Image weightFill;
     public Image weightPreviewFill;
     public Sprite weightFillGreen;
@@ -151,8 +153,8 @@ public class UIManager : MonoBehaviour
             }
         }
         
-        PlayerController.Instance.inputMap.UI.Enable();
-        PlayerController.Instance.inputMap.Player.Disable();
+        //PlayerController.Instance.inputMap.UI.Enable();
+        //PlayerController.Instance.inputMap.Player.Disable();
         
         Debug.Log(EventSystem.current.currentSelectedGameObject);
         
@@ -170,17 +172,20 @@ public class UIManager : MonoBehaviour
 
         if (screenName == "Inventory")
         {
-            
             inventoryScreen.SetActive(false);
-            inventory.DeselectAllSlots();
-            inventory.itemDescriptionNameText.SetText("");
-            inventory.itemDescriptionText.SetText("");
-            inventory.itemDescriptionImage.sprite = emptySprite;
+            
+            if (SceneManager.GetActiveScene().name == "Game")
+            {
+                inventory.DeselectAllSlots();
+                inventory.itemDescriptionNameText.SetText("");
+                inventory.itemDescriptionText.SetText("");
+                inventory.itemDescriptionImage.sprite = emptySprite;
+            }
             //PlayerController.Instance.ToggleCursor();
         }
         
-        PlayerController.Instance.inputMap.UI.Disable();
-        PlayerController.Instance.inputMap.Player.Enable();
+        //PlayerController.Instance.inputMap.UI.Disable();
+        //PlayerController.Instance.inputMap.Player.Enable();
         
         GameManager.Instance.PauseGame(0);
         PlayerController.Instance.isPaused = false;
@@ -283,7 +288,7 @@ public class UIManager : MonoBehaviour
     
     private void UpdateWeightUI()
     {
-        float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
+        normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
         weightFill.fillAmount = normalizedWeight;
         
         //Change UI colour based on weight
