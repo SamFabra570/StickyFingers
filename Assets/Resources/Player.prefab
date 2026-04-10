@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 6829586981103127943}
   - component: {fileID: 5447146543190700706}
   - component: {fileID: 6362559549422800968}
+  - component: {fileID: 2828715455557092964}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1015,6 +1016,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2828715455557092964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ea32e2b5d00864a9223663fbbae523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVisionCone
+  visionAngle: 90
+  visionRadius: 10
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  scanInterval: 0.1
 --- !u!1 &7945150919521066269
 GameObject:
   m_ObjectHideFlags: 0
