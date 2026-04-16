@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     public InventoryItemData inventoryItem;
     private Collider detectedEnemy; 
     
+    private CharacterController cc;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -238,6 +239,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        cc = GetComponent<CharacterController>();
         forceField.SetActive(false);
         wings.SetActive(false);
 
@@ -252,6 +254,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateSpeed();
+        bool isMoving = cc.velocity.sqrMagnitude > 0.0001f;
+        if (!isMoving)
+            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 0f;
         detectedEnemy = GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().detected_object_;
         if (detectedEnemy!=null)
         {
@@ -281,6 +286,8 @@ public class PlayerController : MonoBehaviour
             currentSpeed = 0;
             return;
         }
+        
+        Rigidbody rb = GetComponent<Rigidbody>();
         
         //If ability is active, override speed
         if (abilityMoveSpeed > 0)
