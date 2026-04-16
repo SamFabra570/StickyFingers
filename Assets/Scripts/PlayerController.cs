@@ -272,7 +272,15 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpeed()
     {
+        //Weight on a scale from 0-1
         currentWeight = UIManager.Instance.normalizedWeight;
+        
+        //If over max weight, stop movement
+        if (currentWeight > 1)
+        {
+            currentSpeed = 0;
+            return;
+        }
         
         //If ability is active, override speed
         if (abilityMoveSpeed > 0)
@@ -312,8 +320,7 @@ public class PlayerController : MonoBehaviour
             acceleration = 5;
             deceleration = 1f;
         }
-            
-        //Base settings
+        
         else
         {
             //Light
@@ -332,6 +339,7 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = baseMoveSpeed + overencumberedSpeedModifier;
             }
             
+            //Base acceleration settings
             acceleration = 40;
             deceleration = 50;
             GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 2f;

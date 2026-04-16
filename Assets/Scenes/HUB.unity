@@ -3742,7 +3742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -590866653, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}
+  m_Sprite: {fileID: -1150737885, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5018,7 +5018,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -813255441, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}
+  m_Sprite: {fileID: -1450906818, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6216,7 +6216,7 @@ PrefabInstance:
     - target: {fileID: 3543944305880891642, guid: d627b7244c0f4934ba78e6ca7922c579, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 656464104, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}
+      objectReference: {fileID: -709837167, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
     - target: {fileID: 3840616481245980288, guid: d627b7244c0f4934ba78e6ca7922c579, type: 3}
       propertyPath: m_text
       value: Close
