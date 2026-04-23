@@ -1,13 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonMash : MonoBehaviour
 {
     private bool isMashing;
 
     [SerializeField] private int buttonPressNeeded = 20;
-    [SerializeField] private float maxEventTime = 15;
-    [SerializeField] private float timeRemaining = 15;
+    [SerializeField] public float maxEventTime = 15;
+    [SerializeField] public float timeRemaining = 15;
 
     private float buttonMashInterval;
 
@@ -28,6 +29,8 @@ public class ButtonMash : MonoBehaviour
                 timeRemaining = maxEventTime;
                 ToggleMashingEvent(false);
                 UIManager.Instance.ToggleInteractText(false, "");
+                UIManager.Instance.mashBar.gameObject.SetActive(false);
+                UIManager.Instance.isMashing = false;
                 Destroy(gameObject);
             }
         }
@@ -44,8 +47,10 @@ public class ButtonMash : MonoBehaviour
                 //Set number of mashes needed for min time
                 buttonMashInterval = maxEventTime / buttonPressNeeded;
                 timeRemaining = maxEventTime;
-        
+                
                 ToggleMashingEvent(true);
+                UIManager.Instance.mashBar.gameObject.SetActive(true);
+                UIManager.Instance.SetTriggeredObject(gameObject);
             }
         }
         

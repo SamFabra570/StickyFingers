@@ -47,6 +47,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textBountyPreview;
     public GameObject objectWeightPreview;
     public GameObject objectBountyPreview;
+
+    [Header("Object Trigger UI Refs")] 
+    public GameObject triggeredObject;
+
+    public Slider mashBar;
+    public bool isMashing;
+    private ButtonMash mashScript;
     
     [Header ("Object Pick Up Notification Refs")]
     public GameObject objectPickupNotif;
@@ -108,6 +115,9 @@ public class UIManager : MonoBehaviour
         {
             UpdateWeightUI();
         }
+        
+        if (isMashing)
+            UpdateMashBar();
     }
 
     private void OnEnable()
@@ -189,6 +199,15 @@ public class UIManager : MonoBehaviour
         
         GameManager.Instance.PauseGame(0);
         PlayerController.Instance.isPaused = false;
+    }
+    
+    public void SetTriggeredObject(GameObject objectTriggered)
+    {
+        if (objectTriggered.GetComponent<ButtonMash>())
+        {
+            mashScript = objectTriggered.GetComponent<ButtonMash>();
+            isMashing = true;
+        }
     }
 
     public void ToggleInteractText(bool showText, string interactType)
@@ -278,6 +297,12 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
         objectRemoveNotif.SetActive(false);
+    }
+    
+    private void UpdateMashBar()
+    {
+        float normalizedTimeRemaining = mashScript.timeRemaining / mashScript.maxEventTime;
+        mashBar.value = normalizedTimeRemaining;
     }
 
     public void UpdateTotals()

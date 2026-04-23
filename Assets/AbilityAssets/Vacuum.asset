@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vacuum
   m_EditorClassIdentifier: Assembly-CSharp::VacuumAbility
   abilityName: Vacuum
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 27838551a2375c244bd6b889526cab3d, type: 3}
   abilityColour: {fileID: 2100000, guid: f99840d89d54a444f91e9fbe6fa78672, type: 2}
   duration: 5
   warningThreshold: 0.3

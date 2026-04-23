@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
     private ItemController objectToSteal;
     private GameObject interactable;
     private int interactType;
+    
+    public CompassArrow arrow;
 
     public ButtonMash buttonMashObj;
     
@@ -596,6 +598,8 @@ public class PlayerController : MonoBehaviour
     
         //Rebind camera on spawn
         cameraScript = FindFirstObjectByType<IsometricCamera>();
+
+        arrow = GetComponentInChildren<CompassArrow>(true);
         
         if (cameraScript != null)
         {
@@ -616,6 +620,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name == "Game")
                 {
+                    arrow.SetActive(false);
+                    
                     Debug.Log("End Game FROM PORTAL");
                     GameManager.Instance.runState=true;
                     GameManager.Instance.EndGame();

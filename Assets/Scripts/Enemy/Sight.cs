@@ -17,7 +17,7 @@ public class Sight : MonoBehaviour
     public Collider detected_object_;
 
     //new vision cone
-   //the vision cone will be made up of triangles, the higher this value is the pretier the vision cone will be
+   //the vision cone will be made up of triangles, the higher this value is the prettier the vision cone will be
     private void Start()
     {
        
@@ -59,6 +59,7 @@ public class Sight : MonoBehaviour
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.green);
                     detected_object_ = single_collider;
+                    
                 }
             }
         }

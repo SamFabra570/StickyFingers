@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
-  m_Name: InventoryItemData_HeavyBall
+  m_Name: InventoryItemData_bitcoin
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
-  id: 3
+  id: 0
   itemType: 0
-  itemName: Ball
-  itemDescription: aaagghhhhh so heavyyy so faaatttt
-  itemWeight: 50
-  itemPrice: 0
+  itemName: Bitcoin
+  itemDescription: one hundred million billion
+  itemWeight: 5
+  itemPrice: 1000
   icon: {fileID: 0}
   prefab: {fileID: 0}

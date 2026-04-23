@@ -20,11 +20,6 @@ public class IsometricCamera : MonoBehaviour
     [SerializeField] private float smoothTime;
     private Vector3 currentVelocity = Vector3.zero;
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         offset = transform.position - target.position;
