@@ -22,7 +22,7 @@ public class CompassArrow : MonoBehaviour
         if (direction.sqrMagnitude < 0.001f) 
             return;
 
-        if (direction.magnitude < 5f)
+        if (direction.magnitude < 2.5f)
             SetActive(false);
             
         arrowObj.forward = Vector3.Slerp(arrowObj.forward, direction.normalized, Time.deltaTime * 10f);

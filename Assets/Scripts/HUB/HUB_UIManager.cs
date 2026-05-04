@@ -14,6 +14,7 @@ public class HUB_UIManager : MonoBehaviour
     public Canvas planningUI;
     public Animator detailsScreenAnim;
     public GameObject readyButton;
+    public GameObject passiveAbilitySlot;
 
     [Header("Debt UI")]
     public Slider debtPaidFill;
@@ -98,6 +99,7 @@ public class HUB_UIManager : MonoBehaviour
         cancelType = "BackToSlotSelect";
     }
 
+    //Select ability using controller
     public void SelectAbility()
     {
         selectedAbility =  eventSystem.currentSelectedGameObject;
@@ -121,8 +123,14 @@ public class HUB_UIManager : MonoBehaviour
                 AbilityManager.Instance.EquipAbility(2, slot.ability);
                 Debug.Log("Ability 3 set" + slot.ability);
                 
-                eventSystem.SetSelectedGameObject(readyButton);
+                eventSystem.SetSelectedGameObject(passiveAbilitySlot);
                 cancelType = "BackToSlot3";
+                break;
+            case "PassiveAbilitySlot":
+                //Add equip passive ability logic here
+                
+                eventSystem.SetSelectedGameObject(readyButton);
+                cancelType = "BackToPassiveAbilitySlot";
                 break;
         }
         
@@ -131,18 +139,6 @@ public class HUB_UIManager : MonoBehaviour
         selectedSlot = null;
     }
     
-    private void OnEnable()
-    {
-        cancelAction.action.performed += OnCancel;
-        cancelAction.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        cancelAction.action.performed -= OnCancel;
-        cancelAction.action.Disable();
-    }
-
     private void OnCancel(InputAction.CallbackContext context)
     {
         switch (cancelType)
@@ -155,12 +151,30 @@ public class HUB_UIManager : MonoBehaviour
                 cancelType = "Exit";
                 break;
             case "BackToSlot2":
+                eventSystem.SetSelectedGameObject(slot2);
+                cancelType = "BackToSlotSelect";
                 break;
             case "BackToSlot3":
                 eventSystem.SetSelectedGameObject(slot3);
                 cancelType = "BackToSlot2";
                 break;
+            case "BackToPassiveAbilitySlot":
+                eventSystem.SetSelectedGameObject(passiveAbilitySlot);
+                cancelType = "BackToSlot3";
+                break;
         }
         
+    }
+    
+    private void OnEnable()
+    {
+        cancelAction.action.performed += OnCancel;
+        cancelAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        cancelAction.action.performed -= OnCancel;
+        cancelAction.action.Disable();
     }
 }

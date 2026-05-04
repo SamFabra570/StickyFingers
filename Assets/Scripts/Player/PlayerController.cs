@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
                     {
                         StealObject();
                         UIManager.Instance.ToggleInteractText(false, "");
-                        Debug.Log("Steal object");
+                        //Debug.Log("Steal object");
                         
                     }
                     else
@@ -186,12 +186,12 @@ public class PlayerController : MonoBehaviour
                 //Interactable Object
                 case 1:
                     Interact(interactable);
-                    Debug.Log("Interact");
+                    //Debug.Log("Interact");
                     break;
                 //Mash Event
                 case 2:
                     buttonMashObj.MashEvent();
-                    Debug.Log("Mashing button");
+                    //Debug.Log("Mashing button");
                     break;
             }
         };
