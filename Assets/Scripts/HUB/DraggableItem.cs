@@ -2,9 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public enum AbilityType
+{
+    Ability,
+    Passive
+}
+
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public AbilityType abilityType;
+    
     public AbilitySlot ability;
+    public PassiveAbilities passiveAbility;
     
     public Image image;
     [HideInInspector] public Transform parentAfterDrag;
@@ -31,3 +40,5 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
     }
 }
+
+

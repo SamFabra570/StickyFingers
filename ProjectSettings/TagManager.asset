@@ -14,7 +14,7 @@ TagManager:
   - IceFloor
   - MageSpawn
   - Enemy
-  - PassiveAbilitySlot
+  - PassiveSlot
   layers:
   - Default
   - TransparentFX

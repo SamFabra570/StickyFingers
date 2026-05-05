@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class UIAbilitySlot : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private GameObject equippedAbility;
+    //[SerializeField] private GameObject equippedAbility;
 
     private void OnTransformChildrenChanged()
     {
@@ -19,8 +19,17 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
             GameObject dropped = eventData.pointerDrag;
             DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
             draggableItem.parentAfterDrag = transform;
+
+            if (draggableItem.abilityType == AbilityType.Ability)
+            {
+                SetAbilitySlot(draggableItem.ability);
+            }
+
+            else if (draggableItem.abilityType == AbilityType.Passive)
+            {
+                SetPassiveSlot(draggableItem.passiveAbility);
+            }
             
-            SetAbilitySlot(draggableItem.ability);
         }
     }
 
@@ -44,6 +53,15 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
             Debug.Log("Ability 3 set: " + slot.ability);
         }
     }
+    
+    private void SetPassiveSlot(PassiveAbilities passive)
+    {
+        PassiveAbilityController playerPassives = GameManager.Instance.PlayerPassives;
+
+        playerPassives.EquipPassive(passive);
+
+        Debug.Log("Passive equipped: " + passive);
+    }
 
     private void ResetAbilitySlot()
     {
@@ -53,8 +71,6 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
             AbilityManager.Instance.DequipAbility(1);
         else if(gameObject.CompareTag("Slot3"))
             AbilityManager.Instance.DequipAbility(2);
-        
-        //equippedAbility = null;
     }
 
     private void SetActiveAbilities()

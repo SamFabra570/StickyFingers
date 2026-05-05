@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: 8fa91a51a64c60c4799421d260cb91bb, type: 2}
     state: 0
@@ -177,6 +178,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 6041384}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &6041384
@@ -334,6 +336,10 @@ PrefabInstance:
       propertyPath: totalDebt
       value: 100000
       objectReference: {fileID: 0}
+    - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
+      propertyPath: PlayerPassives
+      value: 
+      objectReference: {fileID: 1835290637}
     - target: {fileID: 2732701789640737385, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
       propertyPath: inventorySystem.emptySprite
       value: 
@@ -1317,7 +1323,7 @@ GameObject:
   - component: {fileID: 273091076}
   - component: {fileID: 273091075}
   m_Layer: 5
-  m_Name: VacuumAbility
+  m_Name: SecondChancePassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1355,13 +1361,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
-    ability: {fileID: 11400000, guid: f5b15e8162d566c45a769cb3bfb6d3fd, type: 2}
+    ability: {fileID: 0}
     state: 0
     cooldownRemaining: 0
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 3
   image: {fileID: 273091076}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &273091076
@@ -1521,7 +1529,7 @@ GameObject:
   - component: {fileID: 322226178}
   - component: {fileID: 322226177}
   m_Layer: 5
-  m_Name: WingsAbility
+  m_Name: SafetySlotPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1559,13 +1567,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
-    ability: {fileID: 11400000, guid: 8fa91a51a64c60c4799421d260cb91bb, type: 2}
+    ability: {fileID: 0}
     state: 0
     cooldownRemaining: 0
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 1
   image: {fileID: 322226178}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &322226178
@@ -2046,6 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 0}
     state: 0
@@ -2053,6 +2064,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 413023267}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &413023267
@@ -3060,7 +3072,7 @@ GameObject:
   - component: {fileID: 719494698}
   - component: {fileID: 719494697}
   m_Layer: 5
-  m_Name: DetectorAbility
+  m_Name: 5thPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3098,13 +3110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
-    ability: {fileID: 11400000, guid: 164ff6d4dd5e9fd408d4a5b4bbf07f2e, type: 2}
+    ability: {fileID: 0}
     state: 0
     cooldownRemaining: 0
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 719494698}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &719494698
@@ -3271,6 +3285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: f5b15e8162d566c45a769cb3bfb6d3fd, type: 2}
     state: 0
@@ -3278,6 +3293,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 734874988}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &734874988
@@ -3369,6 +3385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: f49291e3b278b7a4abaece952719b125, type: 2}
     state: 0
@@ -3376,6 +3393,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 741631009}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &741631009
@@ -4856,7 +4874,7 @@ PrefabInstance:
       objectReference: {fileID: 1016626029}
     - target: {fileID: 7378229440952227733, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
       propertyPath: m_Name
-      value: LockpickContainer
+      value: 6thPassiveContainer
       objectReference: {fileID: 0}
     - target: {fileID: 7378229440952227733, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
       propertyPath: m_TagString
@@ -5498,7 +5516,7 @@ GameObject:
   - component: {fileID: 1297318992}
   - component: {fileID: 1297318991}
   m_Layer: 5
-  m_Name: LockpickAbility
+  m_Name: 6thPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5535,6 +5553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
     ability: {fileID: 0}
     state: 0
@@ -5542,6 +5561,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 1297318992}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &1297318992
@@ -6274,7 +6294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7378229440952227733, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: PassiveSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6452,6 +6472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: 164ff6d4dd5e9fd408d4a5b4bbf07f2e, type: 2}
     state: 0
@@ -6459,6 +6480,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 1444986739}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &1444986739
@@ -7097,7 +7119,7 @@ PrefabInstance:
       objectReference: {fileID: 1040104518}
     - target: {fileID: 7378229440952227733, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
       propertyPath: m_Name
-      value: DetectorContainer
+      value: 5thPassiveContainer
       objectReference: {fileID: 0}
     - target: {fileID: 7378229440952227733, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
       propertyPath: m_TagString
@@ -7397,6 +7419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}
     state: 0
@@ -7404,6 +7427,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 1667409311}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &1667409311
@@ -7878,8 +7902,8 @@ RectTransform:
   m_Children:
   - {fileID: 1532712846}
   - {fileID: 893058818}
-  - {fileID: 1525079339}
   - {fileID: 1016626030}
+  - {fileID: 1525079339}
   - {fileID: 1589136710}
   - {fileID: 1040104517}
   m_Father: {fileID: 1409580313}
@@ -8070,6 +8094,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2726319787159557766, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
   m_PrefabInstance: {fileID: 1040784085}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1835290637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6641461818834371875, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
+  m_PrefabInstance: {fileID: 17741110}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c531132699e6f4b8baa90e1f2a39af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveAbilityController
 --- !u!224 &1849115221 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2726319787159557766, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
@@ -8684,6 +8719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 0
   ability:
     ability: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}
     state: 0
@@ -8691,6 +8727,7 @@ MonoBehaviour:
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 0
   image: {fileID: 1998833783}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &1998833783
@@ -8783,7 +8820,7 @@ GameObject:
   - component: {fileID: 2059096840}
   - component: {fileID: 2059096839}
   m_Layer: 5
-  m_Name: InvisibilityAbility
+  m_Name: EndlessPocketsPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8821,13 +8858,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
-    ability: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}
+    ability: {fileID: 0}
     state: 0
     cooldownRemaining: 0
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 2
   image: {fileID: 2059096840}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &2059096840
@@ -9252,7 +9291,7 @@ GameObject:
   - component: {fileID: 2142765272}
   - component: {fileID: 2142765271}
   m_Layer: 5
-  m_Name: PhaseAbility
+  m_Name: ExtraTimePassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9290,13 +9329,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e3f05690ba91499816a4a7616e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  abilityType: 1
   ability:
-    ability: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}
+    ability: {fileID: 0}
     state: 0
     cooldownRemaining: 0
     durationThreshold: 0
     durationRemaining: 0
     isActive: 0
+  passiveAbility: 4
   image: {fileID: 2142765272}
   parentAfterDrag: {fileID: 0}
 --- !u!114 &2142765272

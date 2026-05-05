@@ -5,10 +5,12 @@ public class TimeManager : MonoBehaviour
 {
     [Header ("Timer Length (Seconds)")]
     [SerializeField] private float countdownTime = 300f;
+    [SerializeField] private float extraTime = 60f;
     
     private float remainingTime;
     private bool lastMinute;
     
+    [Header ("UI Refs")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject lastMinuteEffect;
 
@@ -17,7 +19,16 @@ public class TimeManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        remainingTime = countdownTime;
+        var passive = GameManager.Instance.PlayerPassives;
+
+        if (passive.Has(PassiveAbilities.ExtraTime))
+        {
+            remainingTime = countdownTime + extraTime;
+            Debug.Log("Extra time added");
+        }
+        else 
+            remainingTime = countdownTime;
+        
         lastMinuteEffect.SetActive(false);
     }
 

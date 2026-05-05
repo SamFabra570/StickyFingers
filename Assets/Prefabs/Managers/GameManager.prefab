@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 432545998343087032}
   - component: {fileID: 2732701789640737385}
   - component: {fileID: 422437699519084927}
+  - component: {fileID: 6641461818834371875}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57d33ca2d3274d4bb6ec6223622ba74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  inventorySystem:
-    inventory: []
-    totalWeight: 0
-    totalBounty: 0
+  PlayerPassives: {fileID: 0}
+  maxDebt: 0
+  totalDebt: 0
+  maxWeight: 0
+  runState: 0
 --- !u!114 &422437699519084927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,3 +64,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
   playerPrefab: {fileID: 0}
+--- !u!114 &6641461818834371875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818170219135605266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c531132699e6f4b8baa90e1f2a39af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveAbilityController

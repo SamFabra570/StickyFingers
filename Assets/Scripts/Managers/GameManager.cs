@@ -7,9 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public PassiveAbilityController PlayerPassives;
+
     public float maxDebt;
     public float totalDebt;
     public float maxWeight;
+    public float endlessPocketsWeight = 500;
     public bool runState;
 
     private void Awake()
@@ -42,6 +45,12 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Game");
+
+        if (PlayerPassives.Has(PassiveAbilities.EndlessPockets))
+        {
+            maxWeight = endlessPocketsWeight;
+            Debug.Log("Endless Pockets activated. Max Weight: " + maxWeight);
+        }
     }
 
     public void EndGame()
