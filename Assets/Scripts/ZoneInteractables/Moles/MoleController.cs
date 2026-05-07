@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MoleController : MonoBehaviour
 {
-    [SerializeField] private float detectionRadius = 3f;
+    //[SerializeField] private float detectionRadius = 3f;
     [SerializeField] private GameObject moleHolePrefab;
 
     private bool hasBeenScared;

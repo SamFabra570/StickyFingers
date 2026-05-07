@@ -285,6 +285,9 @@ public class PlayerController : MonoBehaviour
         //If over max weight, stop movement
         if (currentWeight > 1)
         {
+            if (SceneManager.GetActiveScene().name == "Game") 
+                UIManager.Instance.weightStateText.text = ("Overweight");
+            
             currentSpeed = 0;
             return;
         }
@@ -335,16 +338,25 @@ public class PlayerController : MonoBehaviour
             //Light
             if (currentWeight < encumberedThreshold)
             {
+                if (SceneManager.GetActiveScene().name == "Game") 
+                    UIManager.Instance.weightStateText.text = ("Light");
+                
                 currentSpeed = baseMoveSpeed;
             }
             //Heavy
             else if (currentWeight >= encumberedThreshold &&  currentWeight < overencumberedThreshold)
             {
+                if (SceneManager.GetActiveScene().name == "Game") 
+                    UIManager.Instance.weightStateText.text = ("Medium");
+                
                 currentSpeed = baseMoveSpeed + encumberedSpeedModifier;
             }
             //Fat as shit
             else if (currentWeight >= overencumberedThreshold)
             {
+                if (SceneManager.GetActiveScene().name == "Game") 
+                    UIManager.Instance.weightStateText.text = ("Heavy");
+                
                 currentSpeed = baseMoveSpeed + overencumberedSpeedModifier;
             }
             

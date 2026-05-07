@@ -1,12 +1,11 @@
 using UnityEngine;
 using TMPro;
-using UnityEditor;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
-    public InventoryItem item=null;
-    public bool isFull = false;
+    public InventoryItem item;
+    public bool isFull;
     public Sprite emptySprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public TMP_Text priceText;
@@ -16,11 +15,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public Image image;
     
     public GameObject selectedShader;
-    public bool isSelected = false;
+    public bool isSelected;
 
     public void AddItem(InventoryItem source)
     {
-        this.item = source;
+        item = source;
         isFull = true;
         
         quantityText.SetText(""+source.stackSize);
@@ -34,11 +33,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
     public void updateItem()
     {
-        if (this.item.data != null)
+        if (item.data != null)
         {
-            quantityText.SetText(""+this.item.stackSize);
-            weightText.SetText(""+(this.item.data.itemWeight*this.item.stackSize));
-            priceText.SetText(""+(this.item.data.itemPrice*this.item.stackSize));
+            quantityText.SetText(""+item.stackSize);
+            weightText.SetText(""+(item.data.itemWeight * item.stackSize));
+            priceText.SetText(""+(item.data.itemPrice * item.stackSize));
         }
         else
         {
@@ -71,7 +70,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventory.DeselectAllSlots();
         selectedShader.SetActive(true);
         isSelected = true;
-        if (this.item.data != null)
+        if (item.data != null)
         {
             inventory.itemDescriptionNameText.SetText(item.data.itemName);
             inventory.itemDescriptionText.SetText(item.data.itemDescription);

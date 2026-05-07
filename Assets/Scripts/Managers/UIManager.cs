@@ -17,13 +17,26 @@ public class UIManager : MonoBehaviour
     [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
     public GameObject inventoryScreen;
+    public GameObject HUDCanvas;
     
     [SerializeField] private GameObject pauseMenuFirstButton;
     [SerializeField] private GameObject invMenuFirstObject;
 
     private EventSystem eventSystem;
+    
+    [Header("Inventory UI Refs")]
+    public Image weightFillInv;
+    public Image weightPreviewFillInv;
+    public TextMeshProUGUI weightStateText;
+    public TextMeshProUGUI totalWeightText;
+    public TextMeshProUGUI maxWeightText;
 
-    [Header("Weight UI Refs")] 
+    public TextMeshProUGUI totalBountyText;
+
+    public Image passiveBackground;
+    public Image passiveIcon;
+
+    [Header("Weight HUD Refs")] 
     public float normalizedWeight;
     
     public Image weightFill;
@@ -82,6 +95,7 @@ public class UIManager : MonoBehaviour
         {
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
             weightFill = GameObject.Find("WeightFill").GetComponent<Image>();
+            UpdatePassiveUI(GameManager.Instance.PlayerPassives.equippedPassive);
         }
             
         if (textTotalWeight != null) 
@@ -114,6 +128,7 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Game")
         {
             UpdateWeightUI();
+            UpdateInventoryUI();
         }
         
         if (isMashing)
@@ -138,7 +153,26 @@ public class UIManager : MonoBehaviour
             HideScreen("Pause");
         if (inventoryScreen.activeSelf)
             HideScreen("Inventory");
-        
+    }
+
+    private void UpdateInventoryUI()
+    {
+        maxWeightText.text = ("" + GameManager.Instance.maxWeight);
+        totalWeightText.text = (inventory.totalWeight + " /");
+
+        if (inventory.totalBounty > 0) 
+            totalBountyText.text = ("" + inventory.totalBounty);
+    }
+
+    private void UpdatePassiveUI(PassivesUIData passive)
+    {
+        if (passive != null)
+        {
+            if (passive.icon != null) 
+                passiveIcon.sprite = passive.icon;
+            
+            passiveBackground.color = passive.frameColor;
+        }
     }
 
     public void ShowScreen(string screenName)
@@ -155,9 +189,13 @@ public class UIManager : MonoBehaviour
         
         if (screenName == "Inventory")
         {
+            if (SceneManager.GetActiveScene().name != "Game")
+                return;
+            
             if (!pauseScreen.activeSelf)
             {
                 inventoryScreen.SetActive(true);
+                HUDCanvas.SetActive(false);
                 //eventSystem.SetSelectedGameObject(invMenuFirstObject);
                 //PlayerController.Instance.ToggleCursor();
             }
@@ -183,6 +221,7 @@ public class UIManager : MonoBehaviour
         if (screenName == "Inventory")
         {
             inventoryScreen.SetActive(false);
+            HUDCanvas.SetActive(true);
             
             if (SceneManager.GetActiveScene().name == "Game")
             {
@@ -315,18 +354,25 @@ public class UIManager : MonoBehaviour
     {
         normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
         weightFill.fillAmount = normalizedWeight;
+        weightFillInv.fillAmount = normalizedWeight;
         
         //Change UI colour based on weight
         if (normalizedWeight > 0.66f)
         {
             weightFill.sprite = weightFillRed;
+            weightFillInv.sprite = weightFillRed;
         }
         else if (normalizedWeight <= 0.66f &&  normalizedWeight > 0.3f)
         {
             weightFill.sprite = weightFillYellow;
+            weightFillInv.sprite = weightFillYellow;
         }
         else
+        {
             weightFill.sprite = weightFillGreen;
+            weightFillInv.sprite = weightFillGreen;
+        }
+            
     }
     
     public void ShowPreviewItem(InventoryItemData itemData)
@@ -334,6 +380,7 @@ public class UIManager : MonoBehaviour
         float previewWeight = inventory.totalWeight + itemData.itemWeight;
         float normalizedWeightPreview = previewWeight / GameManager.Instance.maxWeight;
         weightPreviewFill.fillAmount = normalizedWeightPreview;
+        weightPreviewFillInv.fillAmount = normalizedWeightPreview;
         
         textWeightPreview.color = Color.green;
         textWeightPreview.SetText("+ " + itemData.itemWeight);
@@ -347,6 +394,7 @@ public class UIManager : MonoBehaviour
     public void DisablePreview()
     {
         weightPreviewFill.fillAmount = 0f;
+        weightPreviewFillInv.fillAmount = 0f;
         
         objectWeightPreview.SetActive(false);
         objectBountyPreview.SetActive(false);
