@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4aba2fd2de06b4a83c8e92bc5445e0, type: 3}
   m_Name: MetalDetector
   m_EditorClassIdentifier: Assembly-CSharp::MetalDetectorAbility
+  abilityID: MetalDetector
   abilityName: Metal Detector
   icon: {fileID: 21300000, guid: b3316864a48bd5e49a19f59c55b7ee80, type: 3}
   abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
+  debtThreshold: 0
+  requiredUnlockItems: 0
+  unlockItemID: 
+  unlockItemAmount: 0
   duration: 10
   warningThreshold: 0.3
   cooldown: 30

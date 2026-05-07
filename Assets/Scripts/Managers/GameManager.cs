@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class GameManager : MonoBehaviour
     public PassiveAbilityController PlayerPassives;
 
     public float maxDebt;
-    public float totalDebt;
+    public float remainingDebt;
     public float maxWeight;
     public float endlessPocketsWeight = 500;
     public bool runState;
@@ -28,6 +26,7 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject); 
         
+        remainingDebt = maxDebt;
     }
     public void PauseGame(int pauseState)
     {
@@ -84,5 +83,12 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Find("Player(Clone)").GetComponent<PlayerController>().baseMoveSpeed = 5f;
         }
+    }
+
+    public float GetDebtPaidPercent()
+    {
+        float normalizedDebt = remainingDebt / maxDebt;
+        
+        return 1 - normalizedDebt;
     }
 }

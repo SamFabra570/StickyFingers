@@ -123,7 +123,7 @@ public class InventorySystem
         //check safe slot-pending for dev
         if (runState)
         {
-            GameManager.Instance.totalDebt-= totalBounty;
+            GameManager.Instance.remainingDebt-= totalBounty;
         }
         else
         {

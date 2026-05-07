@@ -12,13 +12,16 @@ public class HUB_UIManager : MonoBehaviour
 
     [Header("Planning UI Refs")]
     public Canvas planningUI;
+    public GameObject detailsScreen;
     public Animator detailsScreenAnim;
     public GameObject readyButton;
     public GameObject passiveAbilitySlot;
 
+    [Header("Progression UI Refs")] 
+    public GameObject progressionScreen;
+
     [Header("Debt UI")]
     public Slider debtPaidFill;
-    [SerializeField] private float totalDebt;
     
     public EventSystem eventSystem;
     
@@ -48,8 +51,6 @@ public class HUB_UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        totalDebt = GameManager.Instance.maxDebt;
-        
         TogglePlanningUI("Close");
     }
 
@@ -70,8 +71,14 @@ public class HUB_UIManager : MonoBehaviour
                 break;
             case "Show":
                 planningUI.enabled = true;
+                if (progressionScreen.activeSelf)
+                    progressionScreen.SetActive(false);
+                
+                if (!detailsScreen.activeSelf)
+                    detailsScreen.SetActive(true);
+                
                 eventSystem.SetSelectedGameObject(slot1);
-                CalculateDebtRemaining();
+                debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
                 break;
             case "Details":
                 detailsScreenAnim.Play("ShowDetails");
@@ -80,15 +87,15 @@ public class HUB_UIManager : MonoBehaviour
                 detailsScreenAnim.Play("HideDetails");
                 eventSystem.SetSelectedGameObject(slot1);
                 break;
+            case "Progression":
+                planningUI.enabled = true;
+                if (!progressionScreen.activeSelf)
+                    progressionScreen.SetActive(true);
+                
+                if (detailsScreen.activeSelf)
+                    detailsScreen.SetActive(false);
+                break;
         }
-    }
-
-    private void CalculateDebtRemaining()
-    {   
-        //GameManager.Instance.maxDebt -= totalDebt;
-        float debtRemaining = GameManager.Instance.totalDebt;
-        float normalizedDebt = debtRemaining / totalDebt;
-        debtPaidFill.value = 1 - normalizedDebt;
     }
 
     public void SelectAbilitySlot()

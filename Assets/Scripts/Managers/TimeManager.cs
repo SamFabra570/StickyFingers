@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float countdownTime = 300f;
     [SerializeField] private float extraTime = 60f;
     
-    private float remainingTime;
+    [SerializeField] private float remainingTime;
     private bool lastMinute;
     
     [Header ("UI Refs")]

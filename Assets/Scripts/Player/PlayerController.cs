@@ -638,7 +638,6 @@ public class PlayerController : MonoBehaviour
                     GameManager.Instance.runState=true;
                     GameManager.Instance.EndGame();
                 }
-                    
                 
                 if (SceneManager.GetActiveScene().name == "HUB")
                     GameManager.Instance.StartGame();
@@ -650,6 +649,12 @@ public class PlayerController : MonoBehaviour
         if (obj.name == "PlanningDesk")
         {
             HUB_UIManager.Instance.TogglePlanningUI("Show");
+            FreezeMovement(0);
+        }
+
+        if (obj.name == "ProgressionDesk")
+        {
+            HUB_UIManager.Instance.TogglePlanningUI("Progression");
             FreezeMovement(0);
         }
     }
