@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        // TEMPORAL: apunta a Game2 para probar ZoneInteractables en desarrollo.
+        // Revertir a "Game" cuando todas las mecánicas estén implementadas y probadas.
+        SceneManager.LoadScene("Game2");
 
         if (PlayerPassives.Has(PassiveAbilities.EndlessPockets))
         {

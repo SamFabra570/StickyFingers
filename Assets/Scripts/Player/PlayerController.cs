@@ -324,7 +324,8 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = sprintSpeed + overencumberedSpeedModifier;
             }
             
-            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 4f;
+            float sprintRadius = RainController.Instance != null && RainController.Instance.IsRaining ? 2f : 4f;
+            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = sprintRadius;
         }
         else if (isFloorFrozen)
         {
@@ -656,6 +657,11 @@ public class PlayerController : MonoBehaviour
         {
             HUB_UIManager.Instance.TogglePlanningUI("Progression");
             FreezeMovement(0);
+        }
+
+        if (obj.TryGetComponent(out IInteractable interactable))
+        {
+            interactable.Interact(gameObject);
         }
     }
 
