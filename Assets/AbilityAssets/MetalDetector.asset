@@ -16,7 +16,7 @@ MonoBehaviour:
   abilityName: Metal Detector
   icon: {fileID: 21300000, guid: b3316864a48bd5e49a19f59c55b7ee80, type: 3}
   abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
-  debtThreshold: 0
+  debtThreshold: 0.45
   requiredUnlockItems: 0
   unlockItemID: 
   unlockItemAmount: 0

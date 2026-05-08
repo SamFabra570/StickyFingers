@@ -38,4 +38,9 @@ public class CompassArrow : MonoBehaviour
         isActive = value;
         arrowObj.gameObject.SetActive(value);
     }
+
+    public void SetColour(Material colour)
+    {
+        arrowObj.GetComponent<MeshRenderer>().material = colour;
+    }
 }

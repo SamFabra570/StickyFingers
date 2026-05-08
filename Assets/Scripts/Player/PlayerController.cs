@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     public bool isPaused;
 
     [Header ("Freeze Player Checks")]
-    [SerializeField] private GameObject forceField;
+    [SerializeField] private GameObject stunField;
     //[SerializeField] float freezeDuration = 2f;
     public bool isFrozen;
     private bool isFloorFrozen;
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
     [Header ("Ability Checks")]
     public GameObject wings;
     public GameObject vacuumZone;
+    public GameObject forceField;
 
     public bool isInvisible;
 
@@ -464,17 +465,17 @@ public class PlayerController : MonoBehaviour
     {
         isFrozen = true;
 
-        if (forceField != null)
+        if (stunField != null)
         {
-            forceField.transform.position = transform.position;
-            forceField.SetActive(true);
+            stunField.transform.position = transform.position;
+            stunField.SetActive(true);
         }
         
         yield return new WaitForSeconds(freezeDur);
 
-        if (forceField != null)
+        if (stunField != null)
         {
-            forceField.SetActive(false);
+            stunField.SetActive(false);
         }
         
         isFrozen = false;

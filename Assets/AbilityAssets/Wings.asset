@@ -16,7 +16,7 @@ MonoBehaviour:
   abilityName: Wings
   icon: {fileID: 21300000, guid: 9687dfa63ddafe0469c9a94a9a114852, type: 3}
   abilityColour: {fileID: 2100000, guid: 5d15444556022ba40b620f48140eaf54, type: 2}
-  debtThreshold: 0.05
+  debtThreshold: 0.04
   requiredUnlockItems: 0
   unlockItemID: 
   unlockItemAmount: 0
