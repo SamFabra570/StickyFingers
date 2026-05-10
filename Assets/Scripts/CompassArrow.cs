@@ -4,6 +4,7 @@ public class CompassArrow : MonoBehaviour
 {
     [SerializeField] private Transform arrowObj;
     [SerializeField] private Transform currentTarget;
+    [SerializeField] private Material baseColour;
 
     private bool isActive;
 
@@ -41,6 +42,13 @@ public class CompassArrow : MonoBehaviour
 
     public void SetColour(Material colour)
     {
-        arrowObj.GetComponent<MeshRenderer>().material = colour;
+        if (colour != null)
+        {
+            arrowObj.GetComponentInChildren<MeshRenderer>().material = colour;
+            
+            return;
+        }
+        
+        arrowObj.GetComponentInChildren<MeshRenderer>().material = baseColour;
     }
 }

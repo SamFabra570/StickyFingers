@@ -20,6 +20,6 @@ MonoBehaviour:
   requiredUnlockItems: 0
   unlockItemID: 
   unlockItemAmount: 0
-  duration: 1.5
+  duration: 7.5
   warningThreshold: 0.3
-  cooldown: 15
+  cooldown: 25

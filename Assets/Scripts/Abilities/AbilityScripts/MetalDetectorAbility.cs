@@ -29,6 +29,7 @@ public class MetalDetectorAbility : Ability
             Debug.Log(bestItem);
             arrow.SetActive(true);
             arrow.SetTarget(bestItem.transform);
+            arrow.SetColour(null);
         }
     }
 

@@ -11,6 +11,7 @@ public class BaseEnemy : MonoBehaviour
     public EnemyState searchState;
     public EnemyState pursuitState;
     public EnemyState attackState;
+    public EnemyStunnedState stunnedState;
     
     public Animator animationController;
     
@@ -18,6 +19,7 @@ public class BaseEnemy : MonoBehaviour
     public NavMeshAgent agent_;
     
     public GameObject fireEffect;
+    public GameObject stunEffect;
     
     //Patrolling
     public List<Transform> waypoints;
@@ -48,6 +50,7 @@ public class BaseEnemy : MonoBehaviour
     void Start()
     {
         fireEffect.SetActive(false);
+        stunEffect.SetActive(false);
         
         if (waypoints.Count > 0 && waypoints[0] != null)
         {
@@ -66,6 +69,7 @@ public class BaseEnemy : MonoBehaviour
         searchState = new EnemySearchState(this, stateMachine, animationController, "Search");
         pursuitState = new EnemyPursuitState(this, stateMachine, animationController, "Pursuit");
         attackState = new EnemyAttackState(this, stateMachine, animationController, "Attack");
+        stunnedState = new EnemyStunnedState(this, stateMachine, animationController, "Stunned");
 
         //Start patrol state
         stateMachine.InitializeStateMachine(patrolState);
@@ -144,5 +148,12 @@ public class BaseEnemy : MonoBehaviour
             currentTarget = nearestWaypoint;
             index = waypoints.IndexOf(nearestWaypoint);
         }
+    }
+
+    public void Stun(float duration)
+    {
+        stunnedState.SetStunDuration(duration);
+        
+        stateMachine.ChangeState(stunnedState);
     }
 }

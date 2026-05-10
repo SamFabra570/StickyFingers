@@ -3,6 +3,7 @@ using UnityEngine;
 public class PortalSpawner : MonoBehaviour
 {
     [SerializeField] Transform[] portalPoints;
+    [SerializeField] private Material portalMat;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,5 +42,6 @@ public class PortalSpawner : MonoBehaviour
     {
         arrow.SetActive(true);
         arrow.SetTarget(target.transform);
+        arrow.SetColour(portalMat);
     }
 }

@@ -6,7 +6,13 @@ public class EnemyMageAttackState : EnemyMageState
 
     private float attackCooldown = 1f;
     private float lastAttackTime = -Mathf.Infinity;
+
+    private bool hasUsedSecondChance;
     
+    [SerializeField] private float mapRange = 50f;
+    
+    //private bool isTeleporting = false;
+    private Transform playerTransform;
     
     public EnemyMageAttackState(BaseMageEnemy _enemy, EnemyMageStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
@@ -39,9 +45,35 @@ public class EnemyMageAttackState : EnemyMageState
                 if (Time.time >= lastAttackTime + attackCooldown)
                 {
                     PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
+                    
                     if (player != null)
                     {
-                        GameManager.Instance.EndGame();
+                        var passive = GameManager.Instance.PlayerPassives;
+                        
+                        if (passive.Has(PassiveAbilities.SecondChance) && !hasUsedSecondChance)
+                        {
+                            playerTransform = player.transform;
+                            
+                            if (RandomNavMeshPoint.TryGetRandomPoint(mapRange, out Vector3 destination))
+                            {
+                                //isTeleporting = true;
+            
+                                CharacterController cc = playerTransform.GetComponent<CharacterController>();
+            
+                                destination.y += cc.height / 2f + cc.skinWidth;
+                                cc.enabled = false;
+                                playerTransform.position = destination;
+                                cc.enabled = true;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("SecondChance: Could not find a valid NavMesh point to teleport to.");
+                            }
+
+                            hasUsedSecondChance = true;
+                        }
+                        else 
+                            GameManager.Instance.EndGame();
                     }
                 }
             }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float maxDebt;
     public float remainingDebt;
     public float maxWeight;
-    public float endlessPocketsWeight = 500;
+    public float deeperPocketsWeight = 500;
     public bool runState;
 
     private void Awake()
@@ -45,11 +45,12 @@ public class GameManager : MonoBehaviour
     {
         // TEMPORAL: apunta a Game2 para probar ZoneInteractables en desarrollo.
         // Revertir a "Game" cuando todas las mecánicas estén implementadas y probadas.
-        SceneManager.LoadScene("Game2");
+        SceneManager.LoadScene("Game");
+        //SceneManager.LoadScene("Game2");
 
-        if (PlayerPassives.Has(PassiveAbilities.EndlessPockets))
+        if (PlayerPassives.Has(PassiveAbilities.DeeperPockets))
         {
-            maxWeight = endlessPocketsWeight;
+            maxWeight = deeperPocketsWeight;
             Debug.Log("Endless Pockets activated. Max Weight: " + maxWeight);
         }
     }

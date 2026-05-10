@@ -4,7 +4,7 @@ public enum PassiveAbilities
 {
     None,
     SafetySlot,
-    EndlessPockets,
+    DeeperPockets,
     SecondChance,
     ExtraTime
 }

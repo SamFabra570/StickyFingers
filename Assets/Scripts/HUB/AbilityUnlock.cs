@@ -10,6 +10,7 @@ public class AbilityUnlock : MonoBehaviour
     
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI abilityName;
+    [SerializeField] private GameObject abilityLockOverlay;
     //[SerializeField] private TextMeshProUGUI abilityIcon;
     //[SerializeField] private TextMeshProUGUI abilityDescription;
     [SerializeField] private Button unlockButton;
@@ -42,6 +43,7 @@ public class AbilityUnlock : MonoBehaviour
     private void UnlockAbility()
     {
         progressionManager.UnlockAbility(ability);
+        abilityLockOverlay.SetActive(false);
         
         UpdateState();
     }
