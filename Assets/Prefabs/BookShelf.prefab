@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8035009501859959727
+--- !u!1 &8993924055189899877
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 766243237965853546}
-  - component: {fileID: 3834333707653397011}
-  - component: {fileID: 4158092428716655607}
-  - component: {fileID: 794172407457675465}
-  - component: {fileID: 1326252951599300620}
-  - component: {fileID: 3318344970948515216}
+  - component: {fileID: 9158518820823266242}
+  - component: {fileID: 1008500232616846886}
+  - component: {fileID: 8822081565427388573}
+  - component: {fileID: 4907512646482351603}
+  - component: {fileID: 3464468041896475507}
+  - component: {fileID: 1117377395684121116}
   m_Layer: 0
-  m_Name: GoldNecklace
-  m_TagString: Object
+  m_Name: BookShelf
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &766243237965853546
+--- !u!4 &9158518820823266242
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
+  m_GameObject: {fileID: 8993924055189899877}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.82, y: 0.59, z: -7.01048}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.5, y: 1.06, z: 1.86}
+  m_LocalScale: {x: 0.37243, y: 1.9485, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3834333707653397011
+--- !u!33 &1008500232616846886
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4158092428716655607
+  m_GameObject: {fileID: 8993924055189899877}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8822081565427388573
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
+  m_GameObject: {fileID: 8993924055189899877}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 894946699ecfa77499b62329af29688a, type: 2}
+  - {fileID: 2100000, guid: 9b224affc8c8a964ba83e4ac28279dc3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &794172407457675465
-SphereCollider:
+--- !u!65 &4907512646482351603
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
+  m_GameObject: {fileID: 8993924055189899877}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -111,34 +111,44 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Size: {x: 2.09, y: 1, z: 1.61}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1326252951599300620
+--- !u!114 &3464468041896475507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
+  m_GameObject: {fileID: 8993924055189899877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d1c8af51f9795c40b70af1929aa10ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 566bf220020228e4e80d1445f825f892, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemController
-  referenceItem: {fileID: 11400000, guid: b9199cf4ca865df43b62c291866d1f97, type: 2}
-  isBeingSeen: 0
---- !u!114 &3318344970948515216
-MonoBehaviour:
+  m_EditorClassIdentifier: Assembly-CSharp::BookShelf
+  grassPatchPrefab: {fileID: 4968370439460019564, guid: 288cc5ede1ee03845bfd3666ebbc7b6a, type: 3}
+  grassPatchCount: 5
+  grassSpawnRadius: 10
+  grassHeightOffset: 0.2
+  maxSpawnHeight: 1
+  demonHelperPrefab: {fileID: 2312466915827521089, guid: 7dd17d98761f51f4ba88087854789d1b, type: 3}
+--- !u!65 &1117377395684121116
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035009501859959727}
+  m_GameObject: {fileID: 8993924055189899877}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f433f586896a94b83b9b653dab1356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DitherVisibility
-  fadeSpeed: 3
-  visibleAlpha: 1
-  hiddenAlpha: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

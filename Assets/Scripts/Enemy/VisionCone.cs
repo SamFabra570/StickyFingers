@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class VisionCone : MonoBehaviour
 {
-    public Material VisionConeMaterial;
     public float VisionRange;
     public float VisionAngle;
-    public LayerMask VisionObstructingLayer;//layer with objects that obstruct the enemy view, like walls, for example
-    public int VisionConeResolution = 120;//the vision cone will be made up of triangles, the higher this value is the pretier the vision cone will be
+    public LayerMask VisionObstructingLayer;
+    public int VisionConeResolution = 120;
+
     Mesh VisionConeMesh;
     MeshFilter MeshFilter_;
-    void Start()
+
+    void Awake()
     {
-        transform.AddComponent<MeshRenderer>().material = VisionConeMaterial;
-        MeshFilter_ = transform.AddComponent<MeshFilter>();
+        MeshFilter_ = GetComponent<MeshFilter>();
         VisionConeMesh = new Mesh();
+        MeshFilter_.mesh = VisionConeMesh;
         VisionAngle *= Mathf.Deg2Rad;
     }
 

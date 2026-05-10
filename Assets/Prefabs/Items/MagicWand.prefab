@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1605036445898218073}
   - component: {fileID: 2715613814622310495}
   - component: {fileID: 2752583587806075057}
+  - component: {fileID: 1067478336906683076}
   m_Layer: 0
   m_Name: MagicWand
   m_TagString: Object
@@ -68,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9e24b1a67115674da290d8ad4a0ce49, type: 2}
+  - {fileID: 2100000, guid: 8b1ae0f21614d9a4c9d32f5d2cd57506, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,3 +126,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
+  isBeingSeen: 0
+--- !u!114 &1067478336906683076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5989388894603941869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f433f586896a94b83b9b653dab1356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DitherVisibility
+  fadeSpeed: 3
+  visibleAlpha: 1
+  hiddenAlpha: 0

@@ -1744,7 +1744,7 @@ MonoBehaviour:
     m_Bits: 1
   targetMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   scanInterval: 0.1
 --- !u!1 &7139021676105785100
 GameObject:

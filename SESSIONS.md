@@ -61,6 +61,16 @@
 
 - `GameManager.cs:44` — `StartGame()` apunta a `"Game2"` (temporal). Revertir a `"Game"` cuando todas las ZoneInteractables estén implementadas y probadas.
 
+## 🐛 Pendiente — Cono de visión magenta
+
+Después del refactor de `VisionCone.cs` (que ahora usa `RequireComponent` en lugar de `AddComponent` en runtime), el material `Stun` (shader `ForceFieldShader.shadergraph`) aparece magenta en el cono.
+
+**Hipótesis a verificar al retomar**:
+1. Si la preview del material `Stun` en el inspector ya está magenta → el `ForceFieldShader.shadergraph` tiene un error de compilación. Abrir en Shader Graph y revisar.
+2. Si la preview está bien pero el cono en Game View está magenta → el problema es que `VisionCone.DrawVisionCone()` solo setea `vertices` y `triangles`, NO genera UVs/normales/tangentes. El shader puede estar fallando por falta de esos vertex attributes.
+
+**Test rápido para diferenciar**: asignar un material URP/Lit Transparent al cono. Si se ve bien → el problema es el shader. Si también se ve magenta → el problema es el mesh procedural.
+
 ---
 
 ## Backlog — ZoneInteractables
@@ -85,7 +95,9 @@
 
 ## Próxima sesión empieza por
 
-**Crea tu Poción** — setup en Unity:
+**Primero**: resolver el cono de visión magenta (ver sección 🐛 arriba). Hacer el test del material URP/Lit Transparent para diagnosticar.
+
+**Después**: continuar con **Crea tu Poción** — setup en Unity:
 
 1. `Create → Inventory → IngredientItemData` × 3: `Herb`, `Liquid`, `Powder`
 2. GameObject `Cauldron`: Collider trigger + tag `Interactable` + `CauldronController.cs` + `ObjectSpawner.cs`
@@ -117,3 +129,9 @@ Código de las 7 mecánicas escrito (22 scripts). Cambios en `PlayerController`.
 - Implementado en Unity: Saqueo ✅, Libro Sorpresa ✅
 - Bugs resueltos: grass patches en paredes/altura, lluvia no activaba, enemigos no detectaban al demonio
 - `GameManager.cs` apunta temporalmente a `Game2`
+
+### Sesión 4 — 2026-05-10
+- Refactor `DitherVisibility.cs`: separa renderers en `_ditherRenderers` (con `_Base_Color` → fade alpha) y `_toggleRenderers` (sin esa propiedad → enable/disable). Fix error de `ParticlesUnlit` y soporte para mesh del cono de visión.
+- Fix posicionamiento de `DitherVisibility`: va en el root del prefab Guard (no en los hijos de mesh) — `GetComponentInParent` sube, no baja.
+- Refactor `VisionCone.cs`: ahora usa `[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]` y `GetComponent` en `Awake` en lugar de `AddComponent` en runtime. Esto permite que `DitherVisibility.Awake` encuentre el renderer del cono. Se eliminó el campo `VisionConeMaterial` — el material se asigna directo en el `MeshRenderer` del prefab.
+- Pendiente para próxima sesión: cono magenta (ver sección 🐛).

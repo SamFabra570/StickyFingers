@@ -1,18 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Attach to every enemy or stealable object.
-/// Controls _Color.a on all renderers using the dither shader.
-/// </summary>
 public class DitherVisibility : MonoBehaviour
 {
     [Header("Fade Settings")]
-    public float fadeSpeed = 3f;          // higher = faster lerp
-    public float visibleAlpha   = 1f;
-    public float hiddenAlpha    = 0f;
+    public float fadeSpeed = 3f;
+    public float visibleAlpha = 1f;
+    public float hiddenAlpha  = 0f;
 
-    private Renderer[] _renderers;
+    private Renderer[] _ditherRenderers;  // have _Base_Color → fade alpha
+    private Renderer[] _toggleRenderers;  // no _Base_Color (particles, cone mesh) → enable/disable
     private MaterialPropertyBlock _propBlock;
     private float _targetAlpha;
     private float _currentAlpha;
@@ -22,8 +20,21 @@ public class DitherVisibility : MonoBehaviour
 
     private void Awake()
     {
-        _renderers  = GetComponentsInChildren<Renderer>();
-        _propBlock  = new MaterialPropertyBlock();
+        var all = GetComponentsInChildren<Renderer>();
+        var dither = new List<Renderer>();
+        var toggle = new List<Renderer>();
+
+        foreach (Renderer r in all)
+        {
+            if (r.sharedMaterial != null && r.sharedMaterial.HasProperty(ColorID))
+                dither.Add(r);
+            else
+                toggle.Add(r);
+        }
+
+        _ditherRenderers = dither.ToArray();
+        _toggleRenderers = toggle.ToArray();
+        _propBlock    = new MaterialPropertyBlock();
         _targetAlpha  = hiddenAlpha;
         _currentAlpha = hiddenAlpha;
         ApplyAlpha(_currentAlpha);
@@ -52,20 +63,19 @@ public class DitherVisibility : MonoBehaviour
 
     private void ApplyAlpha(float alpha)
     {
-        foreach (Renderer r in _renderers)
+        foreach (Renderer r in _ditherRenderers)
         {
             r.GetPropertyBlock(_propBlock);
-
-            // Preserve existing color RGB, only change alpha
-            Color col = _propBlock.GetVector(ColorID);    // returns (0,0,0,0) if unset
+            Color col = _propBlock.GetVector(ColorID);
             if (col == Color.clear)
-            {
-                // Fall back to the material's base color if property block is fresh
                 col = r.sharedMaterial.GetColor(ColorID);
-            }
             col.a = alpha;
             _propBlock.SetColor(ColorID, col);
             r.SetPropertyBlock(_propBlock);
         }
+
+        bool show = alpha > 0f;
+        foreach (Renderer r in _toggleRenderers)
+            r.enabled = show;
     }
 }
