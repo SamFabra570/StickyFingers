@@ -43,7 +43,6 @@ public class AbilityUnlock : MonoBehaviour
     private void UnlockAbility()
     {
         progressionManager.UnlockAbility(ability);
-        abilityLockOverlay.SetActive(false);
         
         UpdateState();
     }
@@ -54,5 +53,6 @@ public class AbilityUnlock : MonoBehaviour
         bool canUnlock = progressionManager.CanUnlock(ability);
 
         unlockButton.interactable = canUnlock && !unlocked;
+        abilityLockOverlay.SetActive(!unlocked);
     }
 }
