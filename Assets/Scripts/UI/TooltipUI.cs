@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TooltipUI : MonoBehaviour
@@ -12,8 +13,15 @@ public class TooltipUI : MonoBehaviour
     [Header ("UI Refs")]
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    //[SerializeField] private TextMeshProUGUI durationText;
-    //[SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private TextMeshProUGUI durationText;
+    [SerializeField] private TextMeshProUGUI cooldownText;
+    
+    [Header ("Positioning")]
+    [SerializeField] private Vector2 tooltipOffset = new Vector2(250f, -7.5f);
+    
+    private RectTransform rectTransform;
+
+    private Canvas canvas;
 
     private void Awake()
     {
@@ -24,30 +32,58 @@ public class TooltipUI : MonoBehaviour
         }
 
         Instance = this;
+        
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponent<Canvas>();
 
         Hide();
     }
 
-    public void Show(DraggableItem item)
+    public void Show(DraggableItem item, Transform selectedSlot)
     {
         if (item == null)
             return;
         
-        Ability selectedAbility = item.ability.ability;
+        //Move tooltip beside selected slot
+        PositionTooltip(selectedSlot);
         
-        nameText.text = selectedAbility.abilityName;
-        descriptionText.text = selectedAbility.abilityDescription;
+        tooltipObj.SetActive(true);
         
-        //If Ability (passives have no duration/cooldown
-        if (item.abilityType == AbilityType.Ability)
-        {
-            //durationText.text = (selectedAbility.duration + "s");
-            //cooldownText.text = (selectedAbility.cooldown + "s");
-        }
+        UpdateTooltip(item);
     }
 
     public void Hide()
     {
         tooltipObj.SetActive(false);
+    }
+
+    private void UpdateTooltip(DraggableItem item)
+    {
+        Ability selectedAbility = item.ability.ability;
+        
+        //Abilities
+        if (item.abilityType == AbilityType.Ability)
+        {
+            nameText.text = selectedAbility.abilityName;
+            descriptionText.text = selectedAbility.abilityDescription;
+            durationText.text = (selectedAbility.duration + "s");
+            cooldownText.text = (selectedAbility.cooldown + "s");
+        }
+        
+        //Passives
+        if (item.abilityType ==  AbilityType.Passive)
+        {
+            nameText.text = ("" + item.passiveAbility);
+            descriptionText.text = ("");
+            durationText.text = ("Passive");
+            cooldownText.text = ("");
+        }
+    }
+
+    private void PositionTooltip(Transform selectedSlot)
+    {
+        RectTransform slotRect = selectedSlot.GetComponent<RectTransform>();
+        
+        rectTransform.position = slotRect.position + (Vector3)tooltipOffset;
     }
 }
