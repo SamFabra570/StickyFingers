@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 5181664813417735281}
   - component: {fileID: 6950502582084654872}
   - component: {fileID: 4974104525818996166}
+  - component: {fileID: 6464786196294537819}
+  - component: {fileID: 8844540951062259512}
+  - component: {fileID: 1216544254688931328}
   m_Layer: 5
   m_Name: AbilitySlot1
   m_TagString: Slot1
@@ -114,7 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad84c25a41e74b149977a850b1791bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  equippedAbility: {fileID: 0}
 --- !u!114 &4974104525818996166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,3 +161,57 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6464786196294537819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378229440952227733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60e776b96fba954f884790570609d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITooltipTrigger
+  tooltipDelay: 0.75
+  targetCanvas: {fileID: 0}
+--- !u!223 &8844540951062259512
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378229440952227733}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 100
+  m_TargetDisplay: 0
+--- !u!114 &1216544254688931328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378229440952227733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295

@@ -111,6 +111,9 @@ public class HUB_UIManager : MonoBehaviour
     {
         selectedAbility =  eventSystem.currentSelectedGameObject;
         DraggableItem slot = selectedAbility.GetComponentInChildren<DraggableItem>();
+
+        if (selectedSlot == null)
+            return;
         
         switch (selectedSlot.name)
         {
