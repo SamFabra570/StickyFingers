@@ -31,6 +31,7 @@ public class BaseScoutEnemy : MonoBehaviour
     //private bool isSearching = false;
     public float searchDistance = 5.0f;
     public float searchTime = 10.0f;
+    public Vector3 lastKnownPlayerPosition;
     private Vector3 forwardPoint;
     
     //Attacking
@@ -38,10 +39,16 @@ public class BaseScoutEnemy : MonoBehaviour
     public float stop_attack_distance_multiplier = 1.2f;
     
     [SerializeField] public bool isBeingSeen;
+
+    //Visibility-based speed — fast while the player is watching, slow while not
+    public float hiddenSpeed = 1.5f;
+    public float visibleSpeed = 3.0f;
+    private DitherVisibility ditherVisibility_;
+
     private void Awake()
     {
         agent_ = GetComponent<NavMeshAgent>();
-        
+        ditherVisibility_ = GetComponentInChildren<DitherVisibility>();
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -73,10 +80,21 @@ public class BaseScoutEnemy : MonoBehaviour
 
     private void Update()
     {
+        UpdateSpeed();
+
         if (stateMachine._CurrentState == null)
             return;
-            
+
         stateMachine._CurrentState.LogicUpdate();
+    }
+
+    //Move fast while the player can see this enemy, slow while they can't
+    private void UpdateSpeed()
+    {
+        if (ditherVisibility_ == null)
+            return;
+
+        agent_.speed = ditherVisibility_.IsVisible ? visibleSpeed : hiddenSpeed;
     }
     
     void FixedUpdate()

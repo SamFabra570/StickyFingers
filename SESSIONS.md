@@ -93,7 +93,27 @@ Después del refactor de `VisionCone.cs` (que ahora usa `RequireComponent` en lu
 
 ---
 
+## Mejoras de sigilo (Sesión 5) — código ✅, falta tunear en Unity
+
+Las 8 mejoras de gameplay de sigilo están implementadas en código. Pendiente: setup y tuneo en el inspector.
+
+| Fase | Mejora | Archivos | Falta en Unity |
+|---|---|---|---|
+| 0 | `DitherVisibility.IsVisible` expuesto (fundación) | `DitherVisibility.cs` | — |
+| 1-2 | Velocidad oculta/visible (×3 enemigos) | `BaseEnemy/Scout/Mage.cs` | Setear `hiddenSpeed`/`visibleSpeed`; verificar `DitherVisibility` en Scout/Mage |
+| 5-6 | Objetos visibles para siempre + linger en enemigos | `DitherVisibility.cs` | Tildar `staysVisibleOnceSeen` en objetos, `lingerTime` en enemigos |
+| 3 | `lastKnownPlayerPosition` (×3 search/pursuit) | states de los 3 FSM | Subir `searchTime` en prefabs (10 → 15-20) |
+| 4 | Cono visual del jugador: Light → mesh procedural | `PlayerVisionConeVisual.cs` (nuevo) | Sacar el Light, crear GO hijo con el componente + material |
+| 5 (audio) | `EnemyProximityCue`: SFX cercanía + pulso procedural | `EnemyProximityCue.cs` (nuevo) | Agregar componente + AudioSource a los 3 prefabs |
+| 6 | DemonHelper patrulla waypoints de guardias | `DemonHelper.cs` | — |
+
+También se arregló un bug pre-existente: `DitherVisibility.SetVisible` crasheaba al iniciar corrutina en un objeto inactivo (el Scout se desactiva al spawnear el Mage).
+
+---
+
 ## Próxima sesión empieza por
+
+**Cero**: terminar de tunear las mejoras de sigilo en Unity (ver tabla arriba) si quedó algo pendiente.
 
 **Primero**: resolver el cono de visión magenta (ver sección 🐛 arriba). Hacer el test del material URP/Lit Transparent para diagnosticar.
 
@@ -135,3 +155,9 @@ Código de las 7 mecánicas escrito (22 scripts). Cambios en `PlayerController`.
 - Fix posicionamiento de `DitherVisibility`: va en el root del prefab Guard (no en los hijos de mesh) — `GetComponentInParent` sube, no baja.
 - Refactor `VisionCone.cs`: ahora usa `[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]` y `GetComponent` en `Awake` en lugar de `AddComponent` en runtime. Esto permite que `DitherVisibility.Awake` encuentre el renderer del cono. Se eliminó el campo `VisionConeMaterial` — el material se asigna directo en el `MeshRenderer` del prefab.
 - Pendiente para próxima sesión: cono magenta (ver sección 🐛).
+
+### Sesión 5 — 2026-05-17
+- Analizados 4 commits de otro dev: la Sesión 4 quedó commiteada en `8fc1e7c`; `GameManager` ya carga `Game` (no `Game2`); sistema de Stun nuevo; `AlchemyRoom.prefab` es solo geometría.
+- ZoneInteractables EN PAUSA. Se priorizaron 8 mejoras de gameplay de sigilo — las 6 fases implementadas (ver sección "Mejoras de sigilo" arriba).
+- Bugs arreglados: crash de corrutina en `DitherVisibility` (objeto inactivo); falta de `return` tras `ChangeState` en los 3 search states.
+- Aclarada la mecánica del Scout: te ve → `EnemyScoutAttackState` → `MageSpawner.SpawnMage()` + `SetActive(false)`. Alerta al Mage sin perseguir. Se revirtió un cambio mío incorrecto que lo hacía perseguir.

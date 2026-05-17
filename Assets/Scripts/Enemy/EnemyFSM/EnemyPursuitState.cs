@@ -23,9 +23,10 @@ public class EnemyPursuitState : EnemyState
 
         if (enemy.sight_sensor_.detected_object_ != null)
         {
-            //Move towards player
+            //Move towards player, remembering where they are
             enemy.agent_.isStopped = false;
-            enemy.agent_.SetDestination(enemy.sight_sensor_.detected_object_.transform.position);
+            enemy.lastKnownPlayerPosition = enemy.sight_sensor_.detected_object_.transform.position;
+            enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
             
             distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.sight_sensor_.detected_object_.transform.position);
             

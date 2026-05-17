@@ -4853,6 +4853,7 @@ GameObject:
   - component: {fileID: 124630044318715223}
   - component: {fileID: 3532485947020096694}
   - component: {fileID: 6576330004661977442}
+  - component: {fileID: 731308077223877950}
   m_Layer: 8
   m_Name: Mage
   m_TagString: Untagged
@@ -5004,9 +5005,12 @@ MonoBehaviour:
   patrolWaitTime: 2
   searchDistance: 5
   searchTime: 10
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   attack_distance_: 2
   stop_attack_distance_multiplier: 1.2
   isBeingSeen: 0
+  hiddenSpeed: 1.5
+  visibleSpeed: 3
 --- !u!95 &3532485947020096694
 Animator:
   serializedVersion: 7
@@ -5044,6 +5048,31 @@ MonoBehaviour:
   fadeSpeed: 3
   visibleAlpha: 1
   hiddenAlpha: 0
+  staysVisibleOnceSeen: 0
+  lingerTime: 5
+--- !u!114 &731308077223877950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3797747864831012266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23aa4b7237bb7147a13fb2103e18585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProximityCue
+  ditherVisibility: {fileID: 0}
+  cueAudio: {fileID: 0}
+  cueRange: 20
+  maxVolume: 1
+  pulseMaterial: {fileID: 0}
+  pulseColor: {r: 1, g: 1, b: 1, a: 1}
+  pulseMaxRadius: 3
+  pulseDuration: 1.2
+  pulseWidth: 0.08
+  pulseSegments: 40
+  groundYOffset: 0.05
 --- !u!1 &4386871391895978399
 GameObject:
   m_ObjectHideFlags: 0

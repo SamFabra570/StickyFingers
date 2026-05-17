@@ -793,6 +793,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -82.47
@@ -1620,6 +1624,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.58
@@ -2404,6 +2412,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (12)
@@ -2544,6 +2556,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -3497,6 +3513,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 2.92
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (3)
@@ -3706,6 +3726,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -5280,6 +5304,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -9398,6 +9426,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (7)
@@ -9828,6 +9860,8 @@ MonoBehaviour:
   fadeSpeed: 3
   visibleAlpha: 1
   hiddenAlpha: 0
+  staysVisibleOnceSeen: 1
+  lingerTime: 0
 --- !u!1 &464115893
 GameObject:
   m_ObjectHideFlags: 0
@@ -11209,6 +11243,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -12634,6 +12672,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -15461,6 +15503,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (4)
@@ -16396,6 +16442,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.99
@@ -17321,6 +17371,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -76.23
@@ -17542,6 +17596,10 @@ PrefabInstance:
       propertyPath: referenceItem
       value: 
       objectReference: {fileID: 11400000, guid: 260f7876d5ea8fd4f96471215d1b4883, type: 2}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: bitcoin (2)
@@ -18450,6 +18508,8 @@ GameObject:
   m_Component:
   - component: {fileID: 920988736}
   - component: {fileID: 920988737}
+  - component: {fileID: 920988739}
+  - component: {fileID: 920988738}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -18484,13 +18544,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &920988738
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920988735}
+  m_Mesh: {fileID: 0}
+--- !u!23 &920988739
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920988735}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &922359201
 GameObject:
   m_ObjectHideFlags: 0
@@ -18901,6 +19016,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -24253,6 +24372,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1208656785}
   - component: {fileID: 1208656786}
+  - component: {fileID: 1208656788}
+  - component: {fileID: 1208656787}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -24287,13 +24408,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1208656787
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208656784}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1208656788
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208656784}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1210505634
 GameObject:
   m_ObjectHideFlags: 0
@@ -25033,6 +25209,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2715613814622310495, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_Radius
       value: 3.21
@@ -25599,6 +25779,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 3.07
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (2)
@@ -25921,6 +26105,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90.76
@@ -26016,6 +26204,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1335976586}
   - component: {fileID: 1335976587}
+  - component: {fileID: 1335976589}
+  - component: {fileID: 1335976588}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -26050,13 +26240,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1335976588
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335976585}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1335976589
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335976585}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!43 &1339995728
 Mesh:
   m_ObjectHideFlags: 0
@@ -27404,6 +27649,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (11)
@@ -28715,6 +28964,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -97.29
@@ -29660,6 +29913,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.904018
@@ -30584,6 +30841,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1574451457}
   - component: {fileID: 1574451458}
+  - component: {fileID: 1574451460}
+  - component: {fileID: 1574451459}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -30618,13 +30877,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1574451459
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574451456}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1574451460
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574451456}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1574830805
 GameObject:
   m_ObjectHideFlags: 0
@@ -31261,6 +31575,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1630289735}
   - component: {fileID: 1630289736}
+  - component: {fileID: 1630289738}
+  - component: {fileID: 1630289737}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -31295,13 +31611,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1630289737
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630289734}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1630289738
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630289734}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1630821575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31349,6 +31720,10 @@ PrefabInstance:
     - target: {fileID: 766243237965853546, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
@@ -33127,6 +33502,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.51
@@ -33826,6 +34205,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: GoldNecklace (9)
@@ -34271,6 +34654,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -49.42
@@ -36596,6 +36983,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1902761155}
   - component: {fileID: 1902761156}
+  - component: {fileID: 1902761158}
+  - component: {fileID: 1902761157}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -36630,13 +37019,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1902761157
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902761154}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1902761158
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902761154}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1910264130
 GameObject:
   m_ObjectHideFlags: 0
@@ -37268,6 +37712,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1939358747}
   - component: {fileID: 1939358748}
+  - component: {fileID: 1939358750}
+  - component: {fileID: 1939358749}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -37302,13 +37748,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &1939358749
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939358746}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1939358750
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939358746}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1942262606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38002,6 +38503,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.904018
@@ -38181,6 +38686,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2015435727}
   - component: {fileID: 2015435728}
+  - component: {fileID: 2015435730}
+  - component: {fileID: 2015435729}
   m_Layer: 8
   m_Name: VisionCone
   m_TagString: Untagged
@@ -38215,13 +38722,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d77ab95b4e1cf43a51cdb308a24048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisionCone
-  VisionConeMaterial: {fileID: 2100000, guid: f498cc44761d5d345ad5b1beb26ff339, type: 2}
   VisionRange: 8
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 1
   VisionConeResolution: 120
+--- !u!33 &2015435729
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015435726}
+  m_Mesh: {fileID: 0}
+--- !u!23 &2015435730
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015435726}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &2030033670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38423,6 +38985,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959435380}
     m_Modifications:
+    - target: {fileID: 1067478336906683076, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5011317903571203145, guid: 878518af07f5b684096f1148b8497bf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -63.45
@@ -39862,6 +40428,10 @@ PrefabInstance:
       propertyPath: referenceItem
       value: 
       objectReference: {fileID: 11400000, guid: 260f7876d5ea8fd4f96471215d1b4883, type: 2}
+    - target: {fileID: 3318344970948515216, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
+      propertyPath: staysVisibleOnceSeen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8035009501859959727, guid: 2e5982cf14bcbc8449ff748cce627f91, type: 3}
       propertyPath: m_Name
       value: bitcoin (1)

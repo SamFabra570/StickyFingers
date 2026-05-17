@@ -15,6 +15,10 @@ public class EnemyMageSearchState : EnemyMageState
         
         //Set search time when entering search state
         searchEndTime = Time.time + enemy.searchTime;
+
+        //Head straight for where the player was last seen
+        enemy.agent_.isStopped = false;
+        enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
     }
 
     public override void LogicUpdate()
@@ -25,12 +29,16 @@ public class EnemyMageSearchState : EnemyMageState
         if (enemy.sight_sensor_.detected_object_ != null)
         {
             stateMachine.ChangeState(new EnemyMagePursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            return;
         }
-        
-        //Keep moving forward while searching
+
+        //Once the last known position is reached, sweep forward looking for the player
         enemy.agent_.isStopped = false;
-        Vector3 forwardPoint = enemy.transform.position + enemy.transform.forward * enemy.searchDistance;
-        enemy.agent_.SetDestination(forwardPoint);
+        if (!enemy.agent_.pathPending && enemy.agent_.remainingDistance <= 1.0f)
+        {
+            Vector3 forwardPoint = enemy.transform.position + enemy.transform.forward * enemy.searchDistance;
+            enemy.agent_.SetDestination(forwardPoint);
+        }
 
         //Back to patrol when search time ends
         if (Time.time > searchEndTime)

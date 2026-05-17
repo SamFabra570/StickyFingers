@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 1666268978814550884}
   - component: {fileID: 5951906547007147897}
   - component: {fileID: 2824106431633154598}
+  - component: {fileID: 4014456755802954474}
   m_Layer: 8
   m_Name: Guard
   m_TagString: Untagged
@@ -303,10 +304,13 @@ MonoBehaviour:
   isMovingToWaypoint: 0
   patrolWaitTime: 2
   searchDistance: 5
-  searchTime: 10
+  searchTime: 20
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   attack_distance_: 2
   stop_attack_distance_multiplier: 1.2
   isBeingSeen: 0
+  hiddenSpeed: 1.5
+  visibleSpeed: 3
 --- !u!95 &5951906547007147897
 Animator:
   serializedVersion: 7
@@ -344,6 +348,31 @@ MonoBehaviour:
   fadeSpeed: 3
   visibleAlpha: 1
   hiddenAlpha: 0
+  staysVisibleOnceSeen: 0
+  lingerTime: 3
+--- !u!114 &4014456755802954474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7264761204993263301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23aa4b7237bb7147a13fb2103e18585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProximityCue
+  ditherVisibility: {fileID: 0}
+  cueAudio: {fileID: 0}
+  cueRange: 30
+  maxVolume: 1
+  pulseMaterial: {fileID: 0}
+  pulseColor: {r: 1, g: 1, b: 1, a: 1}
+  pulseMaxRadius: 3
+  pulseDuration: 1.2
+  pulseWidth: 0.08
+  pulseSegments: 40
+  groundYOffset: 0.05
 --- !u!1001 &2382679380208086944
 PrefabInstance:
   m_ObjectHideFlags: 0
