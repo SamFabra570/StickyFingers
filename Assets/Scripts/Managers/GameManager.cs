@@ -9,24 +9,27 @@ public class GameManager : MonoBehaviour
 
     public float maxDebt;
     public float remainingDebt;
+    public float startingDebt;
     public float maxWeight;
     public float deeperPocketsWeight = 500;
     public bool runState;
 
     private void Awake()
     {
-        if (Instance == null)
-        { 
-            //initialize the players inventory
-            Instance = this;
-        }
-        else if (Instance != null )
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-        DontDestroyOnLoad(gameObject); 
+        DontDestroyOnLoad(gameObject);
         
-        remainingDebt = maxDebt;
+        Instance = this;
+        
+        if (startingDebt != 0) 
+            remainingDebt = startingDebt;
+        else 
+            remainingDebt = maxDebt;
+            
     }
     public void PauseGame(int pauseState)
     {

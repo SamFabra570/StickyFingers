@@ -112,11 +112,11 @@ public class UIManager : MonoBehaviour
             portalSpawnNotif.SetActive(false);
         
         
-        if (interactText != null)
+        if (interactText == null)
         {
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-            interactText.gameObject.SetActive(false);
         }
+        interactText.gameObject.SetActive(false);
         
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
@@ -382,9 +382,9 @@ public class UIManager : MonoBehaviour
         weightPreviewFill.fillAmount = normalizedWeightPreview;
         weightPreviewFillInv.fillAmount = normalizedWeightPreview;
         
-        textWeightPreview.color = Color.green;
+        textWeightPreview.color = Color.forestGreen;
         textWeightPreview.SetText("+ " + itemData.itemWeight);
-        textBountyPreview.color = Color.green;
+        textBountyPreview.color = Color.forestGreen;
         textBountyPreview.SetText("+ " + itemData.itemPrice);
         objectWeightPreview.SetActive(true);
         objectBountyPreview.SetActive(true);
@@ -403,9 +403,9 @@ public class UIManager : MonoBehaviour
     
     private IEnumerator ItemStolen(InventoryItemData itemData)
     {
-        textWeightPreview.color = Color.red;
+        textWeightPreview.color = Color.darkRed;
         textWeightPreview.SetText("- " + itemData.itemWeight);
-        textBountyPreview.color = Color.red;
+        textBountyPreview.color = Color.darkRed;
         textBountyPreview.SetText("- " + itemData.itemPrice);
         objectWeightPreview.SetActive(true);
         objectBountyPreview.SetActive(true);

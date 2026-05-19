@@ -16,10 +16,10 @@ public class MainMenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        eventSystem = EventSystem.current;
+        //eventSystem = EventSystem.current;
         settingsMenu.SetActive(false);
         
-        eventSystem.SetSelectedGameObject(menuStartButton);
+        //eventSystem.SetSelectedGameObject(menuStartButton);
     }
 
     public void LoadScene()
@@ -32,14 +32,14 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.enabled = false;
         settingsMenu.SetActive(true);
         
-        eventSystem.SetSelectedGameObject(settingsBackButton);
+        //eventSystem.SetSelectedGameObject(settingsBackButton);
     }
 
     public void BackToMainMenu()
     {
         mainMenu.enabled = true;
         settingsMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(menuStartButton);
+        //eventSystem.SetSelectedGameObject(menuStartButton);
     }
 
     public void QuitGame()

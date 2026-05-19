@@ -177,8 +177,6 @@ public class PlayerController : MonoBehaviour
                     {
                         StealObject();
                         UIManager.Instance.ToggleInteractText(false, "");
-                        //Debug.Log("Steal object");
-                        
                     }
                     else
                         Debug.Log("UR SO FAT U CANT EVEN STEAL ANYMORE");
@@ -187,12 +185,10 @@ public class PlayerController : MonoBehaviour
                 //Interactable Object
                 case 1:
                     Interact(interactable);
-                    //Debug.Log("Interact");
                     break;
                 //Mash Event
                 case 2:
                     buttonMashObj.MashEvent();
-                    //Debug.Log("Mashing button");
                     break;
             }
         };
@@ -516,7 +512,9 @@ public class PlayerController : MonoBehaviour
         {
             interactType = 1;
             interactable = other.gameObject;
+            
             UIManager.Instance.ToggleInteractText(true, other.tag);
+            //Debug.Log("Showing interact text");
         }
         else if (other.CompareTag("MashEvent"))
         {
@@ -526,8 +524,6 @@ public class PlayerController : MonoBehaviour
             buttonMashObj = interactable.GetComponent<ButtonMash>();
             UIManager.Instance.ToggleInteractText(true, other.tag);
         }
-        
-        
     }
 
     private void OnTriggerExit(Collider other)

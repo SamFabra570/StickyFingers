@@ -21,10 +21,12 @@ public class AbilityUnlock : MonoBehaviour
     {
         unlockButton = GetComponent<Button>();
         abilityName = GetComponentInChildren<TextMeshProUGUI>();
-        progressionManager = GameManager.Instance.GetComponent<ProgressionManager>();
+        progressionManager = ProgressionManager.Instance;
         
         SetButtonUI();
         UpdateState();
+        
+        Debug.Log(progressionManager.unlockedAbilities.Count);
         
         unlockButton.onClick.AddListener(UnlockAbility);
     }
@@ -43,16 +45,20 @@ public class AbilityUnlock : MonoBehaviour
     private void UnlockAbility()
     {
         progressionManager.UnlockAbility(ability);
+        gameObject.SetActive(false);
+        Debug.Log(progressionManager.unlockedAbilities.Count);
         
         UpdateState();
     }
 
-    private void UpdateState()
+    public void UpdateState()
     {
         bool unlocked = progressionManager.IsUnlocked(ability);
         bool canUnlock = progressionManager.CanUnlock(ability);
-
+            
         unlockButton.interactable = canUnlock && !unlocked;
         abilityLockOverlay.SetActive(!unlocked);
+        
+        
     }
 }

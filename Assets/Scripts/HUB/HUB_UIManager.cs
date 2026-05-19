@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,29 +14,21 @@ public class HUB_UIManager : MonoBehaviour
     [Header("Planning UI Refs")]
     public Canvas planningUI;
     public GameObject detailsScreen;
+    
     public Animator detailsScreenAnim;
-    public GameObject readyButton;
-    public GameObject passiveAbilitySlot;
 
     [Header("Progression UI Refs")] 
     public GameObject progressionScreen;
 
     [Header("Debt UI")]
     public Slider debtPaidFill;
+    public TextMeshProUGUI debtPaidText;
+    public TextMeshProUGUI totalDebtText;
     
     public EventSystem eventSystem;
-    
-    [Header ("Ability Slot UI Refs")]
-    public GameObject selectedSlot;
-    public GameObject selectedAbility;
-    
-    public GameObject slot1;
-    public GameObject slot2;
-    public GameObject slot3;
-    
-    public GameObject firstAbility;
 
-    private string cancelType = "Exit";
+    [Header ("Loadout Menu")]
+    public LoadoutMenu loadoutMenu;
     
     private void Awake()
     {
@@ -51,44 +44,72 @@ public class HUB_UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TogglePlanningUI("Close");
+        progressionScreen.SetActive(false);
+        planningUI.enabled = false;
+                
+        if (PlayerController.Instance.isFrozen)
+            PlayerController.Instance.isFrozen = false;
+                
+        PlayerController.Instance.inputMap.UI.Disable();
+        PlayerController.Instance.inputMap.Player.Enable();
+                
+        UIMenuStack.Clear();
+        
+        
     }
 
     public void TogglePlanningUI(string status)
     {
-        PlayerController.Instance.inputMap.UI.Enable();
-        PlayerController.Instance.inputMap.Player.Disable();
-        
         switch (status)
         {
             case "Close":
                 planningUI.enabled = false;
+                UIManager.Instance.ToggleInteractText(true, "");
+                
                 if (PlayerController.Instance.isFrozen)
                     PlayerController.Instance.isFrozen = false;
                 
                 PlayerController.Instance.inputMap.UI.Disable();
                 PlayerController.Instance.inputMap.Player.Enable();
+                
+                UIMenuStack.Clear();
                 break;
+            
             case "Show":
+                UIManager.Instance.ToggleInteractText(false, "");
                 planningUI.enabled = true;
+                
                 if (progressionScreen.activeSelf)
                     progressionScreen.SetActive(false);
                 
                 if (!detailsScreen.activeSelf)
                     detailsScreen.SetActive(true);
                 
-                eventSystem.SetSelectedGameObject(slot1);
+                eventSystem.SetSelectedGameObject(loadoutMenu.slot1);
+                
+                UpdateAbilityLockState();
+                
                 debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
+                debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
+                totalDebtText.text = ("" + GameManager.Instance.maxDebt);
+                
+                PlayerController.Instance.inputMap.UI.Enable();
+                PlayerController.Instance.inputMap.Player.Disable();
                 break;
+            
             case "Details":
                 detailsScreenAnim.Play("ShowDetails");
                 break;
+            
             case "Loadout":
                 detailsScreenAnim.Play("HideDetails");
-                eventSystem.SetSelectedGameObject(slot1);
+                
+                UIMenuStack.Push(loadoutMenu);
                 break;
+            
             case "Progression":
                 planningUI.enabled = true;
+                
                 if (!progressionScreen.activeSelf)
                     progressionScreen.SetActive(true);
                 
@@ -98,84 +119,27 @@ public class HUB_UIManager : MonoBehaviour
         }
     }
 
-    public void SelectAbilitySlot()
+    private void UpdateAbilityLockState()
     {
-        selectedSlot = eventSystem.currentSelectedGameObject;
-        
-        eventSystem.SetSelectedGameObject(firstAbility);
-        cancelType = "BackToSlotSelect";
+        var abilityUIs = progressionScreen.GetComponentsInChildren<AbilityUnlock>(true);
+
+        foreach (var ui in abilityUIs)
+        {
+            ui.UpdateState();
+        }
     }
 
-    //Select ability using controller
-    public void SelectAbility()
+    private void OnSubmit(InputAction.CallbackContext context)
     {
-        selectedAbility =  eventSystem.currentSelectedGameObject;
-        DraggableItem slot = selectedAbility.GetComponentInChildren<DraggableItem>();
-
-        if (selectedSlot == null)
-            return;
         
-        switch (selectedSlot.name)
-        {
-            case "AbilitySlot1":
-                AbilityManager.Instance.EquipAbility(0, slot.ability);
-                Debug.Log("Ability 1 set" + slot.ability);
-                
-                eventSystem.SetSelectedGameObject(slot2);
-                break;
-            case "AbilitySlot2":
-                AbilityManager.Instance.EquipAbility(1, slot.ability);
-                Debug.Log("Ability 2 set" + slot.ability);
-                
-                eventSystem.SetSelectedGameObject(slot3);
-                break;
-            case "AbilitySlot3":
-                AbilityManager.Instance.EquipAbility(2, slot.ability);
-                Debug.Log("Ability 3 set" + slot.ability);
-                
-                eventSystem.SetSelectedGameObject(passiveAbilitySlot);
-                cancelType = "BackToSlot3";
-                break;
-            case "PassiveAbilitySlot":
-                //Add equip passive ability logic here
-                
-                eventSystem.SetSelectedGameObject(readyButton);
-                cancelType = "BackToPassiveAbilitySlot";
-                break;
-        }
-        
-        slot.transform.SetParent(selectedSlot.transform);
-        
-        selectedSlot = null;
     }
     
     private void OnCancel(InputAction.CallbackContext context)
     {
-        switch (cancelType)
-        {
-            case "Exit":
-                TogglePlanningUI("Close");
-                break;
-            case "BackToSlotSelect":
-                eventSystem.SetSelectedGameObject(slot1);
-                cancelType = "Exit";
-                break;
-            case "BackToSlot2":
-                eventSystem.SetSelectedGameObject(slot2);
-                cancelType = "BackToSlotSelect";
-                break;
-            case "BackToSlot3":
-                eventSystem.SetSelectedGameObject(slot3);
-                cancelType = "BackToSlot2";
-                break;
-            case "BackToPassiveAbilitySlot":
-                eventSystem.SetSelectedGameObject(passiveAbilitySlot);
-                cancelType = "BackToSlot3";
-                break;
-        }
-        
+        if (UIMenuStack.Current != null)
+            UIMenuStack.Pop();
     }
-    
+
     private void OnEnable()
     {
         cancelAction.action.performed += OnCancel;
