@@ -60,6 +60,12 @@ public class HUB_UIManager : MonoBehaviour
 
     public void TogglePlanningUI(string status)
     {
+        UpdateAbilityLockState();
+        
+        debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
+        debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
+        totalDebtText.text = ("" + GameManager.Instance.maxDebt);
+        
         switch (status)
         {
             case "Close":
@@ -86,12 +92,6 @@ public class HUB_UIManager : MonoBehaviour
                     detailsScreen.SetActive(true);
                 
                 eventSystem.SetSelectedGameObject(loadoutMenu.slot1);
-                
-                UpdateAbilityLockState();
-                
-                debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
-                debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
-                totalDebtText.text = ("" + GameManager.Instance.maxDebt);
                 
                 PlayerController.Instance.inputMap.UI.Enable();
                 PlayerController.Instance.inputMap.Player.Disable();

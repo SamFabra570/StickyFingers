@@ -45,8 +45,7 @@ public class AbilityUnlock : MonoBehaviour
     private void UnlockAbility()
     {
         progressionManager.UnlockAbility(ability);
-        gameObject.SetActive(false);
-        Debug.Log(progressionManager.unlockedAbilities.Count);
+        //Debug.Log(progressionManager.unlockedAbilities.Count);
         
         UpdateState();
     }
@@ -56,9 +55,8 @@ public class AbilityUnlock : MonoBehaviour
         bool unlocked = progressionManager.IsUnlocked(ability);
         bool canUnlock = progressionManager.CanUnlock(ability);
             
-        unlockButton.interactable = canUnlock && !unlocked;
+        unlockButton.interactable = canUnlock;
         abilityLockOverlay.SetActive(!unlocked);
-        
-        
+        gameObject.SetActive(!unlocked);
     }
 }
