@@ -14,6 +14,7 @@ public class HUB_UIManager : MonoBehaviour
     [Header("Planning UI Refs")]
     public Canvas planningUI;
     public GameObject detailsScreen;
+    public GameObject loadoutScreen;
     
     public Animator detailsScreenAnim;
 
@@ -27,8 +28,9 @@ public class HUB_UIManager : MonoBehaviour
     
     public EventSystem eventSystem;
 
-    [Header ("Loadout Menu")]
+    [Header ("Menu Refs")]
     public LoadoutMenu loadoutMenu;
+    public ProgressionMenu progressionMenu;
     
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class HUB_UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        progressionScreen.SetActive(false);
+        UIMenuStack.Clear();
         planningUI.enabled = false;
                 
         if (PlayerController.Instance.isFrozen)
@@ -52,10 +54,6 @@ public class HUB_UIManager : MonoBehaviour
                 
         PlayerController.Instance.inputMap.UI.Disable();
         PlayerController.Instance.inputMap.Player.Enable();
-                
-        UIMenuStack.Clear();
-        
-        
     }
 
     public void TogglePlanningUI(string status)
@@ -69,7 +67,9 @@ public class HUB_UIManager : MonoBehaviour
         switch (status)
         {
             case "Close":
+                UIMenuStack.Clear();
                 planningUI.enabled = false;
+                
                 UIManager.Instance.ToggleInteractText(true, "");
                 
                 if (PlayerController.Instance.isFrozen)
@@ -77,21 +77,12 @@ public class HUB_UIManager : MonoBehaviour
                 
                 PlayerController.Instance.inputMap.UI.Disable();
                 PlayerController.Instance.inputMap.Player.Enable();
-                
-                UIMenuStack.Clear();
                 break;
             
             case "Show":
-                UIManager.Instance.ToggleInteractText(false, "");
                 planningUI.enabled = true;
                 
-                if (progressionScreen.activeSelf)
-                    progressionScreen.SetActive(false);
-                
-                if (!detailsScreen.activeSelf)
-                    detailsScreen.SetActive(true);
-                
-                eventSystem.SetSelectedGameObject(loadoutMenu.slot1);
+                UIManager.Instance.ToggleInteractText(false, "");
                 
                 PlayerController.Instance.inputMap.UI.Enable();
                 PlayerController.Instance.inputMap.Player.Disable();
@@ -99,10 +90,14 @@ public class HUB_UIManager : MonoBehaviour
             
             case "Details":
                 detailsScreenAnim.Play("ShowDetails");
+                detailsScreenAnim.SetBool("isHidden", false);
+                
+                //UIMenuStack.Push(detailsMenu);
                 break;
             
             case "Loadout":
                 detailsScreenAnim.Play("HideDetails");
+                detailsScreenAnim.SetBool("isHidden", true);
                 
                 UIMenuStack.Push(loadoutMenu);
                 break;
@@ -110,11 +105,7 @@ public class HUB_UIManager : MonoBehaviour
             case "Progression":
                 planningUI.enabled = true;
                 
-                if (!progressionScreen.activeSelf)
-                    progressionScreen.SetActive(true);
-                
-                if (detailsScreen.activeSelf)
-                    detailsScreen.SetActive(false);
+                UIMenuStack.Push(progressionMenu);
                 break;
         }
     }
@@ -129,10 +120,7 @@ public class HUB_UIManager : MonoBehaviour
         }
     }
 
-    private void OnSubmit(InputAction.CallbackContext context)
-    {
-        
-    }
+    private void OnSubmit(InputAction.CallbackContext context) { }
     
     private void OnCancel(InputAction.CallbackContext context)
     {

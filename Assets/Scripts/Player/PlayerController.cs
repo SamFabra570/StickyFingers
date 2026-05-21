@@ -624,6 +624,8 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(GameObject obj)
     {
+        Debug.Log("Initial interact " + obj.name);
+        
         if (obj.TryGetComponent(out ExitPortal portalClass))
         {
             if (portalClass.state == PortalState.Charged)
@@ -644,16 +646,20 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if (obj.name == "PlanningDesk")
+        if (obj.TryGetComponent(out InteractableHandler type))
         {
-            HUB_UIManager.Instance.TogglePlanningUI("Show");
-            FreezeMovement(0);
-        }
-
-        if (obj.name == "ProgressionDesk")
-        {
-            HUB_UIManager.Instance.TogglePlanningUI("Progression");
-            FreezeMovement(0);
+            if (type == (type.interactableType == Interactables.PlanningDesk))
+            {
+                HUB_UIManager.Instance.TogglePlanningUI("Show");
+                FreezeMovement(0);
+                
+            }
+            
+            if (type == (type.interactableType == Interactables.ProgressionDesk))
+            {
+                HUB_UIManager.Instance.TogglePlanningUI("Progression");
+                FreezeMovement(0);
+            }
         }
 
         if (obj.TryGetComponent(out IInteractable interactable))

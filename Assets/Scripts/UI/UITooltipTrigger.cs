@@ -25,16 +25,16 @@ public class UITooltipTrigger : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 
     //Mouse
-    // public void OnPointerEnter(PointerEventData eventData)
-    // {
-    //     StartTooltip();
-    // }
-    //
-    // public void OnPointerExit(PointerEventData eventData)
-    // {
-    //     StopTooltip();
-    //     ResetCanvasOrder();
-    // }
+     // public void OnPointerEnter(PointerEventData eventData)
+     // {
+     //     StartTooltip();
+     // }
+     //
+     // public void OnPointerExit(PointerEventData eventData)
+     // {
+     //     StopTooltip();
+     //     ResetCanvasOrder();
+     // }
 
     //Tooltip logic
     private void StartTooltip()

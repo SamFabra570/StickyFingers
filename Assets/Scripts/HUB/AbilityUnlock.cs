@@ -52,6 +52,17 @@ public class AbilityUnlock : MonoBehaviour
 
     public void UpdateState()
     {
+        if (progressionManager == null)
+        {
+            progressionManager = ProgressionManager.Instance;
+
+            if (progressionManager == null)
+            {
+                Debug.LogWarning("ProgressionManager still null");
+                return;
+            }
+        }
+        
         bool unlocked = progressionManager.IsUnlocked(ability);
         bool canUnlock = progressionManager.CanUnlock(ability);
             
