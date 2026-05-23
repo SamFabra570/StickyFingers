@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     public InputActionReference cancelAction;
+    public InputActionReference buttonNorthAction;
     
     [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
@@ -139,12 +140,18 @@ public class UIManager : MonoBehaviour
     {
         cancelAction.action.performed += OnCancel;
         cancelAction.action.Enable();
+        
+        buttonNorthAction.action.performed += OnButtonNorth;
+        buttonNorthAction.action.Enable();
     }
 
     private void OnDisable()
     {
         cancelAction.action.performed -= OnCancel;
         cancelAction.action.Disable();
+        
+        buttonNorthAction.action.performed -= OnButtonNorth;
+        buttonNorthAction.action.Disable();
     }
 
     private void OnCancel(InputAction.CallbackContext context)
@@ -153,6 +160,11 @@ public class UIManager : MonoBehaviour
             HideScreen("Pause");
         if (inventoryScreen.activeSelf)
             HideScreen("Inventory");
+    }
+
+    private void OnButtonNorth(InputAction.CallbackContext context)
+    {
+        //Add logic for inventory
     }
 
     private void UpdateInventoryUI()

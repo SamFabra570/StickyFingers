@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     public float startingDebt;
     public float maxWeight;
     public float deeperPocketsWeight = 500;
-    public bool runState;
+    //public bool runState;
+
+    public float extractedBounty;
+    public float timeRemaining;
 
     private void Awake()
     {
@@ -56,15 +59,22 @@ public class GameManager : MonoBehaviour
             maxWeight = deeperPocketsWeight;
             Debug.Log("Endless Pockets activated. Max Weight: " + maxWeight);
         }
+
+        if (PlayerPassives.Has(PassiveAbilities.SecondChance))
+            PlayerController.Instance.hasUsedSecondChance = false;
     }
 
-    public void EndGame()
+    public void EndGame(bool hasExtracted)
     {
+        InventoryContainer inv = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>();
+        
         AbilityManager.Instance.DeactivateAbilitiesGameOver();
-        //Debug.Log("Game Over: YOU LOSE");
-        GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem.SellInventory(runState);
+        
+        extractedBounty = inv.inventorySystem.totalBounty;
+        timeRemaining = TimeManager.Instance.remainingTime;
+        
+        inv.inventorySystem.SellInventory(hasExtracted);
         SceneManager.LoadScene("Post-Game");
-        runState = false;
     }
 
     public void UpdateSpeed(float currentWeight)

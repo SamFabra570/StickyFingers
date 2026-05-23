@@ -10,6 +10,7 @@ public class HUB_UIManager : MonoBehaviour
     public static HUB_UIManager Instance;
     
     public InputActionReference cancelAction;
+    public InputActionReference buttonNorthAction;
 
     [Header("Planning UI Refs")]
     public Canvas planningUI;
@@ -17,6 +18,7 @@ public class HUB_UIManager : MonoBehaviour
     public GameObject loadoutScreen;
     
     public Animator detailsScreenAnim;
+    public bool isAnimDone = true;
 
     [Header("Progression UI Refs")] 
     public GameObject progressionScreen;
@@ -25,8 +27,6 @@ public class HUB_UIManager : MonoBehaviour
     public Slider debtPaidFill;
     public TextMeshProUGUI debtPaidText;
     public TextMeshProUGUI totalDebtText;
-    
-    public EventSystem eventSystem;
 
     [Header ("Menu Refs")]
     public LoadoutMenu loadoutMenu;
@@ -64,6 +64,11 @@ public class HUB_UIManager : MonoBehaviour
         debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
         totalDebtText.text = ("" + GameManager.Instance.maxDebt);
         
+        UIManager.Instance.ToggleInteractText(false, "");
+        
+        PlayerController.Instance.inputMap.UI.Enable();
+        PlayerController.Instance.inputMap.Player.Disable();
+        
         switch (status)
         {
             case "Close":
@@ -81,18 +86,16 @@ public class HUB_UIManager : MonoBehaviour
             
             case "Show":
                 planningUI.enabled = true;
-                
-                UIManager.Instance.ToggleInteractText(false, "");
-                
-                PlayerController.Instance.inputMap.UI.Enable();
-                PlayerController.Instance.inputMap.Player.Disable();
+
+                if (detailsScreenAnim.GetBool("isHidden"))
+                {
+                    UIMenuStack.Push(loadoutMenu);
+                }
                 break;
             
             case "Details":
                 detailsScreenAnim.Play("ShowDetails");
                 detailsScreenAnim.SetBool("isHidden", false);
-                
-                //UIMenuStack.Push(detailsMenu);
                 break;
             
             case "Loadout":
@@ -120,23 +123,57 @@ public class HUB_UIManager : MonoBehaviour
         }
     }
 
-    private void OnSubmit(InputAction.CallbackContext context) { }
+    private void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (UIMenuStack.Current != progressionMenu)
+            loadoutMenu.OnSubmit();
+        else
+            progressionMenu.OnSubmit();
+    }
     
     private void OnCancel(InputAction.CallbackContext context)
     {
-        if (UIMenuStack.Current != null)
-            UIMenuStack.Pop();
+        if (UIMenuStack.Current != progressionMenu)
+            loadoutMenu.OnCancel();
+        else
+            progressionMenu.OnCancel();
+    }
+
+    private void OnButtonNorth(InputAction.CallbackContext context)
+    {
+        if (UIMenuStack.Current != progressionMenu)
+        {
+            if (isAnimDone)
+            {
+                if (detailsScreenAnim.GetBool("isHidden"))
+                {
+                    TogglePlanningUI("Details");
+                }
+                else
+                {
+                    TogglePlanningUI("Loadout");
+                }
+                
+                isAnimDone = false;
+            }
+        }
     }
 
     private void OnEnable()
     {
         cancelAction.action.performed += OnCancel;
         cancelAction.action.Enable();
+        
+        buttonNorthAction.action.performed += OnButtonNorth;
+        buttonNorthAction.action.Enable();
     }
 
     private void OnDisable()
     {
         cancelAction.action.performed -= OnCancel;
         cancelAction.action.Disable();
+        
+        buttonNorthAction.action.performed -= OnButtonNorth;
+        buttonNorthAction.action.Disable();
     }
 }

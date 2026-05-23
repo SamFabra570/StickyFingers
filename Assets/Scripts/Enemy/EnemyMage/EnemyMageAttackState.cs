@@ -6,8 +6,6 @@ public class EnemyMageAttackState : EnemyMageState
 
     private float attackCooldown = 1f;
     private float lastAttackTime = -Mathf.Infinity;
-
-    private bool hasUsedSecondChance;
     
     [SerializeField] private float mapRange = 50f;
     
@@ -50,7 +48,7 @@ public class EnemyMageAttackState : EnemyMageState
                     {
                         var passive = GameManager.Instance.PlayerPassives;
                         
-                        if (passive.Has(PassiveAbilities.SecondChance) && !hasUsedSecondChance)
+                        if (passive.Has(PassiveAbilities.SecondChance) && !player.hasUsedSecondChance)
                         {
                             playerTransform = player.transform;
                             
@@ -70,10 +68,11 @@ public class EnemyMageAttackState : EnemyMageState
                                 Debug.LogWarning("SecondChance: Could not find a valid NavMesh point to teleport to.");
                             }
 
-                            hasUsedSecondChance = true;
+                            Debug.Log("Second chance used");
+                            player.hasUsedSecondChance = true;
                         }
-                        else 
-                            GameManager.Instance.EndGame();
+                        else
+                            GameManager.Instance.EndGame(false);
                     }
                 }
             }

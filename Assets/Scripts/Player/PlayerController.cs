@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
     public GameObject vacuumZone;
     public GameObject forceField;
 
+    public bool hasUsedSecondChance;
+
     public bool isInvisible;
 
     public Renderer rend;
@@ -635,8 +637,7 @@ public class PlayerController : MonoBehaviour
                     arrow.SetActive(false);
                     
                     Debug.Log("End Game FROM PORTAL");
-                    GameManager.Instance.runState=true;
-                    GameManager.Instance.EndGame();
+                    GameManager.Instance.EndGame(true);
                 }
                 
                 if (SceneManager.GetActiveScene().name == "HUB")
