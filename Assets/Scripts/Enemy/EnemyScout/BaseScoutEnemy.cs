@@ -34,6 +34,11 @@ public class BaseScoutEnemy : MonoBehaviour
     public Vector3 lastKnownPlayerPosition;
     private Vector3 forwardPoint;
     
+    //Detection warmup — player must stay in sight this long before the scout commits to attacking
+    [Tooltip("Seconds the player must stay in sight before the scout commits to attacking.")]
+    public float detectionWarmup = 1.0f;
+    [HideInInspector] public float suspicion;   // 0..detectionWarmup, exposed for a future UI cue
+
     //Attacking
     public float attack_distance_ = 2.0f;
     public float stop_attack_distance_multiplier = 1.2f;
@@ -96,7 +101,18 @@ public class BaseScoutEnemy : MonoBehaviour
 
         agent_.speed = ditherVisibility_.IsVisible ? visibleSpeed : hiddenSpeed;
     }
-    
+
+    //Builds up while the player is in sight, decays when not. Returns true once it fills (warmup done).
+    public bool AccumulateSuspicion(bool seeingPlayer)
+    {
+        if (seeingPlayer)
+            suspicion += Time.deltaTime;
+        else
+            suspicion = Mathf.MoveTowards(suspicion, 0f, Time.deltaTime * 2f); // forgets twice as fast
+
+        return suspicion >= detectionWarmup;
+    }
+
     void FixedUpdate()
     {
         if (stateMachine._CurrentState == null)

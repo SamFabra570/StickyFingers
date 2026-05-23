@@ -8,6 +8,9 @@ public class PlayerVisionCone : MonoBehaviour
     public float visionAngle = 90f;
     public float visionRadius = 10f;
 
+    [Tooltip("Proximity reveal: targets this close are revealed regardless of cone angle (still blocked by walls). Set 0 to disable.")]
+    public float peripheralRadius = 2f;
+
     [Header("Occlusion")]
     public LayerMask occlusionMask;   // walls, environment geometry
     public LayerMask targetMask;      // enemies + stealable objects
@@ -44,7 +47,10 @@ public class PlayerVisionCone : MonoBehaviour
             Vector3 dirToTarget = (col.bounds.center - transform.position);
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
-            if (angle > visionAngle * 0.5f) continue; // outside cone angle
+            // Inside the cone angle, OR close enough to reveal peripherally (peripheralRadius = 0 disables it)
+            bool insideCone       = angle <= visionAngle * 0.5f;
+            bool insidePeripheral = dirToTarget.magnitude <= peripheralRadius;
+            if (!insideCone && !insidePeripheral) continue;
 
             // Raycast for occlusion
             if (Physics.Raycast(transform.position, dirToTarget.normalized,

@@ -24,14 +24,18 @@ public class EnemyScoutPatrolState : EnemyScoutState
     {
         base.LogicUpdate();
 
-        //Switch to pursuit when player is detected
-        if (enemy.sight_sensor_.detected_object_ != null)
+        bool seesPlayer = enemy.sight_sensor_.detected_object_ != null;
+
+        //Warmup: must keep the player in sight for detectionWarmup seconds before committing to the attack
+        if (enemy.AccumulateSuspicion(seesPlayer))
         {
+            enemy.suspicion = 0f;
             stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Pursuit"));
+            return;
         }
-        
-        //Move to next waypoint when reached
-        else if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
+
+        //Keep patrolling while not yet committed
+        if (!seesPlayer && enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
         {
             enemy.StartCoroutine(enemy.MoveToNextWaypoint());
         }

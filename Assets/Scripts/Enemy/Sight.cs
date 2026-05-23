@@ -13,7 +13,10 @@ public class Sight : MonoBehaviour
     public LayerMask sensor_layer_;
     public LayerMask sensor_layer_2;
     public LayerMask obstacles_layer_;
-    
+
+    [Tooltip("Proximity sense: detects targets this close regardless of cone angle (still blocked by walls). Set 0 to disable.")]
+    public float peripheral_radius_ = 2f;
+
     public Collider detected_object_;
 
     //new vision cone
@@ -27,7 +30,6 @@ public class Sight : MonoBehaviour
     void Update()
     {
         
-        //meshObject.transform.rotation = transform.rotation;
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_ | sensor_layer_2);
 
         detected_object_ = null;
@@ -45,23 +47,26 @@ public class Sight : MonoBehaviour
 
             // Angle -> coste alto / alternativa Dot
             float angle_to_collider = Vector3.Angle(transform.forward, dir_to_collider);
+            float distance_to_collider = Vector3.Distance(transform.position, single_collider.bounds.center);
 
-            if(angle_to_collider < angle_)
+            // Inside the vision cone, OR close enough to be sensed peripherally (peripheral_radius_ = 0 disables it)
+            bool insideCone       = angle_to_collider < angle_;
+            bool insidePeripheral = distance_to_collider <= peripheral_radius_;
+            if (!insideCone && !insidePeripheral)
+                continue;
+
+            // OCCLUSION FIX: a wall between us blocks detection. Linecast returns true when something
+            // on obstacles_layer_ is in the way → blocked → do NOT detect. (Old code detected anyway.)
+            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_))
             {
-                if(!Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit,  obstacles_layer_))
-                {
-                    
-                    Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
-                    detected_object_ = single_collider;
-                    break;
-                }
-                else
-                {
-                    Debug.DrawLine(transform.position, hit.point, Color.green);
-                    detected_object_ = single_collider;
-                    
-                }
+                Debug.DrawLine(transform.position, hit.point, Color.green); // blocked
+                continue;
             }
+
+            // Clear line of sight → detected
+            Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
+            detected_object_ = single_collider;
+            break;
         }
 
     }

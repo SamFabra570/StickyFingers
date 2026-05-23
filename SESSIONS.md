@@ -111,7 +111,30 @@ También se arregló un bug pre-existente: `DitherVisibility.SetVisible` crashea
 
 ---
 
+## Backlog — Visión y detección (Sesión 6)
+
+### Hechas en código ✅ (falta aplicar/tunear en Unity)
+| # | Qué | Archivos | Falta en Unity |
+|---|---|---|---|
+| 1 | Fix oclusión: los enemigos ya NO detectan a través de paredes | `Sight.cs` | ⚠️ Verificar que `obstacles_layer_` incluya la layer de paredes en los 3 enemigos |
+| 4 | Visión periférica (esfera de cercanía) enemigo + player | `Sight.cs`, `PlayerVisionCone.cs` | Tunear `peripheral_radius_` / `peripheralRadius` (default 2; 0 = off) |
+| 3 | Warmup de detección del scout (no instantáneo) | `BaseScoutEnemy.cs`, `EnemyScoutPatrolState.cs` | Tunear `detectionWarmup` (default 1s) |
+| 2 (limpieza) | Borrado `PlayerVision.cs` (código muerto, cero refs) | — | Chequear "missing script" en prefab/escena del player |
+
+### Pendientes de reproducir 🟡 (NO tocar código sin repro)
+- **Seguís viendo guardias que ya no deberían**: chequear primero `lingerTime` / `staysVisibleOnceSeen` en el inspector antes de tocar código.
+- **Visión del player rara con colliders al acercarse**: necesita repro (clip o pasos) para diagnosticar.
+
+### Otros clusters (Sesión 6, sin empezar)
+- **Limpieza de contenido**: sacar chests si no hacen nada; dejar solo mecánicas entendibles; prototipos visuales (topo→agujero, manos abierta→cerrada al agarrar).
+- **Atmósfera (Unity)**: fog (URP fog / Volume), post-processing (Volume + URP profile).
+- **SFX**: footsteps, robar/soltar, wings/scout, guard, portal (hooks en código + clips del usuario).
+
+---
+
 ## Próxima sesión empieza por
+
+**Ya mismo**: aplicar y probar los 4 fixes de visión de Sesión 6 (ver tabla arriba). Crítico: confirmar `obstacles_layer_` con las paredes, y reproducir los 2 bugs 🟡.
 
 **Cero**: terminar de tunear las mejoras de sigilo en Unity (ver tabla arriba) si quedó algo pendiente.
 
@@ -155,6 +178,14 @@ Código de las 7 mecánicas escrito (22 scripts). Cambios en `PlayerController`.
 - Fix posicionamiento de `DitherVisibility`: va en el root del prefab Guard (no en los hijos de mesh) — `GetComponentInParent` sube, no baja.
 - Refactor `VisionCone.cs`: ahora usa `[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]` y `GetComponent` en `Awake` en lugar de `AddComponent` en runtime. Esto permite que `DitherVisibility.Awake` encuentre el renderer del cono. Se eliminó el campo `VisionConeMaterial` — el material se asigna directo en el `MeshRenderer` del prefab.
 - Pendiente para próxima sesión: cono magenta (ver sección 🐛).
+
+### Sesión 6 — 2026-05-23
+- Diagnóstico del sistema de visión. Arquitectura: los 3 enemigos detectan con el sensor compartido `Sight.cs`; el player revela con `PlayerVisionCone.cs` → `DitherVisibility`. `VisionCone.cs` y `PlayerVisionConeVisual.cs` son solo visuales. `PlayerVision.cs` era código muerto.
+- **Bug oclusión (raíz encontrada)**: `Sight.cs` chequeaba la pared con `Linecast` pero el `else` detectaba IGUAL. Fix: si hay pared → no detecta. Arregla los 3 enemigos de una.
+- **Visión periférica**: esfera de cercanía en `Sight.cs` (`peripheral_radius_`) y `PlayerVisionCone.cs` (`peripheralRadius`) — detecta/revela cosas muy pegadas aunque estén fuera del ángulo, sin atravesar paredes.
+- **Warmup del scout**: `detectionWarmup` + `AccumulateSuspicion()` en `BaseScoutEnemy`; `EnemyScoutPatrolState` acumula sospecha mientras te ve (decae al perderte). Search sigue instantáneo a propósito (ya alertado).
+- Borrado `PlayerVision.cs` + `.meta` (código muerto).
+- Pendientes de reproducir: "seguís viendo guardias" (chequear inspector primero) y "visión rara con colliders".
 
 ### Sesión 5 — 2026-05-17
 - Analizados 4 commits de otro dev: la Sesión 4 quedó commiteada en `8fc1e7c`; `GameManager` ya carga `Game` (no `Game2`); sistema de Stun nuevo; `AlchemyRoom.prefab` es solo geometría.
