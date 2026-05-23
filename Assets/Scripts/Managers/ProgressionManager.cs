@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class ProgressionManager : MonoBehaviour
 {
-    private List<string> unlockedAbilities = new();
+    public static ProgressionManager Instance { get; private set; }
+    
+    public List<string> unlockedAbilities = new();
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+    }
+    
     public bool IsUnlocked(Ability ability)
     {
         return unlockedAbilities.Contains(ability.abilityID);

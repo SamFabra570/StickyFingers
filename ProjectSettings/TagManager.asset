@@ -15,6 +15,9 @@ TagManager:
   - MageSpawn
   - Enemy
   - PassiveSlot
+  - Placeholder
+  - Passive
+  - Ability
   layers:
   - Default
   - TransparentFX

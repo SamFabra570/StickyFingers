@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
     public GameObject vacuumZone;
     public GameObject forceField;
 
+    public bool hasUsedSecondChance;
+
     public bool isInvisible;
 
     public Renderer rend;
@@ -177,8 +179,6 @@ public class PlayerController : MonoBehaviour
                     {
                         StealObject();
                         UIManager.Instance.ToggleInteractText(false, "");
-                        //Debug.Log("Steal object");
-                        
                     }
                     else
                         Debug.Log("UR SO FAT U CANT EVEN STEAL ANYMORE");
@@ -187,12 +187,10 @@ public class PlayerController : MonoBehaviour
                 //Interactable Object
                 case 1:
                     Interact(interactable);
-                    //Debug.Log("Interact");
                     break;
                 //Mash Event
                 case 2:
                     buttonMashObj.MashEvent();
-                    //Debug.Log("Mashing button");
                     break;
             }
         };
@@ -516,7 +514,9 @@ public class PlayerController : MonoBehaviour
         {
             interactType = 1;
             interactable = other.gameObject;
+            
             UIManager.Instance.ToggleInteractText(true, other.tag);
+            //Debug.Log("Showing interact text");
         }
         else if (other.CompareTag("MashEvent"))
         {
@@ -526,8 +526,6 @@ public class PlayerController : MonoBehaviour
             buttonMashObj = interactable.GetComponent<ButtonMash>();
             UIManager.Instance.ToggleInteractText(true, other.tag);
         }
-        
-        
     }
 
     private void OnTriggerExit(Collider other)
@@ -637,8 +635,7 @@ public class PlayerController : MonoBehaviour
                     arrow.SetActive(false);
                     
                     Debug.Log("End Game FROM PORTAL");
-                    GameManager.Instance.runState=true;
-                    GameManager.Instance.EndGame();
+                    GameManager.Instance.EndGame(true);
                 }
                 
                 if (SceneManager.GetActiveScene().name == "HUB")
@@ -648,16 +645,20 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if (obj.name == "PlanningDesk")
+        if (obj.TryGetComponent(out InteractableHandler type))
         {
-            HUB_UIManager.Instance.TogglePlanningUI("Show");
-            FreezeMovement(0);
-        }
-
-        if (obj.name == "ProgressionDesk")
-        {
-            HUB_UIManager.Instance.TogglePlanningUI("Progression");
-            FreezeMovement(0);
+            if (type == (type.interactableType == Interactables.PlanningDesk))
+            {
+                HUB_UIManager.Instance.TogglePlanningUI("Show");
+                FreezeMovement(0);
+                
+            }
+            
+            if (type == (type.interactableType == Interactables.ProgressionDesk))
+            {
+                HUB_UIManager.Instance.TogglePlanningUI("Progression");
+                FreezeMovement(0);
+            }
         }
 
         if (obj.TryGetComponent(out IInteractable interactable))

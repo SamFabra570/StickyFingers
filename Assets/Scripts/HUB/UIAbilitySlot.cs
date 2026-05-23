@@ -7,36 +7,6 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
 {
     //[SerializeField] private GameObject equippedAbility;
 
-    private void OnTransformChildrenChanged()
-    {
-        if (transform.childCount == 0)
-            ResetAbilitySlot();
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        if (transform.childCount == 0)
-        {
-            GameObject dropped = eventData.pointerDrag;
-            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-            
-
-            //Abilities
-            if (draggableItem.abilityType == AbilityType.Ability)
-            {
-                SetAbilitySlot(draggableItem.ability);
-            }
-
-            //Passives
-            else if (draggableItem.abilityType == AbilityType.Passive)
-            {
-                SetPassiveSlot(draggableItem);
-            }
-            
-            draggableItem.parentAfterDrag = transform;
-        }
-    }
-
     private void SetAbilitySlot(AbilitySlot slot)
     {
         if (gameObject.CompareTag("Slot1"))
@@ -69,24 +39,58 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
     {
         if (gameObject.CompareTag("Slot1"))
             AbilityManager.Instance.DequipAbility(0);
+        
         else if (gameObject.CompareTag("Slot2"))
             AbilityManager.Instance.DequipAbility(1);
+        
         else if(gameObject.CompareTag("Slot3"))
             AbilityManager.Instance.DequipAbility(2);
+        
         else if (gameObject.CompareTag("PassiveSlot"))
         {
             //Add dequip passive logic
         }
             
     }
-
-    private void SetActiveAbilities()
+    
+    private void OnTransformChildrenChanged()
     {
-        if (gameObject.CompareTag("Slot1"))
-            Debug.Log("Ability 1 active");
-        else if (gameObject.CompareTag("Slot2"))
-            AbilityManager.Instance.DequipAbility(1);
-        else if(gameObject.CompareTag("Slot3"))
-            AbilityManager.Instance.DequipAbility(2);
+        if (transform.childCount != 0)
+        {
+            if (transform.GetChild(0).CompareTag("Placeholder"))
+            {
+                Destroy(transform.GetChild(0).gameObject);
+                ResetAbilitySlot();
+            }
+        }
+    }
+    
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (transform.childCount != 0)
+        {
+            if (transform.GetChild(0).CompareTag("Placeholder"))
+            {
+                Destroy(transform.GetChild(0).gameObject);
+                
+                GameObject dropped = eventData.pointerDrag;
+                DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+
+                //Abilities
+                if (draggableItem.abilityType == AbilityType.Ability)
+                {
+                    SetAbilitySlot(draggableItem.ability);
+                }
+
+                //Passives
+                else if (draggableItem.abilityType == AbilityType.Passive)
+                {
+                    SetPassiveSlot(draggableItem);
+                }
+            
+                draggableItem.parentAfterDrag = transform;
+            }
+
+        }
     }
 }

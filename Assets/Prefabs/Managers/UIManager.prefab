@@ -44,5 +44,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ad825865b7fc44ca27b81e0d9fa3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  cancelAction: {fileID: 0}
+  buttonNorthAction: {fileID: 0}
   pauseScreen: {fileID: 0}
   inventoryScreen: {fileID: 0}
+  HUDCanvas: {fileID: 0}
+  pauseMenuFirstButton: {fileID: 0}
+  invMenuFirstObject: {fileID: 0}
+  weightFillInv: {fileID: 0}
+  weightPreviewFillInv: {fileID: 0}
+  weightStateText: {fileID: 0}
+  totalWeightText: {fileID: 0}
+  maxWeightText: {fileID: 0}
+  totalBountyText: {fileID: 0}
+  passiveBackground: {fileID: 0}
+  passiveIcon: {fileID: 0}
+  normalizedWeight: 0
+  weightFill: {fileID: 0}
+  weightPreviewFill: {fileID: 0}
+  weightFillGreen: {fileID: 0}
+  weightFillYellow: {fileID: 0}
+  weightFillRed: {fileID: 0}
+  mageSpawnNotif: {fileID: 0}
+  interactText: {fileID: 0}
+  portalSpawnNotif: {fileID: 0}
+  textTotalWeight: {fileID: 0}
+  textTotalBounty: {fileID: 0}
+  textWeightPreview: {fileID: 0}
+  textBountyPreview: {fileID: 0}
+  objectWeightPreview: {fileID: 0}
+  objectBountyPreview: {fileID: 0}
+  triggeredObject: {fileID: 0}
+  mashBar: {fileID: 0}
+  isMashing: 0
+  objectPickupNotif: {fileID: 0}
+  objectRemoveNotif: {fileID: 0}
+  textNameNotif: {fileID: 0}
+  textRemoveNameNotif: {fileID: 0}
+  textWeightNotif: {fileID: 0}
+  textValueNotif: {fileID: 0}
+  emptySprite: {fileID: 0}
+  inventory:
+    inventory: []
+    itemSlots: []
+    freeSlot: 0
+    totalWeight: 0
+    totalBounty: 0
+    itemDescriptionImage: {fileID: 0}
+    itemDescriptionNameText: {fileID: 0}
+    itemDescriptionText: {fileID: 0}
+    emptySprite: {fileID: 0}

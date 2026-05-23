@@ -22,12 +22,14 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("UI")]
     public Image image;
     public Image iconImage;
+    public Transform originalParent;
     [HideInInspector] public Transform parentAfterDrag;
 
     private void Start()
     {
         image = GetComponent<Image>();
         iconImage = transform.GetChild(0).GetComponent<Image>();
+        originalParent = transform.parent;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

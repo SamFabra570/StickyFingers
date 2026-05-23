@@ -1,13 +1,16 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager Instance;
+    
     [Header ("Timer Length (Seconds)")]
     [SerializeField] private float countdownTime = 300f;
     [SerializeField] private float extraTime = 60f;
     
-    [SerializeField] private float remainingTime;
+    public float remainingTime;
     private bool lastMinute;
     
     [Header ("UI Refs")]
@@ -15,6 +18,17 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private GameObject lastMinuteEffect;
 
     public PortalSpawner portalSpawner;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +60,7 @@ public class TimeManager : MonoBehaviour
         if (remainingTime <= 0)
         {
             timerText.text = ("0:00");
-            GameManager.Instance.EndGame();
+            GameManager.Instance.EndGame(false);
         }
             
     }

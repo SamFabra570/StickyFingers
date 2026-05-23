@@ -11,13 +11,13 @@ public class MainMenuManager : MonoBehaviour
     public GameObject menuStartButton;
     public GameObject settingsBackButton;
     
-    private EventSystem eventSystem;
+    public EventSystem eventSystem;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        eventSystem = EventSystem.current;
-        settingsMenu.SetActive(false);
+        if (settingsBackButton.activeSelf) 
+            settingsMenu.SetActive(false);
         
         eventSystem.SetSelectedGameObject(menuStartButton);
     }

@@ -11,6 +11,7 @@ public class AbilityUnlock : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI abilityName;
     [SerializeField] private GameObject abilityLockOverlay;
+    [SerializeField] private Button abilityButton;
     //[SerializeField] private TextMeshProUGUI abilityIcon;
     //[SerializeField] private TextMeshProUGUI abilityDescription;
     [SerializeField] private Button unlockButton;
@@ -21,10 +22,12 @@ public class AbilityUnlock : MonoBehaviour
     {
         unlockButton = GetComponent<Button>();
         abilityName = GetComponentInChildren<TextMeshProUGUI>();
-        progressionManager = GameManager.Instance.GetComponent<ProgressionManager>();
+        progressionManager = ProgressionManager.Instance;
         
         SetButtonUI();
         UpdateState();
+        
+        //Debug.Log(progressionManager.unlockedAbilities.Count);
         
         unlockButton.onClick.AddListener(UnlockAbility);
     }
@@ -43,16 +46,32 @@ public class AbilityUnlock : MonoBehaviour
     private void UnlockAbility()
     {
         progressionManager.UnlockAbility(ability);
+        //Debug.Log(progressionManager.unlockedAbilities.Count);
         
+        ProgressionMenu.Instance.MoveSelectionAfterUnlock(unlockButton.gameObject);
+
         UpdateState();
     }
 
-    private void UpdateState()
+    public void UpdateState()
     {
+        if (progressionManager == null)
+        {
+            progressionManager = ProgressionManager.Instance;
+
+            if (progressionManager == null)
+            {
+                Debug.LogWarning("ProgressionManager still null");
+                return;
+            }
+        }
+        
         bool unlocked = progressionManager.IsUnlocked(ability);
         bool canUnlock = progressionManager.CanUnlock(ability);
-
-        unlockButton.interactable = canUnlock && !unlocked;
+            
+        unlockButton.interactable = canUnlock;
         abilityLockOverlay.SetActive(!unlocked);
+        abilityButton.interactable = unlocked;
+        gameObject.SetActive(!unlocked);
     }
 }

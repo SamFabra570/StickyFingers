@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     public InputActionReference cancelAction;
+    public InputActionReference buttonNorthAction;
     
     [Header ("UI Screen Refs")]
     public GameObject pauseScreen;
@@ -112,11 +113,11 @@ public class UIManager : MonoBehaviour
             portalSpawnNotif.SetActive(false);
         
         
-        if (interactText != null)
+        if (interactText == null)
         {
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-            interactText.gameObject.SetActive(false);
         }
+        interactText.gameObject.SetActive(false);
         
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(false);
@@ -139,12 +140,18 @@ public class UIManager : MonoBehaviour
     {
         cancelAction.action.performed += OnCancel;
         cancelAction.action.Enable();
+        
+        buttonNorthAction.action.performed += OnButtonNorth;
+        buttonNorthAction.action.Enable();
     }
 
     private void OnDisable()
     {
         cancelAction.action.performed -= OnCancel;
         cancelAction.action.Disable();
+        
+        buttonNorthAction.action.performed -= OnButtonNorth;
+        buttonNorthAction.action.Disable();
     }
 
     private void OnCancel(InputAction.CallbackContext context)
@@ -153,6 +160,11 @@ public class UIManager : MonoBehaviour
             HideScreen("Pause");
         if (inventoryScreen.activeSelf)
             HideScreen("Inventory");
+    }
+
+    private void OnButtonNorth(InputAction.CallbackContext context)
+    {
+        //Add logic for inventory
     }
 
     private void UpdateInventoryUI()
@@ -382,9 +394,9 @@ public class UIManager : MonoBehaviour
         weightPreviewFill.fillAmount = normalizedWeightPreview;
         weightPreviewFillInv.fillAmount = normalizedWeightPreview;
         
-        textWeightPreview.color = Color.green;
+        textWeightPreview.color = Color.forestGreen;
         textWeightPreview.SetText("+ " + itemData.itemWeight);
-        textBountyPreview.color = Color.green;
+        textBountyPreview.color = Color.forestGreen;
         textBountyPreview.SetText("+ " + itemData.itemPrice);
         objectWeightPreview.SetActive(true);
         objectBountyPreview.SetActive(true);
@@ -403,9 +415,9 @@ public class UIManager : MonoBehaviour
     
     private IEnumerator ItemStolen(InventoryItemData itemData)
     {
-        textWeightPreview.color = Color.red;
+        textWeightPreview.color = Color.darkRed;
         textWeightPreview.SetText("- " + itemData.itemWeight);
-        textBountyPreview.color = Color.red;
+        textBountyPreview.color = Color.darkRed;
         textBountyPreview.SetText("- " + itemData.itemPrice);
         objectWeightPreview.SetActive(true);
         objectBountyPreview.SetActive(true);
