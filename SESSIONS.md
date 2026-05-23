@@ -125,10 +125,31 @@ También se arregló un bug pre-existente: `DitherVisibility.SetVisible` crashea
 - **Seguís viendo guardias que ya no deberían**: chequear primero `lingerTime` / `staysVisibleOnceSeen` en el inspector antes de tocar código.
 - **Visión del player rara con colliders al acercarse**: necesita repro (clip o pasos) para diagnosticar.
 
-### Otros clusters (Sesión 6, sin empezar)
-- **Limpieza de contenido**: sacar chests si no hacen nada; dejar solo mecánicas entendibles; prototipos visuales (topo→agujero, manos abierta→cerrada al agarrar).
-- **Atmósfera (Unity)**: fog (URP fog / Volume), post-processing (Volume + URP profile).
-- **SFX**: footsteps, robar/soltar, wings/scout, guard, portal (hooks en código + clips del usuario).
+### SFX — hooks en código ✅ (convención por-objeto, falta asignar clips en Unity)
+| SFX | Componente | Setup en Unity |
+|---|---|---|
+| Footsteps player | `PlayerFootsteps.cs` (player root) | + AudioSource, asignar `footstepClips[]`, tunear cadencia walk/sprint |
+| Robar | `PlayerSoundController.cs` (player root) | + AudioSource, asignar `stealClip` |
+| Soltar | `PlayerSoundController.PlayDrop()` ← `ItemSlot.OnRightClick` | + AudioSource, asignar `dropClip` (suena al click derecho en un slot con item) |
+| Alas scout | `EnemyAudio.cs` (scout) | tildar `useMovementLoop`, AudioSource loop con clip de alas |
+| Pasos guard | `EnemyAudio.cs` (guard) | tildar `useFootsteps`, AudioSource + `footstepClips[]` |
+| Portal | `ExitPortal.cs` (ya tiene campos) | + AudioSource, asignar `chargeLoop`/`chargedReady`/`activateClip` |
+
+`EnemyAudio.cs` es reusable en los 3 enemigos (tildás qué necesita cada uno).
+
+### Atmósfera (Sesión 6) — infra YA instalada, solo prender + tunear
+- **Fog volumétrico**: package `com.cqf.urpvolumetricfog` instalado, `VolumetricFogRendererFeature` ACTIVO en PC_Renderer. El `VolumetricFogVolumeComponent` está en `DefaultVolumeProfile` con `enabled=0`. → Prenderlo y tunear density/distance/baseHeight/maximumHeight (esto arregla el "ver lejos").
+- **Post-processing**: `DefaultVolumeProfile` ya tiene Bloom/Vignette/ColorAdjustments/Tonemapping/DoF/etc en 0. SSAO activo. → Subir valores. Verificar `Post Processing` tildado en la cámara.
+- **Vignette dinámico de detección** ✅ código: `DetectionVignette.cs` (player) blendea un Volume dedicado por `weight` cuando `PlayerController.IsDetected`. Flag = contador en `PlayerController` (`AddDetector`/`RemoveDetector`), reportado por `Sight.cs` (con cleanup en OnDisable). Falta: crear el Volume "detectado" (vignette rojo) y asignarlo.
+
+### Limpieza de contenido — EN PAUSA (decisión: por ahora NO se borra nada)
+- Inventario hecho: 9 mecánicas (Saqueo/Chest, Moles, Crea tu Poción, Catering, Que empiece la fiesta, Libro Sorpresa, Secret Vintage, Curador de Arte, PressurePlate). Ninguna se borra por ahora. Si alguna molesta → desactivar en escena, NO borrar código.
+- El **Chest SÍ funciona en código** (llave/Lockpick → loot); "no hacer nada" sería falta de setup en escena.
+- Prototipos visuales pendientes (additivos, no deletes): **topo→agujero ya está codeado en `Moles/`** (asusta topo → spawnea hole → F teletransporta), solo falta el sprite; ⚠️ `MoleHole` usa `Input.GetKeyDown(KeyCode.F)` (input viejo, unificar si se mantiene). **Manos abierta→cerrada al agarrar**: nuevo, sobre la captura del enemigo.
+
+### Deuda detectada — RESUELTA ✅ (Sesión 6)
+- `SoundPlayer.cs`: oído ahora **omnidireccional** (saqué `angle_`) + **paredes bloquean** (fix oclusión). Decisión de diseño del usuario. ⚠️ depende de `obstacles_layer_` con las paredes, igual que Sight.
+- `PlayerController`: cacheado el `SoundPlayer` una vez (`GetComponentInChildren` en Start), eliminados los 5 `GameObject.Find("Player(Clone)")`, limpiado el bloque de enemigos con `TryGetComponent`.
 
 ---
 

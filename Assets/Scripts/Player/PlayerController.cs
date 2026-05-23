@@ -92,6 +92,12 @@ public class PlayerController : MonoBehaviour
     private Collider detectedEnemy; 
     
     private CharacterController cc;
+    private SoundPlayer soundPlayer;
+
+    // How many enemy sensors currently see the player. >0 = detected (drives the detection vignette).
+    private int _detectorCount;
+    public bool IsDetected => _detectorCount > 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -241,6 +247,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        soundPlayer = GetComponentInChildren<SoundPlayer>();
         forceField.SetActive(false);
         wings.SetActive(false);
 
@@ -256,21 +263,24 @@ public class PlayerController : MonoBehaviour
     {
         UpdateSpeed();
         bool isMoving = cc.velocity.sqrMagnitude > 0.0001f;
-        if (!isMoving)
-            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 0f;
-        detectedEnemy = GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().detected_object_;
-        if (detectedEnemy!=null)
+        if (soundPlayer != null)
         {
-            Transform soundLocation = transform;
-            
-            if(detectedEnemy.gameObject.GetComponent<BaseEnemy>()!=null)  
-                detectedEnemy.gameObject.GetComponent<BaseEnemy>().agent_.SetDestination(soundLocation.position) ;
-            else if(detectedEnemy.gameObject.GetComponent<BaseScoutEnemy>()!=null)  
-                detectedEnemy.gameObject.GetComponent<BaseScoutEnemy>().agent_.SetDestination(soundLocation.position);
-            else if(detectedEnemy.gameObject.GetComponent<BaseMageEnemy>()!=null)  
-                detectedEnemy.gameObject.GetComponent<BaseMageEnemy>().agent_.SetDestination(soundLocation.position);
+            if (!isMoving)
+                soundPlayer.distance_ = 0f;
+
+            detectedEnemy = soundPlayer.detected_object_;
+            if (detectedEnemy != null)
+            {
+                if (detectedEnemy.TryGetComponent(out BaseEnemy baseEnemy))
+                    baseEnemy.agent_.SetDestination(transform.position);
+                else if (detectedEnemy.TryGetComponent(out BaseScoutEnemy scout))
+                    scout.agent_.SetDestination(transform.position);
+                else if (detectedEnemy.TryGetComponent(out BaseMageEnemy mage))
+                    mage.agent_.SetDestination(transform.position);
+            }
         }
-        if (!isFrozen) 
+
+        if (!isFrozen)
             CorrectMovement();
         
         Look();
@@ -324,7 +334,7 @@ public class PlayerController : MonoBehaviour
             }
             
             float sprintRadius = RainController.Instance != null && RainController.Instance.IsRaining ? 2f : 4f;
-            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = sprintRadius;
+            if (soundPlayer != null) soundPlayer.distance_ = sprintRadius;
         }
         else if (isFloorFrozen)
         {
@@ -363,7 +373,7 @@ public class PlayerController : MonoBehaviour
             //Base acceleration settings
             acceleration = 40;
             deceleration = 50;
-            GameObject.Find("Player(Clone)").GetComponentInChildren<SoundPlayer>().distance_ = 2f;
+            if (soundPlayer != null) soundPlayer.distance_ = 2f;
         }
     }
 
@@ -499,6 +509,10 @@ public class PlayerController : MonoBehaviour
         controller.Move(Vector3.up * amount);
     }
 
+    //Called by enemy Sight sensors when they start/stop seeing the player.
+    public void AddDetector() => _detectorCount++;
+    public void RemoveDetector() => _detectorCount = Mathf.Max(0, _detectorCount - 1);
+
     private void OnTriggerEnter(Collider other)
     {
         //Add object outline
@@ -554,6 +568,7 @@ public class PlayerController : MonoBehaviour
     {
         //Add object to inventory
         objectToSteal.Pickup();
+        GetComponent<PlayerSoundController>()?.PlaySteal();
         UIManager.Instance.DisablePreview();
         Debug.Log("Add " + objectToSteal.name + " to inventory");
     }
@@ -630,6 +645,8 @@ public class PlayerController : MonoBehaviour
         {
             if (portalClass.state == PortalState.Charged)
             {
+                portalClass.PlayActivate();
+
                 if (SceneManager.GetActiveScene().name == "Game")
                 {
                     arrow.SetActive(false);

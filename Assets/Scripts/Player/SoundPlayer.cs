@@ -3,7 +3,6 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
     public float distance_;
-    public float angle_;
     public float height_;
     public LayerMask sensor_layer_;
     public LayerMask sensor_layer_2;
@@ -22,7 +21,6 @@ public class SoundPlayer : MonoBehaviour
     void Update()
     {
         
-        //meshObject.transform.rotation = transform.rotation;
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_ | sensor_layer_2);
 
         detected_object_ = null;
@@ -36,47 +34,25 @@ public class SoundPlayer : MonoBehaviour
             if (player != null && player.isInvisible)
                 continue;
 
-            Vector3 dir_to_collider = Vector3.Normalize(single_collider.bounds.center - transform.position);
-
-            // Angle -> coste alto / alternativa Dot
-            float angle_to_collider = Vector3.Angle(transform.forward, dir_to_collider);
-
-            if(angle_to_collider < angle_)
+            // Hearing is omnidirectional — no angle check. But a wall between us muffles it out.
+            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_))
             {
-                if(!Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit,  obstacles_layer_))
-                {
-                    Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
-                    detected_object_ = single_collider;
-                    break;
-                }
-                else
-                {
-                    Debug.DrawLine(transform.position, hit.point, Color.green);
-                    detected_object_ = single_collider;
-                }
+                Debug.DrawLine(transform.position, hit.point, Color.green); // wall blocks the sound
+                continue;
             }
+
+            Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red); // heard
+            detected_object_ = single_collider;
+            break;
         }
 
     }
 
     private void OnDrawGizmos()
     {
+        // Hearing is omnidirectional — the radius is all that matters now.
         Gizmos.color = Color.cyan;
-
         Gizmos.DrawWireSphere(transform.position, distance_);
-
-        Vector3 right_dir = Quaternion.Euler(0.0f, angle_, 0.0f) * transform.forward;
-        Gizmos.DrawRay(transform.position, right_dir * distance_);
-
-        Vector3 left_dir = Quaternion.Euler(0.0f, -angle_, 0.0f) * transform.forward;
-        Gizmos.DrawRay(transform.position, left_dir * distance_);
-
-        /*if (mesh)
-        {
-            Gizmos.color = meshColor_;
-            Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
-            //meshObject.GetComponent<MeshFilter>().mesh = mesh;
-        }*/
     }
 
 

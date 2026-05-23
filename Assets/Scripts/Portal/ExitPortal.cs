@@ -9,11 +9,17 @@ public class ExitPortal : MonoBehaviour
     private float currentCharge;
     [SerializeField] private float chargePercent;
 
-    public GameObject[] candleFlames; 
+    public GameObject[] candleFlames;
     public Animator portalAnim;
     [SerializeField] SpriteRenderer portalBase;
     private Color portalBaseColour;
     [SerializeField] Material portalChargedMat;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip chargeLoop;     // loops while the portal is charging
+    [SerializeField] private AudioClip chargedReady;   // one-shot when it reaches full charge
+    [SerializeField] private AudioClip activateClip;   // one-shot when the player uses it
 
     private void Start()
     {
@@ -45,8 +51,11 @@ public class ExitPortal : MonoBehaviour
             {
                 state = PortalState.Charged;
                 //PlayerController.Instance.portalCharged = true;
+                StopChargeLoop();
+                if (audioSource != null && chargedReady != null)
+                    audioSource.PlayOneShot(chargedReady);
             }
-                
+
         }
         
         chargePercent = currentCharge / chargeTime;
@@ -62,13 +71,42 @@ public class ExitPortal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
+        {
             state = PortalState.Charging;
+            StartChargeLoop();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
+        {
             state = PortalState.Idle;
+            StopChargeLoop();
+        }
+    }
+
+    private void StartChargeLoop()
+    {
+        if (audioSource == null || chargeLoop == null) return;
+        if (audioSource.isPlaying && audioSource.clip == chargeLoop) return;
+
+        audioSource.clip = chargeLoop;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    private void StopChargeLoop()
+    {
+        if (audioSource != null && audioSource.clip == chargeLoop && audioSource.isPlaying)
+            audioSource.Stop();
+    }
+
+    /// <summary>Called by PlayerController when the player uses the charged portal.</summary>
+    public void PlayActivate()
+    {
+        if (audioSource != null && activateClip != null)
+            audioSource.PlayOneShot(activateClip);
     }
 }

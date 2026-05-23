@@ -5096,6 +5096,8 @@ MonoBehaviour:
   searchDistance: 5
   searchTime: 10
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
+  detectionWarmup: 1
+  suspicion: 0
   attack_distance_: 2
   stop_attack_distance_multiplier: 1.2
   isBeingSeen: 0
@@ -5243,6 +5245,7 @@ MonoBehaviour:
   obstacles_layer_:
     serializedVersion: 2
     m_Bits: 1
+  peripheral_radius_: 2
   detected_object_: {fileID: 0}
 --- !u!23 &9160676346522037201
 MeshRenderer:
@@ -5316,5 +5319,5 @@ MonoBehaviour:
   VisionAngle: 120
   VisionObstructingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   VisionConeResolution: 120

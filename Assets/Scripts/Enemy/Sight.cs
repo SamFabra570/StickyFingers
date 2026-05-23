@@ -19,6 +19,8 @@ public class Sight : MonoBehaviour
 
     public Collider detected_object_;
 
+    private bool _wasSeeingPlayer;   // tracks player-detection transitions for the detection vignette
+
     //new vision cone
    //the vision cone will be made up of triangles, the higher this value is the prettier the vision cone will be
     private void Start()
@@ -69,6 +71,27 @@ public class Sight : MonoBehaviour
             break;
         }
 
+        ReportDetection(detected_object_ != null
+            && detected_object_.GetComponentInParent<PlayerController>() != null);
+    }
+
+    //Notifies the player when this sensor starts/stops seeing them (reference-counted on PlayerController).
+    private void ReportDetection(bool seeingPlayer)
+    {
+        if (seeingPlayer == _wasSeeingPlayer) return;
+        _wasSeeingPlayer = seeingPlayer;
+
+        if (PlayerController.Instance == null) return;
+        if (seeingPlayer) PlayerController.Instance.AddDetector();
+        else              PlayerController.Instance.RemoveDetector();
+    }
+
+    private void OnDisable()
+    {
+        //If disabled while seeing the player (e.g. scout despawns), release our count so it doesn't stick.
+        if (_wasSeeingPlayer && PlayerController.Instance != null)
+            PlayerController.Instance.RemoveDetector();
+        _wasSeeingPlayer = false;
     }
 
     private void OnDrawGizmos()

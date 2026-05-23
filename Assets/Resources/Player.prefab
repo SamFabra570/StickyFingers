@@ -1417,6 +1417,7 @@ MonoBehaviour:
   wings: {fileID: 3011595244263410902}
   vacuumZone: {fileID: 6163231227236609924}
   forceField: {fileID: 2826084008003131337}
+  hasUsedSecondChance: 0
   isInvisible: 0
   rend: {fileID: 0}
   basePlayerMat: {fileID: 2100000, guid: fe65d19502e8db34cb856151b13ef69a, type: 2}
@@ -1556,6 +1557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisionCone
   visionAngle: 90
   visionRadius: 10
+  peripheralRadius: 3
   occlusionMask:
     serializedVersion: 2
     m_Bits: 1
