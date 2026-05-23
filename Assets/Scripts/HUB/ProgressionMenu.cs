@@ -29,8 +29,11 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     private void Update()
     {
-        if (eventSystem.currentSelectedGameObject != currentSelected &&  eventSystem.currentSelectedGameObject != null) 
-            ValidateNavigation();
+        if (ReferenceEquals(UIMenuStack.Current, this))
+        {
+            if (eventSystem.currentSelectedGameObject != currentSelected &&  eventSystem.currentSelectedGameObject != null) 
+                ValidateNavigation();
+        }
     }
 
     public void OnShowMenu()
@@ -59,8 +62,6 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
         
         if (current != null)
         {
-            Debug.Log(current + "progression menu");
-            
             var button = current.GetComponent<Button>();
 
             if (button != null && !button.interactable)
@@ -89,12 +90,11 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
             if (next != null && next.interactable)
             {
-                Debug.Log("next:" + next);
-                return next.gameObject;
+                if (next.gameObject.activeSelf)
+                    return next.gameObject;
+                    
+                return readyButton;
             }
-            
-            Debug.Log("selectable:" + selectable);
-                
         }
 
         return readyButton;

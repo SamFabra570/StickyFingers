@@ -27,7 +27,7 @@ public class AbilityUnlock : MonoBehaviour
         SetButtonUI();
         UpdateState();
         
-        Debug.Log(progressionManager.unlockedAbilities.Count);
+        //Debug.Log(progressionManager.unlockedAbilities.Count);
         
         unlockButton.onClick.AddListener(UnlockAbility);
     }

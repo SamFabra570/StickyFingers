@@ -16,6 +16,7 @@ public class HUB_UIManager : MonoBehaviour
     public Canvas planningUI;
     public GameObject detailsScreen;
     public GameObject loadoutScreen;
+    public GameObject switchScreenButtonText;
     
     public Animator detailsScreenAnim;
     public bool isAnimDone = true;
@@ -76,6 +77,8 @@ public class HUB_UIManager : MonoBehaviour
                 planningUI.enabled = false;
                 
                 UIManager.Instance.ToggleInteractText(true, "");
+
+                TooltipUI.Instance.StopTooltip();
                 
                 if (PlayerController.Instance.isFrozen)
                     PlayerController.Instance.isFrozen = false;
@@ -86,6 +89,8 @@ public class HUB_UIManager : MonoBehaviour
             
             case "Show":
                 planningUI.enabled = true;
+                if (!switchScreenButtonText.activeSelf) 
+                    switchScreenButtonText.SetActive(true);
 
                 if (detailsScreenAnim.GetBool("isHidden"))
                 {
@@ -107,6 +112,7 @@ public class HUB_UIManager : MonoBehaviour
             
             case "Progression":
                 planningUI.enabled = true;
+                switchScreenButtonText.SetActive(false);
                 
                 UIMenuStack.Push(progressionMenu);
                 break;
@@ -125,7 +131,7 @@ public class HUB_UIManager : MonoBehaviour
 
     private void OnSubmit(InputAction.CallbackContext context)
     {
-        if (UIMenuStack.Current != progressionMenu)
+        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
             loadoutMenu.OnSubmit();
         else
             progressionMenu.OnSubmit();
@@ -133,7 +139,7 @@ public class HUB_UIManager : MonoBehaviour
     
     private void OnCancel(InputAction.CallbackContext context)
     {
-        if (UIMenuStack.Current != progressionMenu)
+        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
             loadoutMenu.OnCancel();
         else
             progressionMenu.OnCancel();
@@ -141,7 +147,7 @@ public class HUB_UIManager : MonoBehaviour
 
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
-        if (UIMenuStack.Current != progressionMenu)
+        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
         {
             if (isAnimDone)
             {

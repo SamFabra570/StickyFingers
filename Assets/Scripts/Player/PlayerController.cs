@@ -626,8 +626,6 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(GameObject obj)
     {
-        Debug.Log("Initial interact " + obj.name);
-        
         if (obj.TryGetComponent(out ExitPortal portalClass))
         {
             if (portalClass.state == PortalState.Charged)

@@ -55,30 +55,42 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
     
     private void OnTransformChildrenChanged()
     {
-        if (transform.childCount == 0)
-            ResetAbilitySlot();
+        if (transform.childCount != 0)
+        {
+            if (transform.GetChild(0).CompareTag("Placeholder"))
+            {
+                Destroy(transform.GetChild(0).gameObject);
+                ResetAbilitySlot();
+            }
+        }
     }
     
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0)
+        if (transform.childCount != 0)
         {
-            GameObject dropped = eventData.pointerDrag;
-            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-
-            //Abilities
-            if (draggableItem.abilityType == AbilityType.Ability)
+            if (transform.GetChild(0).CompareTag("Placeholder"))
             {
-                SetAbilitySlot(draggableItem.ability);
-            }
+                Destroy(transform.GetChild(0).gameObject);
+                
+                GameObject dropped = eventData.pointerDrag;
+                DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
 
-            //Passives
-            else if (draggableItem.abilityType == AbilityType.Passive)
-            {
-                SetPassiveSlot(draggableItem);
-            }
+                //Abilities
+                if (draggableItem.abilityType == AbilityType.Ability)
+                {
+                    SetAbilitySlot(draggableItem.ability);
+                }
+
+                //Passives
+                else if (draggableItem.abilityType == AbilityType.Passive)
+                {
+                    SetPassiveSlot(draggableItem);
+                }
             
-            draggableItem.parentAfterDrag = transform;
+                draggableItem.parentAfterDrag = transform;
+            }
+
         }
     }
 }
