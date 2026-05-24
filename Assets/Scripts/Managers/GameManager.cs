@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         // TEMPORAL: apunta a Game2 para probar ZoneInteractables en desarrollo.
         // Revertir a "Game" cuando todas las mecánicas estén implementadas y probadas.
-        SceneManager.LoadScene("Game");
+        StartCoroutine(LoadRoutine("Game"));
         //SceneManager.LoadScene("Game2");
 
         if (PlayerPassives.Has(PassiveAbilities.DeeperPockets))
@@ -106,5 +107,32 @@ public class GameManager : MonoBehaviour
         float normalizedDebt = remainingDebt / maxDebt;
         
         return 1 - normalizedDebt;
+    }
+    
+    private IEnumerator LoadRoutine(string sceneName)
+    {
+        LoadingUI.Instance.Show();
+
+        yield return null; // lets UI appear for 1 frame
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
+
+        while (op.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        // small buffer so it doesn't feel instant
+        yield return new WaitForSeconds(0.2f);
+
+        op.allowSceneActivation = true;
+
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+
+        LoadingUI.Instance.Hide();
     }
 }
