@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WingsAbility
   abilityID: Wings
   abilityName: Wings
+  abilityDescription: Lets you take flight! Increases speed and ignores current weight
   icon: {fileID: 21300000, guid: 9687dfa63ddafe0469c9a94a9a114852, type: 3}
   abilityColour: {fileID: 2100000, guid: 5d15444556022ba40b620f48140eaf54, type: 2}
   debtThreshold: 0.04

@@ -8,4 +8,5 @@ public class PassivesUIData
     [Header("Passive UI")]
     public Sprite icon;
     public Color frameColor;
+    public string description;
 }

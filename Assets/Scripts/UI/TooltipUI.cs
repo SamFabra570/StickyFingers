@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TooltipUI : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class TooltipUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI durationText;
     [SerializeField] private TextMeshProUGUI cooldownText;
     
-    [Header ("Positioning")]
-    [SerializeField] private Vector2 tooltipOffset = new Vector2(250f, -7.5f);
+    [Header("Positioning")]
+    [SerializeField] private Vector2 rightOffset = new Vector2(-20, 0f);
+    [SerializeField] private Vector2 leftOffset = new Vector2(-250f, -7.5f);
     
     private RectTransform rectTransform;
     
@@ -51,12 +53,13 @@ public class TooltipUI : MonoBehaviour
     {
         if (item == null)
             return;
-        
-        //Move tooltip beside selected slot
-        PositionTooltip(selectedSlot);
-        
+
         tooltipObj.SetActive(true);
-        
+
+        Canvas.ForceUpdateCanvases();
+
+        PositionTooltip(selectedSlot);
+
         UpdateTooltip(item);
     }
 
@@ -72,6 +75,9 @@ public class TooltipUI : MonoBehaviour
         //Abilities
         if (item.abilityType == AbilityType.Ability)
         {
+            if (!cooldownText.gameObject.activeSelf)
+                cooldownText.gameObject.SetActive(true);
+            
             nameText.text = selectedAbility.abilityName;
             descriptionText.text = selectedAbility.abilityDescription;
             durationText.text = (selectedAbility.duration + "s");
@@ -82,17 +88,38 @@ public class TooltipUI : MonoBehaviour
         if (item.abilityType ==  AbilityType.Passive)
         {
             nameText.text = ("" + item.passiveAbility);
-            descriptionText.text = ("");
+            descriptionText.text = ("" + item.description);
             durationText.text = ("Passive");
-            cooldownText.text = ("");
+            cooldownText.gameObject.SetActive(false);
         }
     }
 
     private void PositionTooltip(Transform selectedSlot)
     {
         RectTransform slotRect = selectedSlot.GetComponent<RectTransform>();
-        
-        rectTransform.position = slotRect.position + (Vector3)tooltipOffset;
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+
+        // convert slot position into screen space
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, slotRect.position);
+
+        // try right side first
+        rectTransform.position = slotRect.position + (Vector3)rightOffset;
+
+        Canvas.ForceUpdateCanvases();
+
+        // get tooltip corners in SCREEN SPACE (important fix)
+        Vector3[] corners = new Vector3[4];
+        rectTransform.GetWorldCorners(corners);
+
+        float rightEdgeScreenX = RectTransformUtility.WorldToScreenPoint(null, corners[2]).x;
+
+        // screen check
+        if (rightEdgeScreenX > Screen.width)
+        {
+            rectTransform.position = slotRect.position + (Vector3)leftOffset;
+        }
     }
     
     public void StartTooltip(GameObject tooltipTrigger)

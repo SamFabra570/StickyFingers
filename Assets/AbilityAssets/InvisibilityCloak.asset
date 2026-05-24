@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisibilityCloakAbility
   abilityID: InvisibilityCloak
   abilityName: Invisibility Cloak
+  abilityDescription: Hides you from most enemies (watch out for mages!)
   icon: {fileID: 21300000, guid: 04dc10970c60c814c9600ac71b8aee4c, type: 3}
   abilityColour: {fileID: 2100000, guid: 0abcbadfd2de8fa4ba3e55ec3495128e, type: 2}
   debtThreshold: 0.1

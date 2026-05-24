@@ -22,6 +22,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("UI")]
     public Image image;
     public Image iconImage;
+    public string description;
     public Transform originalParent;
     [HideInInspector] public Transform parentAfterDrag;
 
