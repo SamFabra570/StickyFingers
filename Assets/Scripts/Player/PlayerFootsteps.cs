@@ -12,8 +12,13 @@ public class PlayerFootsteps : MonoBehaviour
     [Header("Audio")]
     [Tooltip("AudioSource used for footsteps. Auto-found on this object if left empty.")]
     public AudioSource source;
-    [Tooltip("Footstep clips — one is picked at random each step for variety.")]
+    [Tooltip("Walk footstep clips — one is picked at random each step for variety.")]
     public AudioClip[] footstepClips;
+    [Tooltip("Run/sprint footstep clips — used when moving fast. Falls back to walk clips if empty.")]
+    public AudioClip[] runClips;
+    [Range(0f, 1f)]
+    [Tooltip("Speed ratio (0=walk, 1=sprint) above which run clips are used instead of walk clips.")]
+    public float runClipsThreshold = 0.5f;
     [Range(0f, 1f)] public float volume = 1f;
 
     [Header("Cadence")]
@@ -58,17 +63,21 @@ public class PlayerFootsteps : MonoBehaviour
         _stepTimer -= Time.deltaTime;
         if (_stepTimer <= 0f)
         {
-            PlayStep();
-            // Faster movement → shorter gap between steps
+            // Faster movement → run clips + shorter gap between steps
             float t = Mathf.InverseLerp(walkSpeed, sprintSpeed, speed);
+            PlayStep(t);
             _stepTimer = Mathf.Lerp(walkInterval, sprintInterval, t);
         }
     }
 
-    private void PlayStep()
+    private void PlayStep(float speedRatio)
     {
-        if (source == null || footstepClips == null || footstepClips.Length == 0) return;
-        AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
+        // Use run clips when moving fast; fall back to walk clips if run isn't assigned.
+        AudioClip[] pool = (speedRatio >= runClipsThreshold && runClips != null && runClips.Length > 0)
+            ? runClips
+            : footstepClips;
+        if (source == null || pool == null || pool.Length == 0) return;
+        AudioClip clip = pool[Random.Range(0, pool.Length)];
         source.PlayOneShot(clip, volume);
     }
 }
