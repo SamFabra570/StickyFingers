@@ -28,8 +28,10 @@
 - **Unity**: 6000.2.12f1 con URP 17.2.0
 - **Input**: Unity Input System moderno
 - **AI**: NavMesh + FSM triple (EnemyFSM / EnemyScout / EnemyMage)
+- **Input**: teclado/mouse + **soporte de gamepad** (Input System, `PlayerInput.cs` + `PlayerInput.inputactions`)
 - **Rama activa**: `master`
-- **Escena de prueba**: `Game2` (temporal — ver ⚠️ abajo)
+- **Escena de prueba**: `Game` (el `GameManager` ya carga `Game`; `Game2` quedó comentado)
+- **Niveles**: graybox completo (`CompleteLevelGraybox.prefab`) + nivel cocina + nivel jardín (assets del otro dev, SamFabra)
 
 ### Scripts clave
 
@@ -59,7 +61,12 @@
 
 ## ⚠️ REVERTIR ANTES DE SHIP
 
-- `GameManager.cs:44` — `StartGame()` apunta a `"Game2"` (temporal). Revertir a `"Game"` cuando todas las ZoneInteractables estén implementadas y probadas.
+- ~~`GameManager` apunta a `Game2`~~ ✅ RESUELTO — `GameManager.StartGame()` ya carga `"Game"` (vía `LoadRoutine` + loading screen). Queda un comentario residual "Revertir a Game" en `GameManager.cs:54` que ya no aplica (limpieza menor opcional).
+
+## 🔧 Pendiente / setup en Unity (no es código)
+
+- **Fog volumétrico en Game** ✅ destrabado (Sesión 7): se agregó la Directional Light que faltaba (sin sol no hay scattering). El fog/post-pro de Game se tunea en `SampleSceneProfile` (el Global Volume de Game), NO en `DefaultVolumeProfile` (default global, lo hereda el HUB). Density en 0.614 con override tildado.
+- **(Opcional, diseño) Mover colliders del player fuera de la obstacles layer**: `SoundGenerator` + habilidades (`ForceField`/`StunField`/`VacuumHitbox`) están en `Default`, que es el `obstacles_layer_` de los enemigos. La auto-oclusión YA está mitigada por código (Opción A, el Linecast ignora colliders del player), pero como limpieza de diseño conviene que el player no comparta layer con las paredes — moverlos a `Ability` (existe en el TagManager). No urgente.
 
 ## 🐛 Pendiente — Cono de visión magenta
 
@@ -155,7 +162,9 @@ También se arregló un bug pre-existente: `DitherVisibility.SetVisible` crashea
 
 ## Próxima sesión empieza por
 
-**Ya mismo**: aplicar y probar los 4 fixes de visión de Sesión 6 (ver tabla arriba). Crítico: confirmar `obstacles_layer_` con las paredes, y reproducir los 2 bugs 🟡.
+**Ya mismo**: probar en Unity el fix de detección de Sesión 7 — entrar al rango del Scout y confirmar: warmup → log `"ALERTAR AL MAGOOO"` → spawnea mago → el Scout desaparece. Verificar también guard (roba item) y mage (congela/SecondChance). Y mover los colliders de habilidades a la layer `Ability` (ver 🔧 arriba).
+
+**Después de eso**: aplicar y probar los 4 fixes de visión de Sesión 6 si quedó algo (ver tabla abajo). Crítico: confirmar `obstacles_layer_` con las paredes, y reproducir los 2 bugs 🟡.
 
 **Cero**: terminar de tunear las mejoras de sigilo en Unity (ver tabla arriba) si quedó algo pendiente.
 
@@ -181,6 +190,24 @@ Luego continuar con **Catering**, **Que empiece la fiesta**, **Curador de Arte**
 ---
 
 ## Historial de sesiones
+
+### Sesión 7 — 2026-05-24
+Tres bugs resueltos. Aprendizaje del día: el `Sight` y el `SoundPlayer` heredaron deuda al agregarse colliders nuevos al player (alas + habilidades).
+
+**1. AttackStates no disparaban el ataque (bug latente).** Los 3 enemigos: `detected_object_` puede ser un collider HIJO del player (las alas `Wings/Cube` están en la layer `Player`), y los AttackStates hacían `detected_object_.GetComponent<PlayerController>()` → NULL → nunca FreezeMovement/SpawnMage/SetActive/roba item. Fix: `GetComponent` → `GetComponentInParent<PlayerController>()` en `EnemyScoutAttackState.cs:37`, `EnemyAttackState.cs:38` (guard), `EnemyMageAttackState.cs:45`, y `Sight.cs:43` (mismo bug en el check de invisibilidad). `Sight.cs:75` (vignette) ya lo usaba bien desde Sesión 6.
+
+**2. Auto-oclusión: los enemigos NO detectaban nada (causa raíz REAL del "no me detecta").** Confirmado en runtime con la Debug.DrawLine del Sight (salía VERDE = bloqueado). El Linecast de oclusión `Physics.Linecast(enemy, player.center, obstacles_layer_)` chocaba con los colliders DEL PROPIO PLAYER en la obstacles layer (el `SoundGenerator`, esfera radius 0.5 centrada en el player, layer `Default`; `m_QueriesHitTriggers=1`). El player se auto-ocluía → los 3 enemigos ciegos. Fix (Opción A): el Linecast solo bloquea si el hit NO es parte del player — `Physics.Linecast(...) && hit.collider.GetComponentInParent<PlayerController>() == null` en `Sight.cs`. NOTA: el bug #1 era latente; ESTE era el síntoma que el usuario veía.
+
+**3. Fog volumétrico invisible en Game (no en el HUB).** Causa: la escena `Game` NO tenía Directional Light (el HUB sí). El fog volumétrico se ve por dispersión de la luz principal → sin sol, invisible aunque el Volume esté perfecto. El usuario agregó la Directional Light. Además se aclaró: el fog/post-pro de Game va en `SampleSceneProfile` (su Global Volume), NO en `DefaultVolumeProfile` (ese es el default global, el HUB lo hereda). El usuario subió density a 0.614 con override tildado.
+
+**Pendiente:** aplicar el MISMO fix de auto-oclusión + invisibilidad al `SoundPlayer.cs` (oído del enemigo, líneas 38 y 32) — nació como copia calcada del Sight, arrastra ambos bugs. Y mover colliders de habilidades a layer `Ability` (ver 🔧 arriba).
+
+### Sincronización — trabajo del otro dev (SamFabra, posterior a Sesión 6)
+Cuatro commits que no estaban reflejados en este documento:
+- `cf69ec0` **Garden level + navmesh** — nivel jardín nuevo + navmesh actualizado (solo assets/escenas, sin `.cs`).
+- `51f91c3` **Controller support** — gamepad para menú de inventario (`PlayerInput.cs` nuevo + `.inputactions`), dequip de pasivas, portal charge más claro, weights/values de objetos balanceados, prefab `CompleteLevelGraybox`. Reescribió `Game.unity` casi entera. ⚠️ Este commit metió las habilidades/colliders que destaparon el bug de Sesión 7.
+- `a51f605` **Ability descriptions** — tooltips de habilidades (`TooltipUI.cs`, `PassivesUIData.cs`, `DraggableItem.cs`, `PassiveAbilityController.cs`).
+- `26566e7` **Kitchen level + loading screen** — nivel cocina + pantalla de carga (`LoadingUI.cs` nuevo, `GameManager.cs` con `LoadRoutine` async). Acá el `GameManager` pasó a cargar `Game` (no `Game2`).
 
 ### Sesión 1 — 2026-05-04
 Exploración inicial del repo, definición de mandamientos, diseño del plan de ZoneInteractables.
