@@ -16,14 +16,9 @@ public class UIManager : MonoBehaviour
     public InputActionReference buttonNorthAction;
     
     [Header ("UI Screen Refs")]
-    public GameObject pauseScreen;
-    public GameObject inventoryScreen;
+    [SerializeField] private InventoryMenu inventoryMenu;
+    [SerializeField] private PauseMenu pauseMenu;
     public GameObject HUDCanvas;
-    
-    [SerializeField] private GameObject pauseMenuFirstButton;
-    [SerializeField] private GameObject invMenuFirstObject;
-
-    private EventSystem eventSystem;
     
     [Header("Inventory UI Refs")]
     public Image weightFillInv;
@@ -51,6 +46,8 @@ public class UIManager : MonoBehaviour
 
     [Header("HUD UI Refs")] 
     public TextMeshProUGUI interactText;
+
+    private String lastInteracted;
 
     public GameObject portalSpawnNotif;
     
@@ -83,9 +80,13 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         
-        eventSystem = EventSystem.current;
+        Instance = this;
     }
 
     private void Start()
@@ -119,9 +120,7 @@ public class UIManager : MonoBehaviour
         }
         interactText.gameObject.SetActive(false);
         
-        pauseScreen.SetActive(false);
-        inventoryScreen.SetActive(false);
-        
+        UIMenuStack.Clear();
     }
 
     private void Update()
@@ -156,15 +155,16 @@ public class UIManager : MonoBehaviour
 
     private void OnCancel(InputAction.CallbackContext context)
     {
-        if (pauseScreen.activeSelf)
-            HideScreen("Pause");
-        if (inventoryScreen.activeSelf)
-            HideScreen("Inventory");
+        UIMenuStack.Current?.OnCancel();
     }
 
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
-        //Add logic for inventory
+        if(SceneManager.GetActiveScene().name != "Game") 
+            return;
+        
+        if (ReferenceEquals(UIMenuStack.Current, inventoryMenu))
+            inventoryMenu.OnButtonNorth();
     }
 
     private void UpdateInventoryUI()
@@ -187,52 +187,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowScreen(string screenName)
+    public void OpenMenu(string menu)
     {
-        if (screenName == "Pause")
+        if (menu == "Pause")
         {
-            if (!inventoryScreen.activeSelf)
-            {
-                pauseScreen.SetActive(true);
-                eventSystem.SetSelectedGameObject(pauseMenuFirstButton);
-                //PlayerController.Instance.ToggleCursor();
-            }
+            UIMenuStack.Push(pauseMenu);
         }
         
-        if (screenName == "Inventory")
+        if (menu == "Inventory")
         {
             if (SceneManager.GetActiveScene().name != "Game")
                 return;
             
-            if (!pauseScreen.activeSelf)
-            {
-                inventoryScreen.SetActive(true);
-                HUDCanvas.SetActive(false);
-                //eventSystem.SetSelectedGameObject(invMenuFirstObject);
-                //PlayerController.Instance.ToggleCursor();
-            }
+            UIMenuStack.Push(inventoryMenu);
+            HUDCanvas.SetActive(false);
         }
         
-        //PlayerController.Instance.inputMap.UI.Enable();
-        //PlayerController.Instance.inputMap.Player.Disable();
-        
-        Debug.Log(EventSystem.current.currentSelectedGameObject);
-        
-        GameManager.Instance.PauseGame(1);
-        PlayerController.Instance.isPaused = true;
+        //Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 
-    public void HideScreen(string screenName)
+    public void HideMenu(string menu)
     {
-        if (screenName == "Pause")
-        {
-            pauseScreen.SetActive(false);
-            //PlayerController.Instance.ToggleCursor();
-        }
+        UIMenuStack.Pop();
 
-        if (screenName == "Inventory")
+        if (menu == "Inventory")
         {
-            inventoryScreen.SetActive(false);
             HUDCanvas.SetActive(true);
             
             if (SceneManager.GetActiveScene().name == "Game")
@@ -242,14 +221,7 @@ public class UIManager : MonoBehaviour
                 inventory.itemDescriptionText.SetText("");
                 inventory.itemDescriptionImage.sprite = emptySprite;
             }
-            //PlayerController.Instance.ToggleCursor();
         }
-        
-        //PlayerController.Instance.inputMap.UI.Disable();
-        //PlayerController.Instance.inputMap.Player.Enable();
-        
-        GameManager.Instance.PauseGame(0);
-        PlayerController.Instance.isPaused = false;
     }
     
     public void SetTriggeredObject(GameObject objectTriggered)
@@ -268,8 +240,11 @@ public class UIManager : MonoBehaviour
             interactText.gameObject.SetActive(false);
             return;
         }
+        
+        if (interactType == "") 
+            lastInteracted = interactType;
 
-        switch (interactType)
+        switch (lastInteracted)
         {
             case "Object":
                 interactText.SetText("Press 'F' to steal");

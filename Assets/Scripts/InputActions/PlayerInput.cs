@@ -584,6 +584,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Right Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""12d469c6-e560-4bf2-93ef-379a055848ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ButtonNorth"",
                     ""type"": ""Button"",
                     ""id"": ""dc573087-3661-4f15-bdf0-78384bc0ee28"",
@@ -844,6 +853,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d27f3096-de3b-4cdc-ad73-4f174cac692d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -871,6 +891,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_LeftClick = m_UI.FindAction("Left Click", throwIfNotFound: true);
+        m_UI_RightClick = m_UI.FindAction("Right Click", throwIfNotFound: true);
         m_UI_ButtonNorth = m_UI.FindAction("ButtonNorth", throwIfNotFound: true);
         m_UI_Start = m_UI.FindAction("Start", throwIfNotFound: true);
     }
@@ -1176,6 +1197,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_LeftClick;
+    private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_ButtonNorth;
     private readonly InputAction m_UI_Start;
     /// <summary>
@@ -1209,6 +1231,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/LeftClick".
         /// </summary>
         public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/RightClick".
+        /// </summary>
+        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         /// <summary>
         /// Provides access to the underlying input action "UI/ButtonNorth".
         /// </summary>
@@ -1258,6 +1284,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LeftClick.started += instance.OnLeftClick;
             @LeftClick.performed += instance.OnLeftClick;
             @LeftClick.canceled += instance.OnLeftClick;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
             @ButtonNorth.started += instance.OnButtonNorth;
             @ButtonNorth.performed += instance.OnButtonNorth;
             @ButtonNorth.canceled += instance.OnButtonNorth;
@@ -1290,6 +1319,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LeftClick.started -= instance.OnLeftClick;
             @LeftClick.performed -= instance.OnLeftClick;
             @LeftClick.canceled -= instance.OnLeftClick;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
             @ButtonNorth.started -= instance.OnButtonNorth;
             @ButtonNorth.performed -= instance.OnButtonNorth;
             @ButtonNorth.canceled -= instance.OnButtonNorth;
@@ -1463,6 +1495,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLeftClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Right Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightClick(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ButtonNorth" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

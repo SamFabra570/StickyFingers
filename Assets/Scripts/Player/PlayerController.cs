@@ -158,11 +158,11 @@ public class PlayerController : MonoBehaviour
                 case true:
                     //inputMap.UI.Disable();
                     //inputMap.Player.Enable();
-                    UIManager.Instance.HideScreen("Pause");
+                    UIManager.Instance.HideMenu("Pause");
                     break;
                 case false:
                     
-                    UIManager.Instance.ShowScreen("Pause");
+                    UIManager.Instance.OpenMenu("Pause");
                     break;
             }
         };
@@ -208,12 +208,12 @@ public class PlayerController : MonoBehaviour
                 case true:
                     //inputMap.UI.Disable();
                     //inputMap.Player.Enable();
-                    UIManager.Instance.HideScreen("Inventory");
+                    UIManager.Instance.HideMenu("Inventory");
                     break;
                 case false:
                     //inputMap.UI.Enable();
                     //inputMap.Player.Disable();
-                    UIManager.Instance.ShowScreen("Inventory");
+                    UIManager.Instance.OpenMenu("Inventory");
                     break;
             }
         };

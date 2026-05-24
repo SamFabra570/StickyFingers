@@ -16,6 +16,12 @@ public class PassiveAbilityController : MonoBehaviour
         Debug.Log("Equipped Passive: " + equippedPassive.passiveAbility);
     }
 
+    public void DequipPassive(DraggableItem passive)
+    {
+        equippedPassive = null;
+        Debug.Log("Dequipped passive");
+    }
+
     public bool Has(PassiveAbilities currentPassive)
     {
         if (equippedPassive.passiveAbility == PassiveAbilities.None)

@@ -53,17 +53,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            OnLeftClick();
+            ShowItemDetails();
 
         }
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            OnRightClick();
+            DropItem();
         }
     }
 
-    public void OnLeftClick()
+    public void ShowItemDetails()
     {
         InventorySystem inventory =
             GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
@@ -85,12 +85,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     }
     
-    public void OnRightClick()
+    public void DropItem()
     {
         InventorySystem inventory =
             GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
 
         bool hadItem = item.data != null;
+        isFull = false;
         inventory.Remove(item.data);
 
         // Drop SFX — only when an actual item left the slot

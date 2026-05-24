@@ -9021,13 +9021,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4493267212967043374, guid: 5f52355789e07734493649f36b444139, type: 3}
+    - target: {fileID: 3481199044141567723, guid: 5f52355789e07734493649f36b444139, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493267212967043374, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5214746430419867169, guid: 5f52355789e07734493649f36b444139, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.859576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1157457
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.859576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.049
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.304
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975267581477808390, guid: 5f52355789e07734493649f36b444139, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.091
       objectReference: {fileID: 0}
     - target: {fileID: 6198233761078343982, guid: 5f52355789e07734493649f36b444139, type: 3}
       propertyPath: m_Color.b
@@ -9935,6 +9963,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 762585232}
     m_Modifications:
+    - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 5214967694612671714}
     - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
       propertyPath: pauseScreen
       value: 
@@ -14377,6 +14409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5214967694612671713}
+  - component: {fileID: 5214967694612671714}
   m_Layer: 5
   m_Name: PauseScreen
   m_TagString: Untagged
@@ -15354,10 +15387,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 6195934712962150347}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -15365,7 +15398,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -19270,6 +19303,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -1.675}
   m_SizeDelta: {x: 902.56995, y: 562.7497}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5214967694612671714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617182087922698533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9dbc9b21e9e894ca9dc5bc7fd5da96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
+  eventSystem: {fileID: 396460013}
+  pauseMenuUI: {fileID: 1617182087922698533}
+  firstItem: {fileID: 5291008242785964558}
 --- !u!114 &5239929815733993943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20206,9 +20254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 2457773435279820767}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -20217,7 +20265,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+    m_SelectedColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -20239,7 +20287,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1805571311}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HideScreen
+        m_MethodName: HideMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

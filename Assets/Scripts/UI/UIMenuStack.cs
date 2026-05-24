@@ -22,6 +22,11 @@ public static class UIMenuStack
         
         menuStack.Push(menu);
         menu.OnShowMenu();
+        
+        UIManager.Instance.ToggleInteractText(false, "");
+        
+        PlayerController.Instance.inputMap.UI.Enable();
+        PlayerController.Instance.inputMap.Player.Disable();
     }
 
     public static void Pop()
@@ -31,9 +36,16 @@ public static class UIMenuStack
         
         IUIMenu top  = menuStack.Pop();
         top.OnHideMenu();
-        
+
         if (Current != null)
+        {
             Current.OnShowMenu();
+            return;
+        }
+        UIManager.Instance.ToggleInteractText(true, "");
+
+        PlayerController.Instance.inputMap.UI.Disable();
+        PlayerController.Instance.inputMap.Player.Enable();
     }
 
     public static void Clear()

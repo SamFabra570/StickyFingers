@@ -107,6 +107,10 @@ MonoBehaviour:
   portalAnim: {fileID: 383604241911183321}
   portalBase: {fileID: 2846625110238655383}
   portalChargedMat: {fileID: 2100000, guid: e6c51895bf52f9d4daf889860fb80051, type: 2}
+  audioSource: {fileID: 0}
+  chargeLoop: {fileID: 0}
+  chargedReady: {fileID: 0}
+  activateClip: {fileID: 0}
 --- !u!1 &3481199044141567723
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5975267581477808390
 Transform:
   m_ObjectHideFlags: 0
@@ -248,8 +252,8 @@ Transform:
   m_GameObject: {fileID: 4493267212967043374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
-  m_LocalScale: {x: 2.5, y: 1.5, z: 2.5}
+  m_LocalPosition: {x: 0.099, y: -1.5, z: 0.097}
+  m_LocalScale: {x: 2.2569249, y: 1.354155, z: 2.2569249}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1678871950722811433}

@@ -1812,7 +1812,7 @@ MonoBehaviour:
     m_ManualUV: 0
     elementGroup: 0
     m_TextureGroup: -1
-  - m_Indexes: 08000000090000000a000000090000000b0000000a000000
+  - m_Indexes: 08000000090000HideMenu090000000b0000000a000000
     m_SmoothingGroup: 0
     m_Uv:
       m_UseWorldSpace: 0

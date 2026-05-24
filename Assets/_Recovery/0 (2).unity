@@ -1799,8 +1799,7 @@ MonoBehaviour:
   m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
+    serializedVersion: HideMenu: 4294967295
   m_fontSize: 27
   m_fontSizeBase: 27
   m_fontWeight: 400

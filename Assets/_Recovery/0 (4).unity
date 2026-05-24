@@ -6263,7 +6263,7 @@ PrefabInstance:
       objectReference: {fileID: 1805571311}
     - target: {fileID: 6195934712696375469, guid: d627b7244c0f4934ba78e6ca7922c579, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideScreen
+      value: HideMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6760284048627302129, guid: d627b7244c0f4934ba78e6ca7922c579, type: 3}
       propertyPath: m_Name

@@ -60,7 +60,7 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
             if (transform.GetChild(0).CompareTag("Placeholder"))
             {
                 Destroy(transform.GetChild(0).gameObject);
-                ResetAbilitySlot();
+                //ResetAbilitySlot(); this breaks abilities, will reset them when equipped, look for where to put this
             }
         }
     }

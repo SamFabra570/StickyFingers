@@ -110,6 +110,7 @@ public class AbilityManager : MonoBehaviour
         }
         
         abilities[slotIndex] = ability;
+        Debug.Log("ability should be equipped - ability manager" + slotIndex + ability.ability.name);
     }
 
     public void DequipAbility(int slotIndex)

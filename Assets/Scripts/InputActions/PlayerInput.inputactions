@@ -498,6 +498,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Right Click",
+                    "type": "Button",
+                    "id": "12d469c6-e560-4bf2-93ef-379a055848ff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ButtonNorth",
                     "type": "Button",
                     "id": "dc573087-3661-4f15-bdf0-78384bc0ee28",
@@ -756,6 +765,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d27f3096-de3b-4cdc-ad73-4f174cac692d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

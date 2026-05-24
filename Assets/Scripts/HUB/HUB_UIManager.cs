@@ -65,18 +65,11 @@ public class HUB_UIManager : MonoBehaviour
         debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
         totalDebtText.text = ("" + GameManager.Instance.maxDebt);
         
-        UIManager.Instance.ToggleInteractText(false, "");
-        
-        PlayerController.Instance.inputMap.UI.Enable();
-        PlayerController.Instance.inputMap.Player.Disable();
-        
         switch (status)
         {
             case "Close":
                 UIMenuStack.Clear();
                 planningUI.enabled = false;
-                
-                UIManager.Instance.ToggleInteractText(true, "");
 
                 TooltipUI.Instance.StopTooltip();
                 
@@ -137,13 +130,13 @@ public class HUB_UIManager : MonoBehaviour
             progressionMenu.OnSubmit();
     }
     
-    private void OnCancel(InputAction.CallbackContext context)
-    {
-        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
-            loadoutMenu.OnCancel();
-        else
-            progressionMenu.OnCancel();
-    }
+    // private void OnCancel(InputAction.CallbackContext context)
+    // {
+    //     if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
+    //         loadoutMenu.OnCancel();
+    //     else
+    //         progressionMenu.OnCancel();
+    // }
 
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
@@ -167,7 +160,7 @@ public class HUB_UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        cancelAction.action.performed += OnCancel;
+        //cancelAction.action.performed += OnCancel;
         cancelAction.action.Enable();
         
         buttonNorthAction.action.performed += OnButtonNorth;
@@ -176,7 +169,7 @@ public class HUB_UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        cancelAction.action.performed -= OnCancel;
+        //cancelAction.action.performed -= OnCancel;
         cancelAction.action.Disable();
         
         buttonNorthAction.action.performed -= OnButtonNorth;
