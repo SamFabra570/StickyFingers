@@ -29,15 +29,20 @@ public class SoundPlayer : MonoBehaviour
         {
             Collider single_collider = colliders[i];
 
-            PlayerController player = single_collider.GetComponent<PlayerController>();
+            // single_collider may be a child collider (wings/ability hitboxes share the Player layer),
+            // so walk up to the root to honor invisibility no matter which collider we hit.
+            PlayerController player = single_collider.GetComponentInParent<PlayerController>();
 
             if (player != null && player.isInvisible)
                 continue;
 
-            // Hearing is omnidirectional — no angle check. But a wall between us muffles it out.
-            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_))
+            // Hearing is omnidirectional — no angle check. But a real wall between us muffles it out.
+            // The player's own colliders (SoundGenerator, ability hitboxes) live on the obstacles layer and
+            // surround the player — ignore those, only a wall (not part of the player) blocks the sound.
+            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_)
+                && hit.collider.GetComponentInParent<PlayerController>() == null)
             {
-                Debug.DrawLine(transform.position, hit.point, Color.green); // wall blocks the sound
+                Debug.DrawLine(transform.position, hit.point, Color.green); // muffled by a real wall
                 continue;
             }
 

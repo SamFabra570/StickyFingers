@@ -35,7 +35,8 @@ public class EnemyAttackState : EnemyState
 
                 if (Time.time >= lastAttackTime + attackCooldown)
                 {
-                    PlayerController player = enemy.sight_sensor_.detected_object_.GetComponent<PlayerController>();
+                    // detected_object_ may be a child collider (wings/ability hitboxes share the Player layer), so walk up to the root.
+                    PlayerController player = enemy.sight_sensor_.detected_object_.GetComponentInParent<PlayerController>();
                     if (player != null)
                     {
                         player.FreezeMovement(2);

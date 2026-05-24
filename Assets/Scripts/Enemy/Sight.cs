@@ -40,7 +40,9 @@ public class Sight : MonoBehaviour
         {
             Collider single_collider = colliders[i];
 
-            PlayerController player = single_collider.GetComponent<PlayerController>();
+            // single_collider may be a child collider (wings/ability hitboxes share the Player layer),
+            // so walk up to the root to honor invisibility no matter which collider we hit.
+            PlayerController player = single_collider.GetComponentInParent<PlayerController>();
 
             if (player != null && player.isInvisible)
                 continue;
@@ -57,11 +59,13 @@ public class Sight : MonoBehaviour
             if (!insideCone && !insidePeripheral)
                 continue;
 
-            // OCCLUSION FIX: a wall between us blocks detection. Linecast returns true when something
-            // on obstacles_layer_ is in the way → blocked → do NOT detect. (Old code detected anyway.)
-            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_))
+            // OCCLUSION: a wall between us blocks detection. But the player's OWN colliders (SoundGenerator,
+            // ability hitboxes) live on the obstacles layer and surround the player — they must NOT count as
+            // a wall, otherwise the player occludes themselves. Only a real wall (not part of the player) blocks.
+            if (Physics.Linecast(transform.position, single_collider.bounds.center, out RaycastHit hit, obstacles_layer_)
+                && hit.collider.GetComponentInParent<PlayerController>() == null)
             {
-                Debug.DrawLine(transform.position, hit.point, Color.green); // blocked
+                Debug.DrawLine(transform.position, hit.point, Color.green); // blocked by a real wall
                 continue;
             }
 
