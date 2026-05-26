@@ -91,7 +91,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
 
         bool hadItem = item.data != null;
-        isFull = false;
         inventory.Remove(item.data);
 
         // Drop SFX — only when an actual item left the slot
@@ -99,5 +98,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             PlayerController.Instance.GetComponent<PlayerSoundController>()?.PlayDrop();
 
         inventory.DeselectAllSlots();
+        
+        UIManager.Instance.UpdateInventoryUI();
     }
 }

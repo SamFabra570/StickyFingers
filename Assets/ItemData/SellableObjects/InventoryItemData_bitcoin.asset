@@ -19,4 +19,4 @@ MonoBehaviour:
   itemWeight: 8
   itemPrice: 500
   icon: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6738872543802313137, guid: 0f148b3bebe34b341adbdfd72eaf2164, type: 3}

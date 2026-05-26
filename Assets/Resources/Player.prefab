@@ -1407,7 +1407,7 @@ MonoBehaviour:
   encumberedThreshold: 0.4
   overencumberedThreshold: 0.7
   encumberedSpeedModifier: -1
-  overencumberedSpeedModifier: -3
+  overencumberedSpeedModifier: -2
   useGravity: 1
   yVelocity: 0
   gravityMultiplier: 1

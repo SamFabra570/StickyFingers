@@ -31,7 +31,10 @@ public class PauseMenu : MonoBehaviour, IUIMenu
 
     public void OnCancel()
     {
-        UIMenuStack.Pop();
+        if (UIManager.Instance.helpScreen.activeSelf) 
+            UIManager.Instance.ToggleHelpScreen("Hide");
+        else 
+            UIMenuStack.Pop();
     }
     
     public void OnSubmit() { }

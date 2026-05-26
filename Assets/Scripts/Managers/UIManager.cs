@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [Header ("UI Screen Refs")]
     [SerializeField] private InventoryMenu inventoryMenu;
     [SerializeField] private PauseMenu pauseMenu;
+    public GameObject helpScreen;
     public GameObject HUDCanvas;
     
     [Header("Inventory UI Refs")]
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
 
     [Header("HUD UI Refs")] 
     public TextMeshProUGUI interactText;
+    public GameObject openInventoryText;
 
     private String lastInteracted;
 
@@ -167,7 +169,7 @@ public class UIManager : MonoBehaviour
             inventoryMenu.OnButtonNorth();
     }
 
-    private void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
         maxWeightText.text = ("" + GameManager.Instance.maxWeight);
         totalWeightText.text = (inventory.totalWeight + " /");
@@ -189,12 +191,15 @@ public class UIManager : MonoBehaviour
 
     public void OpenMenu(string menu)
     {
+        if (openInventoryText != null) 
+            openInventoryText.SetActive(false);
+        
         if (menu == "Pause")
         {
             UIMenuStack.Push(pauseMenu);
         }
         
-        if (menu == "Inventory")
+        else if (menu == "Inventory")
         {
             if (SceneManager.GetActiveScene().name != "Game")
                 return;
@@ -208,20 +213,26 @@ public class UIManager : MonoBehaviour
 
     public void HideMenu(string menu)
     {
-        UIMenuStack.Pop();
+        UIMenuStack.Clear();
+        
+        if (openInventoryText != null) 
+            openInventoryText.SetActive(true);
 
         if (menu == "Inventory")
         {
+            if (SceneManager.GetActiveScene().name != "Game")
+                return;
+            
             HUDCanvas.SetActive(true);
             
-            if (SceneManager.GetActiveScene().name == "Game")
-            {
-                inventory.DeselectAllSlots();
-                inventory.itemDescriptionNameText.SetText("");
-                inventory.itemDescriptionText.SetText("");
-                inventory.itemDescriptionImage.sprite = emptySprite;
-            }
+            inventory.DeselectAllSlots();
+            inventory.itemDescriptionNameText.SetText("");
+            inventory.itemDescriptionText.SetText("");
+            inventory.itemDescriptionImage.sprite = emptySprite;
         }
+        
+        PlayerController.Instance.inputMap.UI.Disable();
+        PlayerController.Instance.inputMap.Player.Enable();
     }
     
     public void SetTriggeredObject(GameObject objectTriggered)
@@ -407,5 +418,13 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         GameManager.Instance.PauseGame(0);
+    }
+
+    public void ToggleHelpScreen(string state)
+    {
+        if (state == "Show") 
+            helpScreen.SetActive(true);
+        else if (state == "Hide")
+            helpScreen.SetActive(false);
     }
 }

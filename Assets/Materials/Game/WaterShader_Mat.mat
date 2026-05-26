@@ -110,9 +110,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FlowSpeed: 0.2
-    - _FoamDensity: 5
-    - _FoamSpeed: 0.5
+    - _FlowSpeed: 0.035
+    - _FoamDensity: 32.89
+    - _FoamSpeed: 0.62
     - _FoamThickness: 8
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -131,7 +131,7 @@ Material:
     - _Surface: 0
     - _WaveHeight: 0.05
     - _WaveMaxHeight: 0.254
-    - _WaveSpread: 5
+    - _WaveSpread: 0.56
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
@@ -140,8 +140,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowDirection: {r: 0.1, g: 0.5, b: 0, a: 0}
-    - _FoamColor: {r: 0.2745098, g: 0.8235294, b: 0.8773585, a: 1}
+    - _FoamColor: {r: 0.6603774, g: 0.17641962, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _WaterColor: {r: 0.12864897, g: 0.37147376, b: 0.5566037, a: 1}
+    - _WaterColor: {r: 0.8679245, g: 0.2764807, b: 0.16785331, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

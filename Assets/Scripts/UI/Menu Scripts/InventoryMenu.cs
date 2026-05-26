@@ -49,13 +49,13 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public void OnButtonNorth()
     {
-        if (currentItem.isFull) 
-            currentItem.DropItem();
+        currentItem.DropItem();
     }
 
     public void OnCancel()
     {
         UIMenuStack.Pop();
+        UIManager.Instance.HideMenu("Inventory");
     }
     
     public void OnSubmit() { }

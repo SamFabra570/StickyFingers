@@ -123,7 +123,7 @@ MonoBehaviour:
     m_Value: 0
   density:
     m_OverrideState: 1
-    m_Value: 0.614
+    m_Value: 1
   attenuationDistance:
     m_OverrideState: 1
     m_Value: 128
@@ -141,10 +141,10 @@ MonoBehaviour:
     m_Value: 0.4
   scattering:
     m_OverrideState: 1
-    m_Value: 0.15
+    m_Value: 0.86
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.4792453, g: 0.4792453, b: 0.4792453, a: 1}
   enableAdditionalLightsContribution:
     m_OverrideState: 1
     m_Value: 1

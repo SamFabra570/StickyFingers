@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     //Value to subtract from speed
     public float encumberedSpeedModifier = -1;
-    public float overencumberedSpeedModifier = -3;
+    public float overencumberedSpeedModifier = -2;
     
     [Header ("Player Gravity")]
     public bool useGravity = true;
@@ -290,16 +290,19 @@ public class PlayerController : MonoBehaviour
     {
         //Weight on a scale from 0-1
         currentWeight = UIManager.Instance.normalizedWeight;
-        
-        //If over max weight, stop movement
-        if (currentWeight > 1)
+
+        if (SceneManager.GetActiveScene().name == "Game")
         {
-            if (SceneManager.GetActiveScene().name == "Game") 
+            //If over max weight, stop movement
+            if (currentWeight > 1)
+            {
                 UIManager.Instance.weightStateText.text = ("Overweight");
             
-            currentSpeed = 0;
-            return;
+                currentSpeed = 0;
+                return;
+            }
         }
+        
         
         Rigidbody rb = GetComponent<Rigidbody>();
         
