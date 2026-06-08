@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerInput inputMap;
     public bool isPaused;
+    [HideInInspector] public bool isInvOpen;
+    [HideInInspector] public bool isPauseOpen;
 
     [Header ("Freeze Player Checks")]
     [SerializeField] private GameObject stunField;
@@ -153,17 +155,16 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.Pause.performed += Pause_performed =>
         {
-            switch (isPaused)
+            if (!isPaused)
             {
-                case true:
-                    //inputMap.UI.Disable();
-                    //inputMap.Player.Enable();
-                    UIManager.Instance.HideMenu("Pause");
-                    break;
-                case false:
-                    
-                    UIManager.Instance.OpenMenu("Pause");
-                    break;
+                if (!isPauseOpen)
+                {
+                    UIManager.Instance.OpenMenu("PauseMenu");
+                }
+                else
+                {
+                    UIManager.Instance.HideMenu();
+                }
             }
         };
 
@@ -203,18 +204,19 @@ public class PlayerController : MonoBehaviour
         
         inputMap.Player.Inventory.performed += Inventory_performed =>
         {
-            switch (isPaused)
+            if (SceneManager.GetActiveScene().name != ("Game"))
+                return;
+
+            if (!isPaused)
             {
-                case true:
-                    //inputMap.UI.Disable();
-                    //inputMap.Player.Enable();
-                    UIManager.Instance.HideMenu("Inventory");
-                    break;
-                case false:
-                    //inputMap.UI.Enable();
-                    //inputMap.Player.Disable();
-                    UIManager.Instance.OpenMenu("Inventory");
-                    break;
+                if (!isInvOpen)
+                {
+                    UIManager.Instance.OpenMenu("InventoryMenu");
+                }
+                else
+                {
+                    UIManager.Instance.HideMenu();
+                }
             }
         };
 
@@ -655,7 +657,7 @@ public class PlayerController : MonoBehaviour
                     arrow.SetActive(false);
                     
                     Debug.Log("End Game FROM PORTAL");
-                    GameManager.Instance.EndGame(true);
+                    GameManager.Instance.EndGame(true, "");
                 }
                 
                 if (SceneManager.GetActiveScene().name == "HUB")

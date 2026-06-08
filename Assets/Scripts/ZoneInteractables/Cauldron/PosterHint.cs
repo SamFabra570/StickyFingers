@@ -18,6 +18,5 @@ public class PosterHint : MonoBehaviour, IInteractable
         hintPanel.SetActive(show);
 
         GameManager.Instance.PauseGame(show ? 1 : 0);
-        PlayerController.Instance.isPaused = show;
     }
 }

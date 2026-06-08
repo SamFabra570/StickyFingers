@@ -53,8 +53,8 @@ public class HUB_UIManager : MonoBehaviour
         if (PlayerController.Instance.isFrozen)
             PlayerController.Instance.isFrozen = false;
                 
-        PlayerController.Instance.inputMap.UI.Disable();
-        PlayerController.Instance.inputMap.Player.Enable();
+        // PlayerController.Instance.inputMap.UI.Disable();
+        // PlayerController.Instance.inputMap.Player.Enable();
     }
 
     public void TogglePlanningUI(string status)
@@ -76,8 +76,8 @@ public class HUB_UIManager : MonoBehaviour
                 if (PlayerController.Instance.isFrozen)
                     PlayerController.Instance.isFrozen = false;
                 
-                PlayerController.Instance.inputMap.UI.Disable();
-                PlayerController.Instance.inputMap.Player.Enable();
+                // PlayerController.Instance.inputMap.UI.Disable();
+                // PlayerController.Instance.inputMap.Player.Enable();
                 break;
             
             case "Show":
@@ -138,6 +138,7 @@ public class HUB_UIManager : MonoBehaviour
     //         progressionMenu.OnCancel();
     // }
 
+    //Switch Planning Display
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
         if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))

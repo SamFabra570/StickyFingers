@@ -16,8 +16,9 @@ public class UIManager : MonoBehaviour
     public InputActionReference buttonNorthAction;
     
     [Header ("UI Screen Refs")]
-    [SerializeField] private InventoryMenu inventoryMenu;
-    [SerializeField] private PauseMenu pauseMenu;
+    public InventoryMenu inventoryMenu;
+    public PauseMenu pauseMenu;
+    public HelpMenu helpMenu;
     public GameObject helpScreen;
     public GameObject HUDCanvas;
     
@@ -76,7 +77,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI textWeightNotif;
     public TextMeshProUGUI textValueNotif;
     
-    public Sprite emptySprite;
+    // public Sprite emptySprite;
     
     public InventorySystem inventory;
 
@@ -117,9 +118,7 @@ public class UIManager : MonoBehaviour
         
         
         if (interactText == null)
-        {
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-        }
         interactText.gameObject.SetActive(false);
         
         UIMenuStack.Clear();
@@ -162,11 +161,7 @@ public class UIManager : MonoBehaviour
 
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
-        if(SceneManager.GetActiveScene().name != "Game") 
-            return;
-        
-        if (ReferenceEquals(UIMenuStack.Current, inventoryMenu))
-            inventoryMenu.OnButtonNorth();
+        UIMenuStack.Current?.OnButtonNorth();
     }
 
     public void UpdateInventoryUI()
@@ -191,48 +186,46 @@ public class UIManager : MonoBehaviour
 
     public void OpenMenu(string menu)
     {
+        GameManager.Instance.PauseGame(1);
+        
         if (openInventoryText != null) 
             openInventoryText.SetActive(false);
-        
-        if (menu == "Pause")
+
+        switch (menu)
         {
-            UIMenuStack.Push(pauseMenu);
+            case ("InventoryMenu"):
+                HUDCanvas.SetActive(false);
+                UIMenuStack.Push(inventoryMenu);
+                break;
+            case ("PauseMenu"):
+                UIMenuStack.Push(pauseMenu);
+                break;
+            case ("HelpMenu"):
+                UIMenuStack.Push(helpMenu);
+                break;
         }
-        
-        else if (menu == "Inventory")
-        {
-            if (SceneManager.GetActiveScene().name != "Game")
-                return;
-            
-            UIMenuStack.Push(inventoryMenu);
-            HUDCanvas.SetActive(false);
-        }
-        
-        //Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 
-    public void HideMenu(string menu)
+    public void HideMenu()
     {
-        UIMenuStack.Clear();
-        
         if (openInventoryText != null) 
             openInventoryText.SetActive(true);
 
-        if (menu == "Inventory")
+        switch (UIMenuStack.Current)
         {
-            if (SceneManager.GetActiveScene().name != "Game")
+            case (InventoryMenu):
+                HUDCanvas.SetActive(true);
+                break;
+            case (PauseMenu):
+                break;
+            case (HelpMenu):
+                UIMenuStack.Pop();
                 return;
-            
-            HUDCanvas.SetActive(true);
-            
-            inventory.DeselectAllSlots();
-            inventory.itemDescriptionNameText.SetText("");
-            inventory.itemDescriptionText.SetText("");
-            inventory.itemDescriptionImage.sprite = emptySprite;
         }
         
-        PlayerController.Instance.inputMap.UI.Disable();
-        PlayerController.Instance.inputMap.Player.Enable();
+        UIMenuStack.Clear();
+        
+        GameManager.Instance.PauseGame(0);
     }
     
     public void SetTriggeredObject(GameObject objectTriggered)

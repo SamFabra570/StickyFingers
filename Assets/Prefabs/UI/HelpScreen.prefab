@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4361825567549993510}
-  - component: {fileID: 5570354281263927287}
+  - component: {fileID: 335413544672439481}
   m_Layer: 5
   m_Name: HelpScreen
   m_TagString: Untagged
@@ -119,7 +119,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.0000121593475}
   m_SizeDelta: {x: 902.56995, y: 562.7497}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5570354281263927287
+--- !u!114 &335413544672439481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,12 +128,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 870583808759285324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9dbc9b21e9e894ca9dc5bc7fd5da96, type: 3}
+  m_Script: {fileID: 11500000, guid: ac49163edcd387c48ad66aff3e93e516, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
-  eventSystem: {fileID: 0}
-  pauseMenuUI: {fileID: 870583808759285324}
-  firstItem: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::HelpMenu
+  helpMenuScreen: {fileID: 870583808759285324}
 --- !u!1 &2259786943549185326
 GameObject:
   m_ObjectHideFlags: 0

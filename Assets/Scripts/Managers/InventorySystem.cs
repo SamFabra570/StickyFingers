@@ -127,6 +127,7 @@ public class InventorySystem
         }
         else
         {
+            Debug.Log("Run failed, lost all ur loot lol");
         }
 
     }

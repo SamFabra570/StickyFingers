@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public float deeperPocketsWeight = 500;
     //public bool runState;
 
+    public bool successfulRun;
+    public string endRunState;
     public float extractedBounty;
     public float timeRemaining;
 
@@ -41,9 +43,11 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 Time.timeScale = 1;
+                PlayerController.Instance.isPaused = false;
                 break;
             case 1:
                 Time.timeScale = 0;
+                PlayerController.Instance.isPaused = true;
                 break;
         }
     }
@@ -65,16 +69,27 @@ public class GameManager : MonoBehaviour
             PlayerController.Instance.hasUsedSecondChance = false;
     }
 
-    public void EndGame(bool hasExtracted)
+    public void EndGame(bool hasExtracted, string endType)
     {
+        successfulRun = hasExtracted;
+        endRunState = endType;
+        
         InventoryContainer inv = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>();
         
         AbilityManager.Instance.DeactivateAbilitiesGameOver();
+
+        if (successfulRun)
+        {
+            extractedBounty = inv.inventorySystem.totalBounty;
+            timeRemaining = TimeManager.Instance.remainingTime;
+        }
+        else
+        {
+            extractedBounty = 0;
+        }
         
-        extractedBounty = inv.inventorySystem.totalBounty;
-        timeRemaining = TimeManager.Instance.remainingTime;
+        inv.inventorySystem.SellInventory(successfulRun);
         
-        inv.inventorySystem.SellInventory(hasExtracted);
         SceneManager.LoadScene("Post-Game");
     }
 

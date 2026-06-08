@@ -11,8 +11,7 @@ public class PauseMenu : MonoBehaviour, IUIMenu
     
     public void OnShowMenu()
     {
-        GameManager.Instance.PauseGame(1);
-        PlayerController.Instance.isPaused = true;
+        PlayerController.Instance.isPauseOpen = true;
         
         pauseMenuUI.SetActive(true);
         
@@ -22,8 +21,7 @@ public class PauseMenu : MonoBehaviour, IUIMenu
 
     public void OnHideMenu()
     {
-        GameManager.Instance.PauseGame(0);
-        PlayerController.Instance.isPaused = false;
+        PlayerController.Instance.isPauseOpen = false;
         
         if (pauseMenuUI != null) 
             pauseMenuUI.SetActive(false);
@@ -31,11 +29,6 @@ public class PauseMenu : MonoBehaviour, IUIMenu
 
     public void OnCancel()
     {
-        if (UIManager.Instance.helpScreen.activeSelf) 
-            UIManager.Instance.ToggleHelpScreen("Hide");
-        else 
-            UIMenuStack.Pop();
+        UIManager.Instance.HideMenu();
     }
-    
-    public void OnSubmit() { }
 }

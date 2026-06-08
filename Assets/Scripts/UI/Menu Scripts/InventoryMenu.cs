@@ -1,20 +1,29 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class InventoryMenu : MonoBehaviour, IUIMenu
 {
+    [Header ("UI Refs")]
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject inventoryScreenUI;
     
     [SerializeField] private GameObject firstItem;
     private GameObject lastSelected;
     
+    [Header ("Inventory")]
+    public InventorySystem inventory;
+    public Sprite emptySprite;
     private ItemSlot currentItem;
-    
+
+    private void Start()
+    {
+        inventory = UIManager.Instance.inventory;
+    }
+
     public void OnShowMenu()
     {
-        GameManager.Instance.PauseGame(1);
-        PlayerController.Instance.isPaused = true;
+        PlayerController.Instance.isInvOpen = true;
         
         inventoryScreenUI.SetActive(true);
         
@@ -27,10 +36,14 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         lastSelected = null;
         currentItem = null;
         
-        GameManager.Instance.PauseGame(0);
-        PlayerController.Instance.isPaused = false;
+        inventory.DeselectAllSlots();
+        inventory.itemDescriptionNameText.SetText("");
+        inventory.itemDescriptionText.SetText("");
+        inventory.itemDescriptionImage.sprite = emptySprite;
         
         inventoryScreenUI.SetActive(false);
+
+        PlayerController.Instance.isInvOpen = false;
     }
     
     private void Update()
@@ -54,10 +67,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public void OnCancel()
     {
-        UIMenuStack.Pop();
-        UIManager.Instance.HideMenu("Inventory");
+        UIManager.Instance.HideMenu();
     }
-    
-    public void OnSubmit() { }
     
 }

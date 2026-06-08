@@ -73,7 +73,7 @@ public class EnemyMageAttackState : EnemyMageState
                             player.hasUsedSecondChance = true;
                         }
                         else
-                            GameManager.Instance.EndGame(false);
+                            GameManager.Instance.EndGame(false, "Mage");
                     }
                 }
             }

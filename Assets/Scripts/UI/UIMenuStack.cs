@@ -40,17 +40,17 @@ public static class UIMenuStack
         if (Current != null)
         {
             Current.OnShowMenu();
-            return;
         }
-        UIManager.Instance.ToggleInteractText(true, "");
-
-        PlayerController.Instance.inputMap.UI.Disable();
-        PlayerController.Instance.inputMap.Player.Enable();
     }
 
     public static void Clear()
     {
         while (menuStack.Count > 0)
             menuStack.Pop().OnHideMenu();
+        
+        PlayerController.Instance.inputMap.UI.Disable();
+        PlayerController.Instance.inputMap.Player.Enable();
+        
+        UIManager.Instance.ToggleInteractText(true, "");
     }
 }
