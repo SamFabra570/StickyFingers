@@ -227,18 +227,27 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.Ability1.performed += Ability1_performed =>
         {
+            if (SceneManager.GetActiveScene().name != ("Game"))
+                return;
+            
             AbilityManager.Instance.ActivateAbility(0);
             feedback.GetAbilitySlot(0);
         };
         
         inputMap.Player.Ability2.performed += Ability2_performed =>
         {
+            if (SceneManager.GetActiveScene().name != ("Game"))
+                return;
+            
             AbilityManager.Instance.ActivateAbility(1);
             feedback.GetAbilitySlot(1);
         };
         
         inputMap.Player.Ability3.performed += Ability3_performed =>
         {
+            if (SceneManager.GetActiveScene().name != ("Game"))
+                return;
+            
             AbilityManager.Instance.ActivateAbility(2);
             feedback.GetAbilitySlot(2);
         };
@@ -671,14 +680,14 @@ public class PlayerController : MonoBehaviour
         {
             if (type == (type.interactableType == Interactables.PlanningDesk))
             {
-                HUB_UIManager.Instance.TogglePlanningUI("Show");
+                UIManager.Instance.OpenMenu("LoadoutMenu");
                 FreezeMovement(0);
                 
             }
             
             if (type == (type.interactableType == Interactables.ProgressionDesk))
             {
-                HUB_UIManager.Instance.TogglePlanningUI("Progression");
+                UIManager.Instance.OpenMenu("ProgressionMenu");
                 FreezeMovement(0);
             }
         }

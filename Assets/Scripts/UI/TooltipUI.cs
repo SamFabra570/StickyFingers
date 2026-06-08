@@ -142,7 +142,7 @@ public class TooltipUI : MonoBehaviour
 
     private IEnumerator ShowTooltip(GameObject tooltipTrigger)
     {
-        yield return new WaitForSeconds(tooltipDelay);
+        yield return new WaitForSecondsRealtime(tooltipDelay);
         
         DraggableItem item = tooltipTrigger.GetComponentInChildren<DraggableItem>();
 

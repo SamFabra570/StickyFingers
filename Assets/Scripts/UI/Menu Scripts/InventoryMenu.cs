@@ -25,6 +25,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
     {
         PlayerController.Instance.isInvOpen = true;
         
+        UIManager.Instance.HUDCanvas.SetActive(false);
         inventoryScreenUI.SetActive(true);
         
         if (firstItem != null)
@@ -41,6 +42,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         inventory.itemDescriptionText.SetText("");
         inventory.itemDescriptionImage.sprite = emptySprite;
         
+        UIManager.Instance.HUDCanvas.SetActive(true);
         inventoryScreenUI.SetActive(false);
 
         PlayerController.Instance.isInvOpen = false;

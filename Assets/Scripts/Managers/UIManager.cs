@@ -19,7 +19,9 @@ public class UIManager : MonoBehaviour
     public InventoryMenu inventoryMenu;
     public PauseMenu pauseMenu;
     public HelpMenu helpMenu;
-    public GameObject helpScreen;
+    public LoadoutMenu loadoutMenu;
+    public ProgressionMenu progressionMenu;
+    
     public GameObject HUDCanvas;
     
     [Header("Inventory UI Refs")]
@@ -136,34 +138,6 @@ public class UIManager : MonoBehaviour
             UpdateMashBar();
     }
 
-    private void OnEnable()
-    {
-        cancelAction.action.performed += OnCancel;
-        cancelAction.action.Enable();
-        
-        buttonNorthAction.action.performed += OnButtonNorth;
-        buttonNorthAction.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        cancelAction.action.performed -= OnCancel;
-        cancelAction.action.Disable();
-        
-        buttonNorthAction.action.performed -= OnButtonNorth;
-        buttonNorthAction.action.Disable();
-    }
-
-    private void OnCancel(InputAction.CallbackContext context)
-    {
-        UIMenuStack.Current?.OnCancel();
-    }
-
-    private void OnButtonNorth(InputAction.CallbackContext context)
-    {
-        UIMenuStack.Current?.OnButtonNorth();
-    }
-
     public void UpdateInventoryUI()
     {
         maxWeightText.text = ("" + GameManager.Instance.maxWeight);
@@ -194,7 +168,6 @@ public class UIManager : MonoBehaviour
         switch (menu)
         {
             case ("InventoryMenu"):
-                HUDCanvas.SetActive(false);
                 UIMenuStack.Push(inventoryMenu);
                 break;
             case ("PauseMenu"):
@@ -202,6 +175,12 @@ public class UIManager : MonoBehaviour
                 break;
             case ("HelpMenu"):
                 UIMenuStack.Push(helpMenu);
+                break;
+            case ("LoadoutMenu"):
+                UIMenuStack.Push(loadoutMenu);
+                break;
+            case ("ProgressionMenu"):
+                UIMenuStack.Push(progressionMenu);
                 break;
         }
     }
@@ -214,13 +193,16 @@ public class UIManager : MonoBehaviour
         switch (UIMenuStack.Current)
         {
             case (InventoryMenu):
-                HUDCanvas.SetActive(true);
                 break;
             case (PauseMenu):
                 break;
             case (HelpMenu):
                 UIMenuStack.Pop();
                 return;
+            case (LoadoutMenu):
+                break;
+            case (ProgressionMenu):
+                break;
         }
         
         UIMenuStack.Clear();
@@ -412,12 +394,32 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         GameManager.Instance.PauseGame(0);
     }
-
-    public void ToggleHelpScreen(string state)
+    
+    private void OnEnable()
     {
-        if (state == "Show") 
-            helpScreen.SetActive(true);
-        else if (state == "Hide")
-            helpScreen.SetActive(false);
+        cancelAction.action.performed += OnCancel;
+        cancelAction.action.Enable();
+        
+        buttonNorthAction.action.performed += OnButtonNorth;
+        buttonNorthAction.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        cancelAction.action.performed -= OnCancel;
+        cancelAction.action.Disable();
+        
+        buttonNorthAction.action.performed -= OnButtonNorth;
+        buttonNorthAction.action.Disable();
+    }
+
+    private void OnCancel(InputAction.CallbackContext context)
+    {
+        UIMenuStack.Current?.OnCancel();
+    }
+
+    private void OnButtonNorth(InputAction.CallbackContext context)
+    {
+        UIMenuStack.Current?.OnButtonNorth();
     }
 }

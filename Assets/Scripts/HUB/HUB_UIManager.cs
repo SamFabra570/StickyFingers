@@ -124,10 +124,7 @@ public class HUB_UIManager : MonoBehaviour
 
     private void OnSubmit(InputAction.CallbackContext context)
     {
-        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
-            loadoutMenu.OnSubmit();
-        else
-            progressionMenu.OnSubmit();
+        UIMenuStack.Current?.OnSubmit();
     }
     
     // private void OnCancel(InputAction.CallbackContext context)
@@ -141,22 +138,22 @@ public class HUB_UIManager : MonoBehaviour
     //Switch Planning Display
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
-        if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
-        {
-            if (isAnimDone)
-            {
-                if (detailsScreenAnim.GetBool("isHidden"))
-                {
-                    TogglePlanningUI("Details");
-                }
-                else
-                {
-                    TogglePlanningUI("Loadout");
-                }
-                
-                isAnimDone = false;
-            }
-        }
+        // if (!ReferenceEquals(UIMenuStack.Current, progressionMenu))
+        // {
+        //     if (isAnimDone)
+        //     {
+        //         if (detailsScreenAnim.GetBool("isHidden"))
+        //         {
+        //             TogglePlanningUI("Details");
+        //         }
+        //         else
+        //         {
+        //             TogglePlanningUI("Loadout");
+        //         }
+        //         
+        //         isAnimDone = false;
+        //     }
+        // }
     }
 
     private void OnEnable()

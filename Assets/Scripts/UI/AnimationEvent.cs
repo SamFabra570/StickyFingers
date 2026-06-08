@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class AnimationEvent : MonoBehaviour
 {
+    [SerializeField] private LoadoutMenu loadoutMenu;
+    
     public void AnimStateDone()
     {
-        HUB_UIManager.Instance.isAnimDone = true;
+        loadoutMenu.isAnimDone = true;
     }
 }

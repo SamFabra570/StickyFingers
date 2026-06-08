@@ -430,10 +430,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2136945087}
-        m_TargetAssemblyTypeName: HUB_UIManager, Assembly-CSharp
-        m_MethodName: TogglePlanningUI
-        m_Mode: 5
+      - m_Target: {fileID: 1805571311}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HideMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -677,7 +677,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 730b099d538be964a9bf30f3ec75a227, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -699,6 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6755b379d1cb9c4fa5241fb6aea768e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  loadoutMenu: {fileID: 1300910732}
 --- !u!1 &46818104
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50.13279, y: -39.08023}
+  m_AnchoredPosition: {x: -61.216415, y: -45}
   m_SizeDelta: {x: 10.8482, y: 35.6791}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &65287298
@@ -1091,10 +1092,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2136945087}
-        m_TargetAssemblyTypeName: HUB_UIManager, Assembly-CSharp
-        m_MethodName: TogglePlanningUI
-        m_Mode: 5
+      - m_Target: {fileID: 1805571311}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HideMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1242,6 +1243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProgressionMenu
   eventSystem: {fileID: 396460013}
   menuCanvas: {fileID: 153458636}
+  HUBCanvas: {fileID: 946054346}
   firstButton: {fileID: 39520637}
   readyButton: {fileID: 132295567}
 --- !u!1 &156380692
@@ -2331,8 +2333,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.132812, y: 3.080225}
-  m_SizeDelta: {x: 116.49655, y: 113.839554}
+  m_AnchoredPosition: {x: 35.26644, y: 3.080225}
+  m_SizeDelta: {x: 164.4396, y: 113.8396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &273091073
 GameObject:
@@ -2560,7 +2562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.7018814, y: 43.4198}
+  m_AnchoredPosition: {x: -30.67342, y: 43.4198}
   m_SizeDelta: {x: 200, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275519827
@@ -3502,8 +3504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888184, y: 4.9198}
-  m_SizeDelta: {x: 232.9931, y: 50}
+  m_AnchoredPosition: {x: -0.00004196167, y: 1.3796997}
+  m_SizeDelta: {x: 328.88, y: 57.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459180136
 MonoBehaviour:
@@ -4278,7 +4280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.867146, y: -39.08023}
+  m_AnchoredPosition: {x: 18.826626, y: -45}
   m_SizeDelta: {x: 10.8482, y: 35.6791}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522359673
@@ -4623,7 +4625,7 @@ MonoBehaviour:
   cooldownText: {fileID: 156380694}
   rightOffset: {x: -20, y: 0}
   leftOffset: {x: -250, y: -7.5}
-  tooltipDelay: 0.75
+  tooltipDelay: 0.2
   targetCanvas: {fileID: 594044456}
   eventSystem: {fileID: 396460013}
 --- !u!223 &594044456
@@ -6012,7 +6014,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2136945088}
   - {fileID: 1702677057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6098,10 +6099,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2136945087}
-        m_TargetAssemblyTypeName: HUB_UIManager, Assembly-CSharp
-        m_MethodName: TogglePlanningUI
-        m_Mode: 5
+      - m_Target: {fileID: 1300910732}
+        m_TargetAssemblyTypeName: LoadoutMenu, Assembly-CSharp
+        m_MethodName: OnButtonNorth
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7184,7 +7185,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 199.91028, y: 136}
+  m_SizeDelta: {x: 255.5861, y: 136}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &949538027
 MonoBehaviour:
@@ -8554,6 +8555,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoadoutMenu
   eventSystem: {fileID: 396460013}
+  HUBCanvas: {fileID: 946054346}
+  detailsScreenAnim: {fileID: 45363310}
+  isAnimDone: 1
+  switchScreenButtonText: {fileID: 1740518719}
+  debtPaidFill: {fileID: 1811656599}
+  debtPaidText: {fileID: 1782148326}
+  totalDebtText: {fileID: 897285206}
   slot1: {fileID: 3456847493089007096}
   slot2: {fileID: 1445605832}
   slot3: {fileID: 1158350095}
@@ -9991,10 +9999,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2136945087}
-        m_TargetAssemblyTypeName: HUB_UIManager, Assembly-CSharp
-        m_MethodName: TogglePlanningUI
-        m_Mode: 5
+      - m_Target: {fileID: 1300910732}
+        m_TargetAssemblyTypeName: LoadoutMenu, Assembly-CSharp
+        m_MethodName: OnButtonNorth
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10505,6 +10513,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1501193081}
     - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
+      propertyPath: loadoutMenu
+      value: 
+      objectReference: {fileID: 1300910732}
+    - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 1617182087922698533}
@@ -10520,6 +10532,10 @@ PrefabInstance:
       propertyPath: inventoryScreen
       value: 
       objectReference: {fileID: 782509755821749824}
+    - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
+      propertyPath: progressionMenu
+      value: 
+      objectReference: {fileID: 153458637}
     - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
       propertyPath: buttonNorthAction
       value: 
@@ -12802,64 +12818,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2726319787159557766, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
   m_PrefabInstance: {fileID: 3456847493089007095}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2136945086
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2136945088}
-  - component: {fileID: 2136945087}
-  m_Layer: 0
-  m_Name: HUB_UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2136945087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136945086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41463de39bebc2549924f84c547d578d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HUB_UIManager
-  cancelAction: {fileID: 8297756930863793916, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}
-  buttonNorthAction: {fileID: 8192285825193734478, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}
-  planningUI: {fileID: 946054346}
-  detailsScreen: {fileID: 45363308}
-  loadoutScreen: {fileID: 1300910730}
-  switchScreenButtonText: {fileID: 1740518719}
-  detailsScreenAnim: {fileID: 45363310}
-  isAnimDone: 0
-  progressionScreen: {fileID: 153458633}
-  debtPaidFill: {fileID: 1811656599}
-  debtPaidText: {fileID: 1782148326}
-  totalDebtText: {fileID: 897285206}
-  loadoutMenu: {fileID: 1300910732}
-  progressionMenu: {fileID: 153458637}
---- !u!4 &2136945088
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136945086}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 762585232}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2139978838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16978,7 +16936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &953134146827918815
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -51,6 +51,6 @@ public static class UIMenuStack
         PlayerController.Instance.inputMap.UI.Disable();
         PlayerController.Instance.inputMap.Player.Enable();
         
-        UIManager.Instance.ToggleInteractText(true, "");
+        //UIManager.Instance.ToggleInteractText(false, "");
     }
 }

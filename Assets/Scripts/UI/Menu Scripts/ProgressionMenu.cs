@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class ProgressionMenu : MonoBehaviour, IUIMenu
 {
     public static ProgressionMenu Instance;
+
+    private LoadoutMenu loadoutMenu;
     
     public EventSystem eventSystem;
     
     [SerializeField] private Canvas menuCanvas;
+    [SerializeField] private Canvas HUBCanvas;
     
     [SerializeField] private GameObject firstButton;
     [SerializeField] private GameObject readyButton;
@@ -25,6 +28,8 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
         }
 
         Instance = this;
+
+        loadoutMenu = UIManager.Instance.loadoutMenu;
     }
 
     private void Update()
@@ -38,7 +43,9 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     public void OnShowMenu()
     {
-        HUB_UIManager.Instance.detailsScreenAnim.SetBool("GTFO?", true);
+        HUBCanvas.enabled = true;
+        
+        loadoutMenu.detailsScreenAnim.SetBool("GTFO?", true);
         
         menuCanvas.overrideSorting = true;
         menuCanvas.sortingOrder = 100;
@@ -51,9 +58,11 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     public void OnHideMenu()
     {
-        HUB_UIManager.Instance.detailsScreenAnim.SetBool("GTFO?", false);
+        loadoutMenu.detailsScreenAnim.SetBool("GTFO?", false);
         
         menuCanvas.overrideSorting = false;
+        
+        HUBCanvas.enabled = false;
     }
 
     private void ValidateNavigation()
@@ -100,13 +109,8 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
         return readyButton;
     }
 
-    public void OnSubmit()
-    {
-        
-    }
-
     public void OnCancel()
     {
-        HUB_UIManager.Instance.TogglePlanningUI("Close");
+        UIManager.Instance.HideMenu();
     }
 }
