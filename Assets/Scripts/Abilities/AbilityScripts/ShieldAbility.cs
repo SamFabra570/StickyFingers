@@ -5,11 +5,13 @@ public class ShieldAbility : Ability
 {
     public override void Activate(GameObject user)
     {
+        //PlayerController.Instance.SetPlayerColour(abilityColour);
         PlayerController.Instance.ActivateShield();
     }
 
     public override void Deactivate(GameObject user)
     {
         PlayerController.Instance.DeactivateShield();
+        //PlayerController.Instance.ResetColour();
     }
 }

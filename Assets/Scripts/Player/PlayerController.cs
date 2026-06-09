@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -34,14 +33,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSpeed = 360f;
 
     [Header("Weight Mechanic")] 
+    public WeightState currentState = WeightState.Light;
+    
+    public enum WeightState
+    {
+        Light,
+        Medium,
+        Heavy,
+        Overweight
+    }
+    
     [SerializeField] private float currentWeight;
     
-    public float encumberedThreshold = 0.4f;
-    public float overencumberedThreshold = 0.7f;
+    public float mediumThreshold = 0.4f;
+    public float heavyThreshold = 0.75f;
 
     //Value to subtract from speed
-    public float encumberedSpeedModifier = -1;
-    public float overencumberedSpeedModifier = -2;
+    public float mediumSpeedModifier = -1;
+    public float heavySpeedModifier = -2;
     
     [Header ("Player Gravity")]
     public bool useGravity = true;
@@ -272,7 +281,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetWeightState();
         UpdateSpeed();
+        
         bool isMoving = cc.velocity.sqrMagnitude > 0.0001f;
         if (soundPlayer != null)
         {
@@ -297,26 +308,55 @@ public class PlayerController : MonoBehaviour
         Look();
     }
 
-    private void UpdateSpeed()
+    private void SetWeightState()
     {
         //Weight on a scale from 0-1
         currentWeight = UIManager.Instance.normalizedWeight;
-
-        if (SceneManager.GetActiveScene().name == "Game")
+        
+        //Light
+        if (currentWeight < mediumThreshold) //Less than medium
         {
-            //If over max weight, stop movement
-            if (currentWeight > 1)
-            {
-                UIManager.Instance.weightStateText.text = ("Overweight");
-            
+            currentState = WeightState.Light;
+        }
+        //Medium
+        else if (currentWeight >= mediumThreshold && currentWeight <= heavyThreshold) //More than medium, less than heavy
+        {
+            currentState = WeightState.Medium;
+            //currentSpeed = sprintSpeed + encumberedSpeedModifier;
+        }
+        //Heavy
+        else if (currentWeight > heavyThreshold && currentWeight < 1) //More than heavy, less than maximum
+        {
+            currentState = WeightState.Heavy;
+            //currentSpeed = sprintSpeed + overencumberedSpeedModifier;
+        }
+        else if (currentWeight >= 1) //Greater or equal to maximum
+            currentState = WeightState.Overweight;
+    }
+
+    private void UpdateSpeed()
+    {
+        float weightModifier = 0;
+        
+        switch (currentState)
+        {
+            case WeightState.Light:
+                weightModifier = 0;
+                break;
+            case WeightState.Medium:
+                weightModifier = mediumSpeedModifier;
+                break;
+            case WeightState.Heavy:
+                weightModifier = heavySpeedModifier;
+                break;
+            case WeightState.Overweight:
                 currentSpeed = 0;
                 return;
-            }
         }
-        
-        
-        Rigidbody rb = GetComponent<Rigidbody>();
-        
+
+        if (SceneManager.GetActiveScene().name != "Game")
+            weightModifier = 0;
+
         //If ability is active, override speed
         if (abilityMoveSpeed > 0)
         {
@@ -325,70 +365,35 @@ public class PlayerController : MonoBehaviour
             deceleration = 50;
             return;
         }
-
-        if (SceneManager.GetActiveScene().name != "Game")
-            isFloorFrozen = false;
-
-        if (isSprinting)
+        
+        if (isSprinting) //Sprinting
         {
-            //Light
-            if (currentWeight < encumberedThreshold)
-            {
-                currentSpeed = sprintSpeed;
-            }
-            //Heavy
-            else if (currentWeight >= encumberedThreshold &&  currentWeight < overencumberedThreshold)
-            {
-                currentSpeed = sprintSpeed + encumberedSpeedModifier;
-            }
-            //Fat as shit
-            else if (currentWeight >= overencumberedThreshold)
-            {
-                currentSpeed = sprintSpeed + overencumberedSpeedModifier;
-            }
+            currentSpeed = sprintSpeed + weightModifier;
             
             float sprintRadius = RainController.Instance != null && RainController.Instance.IsRaining ? 2f : 4f;
-            if (soundPlayer != null) soundPlayer.distance_ = sprintRadius;
+            if (soundPlayer != null) 
+                soundPlayer.distance_ = sprintRadius;
         }
-        else if (isFloorFrozen)
+        else if (isFloorFrozen) //Frozen Floor
         {
             currentSpeed = frozenFloorSpeed;
             acceleration = 5;
             deceleration = 1f;
         }
+        else //Base
+            currentSpeed = baseMoveSpeed + weightModifier;
         
-        else
-        {
-            //Light
-            if (currentWeight < encumberedThreshold)
-            {
-                if (SceneManager.GetActiveScene().name == "Game") 
-                    UIManager.Instance.weightStateText.text = ("Light");
-                
-                currentSpeed = baseMoveSpeed;
-            }
-            //Heavy
-            else if (currentWeight >= encumberedThreshold &&  currentWeight < overencumberedThreshold)
-            {
-                if (SceneManager.GetActiveScene().name == "Game") 
-                    UIManager.Instance.weightStateText.text = ("Medium");
-                
-                currentSpeed = baseMoveSpeed + encumberedSpeedModifier;
-            }
-            //Fat as shit
-            else if (currentWeight >= overencumberedThreshold)
-            {
-                if (SceneManager.GetActiveScene().name == "Game") 
-                    UIManager.Instance.weightStateText.text = ("Heavy");
-                
-                currentSpeed = baseMoveSpeed + overencumberedSpeedModifier;
-            }
-            
-            //Base acceleration settings
-            acceleration = 40;
-            deceleration = 50;
-            if (soundPlayer != null) soundPlayer.distance_ = 2f;
-        }
+        //Base acceleration settings
+        acceleration = 40;
+        deceleration = 50;
+        
+        if (soundPlayer != null) 
+            soundPlayer.distance_ = 2f;
+        
+        //Rigidbody rb = GetComponent<Rigidbody>();
+
+        if (SceneManager.GetActiveScene().name != "Game")
+            isFloorFrozen = false;
     }
 
     private void CorrectMovement()

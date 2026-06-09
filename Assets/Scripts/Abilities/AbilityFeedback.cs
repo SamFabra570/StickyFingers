@@ -27,6 +27,7 @@ public class AbilityFeedback : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Get current ability
         AbilitySlot currentSlot = AbilityManager.Instance.GetAbility(slotIndex);
 
         if (currentSlot == null)
@@ -68,6 +69,7 @@ public class AbilityFeedback : MonoBehaviour
         }
     }
 
+    //Routine for ability blinking feedback
     private IEnumerator Blink()
     {
         while (true)

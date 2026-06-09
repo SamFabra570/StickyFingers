@@ -1414,6 +1414,8 @@ MonoBehaviour:
   cameraPivot: {fileID: 0}
   cameraScript: {fileID: 0}
   isPaused: 0
+  isInvOpen: 0
+  isPauseOpen: 0
   stunField: {fileID: 7139021676105785100}
   isFrozen: 0
   wings: {fileID: 3011595244263410902}
@@ -1986,6 +1988,7 @@ MonoBehaviour:
   arrowObj: {fileID: 4194716443215146882}
   currentTarget: {fileID: 0}
   baseColour: {fileID: 2100000, guid: 2fe1d7b0e2324034bab3676d84b8e20c, type: 2}
+  blinkSpeed: 3.5
 --- !u!1001 &3016867675942709877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2135,6 +2138,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 31d1b3df08ae38d44ba60e34966c9234, type: 3}
       propertyPath: m_Name
       value: Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 31d1b3df08ae38d44ba60e34966c9234, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

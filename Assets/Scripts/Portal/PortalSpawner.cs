@@ -43,5 +43,6 @@ public class PortalSpawner : MonoBehaviour
         arrow.SetActive(true);
         arrow.SetTarget(target.transform);
         arrow.SetColour(portalMat);
+        arrow.ToggleBlinking(true);
     }
 }

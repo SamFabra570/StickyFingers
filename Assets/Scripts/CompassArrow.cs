@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CompassArrow : MonoBehaviour
@@ -5,6 +6,8 @@ public class CompassArrow : MonoBehaviour
     [SerializeField] private Transform arrowObj;
     [SerializeField] private Transform currentTarget;
     [SerializeField] private Material baseColour;
+    private Color colour;
+    [SerializeField] private float blinkSpeed;
 
     private bool isActive;
 
@@ -38,6 +41,11 @@ public class CompassArrow : MonoBehaviour
     {
         isActive = value;
         arrowObj.gameObject.SetActive(value);
+
+        if (!value)
+        {
+            StopCoroutine(Blink());
+        }
     }
 
     public void SetColour(Material colour)
@@ -50,5 +58,44 @@ public class CompassArrow : MonoBehaviour
         }
         
         arrowObj.GetComponentInChildren<MeshRenderer>().material = baseColour;
+    }
+
+    public void ToggleBlinking(bool state)
+    {
+        if (state)
+        {
+            StartCoroutine(Blink());
+        }
+        else
+        {
+            StopCoroutine(Blink());
+            
+            colour.a = 1;
+            baseColour.color = colour;
+        }
+    }
+    
+    //Routine for blinking feedback
+    private IEnumerator Blink()
+    {
+        //colour = baseColour.color;
+        
+        while (true)
+        {
+            yield return new WaitForSeconds(blinkSpeed);
+            
+            arrowObj.gameObject.SetActive(false);
+
+            //colour.a = 0;
+            //baseColour.color = colour;
+            
+            yield return new WaitForSeconds(blinkSpeed);
+            
+            arrowObj.gameObject.SetActive(true);
+            
+            // colour.a = 1;
+            // baseColour.color = colour;
+        }
+        
     }
 }

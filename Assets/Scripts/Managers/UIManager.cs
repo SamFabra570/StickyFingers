@@ -140,6 +140,22 @@ public class UIManager : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
+        switch (PlayerController.Instance.currentState)
+        {
+            case PlayerController.WeightState.Light:
+                weightStateText.text = ("Light");
+                break;
+            case PlayerController.WeightState.Medium:
+                weightStateText.text = ("Medium");
+                break;
+            case PlayerController.WeightState.Heavy:
+                weightStateText.text = ("Heavy");
+                break;
+            case PlayerController.WeightState.Overweight:
+                weightStateText.text = ("Overweight");
+                break;
+        }
+        
         maxWeightText.text = ("" + GameManager.Instance.maxWeight);
         totalWeightText.text = (inventory.totalWeight + " /");
 
@@ -330,22 +346,21 @@ public class UIManager : MonoBehaviour
         weightFillInv.fillAmount = normalizedWeight;
         
         //Change UI colour based on weight
-        if (normalizedWeight > 0.66f)
+        switch (PlayerController.Instance.currentState)
         {
-            weightFill.sprite = weightFillRed;
-            weightFillInv.sprite = weightFillRed;
+            case PlayerController.WeightState.Light:
+                weightFill.sprite = weightFillGreen;
+                weightFillInv.sprite = weightFillGreen;
+                break;
+            case PlayerController.WeightState.Medium:
+                weightFill.sprite = weightFillYellow;
+                weightFillInv.sprite = weightFillYellow;
+                break;
+            case PlayerController.WeightState.Heavy:
+                weightFill.sprite = weightFillRed;
+                weightFillInv.sprite = weightFillRed;
+                break;
         }
-        else if (normalizedWeight <= 0.66f &&  normalizedWeight > 0.3f)
-        {
-            weightFill.sprite = weightFillYellow;
-            weightFillInv.sprite = weightFillYellow;
-        }
-        else
-        {
-            weightFill.sprite = weightFillGreen;
-            weightFillInv.sprite = weightFillGreen;
-        }
-            
     }
     
     public void ShowPreviewItem(InventoryItemData itemData)
