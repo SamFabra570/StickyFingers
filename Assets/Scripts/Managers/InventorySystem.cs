@@ -45,6 +45,9 @@ public class InventorySystem
             itemSlots[freeSlot].AddItem(newItem);
             freeSlot++;
         }
+        
+        //If item is part of a mission requirement, add to mission progress
+        MissionManager.Instance.AddProgress(referenceData, 1);
 
         UIManager.Instance.UpdateTotals();
         UIManager.Instance.ShowItemPickupNotif(referenceData);

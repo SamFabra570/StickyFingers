@@ -13,11 +13,13 @@ public abstract class Ability : ScriptableObject
     [Header("Progression")] 
     [Range(0f, 1f)]
     public float debtThreshold;
-    
-    public bool requiredUnlockItems;
 
-    public string unlockItemID;
-    public int unlockItemAmount;
+    public MissionData unlockMission;
+    
+    //public bool requiredUnlockItems;
+
+    //public string unlockItemID;
+    //public int unlockItemAmount;
     
     [Header("Gameplay")]
     public float duration;

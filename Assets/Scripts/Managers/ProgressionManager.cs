@@ -7,6 +7,7 @@ public class ProgressionManager : MonoBehaviour
     public static ProgressionManager Instance { get; private set; }
     
     public List<string> unlockedAbilities = new();
+    public List<string> missionCompleteAbilities = new();
 
     private void Awake()
     {
@@ -17,6 +18,11 @@ public class ProgressionManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+    
+    public bool IsMissionCompleted(Ability ability)
+    {
+        return missionCompleteAbilities.Contains(ability.abilityID);
     }
     
     public bool IsUnlocked(Ability ability)

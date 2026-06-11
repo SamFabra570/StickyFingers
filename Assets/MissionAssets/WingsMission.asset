@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
+  m_Name: WingsMission
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionName: Unlock the Wings ability
+  description: Collect 5 feathers to unlock the wings
+  targetItem: {fileID: 11400000, guid: 8862531a9cdcfbe40a40e815ce70de47, type: 2}
+  requiredAmount: 5
+  rewardAbility: {fileID: 11400000, guid: 8fa91a51a64c60c4799421d260cb91bb, type: 2}

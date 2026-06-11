@@ -67,7 +67,7 @@ public class AbilityUnlock : MonoBehaviour
         }
         
         bool unlocked = progressionManager.IsUnlocked(ability);
-        bool canUnlock = progressionManager.CanUnlock(ability);
+        bool canUnlock = progressionManager.IsMissionCompleted(ability);;
             
         unlockButton.interactable = canUnlock;
         abilityLockOverlay.SetActive(!unlocked);
