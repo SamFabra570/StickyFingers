@@ -53,8 +53,15 @@ public class Sight : MonoBehaviour
             float angle_to_collider = Vector3.Angle(transform.forward, dir_to_collider);
             float distance_to_collider = Vector3.Distance(transform.position, single_collider.bounds.center);
 
+            // Soft cover (Model C): while the player stands in a CoverZone, the cone's effective reach
+            // shrinks so we only spot them up close. concealment is 0 for non-player targets (and for an
+            // exposed player), so effectiveConeRange == distance_ and behaviour is unchanged for them.
+            // The peripheral radius is intentionally NOT reduced: cover never saves you point-blank.
+            float concealment = player != null ? player.Concealment : 0f;
+            float effectiveConeRange = distance_ * (1f - concealment);
+
             // Inside the vision cone, OR close enough to be sensed peripherally (peripheral_radius_ = 0 disables it)
-            bool insideCone       = angle_to_collider < angle_;
+            bool insideCone       = angle_to_collider < angle_ && distance_to_collider <= effectiveConeRange;
             bool insidePeripheral = distance_to_collider <= peripheral_radius_;
             if (!insideCone && !insidePeripheral)
                 continue;

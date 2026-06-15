@@ -117,7 +117,12 @@ public class BaseScoutEnemy : MonoBehaviour
     public bool AccumulateSuspicion(bool seeingPlayer)
     {
         if (seeingPlayer)
-            suspicion += Time.deltaTime;
+        {
+            // Soft cover (Model C) slows how fast suspicion builds. An exposed player (concealment 0)
+            // fills at the normal rate; in cover the warmup takes proportionally longer.
+            float concealment = PlayerController.Instance != null ? PlayerController.Instance.Concealment : 0f;
+            suspicion += Time.deltaTime * (1f - concealment);
+        }
         else
             suspicion = Mathf.MoveTowards(suspicion, 0f, Time.deltaTime * 2f); // forgets twice as fast
 

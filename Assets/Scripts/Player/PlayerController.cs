@@ -109,6 +109,11 @@ public class PlayerController : MonoBehaviour
     private int _detectorCount;
     public bool IsDetected => _detectorCount > 0;
 
+    // Soft cover: 0 = exposed, up to PlayerCover.maxConcealment while standing in cover zones.
+    // Enemies read this to shrink their detection range; the scout also slows its suspicion build-up.
+    private PlayerCover _playerCover;
+    public float Concealment => _playerCover != null ? _playerCover.Concealment : 0f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -126,6 +131,7 @@ public class PlayerController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         rend = GetComponent<Renderer>();
         feedback = GetComponent<AbilityFeedback>();
+        _playerCover = GetComponent<PlayerCover>();
 
         //cameraScript = FindFirstObjectByType<IsometricCamera>();
         
