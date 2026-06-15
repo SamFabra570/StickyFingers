@@ -36,12 +36,17 @@ public class BaseMageEnemy : MonoBehaviour
     //Attacking
     public float attack_distance_ = 2.0f;
     public float stop_attack_distance_multiplier = 1.2f;
+
+    //Detection memory: keep pursuing the last known position for this long after losing line of sight, so a single-frame occlusion (corner, lag, momentary cover) does not make the mage give up.
+    public float loseSightGracePeriod = 1.5f;
+    [HideInInspector] public float lastSeenTime = -Mathf.Infinity;
     
     [SerializeField] public bool isBeingSeen;
 
-    //Visibility-based speed — fast while the player is watching, slow while not
+    //Visibility-based speed — fast while the player is watching, slow while not. Pursuit overrides both with pursuitSpeed so the chase feels urgent.
     public float hiddenSpeed = 1.5f;
     public float visibleSpeed = 3.0f;
+    public float pursuitSpeed = 4.5f;
     private DitherVisibility ditherVisibility_;
 
     private void Awake()
@@ -85,9 +90,15 @@ public class BaseMageEnemy : MonoBehaviour
             stateMachine._CurrentState.LogicUpdate();
     }
 
-    //Move fast while the player can see this enemy, slow while they can't
+    //Move fast while the player can see this enemy, slow while they can't. Pursuit overrides this with pursuitSpeed.
     private void UpdateSpeed()
     {
+        if (stateMachine != null && stateMachine._CurrentState is EnemyMagePursuitState)
+        {
+            agent_.speed = pursuitSpeed;
+            return;
+        }
+
         if (ditherVisibility_ == null)
             return;
 
