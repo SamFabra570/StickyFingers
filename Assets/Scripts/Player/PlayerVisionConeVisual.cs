@@ -17,6 +17,10 @@ public class PlayerVisionConeVisual : MonoBehaviour
     private Mesh _coneMesh;
     private MeshFilter _meshFilter;
 
+    // Same Mesh instance is reused every frame (Clear + reassign), so a fog-of-war revealer can share
+    // this reference once and stay in sync automatically — the cone already respects wall occlusion.
+    public Mesh ConeMesh => _coneMesh;
+
     private void Awake()
     {
         if (visionCone == null)
