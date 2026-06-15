@@ -32,8 +32,8 @@ public class PlayerVisionConeVisual : MonoBehaviour
         if (visionCone == null)
             return;
 
-        // visionAngle is stored in degrees on PlayerVisionCone — convert here.
-        DrawCone(visionCone.visionRadius, visionCone.visionAngle * Mathf.Deg2Rad, visionCone.occlusionMask);
+        // visionAngle is stored in degrees on PlayerVisionCone — convert here. Uses the visual-specific mask (falls back to detection mask if unset) so decorative invisible colliders can be excluded without affecting detection.
+        DrawCone(visionCone.visionRadius, visionCone.visionAngle * Mathf.Deg2Rad, visionCone.ResolvedVisualMask);
     }
 
     private void DrawCone(float range, float angle, LayerMask obstructionMask)

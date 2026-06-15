@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerVisionCone : MonoBehaviour
 {
@@ -12,8 +13,17 @@ public class PlayerVisionCone : MonoBehaviour
     public float peripheralRadius = 2f;
 
     [Header("Occlusion")]
-    public LayerMask occlusionMask;   // walls, environment geometry
+    [FormerlySerializedAs("occlusionMask")]
+    [Tooltip("Layers that BLOCK DETECTION. Real walls and any geometry that should hide enemies/objects from the cone reveal.")]
+    public LayerMask detectionMask;   // walls, environment geometry
+
+    [Tooltip("Layers that CUT THE VISUAL CONE MESH. Usually the same as Detection Mask. Put invisible decorative colliders OUTSIDE this mask so the cone doesn't bite around chandeliers/props. If left empty (Nothing), falls back to Detection Mask.")]
+    public LayerMask visualMask;
+
     public LayerMask targetMask;      // enemies + stealable objects
+
+    //Resolved mask used by the visual cone — falls back to detectionMask when visualMask is not set, so existing scenes keep working.
+    public LayerMask ResolvedVisualMask => visualMask.value != 0 ? visualMask : detectionMask;
 
     [Header("Performance")]
     public float scanInterval = 0.1f; // seconds between scans
@@ -54,7 +64,7 @@ public class PlayerVisionCone : MonoBehaviour
 
             // Raycast for occlusion
             if (Physics.Raycast(transform.position, dirToTarget.normalized,
-                                 out RaycastHit hit, visionRadius, occlusionMask | targetMask))
+                                 out RaycastHit hit, visionRadius, detectionMask | targetMask))
             {
                 // Make sure we hit the target, not a wall first
                 if (hit.collider != col) continue;
