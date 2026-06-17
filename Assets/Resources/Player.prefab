@@ -838,7 +838,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4889067557452573055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1269,6 +1269,8 @@ GameObject:
   - component: {fileID: 8424166005795554456}
   - component: {fileID: 4222461930065386164}
   - component: {fileID: 997110860369900589}
+  - component: {fileID: 6635944905762751766}
+  - component: {fileID: 6683329411806514263}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1403,11 +1405,12 @@ MonoBehaviour:
   rotationSpeed: 720
   turnAccelerationBonus: 20
   turnSpeed: 360
+  currentState: 0
   currentWeight: 0
-  encumberedThreshold: 0.4
-  overencumberedThreshold: 0.7
-  encumberedSpeedModifier: -1
-  overencumberedSpeedModifier: -2
+  mediumThreshold: 0.4
+  heavyThreshold: 0.75
+  mediumSpeedModifier: -1
+  heavySpeedModifier: -2
   useGravity: 1
   yVelocity: 0
   gravityMultiplier: 1
@@ -1562,9 +1565,12 @@ MonoBehaviour:
   visionAngle: 90
   visionRadius: 10
   peripheralRadius: 3
-  occlusionMask:
+  detectionMask:
     serializedVersion: 2
     m_Bits: 1
+  visualMask:
+    serializedVersion: 2
+    m_Bits: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 768
@@ -1716,6 +1722,41 @@ MonoBehaviour:
   stealClip: {fileID: 8300000, guid: bd654d4d60c840945a54eaa443e22b39, type: 3}
   dropClip: {fileID: 8300000, guid: 176fba071c5e6cb4781e1b444e93c5a6, type: 3}
   volume: 1
+--- !u!114 &6635944905762751766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6c5dbf3856def4fb41890a90db8497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisionSceneGate
+  gameplaySceneName: Game
+  gameplayObjects:
+  - {fileID: 4889067557452573055}
+  gameplayBehaviours:
+  - {fileID: 2828715455557092964}
+  - {fileID: 6683329411806514263}
+--- !u!114 &6683329411806514263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e6ea6d696486849a7308bd93d05add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FogOfWarRevealer
+  visionConeVisual: {fileID: 0}
+  revealMaterial: {fileID: 2100000, guid: ade1a928a48a8884db938110e01a0b25, type: 2}
+  revealLayerName: VisionReveal
+  playerRevealRadius: 2
+  circleSegments: 32
 --- !u!1 &7139021676105785100
 GameObject:
   m_ObjectHideFlags: 0

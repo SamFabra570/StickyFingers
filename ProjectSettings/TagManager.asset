@@ -30,8 +30,8 @@ TagManager:
   - Enemy
   - Loot
   - RoomMechanic
-  - 
-  - 
+  - IgnoreVision
+  - VisionReveal
   - 
   - 
   - 
