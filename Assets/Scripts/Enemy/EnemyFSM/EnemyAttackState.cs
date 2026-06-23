@@ -47,8 +47,8 @@ public class EnemyAttackState : EnemyState
         InventoryItemData stolen = PickRandomItem(inventory);
         if (stolen != null)
         {
-            inventory.Remove(stolen);
-            UIManager.Instance.ShowItemStolen(stolen);
+            inventory.Remove(stolen, PopupUI.PopupType.Stolen);
+            //UIManager.Instance.ShowItemStolen(stolen);
         }
 
         enemy.lastAttackTime = Time.time;

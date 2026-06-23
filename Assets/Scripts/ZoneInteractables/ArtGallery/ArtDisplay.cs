@@ -30,7 +30,7 @@ public class ArtDisplay : MonoBehaviour, IInteractable
             return;
         }
 
-        inventory.Remove(artwork);
+        inventory.Remove(artwork, PopupUI.PopupType.Dropped);
         Place(artwork);
         galleryManager.OnArtworkPlaced();
     }

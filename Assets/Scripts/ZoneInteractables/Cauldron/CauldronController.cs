@@ -30,7 +30,7 @@ public class CauldronController : MonoBehaviour, IInteractable
             return;
         }
 
-        inventory.Remove(ingredient);
+        inventory.Remove(ingredient, PopupUI.PopupType.Dropped);
         _addedIngredients.Add(ingredient);
 
         Debug.Log($"[Cauldron] Added: {ingredient.ingredientType}. Total: {_addedIngredients.Count}/3");

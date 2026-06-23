@@ -21,7 +21,7 @@ public class WineRack : MonoBehaviour, IInteractable
             return;
         }
 
-        inventory.Remove(bottle);
+        inventory.Remove(bottle, PopupUI.PopupType.Dropped);
         _bottlePlaced = true;
         TriggerEffect(bottle.bottleEffect);
     }

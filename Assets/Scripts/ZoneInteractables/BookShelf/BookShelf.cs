@@ -126,7 +126,7 @@ public class BookShelf : MonoBehaviour, IInteractable
 
     private void RemoveBookFromInventory(BookItemData book)
     {
-        GetInventory().Remove(book);
+        GetInventory().Remove(book, PopupUI.PopupType.Dropped);
     }
 
     private InventorySystem GetInventory()

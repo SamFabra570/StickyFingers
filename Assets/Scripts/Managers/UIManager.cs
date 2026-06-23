@@ -11,6 +11,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
+
+    private PlayerController player;
     
     public InputActionReference cancelAction;
     public InputActionReference buttonNorthAction;
@@ -72,12 +74,12 @@ public class UIManager : MonoBehaviour
     private ButtonMash mashScript;
     
     [Header ("Object Pick Up Notification Refs")]
-    public GameObject objectPickupNotif;
-    public GameObject objectRemoveNotif;
-    public TextMeshProUGUI textNameNotif;
-    public TextMeshProUGUI textRemoveNameNotif;
-    public TextMeshProUGUI textWeightNotif;
-    public TextMeshProUGUI textValueNotif;
+    public PopupUI objectPopupUI;
+    // public GameObject objectDropUI;
+    // public TextMeshProUGUI textNameNotif;
+    // public TextMeshProUGUI textRemoveNameNotif;
+    // public TextMeshProUGUI textWeightNotif;
+    // public TextMeshProUGUI textValueNotif;
     
     // public Sprite emptySprite;
     
@@ -103,16 +105,21 @@ public class UIManager : MonoBehaviour
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
             weightFill = GameObject.Find("WeightFill").GetComponent<Image>();
             UpdatePassiveUI(GameManager.Instance.PlayerPassives.equippedPassive);
+            //objectDropUI = player.itemDropUI;
         }
+        
+        player = PlayerController.Instance;
+            
+        objectPopupUI = player.itemPickupUI;
             
         if (textTotalWeight != null) 
             textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
         if (textTotalBounty != null) 
             textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
-        if (objectPickupNotif != null) 
-            objectPickupNotif.SetActive(false); 
-        if (objectRemoveNotif != null) 
-            objectRemoveNotif.SetActive(false); 
+        if (objectPopupUI != null) 
+            objectPopupUI.gameObject.SetActive(false); 
+        // if (objectDropUI != null) 
+        //     objectDropUI.SetActive(false); 
         if (mageSpawnNotif != null)
             mageSpawnNotif.SetActive(false);
         if (portalSpawnNotif != null)
@@ -249,33 +256,34 @@ public class UIManager : MonoBehaviour
         switch (lastInteracted)
         {
             case "Object":
-                interactText.SetText("Press 'F' to steal");
+                interactText.SetText("Steal");
                 break;
             case "Interactable":
-                interactText.SetText("Press 'F' to interact");
+                interactText.SetText("Interact");
                 break;
             case "MashEvent":
-                interactText.SetText("Press 'F' to mash");
+                interactText.SetText("Mash");
                 break;
         }
         
         interactText.gameObject.SetActive(true);
     }
 
-    public void ShowItemPickupNotif(InventoryItemData itemData)
+    public void ShowItemPopupUI(InventoryItemData itemData, PopupUI.PopupType popupType)
     {
+        PopupUI.Instance.SetPopupContent(itemData, popupType);
         StartCoroutine(ItemPickupNotif(itemData));
     }
 
-    public void ShowItemRemoveNotif(InventoryItemData itemData)
-    {
-        StartCoroutine(ItemRemoveNotif(itemData));
-    }
+    // public void ShowItemRemoveNotif(InventoryItemData itemData)
+    // {
+    //     StartCoroutine(ItemRemoveNotif(itemData));
+    // }
     
-    public void ShowItemStolen(InventoryItemData itemData)
-    {
-        StartCoroutine(ItemStolen(itemData));
-    }
+    // public void ShowItemStolen(InventoryItemData itemData)
+    // {
+    //     StartCoroutine(ItemStolen(itemData));
+    // }
 
     public void ShowMageSpawnNotif()
     {
@@ -307,25 +315,30 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)
     {
-        textNameNotif.SetText(itemData.itemName);
-        textWeightNotif.SetText("Weight: " + itemData.itemWeight);
-        textValueNotif.SetText("Value: " + itemData.itemPrice);
-        objectPickupNotif.SetActive(true);
+        // textNameNotif.SetText(itemData.itemName);
+        // textWeightNotif.SetText("Weight: " + itemData.itemWeight);
+        // textValueNotif.SetText("Value: " + itemData.itemPrice);
+        
+        
+        objectPopupUI.gameObject.SetActive(true);
         
         yield return new WaitForSeconds(2.5f);
 
-        objectPickupNotif.SetActive(false);
+        objectPopupUI.gameObject.SetActive(false);
     }
     
-    private IEnumerator ItemRemoveNotif(InventoryItemData itemData)
-    {
-        textRemoveNameNotif.SetText("- " + itemData.itemName);
-        objectRemoveNotif.SetActive(true);
-        
-        yield return new WaitForSeconds(2.5f);
-
-        objectRemoveNotif.SetActive(false);
-    }
+    // private IEnumerator ItemRemoveNotif(InventoryItemData itemData)
+    // {
+    //     //if (wasDropped)
+    //         
+    //     
+    //     textRemoveNameNotif.SetText("- " + itemData.itemName);
+    //     objectDropUI.SetActive(true);
+    //     
+    //     yield return new WaitForSeconds(2.5f);
+    //
+    //     objectDropUI.SetActive(false);
+    // }
     
     private void UpdateMashBar()
     {

@@ -50,10 +50,10 @@ public class InventorySystem
         MissionManager.Instance.AddProgress(referenceData, 1);
 
         UIManager.Instance.UpdateTotals();
-        UIManager.Instance.ShowItemPickupNotif(referenceData);
+        UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Pickup);
     }
     
-    public void Remove(InventoryItemData referenceData)
+    public void Remove(InventoryItemData referenceData, PopupUI.PopupType popupType)
     {
 
         if (referenceData != null)
@@ -71,7 +71,7 @@ public class InventorySystem
                 }
                 RefreshInventory();
             }
-            UIManager.Instance.ShowItemRemoveNotif(referenceData);
+            UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Stolen);
             UIManager.Instance.UpdateTotals();
         }
     }

@@ -32,6 +32,9 @@ public class ButtonMash : MonoBehaviour
                 UIManager.Instance.mashBar.gameObject.SetActive(false);
                 UIManager.Instance.isMashing = false;
                 Destroy(gameObject);
+
+                PlayerController.Instance.interactable = null;
+                PlayerController.Instance.buttonMashObj = null;
             }
         }
     }

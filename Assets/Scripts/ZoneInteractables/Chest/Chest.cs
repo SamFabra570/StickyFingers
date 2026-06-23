@@ -62,7 +62,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void ConsumeKey(KeyItemData key)
     {
-        GetInventory().Remove(key);
+        GetInventory().Remove(key, PopupUI.PopupType.Dropped);
     }
 
     private void Open()

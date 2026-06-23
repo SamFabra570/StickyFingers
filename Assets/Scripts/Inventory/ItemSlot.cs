@@ -91,7 +91,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
 
         bool hadItem = item.data != null;
-        inventory.Remove(item.data);
+        inventory.Remove(item.data, PopupUI.PopupType.Dropped);
 
         // Drop SFX — only when an actual item left the slot
         if (hadItem && PlayerController.Instance != null)

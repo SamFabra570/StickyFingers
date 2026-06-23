@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     public Material basePlayerMat;
 
     private ItemController objectToSteal;
-    private GameObject interactable;
+    public GameObject interactable;
     private int interactType;
     
     public CompassArrow arrow;
@@ -104,6 +104,10 @@ public class PlayerController : MonoBehaviour
     
     private CharacterController cc;
     private SoundPlayer soundPlayer;
+
+    [Header("Extra References")] 
+    public PopupUI itemPickupUI;
+    public GameObject itemDropUI;
 
     // How many enemy sensors currently see the player. >0 = detected (drives the detection vignette).
     private int _detectorCount;
@@ -387,11 +391,12 @@ public class PlayerController : MonoBehaviour
             deceleration = 1f;
         }
         else //Base
+        {
             currentSpeed = baseMoveSpeed + weightModifier;
-        
-        //Base acceleration settings
-        acceleration = 40;
-        deceleration = 50;
+            
+            acceleration = 40;
+            deceleration = 50;
+        } 
         
         if (soundPlayer != null) 
             soundPlayer.distance_ = 2f;
@@ -582,8 +587,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("MashEvent"))
         {
-            interactable = null;
-            buttonMashObj = null;
+            //interactable = null;
+            //buttonMashObj = null;
         }
         
         UIManager.Instance.ToggleInteractText(false, "");

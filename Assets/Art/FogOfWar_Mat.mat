@@ -98,7 +98,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Feather: 0.12
-    - _FogStrength: 0.9
+    - _FogStrength: 0.75
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

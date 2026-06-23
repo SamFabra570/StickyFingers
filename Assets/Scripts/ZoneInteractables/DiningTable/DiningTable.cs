@@ -32,7 +32,7 @@ public class DiningTable : MonoBehaviour, IInteractable
             return;
         }
 
-        inventory.Remove(plate);
+        inventory.Remove(plate, PopupUI.PopupType.Dropped);
         PlacePlate(plate);
     }
 
