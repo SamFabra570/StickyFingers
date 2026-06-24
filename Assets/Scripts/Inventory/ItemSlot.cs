@@ -7,9 +7,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public InventoryItem item;
     public bool isFull;
     public Sprite emptySprite;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public TMP_Text priceText;
-    public TMP_Text weightText;
+    public GameObject content;
+    //public TMP_Text weightText;
+    //public TMP_Text valueText;
+    public TMP_Text stackValueText;
+    public TMP_Text stackWeightText;
     public TMP_Text quantityText;
     
     public Image image;
@@ -22,29 +24,38 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         item = source;
         isFull = true;
         
+        // weightText.SetText("" + source.data.itemWeight);
+        // weightText.enabled = true;
+        // valueText.SetText("" + source.data.itemPrice);
+        // valueText.enabled = true;
         quantityText.SetText(""+source.stackSize);
         quantityText.enabled = true;
-        weightText.SetText(""+source.data.itemWeight);
-        weightText.enabled = true;
-        priceText.SetText(""+source.data.itemPrice);
-        priceText.enabled = true;
+        stackWeightText.SetText(""+source.data.itemWeight);
+        stackWeightText.enabled = true;
+        stackValueText.SetText(""+source.data.itemPrice);
+        stackValueText.enabled = true;
 
         image.sprite = source.data.icon;
+        
+        content.SetActive(true);
     }
     public void updateItem()
     {
         if (item.data != null)
         {
+            // weightText.SetText("" + item.data.itemWeight);
+            // valueText.SetText("" + item.data.itemPrice);
             quantityText.SetText(""+item.stackSize);
-            weightText.SetText(""+(item.data.itemWeight * item.stackSize));
-            priceText.SetText(""+(item.data.itemPrice * item.stackSize));
+            stackWeightText.SetText(""+(item.data.itemWeight * item.stackSize));
+            stackValueText.SetText(""+(item.data.itemPrice * item.stackSize));
         }
         else
         {
             image.sprite = emptySprite;
             quantityText.SetText("");
-            weightText.SetText("");
-            priceText.SetText("");
+            stackWeightText.SetText("");
+            stackValueText.SetText("");
+            content.SetActive(false);
         }
         
     }
@@ -72,14 +83,20 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         isSelected = true;
         if (item.data != null)
         {
+            inventory.content.SetActive(true);
+            
             inventory.itemDescriptionNameText.SetText(item.data.itemName);
             inventory.itemDescriptionText.SetText(item.data.itemDescription);
+            inventory.itemWeightText.SetText("" + item.data.itemWeight);
+            inventory.itemValueText.SetText("" + item.data.itemPrice);
             inventory.itemDescriptionImage.sprite = item.data.icon;
         }
         else
         {
             inventory.itemDescriptionNameText.SetText("");
             inventory.itemDescriptionText.SetText("");
+            inventory.itemWeightText.SetText("");
+            inventory.itemValueText.SetText("");
             inventory.itemDescriptionImage.sprite = emptySprite;
         }
 

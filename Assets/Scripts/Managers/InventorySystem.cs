@@ -13,10 +13,13 @@ public class InventorySystem
     public int freeSlot = 0;
     public float totalWeight;
     public float totalBounty;
-    
+
+    public GameObject content;
     public Image itemDescriptionImage;
     public TMP_Text itemDescriptionNameText;
     public TMP_Text itemDescriptionText;
+    public TMP_Text itemWeightText;
+    public TMP_Text itemValueText;
     
     public Sprite emptySprite;
 
@@ -65,9 +68,18 @@ public class InventorySystem
                 totalWeight -= referenceData.itemWeight;
                 if (value.stackSize == 0)
                 {
+                    itemDescriptionNameText.SetText("");
+                    itemDescriptionText.SetText("");
+                    itemWeightText.SetText("");
+                    itemValueText.SetText("");
+                    itemDescriptionImage.sprite = emptySprite;
+                    
                     inventory.Remove(value);
                     m_itemDictionary.Remove(referenceData);
                     freeSlot--;
+                    
+                    content.gameObject.SetActive(false);
+                    DeselectAllSlots();
                 }
                 RefreshInventory();
             }
@@ -107,13 +119,6 @@ public class InventorySystem
             itemSlots[i].item.stackSize = 0;
             itemSlots[i].updateItem();
         }
-        DeselectAllSlots();
-        /*GameManager.Instance.inventorySystem.itemDescriptionNameText.SetText("");
-        GameManager.Instance.inventorySystem.itemDescriptionText.SetText("");
-        GameManager.Instance.inventorySystem.itemDescriptionImage.sprite = emptySprite;*/
-        itemDescriptionNameText.SetText("");
-        itemDescriptionText.SetText("");
-        itemDescriptionImage.sprite = emptySprite;
     }
     
     
