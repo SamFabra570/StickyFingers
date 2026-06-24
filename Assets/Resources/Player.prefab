@@ -2900,6 +2900,7 @@ GameObject:
   - component: {fileID: 795615795163098966}
   - component: {fileID: 3742611292900437974}
   - component: {fileID: 1920151274861030196}
+  - component: {fileID: 1760009779717954093}
   - component: {fileID: 987195410549008897}
   - component: {fileID: 7927132834306372734}
   - component: {fileID: 5780873342141897033}
@@ -3023,6 +3024,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.06, z: 0}
+--- !u!114 &1760009779717954093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e59d29c64286e94b8a0f9e3e43a0647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFeedbackController
+  zoomVelocity: 1
+  baseZoom: 7.5
+  sprintZoom: 0.2
+  mediumZoom: -1
+  heavyZoom: -1.75
+  overweightZoom: -3.5
+  stealthZoom: 0
 --- !u!114 &987195410549008897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3038,6 +3058,7 @@ MonoBehaviour:
   ability1UI: {fileID: 0}
   ability2UI: {fileID: 0}
   ability3UI: {fileID: 0}
+  isSprinting: 0
   baseMoveSpeed: 5
   sprintSpeed: 7
   frozenFloorSpeed: 12
