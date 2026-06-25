@@ -5,6 +5,11 @@ public class MoleHole : MonoBehaviour
 {
     [SerializeField] private float holeLifetime = 15f;
     [SerializeField] private float mapRange = 50f;
+    
+    private GameObject nearbyHole;
+    private static bool holeCreated;
+    private static Vector3 entryHolePos;
+    private static Vector3 exitHolePos;
 
     private float timer;
     private bool playerInRange = false;
@@ -54,25 +59,53 @@ public class MoleHole : MonoBehaviour
 
     private void TeleportPlayer()
     {
-        if (RandomNavMeshPoint.TryGetRandomPoint(mapRange, out Vector3 destination))
+        CharacterController cc = playerTransform.GetComponent<CharacterController>();
+        
+        cc.enabled = false;
+        
+        if (holeCreated)
         {
-            isTeleporting = false;
+            Vector3 nearbyHolePos = transform.position;
+            nearbyHolePos.y += cc.height / 2f + cc.skinWidth;
             
-            CharacterController cc = playerTransform.GetComponent<CharacterController>();
-            
-            Instantiate(moleHolePrefab, destination, Quaternion.identity);
-            
-            destination.y += cc.height / 2f + cc.skinWidth;
-            cc.enabled = false;
-            playerTransform.position = destination;
-            cc.enabled = true;
-            //CloseHole();
+            Debug.Log("Teleporting to existing holes");
+            if (entryHolePos == nearbyHolePos)
+            {
+                Debug.Log("Trying to TP");
+                playerTransform.position = exitHolePos;
+            }
+            else if (exitHolePos == nearbyHolePos)
+            {
+                Debug.Log("Trying to TP");
+                playerTransform.position = entryHolePos;
+            }
         }
         else
         {
-            Debug.LogWarning("MoleHole: Could not find a valid NavMesh point to teleport to.");
-            isTeleporting = false;
+            if (RandomNavMeshPoint.TryGetRandomPoint(mapRange, out Vector3 destination))
+            {
+                Debug.Log("Creating new hole");
+                holeCreated = true;
+                
+                entryHolePos = transform.position;
+                entryHolePos.y += cc.height / 2f + cc.skinWidth;
+            
+                Instantiate(moleHolePrefab, destination, Quaternion.identity);
+            
+                destination.y += cc.height / 2f + cc.skinWidth;
+                exitHolePos = destination;
+                
+                playerTransform.position = exitHolePos;
+                //CloseHole();
+            }
+            else
+            {
+                Debug.LogWarning("MoleHole: Could not find a valid NavMesh point to teleport to.");
+            }
         }
+        
+        cc.enabled = true;
+        isTeleporting = false;
     }
 
     private void CloseHole()

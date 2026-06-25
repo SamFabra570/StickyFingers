@@ -134,7 +134,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.8
+  m_Radius: 6.73
   m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
 --- !u!114 &5281445142984965053
 MonoBehaviour:

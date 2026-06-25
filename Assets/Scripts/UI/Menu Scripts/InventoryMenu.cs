@@ -55,9 +55,13 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
             if (eventSystem.currentSelectedGameObject != lastSelected)
             {
                 lastSelected = eventSystem.currentSelectedGameObject;
-                currentItem = lastSelected.GetComponent<ItemSlot>();
 
-                currentItem.ShowItemDetails();
+                if (currentItem != null)
+                {
+                    currentItem = lastSelected.GetComponent<ItemSlot>();
+
+                    currentItem.ShowItemDetails();
+                }
             }
         }
     }
