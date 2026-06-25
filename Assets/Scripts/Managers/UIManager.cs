@@ -98,14 +98,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log(GameManager.Instance.inventorySystem.totalWeight);
-        //Debug.Log(textTotalWeight.name);
         if (SceneManager.GetActiveScene().name == "Game")
         {
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
             weightFill = GameObject.Find("WeightFill").GetComponent<Image>();
             UpdatePassiveUI(GameManager.Instance.PlayerPassives.equippedPassive);
-            //objectDropUI = player.itemDropUI;
         }
         
         player = PlayerController.Instance;
@@ -118,8 +115,6 @@ public class UIManager : MonoBehaviour
             textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
         if (objectPopupUI != null) 
             objectPopupUI.gameObject.SetActive(false); 
-        // if (objectDropUI != null) 
-        //     objectDropUI.SetActive(false); 
         if (mageSpawnNotif != null)
             mageSpawnNotif.SetActive(false);
         if (portalSpawnNotif != null)
@@ -275,16 +270,6 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ItemPickupNotif(itemData));
     }
 
-    // public void ShowItemRemoveNotif(InventoryItemData itemData)
-    // {
-    //     StartCoroutine(ItemRemoveNotif(itemData));
-    // }
-    
-    // public void ShowItemStolen(InventoryItemData itemData)
-    // {
-    //     StartCoroutine(ItemStolen(itemData));
-    // }
-
     public void ShowMageSpawnNotif()
     {
         StartCoroutine(MageSpawnNotif());
@@ -315,30 +300,12 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ItemPickupNotif(InventoryItemData itemData)
     {
-        // textNameNotif.SetText(itemData.itemName);
-        // textWeightNotif.SetText("Weight: " + itemData.itemWeight);
-        // textValueNotif.SetText("Value: " + itemData.itemPrice);
-        
-        
         objectPopupUI.gameObject.SetActive(true);
         
         yield return new WaitForSeconds(2.5f);
 
         objectPopupUI.gameObject.SetActive(false);
     }
-    
-    // private IEnumerator ItemRemoveNotif(InventoryItemData itemData)
-    // {
-    //     //if (wasDropped)
-    //         
-    //     
-    //     textRemoveNameNotif.SetText("- " + itemData.itemName);
-    //     objectDropUI.SetActive(true);
-    //     
-    //     yield return new WaitForSeconds(2.5f);
-    //
-    //     objectDropUI.SetActive(false);
-    // }
     
     private void UpdateMashBar()
     {

@@ -66,7 +66,8 @@ public class PlayerFeedbackController : MonoBehaviour
             PlayerController.WeightState.Light => 0f,
             PlayerController.WeightState.Medium => mediumZoom,
             PlayerController.WeightState.Heavy => heavyZoom,
-            PlayerController.WeightState.Overweight => overweightZoom
+            PlayerController.WeightState.Overweight => overweightZoom,
+            _ => 0f
         };
     }
     

@@ -8,6 +8,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     public static ProgressionMenu Instance;
 
     private LoadoutMenu loadoutMenu;
+    [SerializeField] private MissionTemplateUI missionUI;
     
     public EventSystem eventSystem;
     
@@ -17,7 +18,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     [SerializeField] private GameObject firstButton;
     [SerializeField] private GameObject readyButton;
 
-    private GameObject currentSelected;
+    private GameObject lastSelected;
 
     private void Awake()
     {
@@ -36,8 +37,10 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     {
         if (ReferenceEquals(UIMenuStack.Current, this))
         {
-            if (eventSystem.currentSelectedGameObject != currentSelected &&  eventSystem.currentSelectedGameObject != null) 
+            if (eventSystem.currentSelectedGameObject != lastSelected && eventSystem.currentSelectedGameObject != null)
+            {
                 ValidateNavigation();
+            }
         }
     }
 
@@ -45,7 +48,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     {
         HUBCanvas.enabled = true;
         
-        loadoutMenu.detailsScreenAnim.SetBool("GTFO?", true);
+        //loadoutMenu.detailsScreenAnim.SetBool("GTFO?", true);
         
         menuCanvas.overrideSorting = true;
         menuCanvas.sortingOrder = 100;
@@ -58,13 +61,14 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     public void OnHideMenu()
     {
-        loadoutMenu.detailsScreenAnim.SetBool("GTFO?", false);
+        //loadoutMenu.detailsScreenAnim.SetBool("GTFO?", false);
         
         menuCanvas.overrideSorting = false;
         
         HUBCanvas.enabled = false;
     }
 
+    //Check if newly selected button is navigable, if not, return to last selected button
     private void ValidateNavigation()
     {
         var current = eventSystem.currentSelectedGameObject;
@@ -75,10 +79,13 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
             if (button != null && !button.interactable)
             {
-                eventSystem.SetSelectedGameObject(currentSelected);
+                eventSystem.SetSelectedGameObject(lastSelected);
             }
-            else 
-                currentSelected =  button.gameObject;
+            else
+            {
+                lastSelected =  button.gameObject;
+                missionUI.UpdateMissionPanel(lastSelected);
+            }
         }
     }
     

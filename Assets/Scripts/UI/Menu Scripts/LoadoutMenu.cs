@@ -465,30 +465,30 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     public void OnButtonNorth()
     {
-        ToggleDetailsScreen();
+        //ToggleDetailsScreen();
     }
 
-    private void ToggleDetailsScreen()
-    {
-        if (isAnimDone)
-        {
-            if (detailsScreenAnim.GetBool("isHidden"))
-            {
-                UpdateDebtInfo();
-                TooltipUI.Instance.StopTooltip();
-                
-                detailsScreenAnim.Play("ShowDetails");
-                detailsScreenAnim.SetBool("isHidden", false);
-            }
-            else
-            {
-                detailsScreenAnim.Play("HideDetails");
-                detailsScreenAnim.SetBool("isHidden", true);
-            }
-                
-            isAnimDone = false;
-        }
-    }
+    // private void ToggleDetailsScreen()
+    // {
+    //     if (isAnimDone)
+    //     {
+    //         if (detailsScreenAnim.GetBool("isHidden"))
+    //         {
+    //             UpdateDebtInfo();
+    //             TooltipUI.Instance.StopTooltip();
+    //             
+    //             detailsScreenAnim.Play("ShowDetails");
+    //             detailsScreenAnim.SetBool("isHidden", false);
+    //         }
+    //         else
+    //         {
+    //             detailsScreenAnim.Play("HideDetails");
+    //             detailsScreenAnim.SetBool("isHidden", true);
+    //         }
+    //             
+    //         isAnimDone = false;
+    //     }
+    // }
 
     
 }

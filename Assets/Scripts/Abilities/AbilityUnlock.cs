@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class AbilityUnlock : MonoBehaviour
 {
     [Header("Ability")] 
-    [SerializeField] private Ability ability;
+    public Ability ability;
+    //public MissionData mission;
     
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI abilityName;
@@ -15,6 +16,9 @@ public class AbilityUnlock : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI abilityIcon;
     //[SerializeField] private TextMeshProUGUI abilityDescription;
     [SerializeField] private Button unlockButton;
+    
+    public bool unlocked;
+    public bool canUnlock;
     
     private ProgressionManager progressionManager;
 
@@ -29,18 +33,23 @@ public class AbilityUnlock : MonoBehaviour
         
         //Debug.Log(progressionManager.unlockedAbilities.Count);
         
-        unlockButton.onClick.AddListener(UnlockAbility);
+        //unlockButton.onClick.AddListener(StartMission);
     }
 
     private void Update()
     {
-        UpdateState();
+        //UpdateState();
     }
 
     private void SetButtonUI()
     {
         abilityName.text = ability.abilityName;
         //abilityIcon.sprite = ability.icon;
+    }
+
+    private void StartMission()
+    {
+        MissionManager.Instance.StartMission(ability.unlockMission);
     }
 
     private void UnlockAbility()
@@ -66,12 +75,19 @@ public class AbilityUnlock : MonoBehaviour
             }
         }
         
-        bool unlocked = progressionManager.IsUnlocked(ability);
-        bool canUnlock = progressionManager.IsMissionCompleted(ability);;
+        unlocked = progressionManager.IsMissionCompleted(ability);
+        canUnlock = progressionManager.CanUnlock(ability);
+        
+        if (canUnlock)
+            unlockButton.onClick.AddListener(StartMission);
+        else
+        {
+            Debug.Log("Mission is locked!");
+        }
             
-        unlockButton.interactable = canUnlock;
-        abilityLockOverlay.SetActive(!unlocked);
-        abilityButton.interactable = unlocked;
-        gameObject.SetActive(!unlocked);
+        //unlockButton.interactable = canUnlock;
+        //abilityLockOverlay.SetActive(!unlocked);
+        //abilityButton.interactable = unlocked;
+        //gameObject.SetActive(!unlocked);
     }
 }

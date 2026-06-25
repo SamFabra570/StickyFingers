@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LockpickAbility
   abilityID: 
   abilityName: Lockpick
+  abilityDescription: 
   icon: {fileID: 0}
   abilityColour: {fileID: 2100000, guid: 9d0b5c989707fc64c8afc11d2643a613, type: 2}
   debtThreshold: 0.55
-  requiredUnlockItems: 0
-  unlockItemID: 
-  unlockItemAmount: 0
+  unlockMission: {fileID: 11400000, guid: 0bf9677068f7506499fd0beaf98d3683, type: 2}
   duration: 5
   warningThreshold: 0.3
   cooldown: 10
