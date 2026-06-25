@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.47782, y: 0.35, z: 2.96}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.16549288, y: 0.16549288, z: 0.16549288}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7519423254667657633}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2433741730011638113
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2227f3e80b7c84347adc3af7600c7166, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 15.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3506378272703038664
 MonoBehaviour:
@@ -124,5 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91265e4f6514c2b46b15fe2bbed56133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoleController
-  detectionRadius: 3
   moleHolePrefab: {fileID: 7279270181375119654, guid: 2d108b95dbee2f34b8272159002ffaa4, type: 3}

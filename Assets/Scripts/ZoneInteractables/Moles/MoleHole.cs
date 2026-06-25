@@ -10,6 +10,7 @@ public class MoleHole : MonoBehaviour
     private bool playerInRange = false;
     private bool isTeleporting = false;
     private Transform playerTransform;
+    public GameObject moleHolePrefab;
 
     private void OnEnable()
     {
@@ -30,6 +31,7 @@ public class MoleHole : MonoBehaviour
 
         if (playerInRange && Input.GetKeyDown(KeyCode.F))
         {
+            isTeleporting = true;
             TeleportPlayer();
         }
     }
@@ -54,19 +56,22 @@ public class MoleHole : MonoBehaviour
     {
         if (RandomNavMeshPoint.TryGetRandomPoint(mapRange, out Vector3 destination))
         {
-            isTeleporting = true;
+            isTeleporting = false;
             
             CharacterController cc = playerTransform.GetComponent<CharacterController>();
+            
+            Instantiate(moleHolePrefab, destination, Quaternion.identity);
             
             destination.y += cc.height / 2f + cc.skinWidth;
             cc.enabled = false;
             playerTransform.position = destination;
             cc.enabled = true;
-            CloseHole();
+            //CloseHole();
         }
         else
         {
             Debug.LogWarning("MoleHole: Could not find a valid NavMesh point to teleport to.");
+            isTeleporting = false;
         }
     }
 
