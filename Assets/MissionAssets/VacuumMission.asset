@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VacuumMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Vacuum ability!
-  description: This one is fun haha gonna make it easy for ya
+  description: Mission items do not exist yet
   targetItem: {fileID: 0}
   requiredAmount: 7
   rewardAbility: {fileID: 11400000, guid: f5b15e8162d566c45a769cb3bfb6d3fd, type: 2}

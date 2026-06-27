@@ -22,8 +22,10 @@ public class MissionTemplateUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI durationText;
     [SerializeField] private TextMeshProUGUI cooldownText;
-    
-    [Header ("Task Requirements")]
+
+    [Header("Task Requirements")] 
+    public GameObject activeMissionIndicator;
+    public GameObject abilityUnlockedOverlay;
     [SerializeField] private GameObject requirementPanel;
     [SerializeField] private TextMeshProUGUI requirementDescriptionText;
     //[SerializeField] private TextMeshProUGUI requirementItemName;
@@ -52,12 +54,27 @@ public class MissionTemplateUI : MonoBehaviour
 
     private void UpdateRequirements(AbilityUnlock abilityUnlock)
     {
-        requirementDescriptionText.text = abilityUnlock.ability.unlockMission.description;
+        if (abilityUnlockedOverlay.activeSelf) 
+            abilityUnlockedOverlay.SetActive(false);
         
-        if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission) 
+        if (abilityUnlock.unlocked) //If ability is fully unlocked
+        {
+            abilityUnlockedOverlay.SetActive(true);
+            return;
+        }
+        
+        requirementDescriptionText.text = abilityUnlock.ability.unlockMission.description;
+
+        if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission)
+        {
             progressText.text = (MissionManager.Instance.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
+            activeMissionIndicator.SetActive(true);
+        }
         else
+        {
+            activeMissionIndicator.SetActive(false);
             progressText.text = ("0 / " + abilityUnlock.ability.unlockMission.requiredAmount);
+        }
     }
     
     private float GetProgressionSliderFill(AbilityUnlock abilityUnlock)
@@ -82,14 +99,8 @@ public class MissionTemplateUI : MonoBehaviour
             Debug.LogWarning("No AbilityUnlock selected");
             return;
         }
-
-        if (abilityUnlock.unlocked) //If ability is fully unlocked
-        {
-            //Add a fully unlocked ability panel or smth
-            //Maybe even just remove the button?
-            Debug.Log("Ability is unlocked");
-        }
-        else if (!abilityUnlock.canUnlock) //If ability mission is locked
+        
+        if (!abilityUnlock.canUnlock) //If ability mission is locked
         {
             Debug.Log("Ability mission is locked");
             

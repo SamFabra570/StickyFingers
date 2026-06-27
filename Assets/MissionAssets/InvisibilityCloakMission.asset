@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InvisibilityCloakMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Invisibility Cloak!
-  description: Collect some bullshit idk man
+  description: Mission items do not exist yet
   targetItem: {fileID: 0}
   requiredAmount: 10
   rewardAbility: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}

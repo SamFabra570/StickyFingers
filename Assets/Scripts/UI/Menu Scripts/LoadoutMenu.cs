@@ -37,6 +37,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     private GameObject selectedSlot;
     private GameObject currentSelected;
+    
+    [SerializeField] private GameObject abilityUnlockButtons;
 
     private enum State
     {
@@ -73,7 +75,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
         HUBCanvas.enabled = true;
         
-        switchScreenButtonText.SetActive(true);
+        //switchScreenButtonText.SetActive(true);
 
         state = State.AbilitySlotSelect;
         selectedSlot = null;
@@ -92,7 +94,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     {
         TooltipUI.Instance.StopTooltip();
         
-        switchScreenButtonText.SetActive(true);
+        //switchScreenButtonText.SetActive(true);
         HUBCanvas.enabled = false;
     }
 
@@ -105,7 +107,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     
     private void UpdateAbilityLockState()
     {
-        var abilityUIs = ProgressionMenu.Instance.GetComponentsInChildren<AbilityUnlock>(true);
+        var abilityUIs = abilityUnlockButtons.GetComponentsInChildren<AbilityUnlock>(true);
 
         foreach (var ui in abilityUIs)
         {

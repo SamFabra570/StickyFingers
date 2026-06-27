@@ -29,7 +29,7 @@ public class AbilityUnlock : MonoBehaviour
         progressionManager = ProgressionManager.Instance;
         
         SetButtonUI();
-        UpdateState();
+        //UpdateState();
         
         //Debug.Log(progressionManager.unlockedAbilities.Count);
         
@@ -38,7 +38,15 @@ public class AbilityUnlock : MonoBehaviour
 
     private void Update()
     {
-        //UpdateState();
+        if (ProgressionManager.Instance.unlockingAbility)
+        {
+            if (ProgressionManager.Instance.IsUnlocked(ability))
+            {
+                abilityLockOverlay.SetActive(!unlocked);
+                ProgressionManager.Instance.unlockingAbility = false;
+                Debug.Log(ability.abilityName + " overlay disabled, ability unlocked");
+            }
+        }
     }
 
     private void SetButtonUI()
@@ -75,7 +83,7 @@ public class AbilityUnlock : MonoBehaviour
             }
         }
         
-        unlocked = progressionManager.IsMissionCompleted(ability);
+        unlocked = progressionManager.IsUnlocked(ability);
         canUnlock = progressionManager.CanUnlock(ability);
         
         if (canUnlock)
@@ -84,10 +92,12 @@ public class AbilityUnlock : MonoBehaviour
         {
             Debug.Log("Mission is locked!");
         }
+        
+        abilityLockOverlay.SetActive(!unlocked);
             
         //unlockButton.interactable = canUnlock;
         //abilityLockOverlay.SetActive(!unlocked);
-        //abilityButton.interactable = unlocked;
+        abilityButton.interactable = unlocked;
         //gameObject.SetActive(!unlocked);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MetalDetectorMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Metal Detector!
-  description: This shit is broken the mission gotta be hard af
+  description: Mission items do not exist yet
   targetItem: {fileID: 0}
   requiredAmount: 20
   rewardAbility: {fileID: 11400000, guid: 164ff6d4dd5e9fd408d4a5b4bbf07f2e, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhaseMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Phase ability!
-  description: Wtf even makes a phase powerup bruh
+  description: Mission items do not exist yet
   targetItem: {fileID: 0}
   requiredAmount: 15
   rewardAbility: {fileID: 11400000, guid: ab7bb154b89e2e34ab956986aec28061, type: 2}

@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MissionManager : MonoBehaviour
 {
     public static MissionManager Instance { get; private set; }
+
+    public MissionTemplateUI missionUI;
     
     public MissionData activeMission;
     public int currentAmount;
@@ -21,10 +25,25 @@ public class MissionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // private void Update()
+    // {
+    //     if (SceneManager.GetActiveScene().name != "HUB")
+    //         return;
+    //
+    //     if (activeMission != null)
+    //     {
+    //         if (IsComplete)
+    //             CompleteMission();
+    //     }
+    //     
+    // }
+
     public void StartMission(MissionData mission)
     {
         activeMission = mission;
         currentAmount = 0;
+        
+        missionUI.activeMissionIndicator.SetActive(true);
         
         Debug.Log("Started mission: " + mission.missionName);
     }
@@ -44,17 +63,33 @@ public class MissionManager : MonoBehaviour
         Debug.Log("Progress: " + (float) currentAmount/activeMission.requiredAmount);
 
         if (IsComplete)
-            CompleteMission();
+             CompleteMission();
     }
 
     private void CompleteMission()
     {
         if (activeMission.rewardAbility != null)
         {
-            ProgressionManager.Instance.missionCompleteAbilities.Add(activeMission.rewardAbility.abilityID);
+            ProgressionManager.Instance.UnlockAbility(activeMission.rewardAbility);
+            //activeMission.rewardAbility.;
         }
         
         Debug.Log("Mission Complete!");
         activeMission = null;
     }
+    
+    private void OnEnable()
+    {
+        //SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        //SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // {
+    //     
+    // }
 }

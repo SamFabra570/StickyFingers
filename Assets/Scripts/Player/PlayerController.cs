@@ -189,7 +189,8 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.P_Animation.performed += P_Animation_performed =>
         {
-            PlayGogglesAnim();
+            //PlayGogglesAnim();
+            GameManager.Instance.EndGame(true, "");
         };
         
         inputMap.Player.Interact.performed += Interact_performed =>

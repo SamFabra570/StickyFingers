@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShieldMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Shield!
-  description: Collect pieces of a shield? who knows :P
+  description: Mission items do not exist yet
   targetItem: {fileID: 0}
   requiredAmount: 8
   rewardAbility: {fileID: 11400000, guid: f49291e3b278b7a4abaece952719b125, type: 2}

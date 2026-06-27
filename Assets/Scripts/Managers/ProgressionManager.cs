@@ -9,6 +9,8 @@ public class ProgressionManager : MonoBehaviour
     public List<string> unlockedAbilities = new();
     public List<string> missionCompleteAbilities = new();
 
+    public bool unlockingAbility;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,6 +43,7 @@ public class ProgressionManager : MonoBehaviour
             return;
         
         unlockedAbilities.Add(ability.abilityID);
+        unlockingAbility = true;
         
         Debug.Log(ability.abilityName + " unlocked");
     }
