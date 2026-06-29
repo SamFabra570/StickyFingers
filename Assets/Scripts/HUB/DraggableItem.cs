@@ -20,7 +20,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public PassiveAbilities passiveAbility;
     
     [Header("UI")]
-    public Image image;
     public Image iconImage;
     public string description;
     public Transform originalParent;
@@ -28,9 +27,14 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void Start()
     {
-        image = GetComponent<Image>();
-        iconImage = transform.GetChild(0).GetComponent<Image>();
+        iconImage = GetComponent<Image>();
+        //iconImage = transform.GetChild(0).GetComponent<Image>();
         originalParent = transform.parent;
+
+        if (abilityType == AbilityType.Ability)
+        {
+            iconImage.sprite = ability.ability.icon;
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -41,7 +45,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
-        image.raycastTarget = false;
+        //image.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -54,7 +58,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         //Debug.Log("End drag");
         transform.SetParent(parentAfterDrag);
-        image.raycastTarget = true;
+        //image.raycastTarget = true;
     }
 }
 

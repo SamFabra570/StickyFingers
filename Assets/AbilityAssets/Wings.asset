@@ -15,10 +15,11 @@ MonoBehaviour:
   abilityID: Wings
   abilityName: Wings
   abilityDescription: Lets you take flight! Increases speed and ignores current weight
-  icon: {fileID: 21300000, guid: 9687dfa63ddafe0469c9a94a9a114852, type: 3}
+  icon: {fileID: 21300000, guid: ef78365d59c79554b864c80af7c4e111, type: 3}
   abilityColour: {fileID: 2100000, guid: 5d15444556022ba40b620f48140eaf54, type: 2}
   debtThreshold: 0.04
   unlockMission: {fileID: 11400000, guid: 8e078aaed73b5f04bbe16a6b829d7d44, type: 2}
+  abilityLockOverlay: {fileID: 0}
   duration: 5
   warningThreshold: 0.3
   cooldown: 10

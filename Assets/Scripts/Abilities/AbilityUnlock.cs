@@ -10,12 +10,12 @@ public class AbilityUnlock : MonoBehaviour
     //public MissionData mission;
     
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI abilityName;
+    private TextMeshProUGUI abilityName;
     [SerializeField] private GameObject abilityLockOverlay;
     [SerializeField] private Button abilityButton;
-    //[SerializeField] private TextMeshProUGUI abilityIcon;
+    private Image abilityIcon;
     //[SerializeField] private TextMeshProUGUI abilityDescription;
-    [SerializeField] private Button unlockButton;
+    private Button unlockButton;
     
     public bool unlocked;
     public bool canUnlock;
@@ -25,15 +25,11 @@ public class AbilityUnlock : MonoBehaviour
     private void Start()
     {
         unlockButton = GetComponent<Button>();
-        abilityName = GetComponentInChildren<TextMeshProUGUI>();
+        abilityIcon = GetComponent<Image>();
         progressionManager = ProgressionManager.Instance;
         
         SetButtonUI();
-        //UpdateState();
-        
-        //Debug.Log(progressionManager.unlockedAbilities.Count);
-        
-        //unlockButton.onClick.AddListener(StartMission);
+        UpdateState();
     }
 
     private void Update()
@@ -51,8 +47,8 @@ public class AbilityUnlock : MonoBehaviour
 
     private void SetButtonUI()
     {
-        abilityName.text = ability.abilityName;
-        //abilityIcon.sprite = ability.icon;
+        //abilityName.text = ability.abilityName;
+        abilityIcon.sprite = ability.icon;
     }
 
     private void StartMission()
@@ -65,7 +61,7 @@ public class AbilityUnlock : MonoBehaviour
         progressionManager.UnlockAbility(ability);
         //Debug.Log(progressionManager.unlockedAbilities.Count);
         
-        ProgressionMenu.Instance.MoveSelectionAfterUnlock(unlockButton.gameObject);
+        //ProgressionMenu.Instance.MoveSelectionAfterUnlock(unlockButton.gameObject);
 
         UpdateState();
     }
@@ -85,11 +81,16 @@ public class AbilityUnlock : MonoBehaviour
         
         unlocked = progressionManager.IsUnlocked(ability);
         canUnlock = progressionManager.CanUnlock(ability);
-        
+
         if (canUnlock)
+        {
             unlockButton.onClick.AddListener(StartMission);
+            abilityIcon.color = Color.white;
+        }
+            
         else
         {
+            abilityIcon.color = Color.gray4;
             Debug.Log("Mission is locked!");
         }
         
@@ -97,7 +98,7 @@ public class AbilityUnlock : MonoBehaviour
             
         //unlockButton.interactable = canUnlock;
         //abilityLockOverlay.SetActive(!unlocked);
-        abilityButton.interactable = unlocked;
+        //abilityButton.interactable = unlocked;
         //gameObject.SetActive(!unlocked);
     }
 }

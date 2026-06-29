@@ -6,6 +6,6 @@ public class AnimationEvent : MonoBehaviour
     
     public void AnimStateDone()
     {
-        loadoutMenu.isAnimDone = true;
+        //loadoutMenu.isAnimDone = true;
     }
 }

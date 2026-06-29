@@ -7,16 +7,18 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 {
     public static ProgressionMenu Instance;
 
-    private LoadoutMenu loadoutMenu;
+    public GameObject progressionMenu;
     [SerializeField] private MissionTemplateUI missionUI;
     
     public EventSystem eventSystem;
     
     [SerializeField] private Canvas menuCanvas;
-    [SerializeField] private Canvas HUBCanvas;
+    [SerializeField] private Canvas progressionCanvas;
     
     [SerializeField] private GameObject firstButton;
     [SerializeField] private GameObject readyButton;
+
+    [SerializeField] private GameObject selectionImage;
 
     private GameObject lastSelected;
 
@@ -30,7 +32,8 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
         Instance = this;
 
-        loadoutMenu = UIManager.Instance.loadoutMenu;
+        progressionCanvas.enabled = false;
+        //loadoutMenu = UIManager.Instance.loadoutMenu;
     }
 
     private void Update()
@@ -46,12 +49,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     public void OnShowMenu()
     {
-        HUBCanvas.enabled = true;
-        
-        //loadoutMenu.detailsScreenAnim.SetBool("GTFO?", true);
-        
-        menuCanvas.overrideSorting = true;
-        menuCanvas.sortingOrder = 100;
+        progressionCanvas.enabled = true;
 
         if (firstButton.activeSelf)
             eventSystem.SetSelectedGameObject(firstButton);
@@ -61,11 +59,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
 
     public void OnHideMenu()
     {
-        //loadoutMenu.detailsScreenAnim.SetBool("GTFO?", false);
-        
-        menuCanvas.overrideSorting = false;
-        
-        HUBCanvas.enabled = false;
+        progressionCanvas.enabled = false;
     }
 
     //Check if newly selected button is navigable, if not, return to last selected button
@@ -85,6 +79,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
             {
                 lastSelected =  button.gameObject;
                 missionUI.UpdateMissionPanel(lastSelected);
+                selectionImage.transform.position = lastSelected.transform.position;
             }
         }
     }

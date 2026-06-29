@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7fff3d5e27b18478ea7c215fff9a5d, type: 3}
   m_Name: Lockpick
   m_EditorClassIdentifier: Assembly-CSharp::LockpickAbility
-  abilityID: 
+  abilityID: Unnamed
   abilityName: Lockpick
   abilityDescription: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f38c78f3b35965d429abf82032088cfd, type: 3}
   abilityColour: {fileID: 2100000, guid: 9d0b5c989707fc64c8afc11d2643a613, type: 2}
   debtThreshold: 0.55
   unlockMission: {fileID: 11400000, guid: 0bf9677068f7506499fd0beaf98d3683, type: 2}

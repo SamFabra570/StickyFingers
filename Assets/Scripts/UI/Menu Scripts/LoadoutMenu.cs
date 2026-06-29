@@ -9,12 +9,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     public EventSystem eventSystem;
     
     [Header ("Loadout UI Refs")]
-    public Canvas HUBCanvas;
-    
-    public Animator detailsScreenAnim;
-    public bool isAnimDone = true;
-    
-    public GameObject switchScreenButtonText;
+    public Canvas loadoutCanvas;
     
     [Header("Debt UI")]
     public Slider debtPaidFill;
@@ -53,8 +48,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     private void Awake()
     {
-        switchScreenButtonText.SetActive(false);
-        HUBCanvas.enabled = false;
+        loadoutCanvas.enabled = false;
     }
 
     private void Update()
@@ -72,10 +66,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         UpdateAbilityLockState();
         UpdateAvailableSlots();
         UpdateDebtInfo();
-
-        HUBCanvas.enabled = true;
         
-        //switchScreenButtonText.SetActive(true);
+        loadoutCanvas.enabled = true;
 
         state = State.AbilitySlotSelect;
         selectedSlot = null;
@@ -94,8 +86,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     {
         TooltipUI.Instance.StopTooltip();
         
-        //switchScreenButtonText.SetActive(true);
-        HUBCanvas.enabled = false;
+        loadoutCanvas.enabled = false;
     }
 
     public void UpdateDebtInfo()

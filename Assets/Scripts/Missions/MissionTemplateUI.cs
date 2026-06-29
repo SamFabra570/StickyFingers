@@ -10,14 +10,14 @@ public class MissionTemplateUI : MonoBehaviour
     
     [Header ("Locked Template")]
     [SerializeField] private Image lockedIcon;
-    [SerializeField] private Image lockedIconColor;
+    //[SerializeField] private Image lockedIconColor;
     [SerializeField] private TextMeshProUGUI lockedAbilityNameText;
     public Slider progressionSlider;
     //[SerializeField] private GameObject lockOverlay;
     
     [Header ("Unlocked Template")]
     [SerializeField] private Image icon;
-    [SerializeField] private Image iconColor;
+    //[SerializeField] private Image iconColor;
     [SerializeField] private TextMeshProUGUI abilityNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI durationText;
@@ -35,7 +35,7 @@ public class MissionTemplateUI : MonoBehaviour
     {
         lockedAbilityNameText.text = abilityUnlock.ability.abilityName;
         lockedIcon.sprite = abilityUnlock.ability.icon;
-        lockedIconColor.color = abilityUnlock.ability.abilityColour.color;
+        //lockedIconColor.color = abilityUnlock.ability.abilityColour.color;
 
         progressionSlider.value = GetProgressionSliderFill(abilityUnlock);
     }
@@ -44,7 +44,7 @@ public class MissionTemplateUI : MonoBehaviour
     {
         abilityNameText.text = abilityUnlock.ability.abilityName;
         icon.sprite = abilityUnlock.ability.icon;
-        iconColor.color = abilityUnlock.ability.abilityColour.color;
+        //iconColor.color = abilityUnlock.ability.abilityColour.color;
         descriptionText.text = abilityUnlock.ability.abilityDescription;
         durationText.text = ("" + abilityUnlock.ability.duration);
         cooldownText.text = ("" + abilityUnlock.ability.cooldown);

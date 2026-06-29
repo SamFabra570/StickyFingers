@@ -4,6 +4,8 @@ public class LoadingUI : MonoBehaviour
 {
     public static LoadingUI Instance;
 
+    public GameObject loadingScreen;
+
     private void Awake()
     {
         if (Instance != null)
@@ -15,17 +17,18 @@ public class LoadingUI : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        gameObject.SetActive(false);
+        if (loadingScreen.activeSelf) 
+            loadingScreen.SetActive(false);
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        loadingScreen.SetActive(true);
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        loadingScreen.SetActive(false);
     }
 
 }

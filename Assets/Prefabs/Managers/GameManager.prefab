@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 422437699519084927}
   - component: {fileID: 6641461818834371875}
   - component: {fileID: 2722535253797314063}
+  - component: {fileID: 2422538918856689847}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,10 +50,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   PlayerPassives: {fileID: 6641461818834371875}
   maxDebt: 100000
-  totalDebt: 100000
+  remainingDebt: 0
+  startingDebt: 90000
   maxWeight: 40
-  endlessPocketsWeight: 500
-  runState: 0
+  deeperPocketsWeight: 140
+  successfulRun: 0
+  endRunState: 
+  extractedBounty: 0
+  timeRemaining: 0
 --- !u!114 &422437699519084927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +87,7 @@ MonoBehaviour:
     passiveAbility: 0
     icon: {fileID: 0}
     frameColor: {r: 0, g: 0, b: 0, a: 0}
+    description: 
 --- !u!114 &2722535253797314063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,3 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756159885643cd46a0210801a11efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressionManager
+  unlockedAbilities: []
+  missionCompleteAbilities: []
+  unlockingAbility: 0
+--- !u!114 &2422538918856689847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818170219135605266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33b8e1dddb45bd4cafb59541d254db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionManager
+  missionUI: {fileID: 0}
+  activeMission: {fileID: 0}
+  currentAmount: 0

@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public ProgressionMenu progressionMenu;
     
     public GameObject HUDCanvas;
+    public Canvas HUBCanvas;
     
     [Header("Inventory UI Refs")]
     public Image weightFillInv;

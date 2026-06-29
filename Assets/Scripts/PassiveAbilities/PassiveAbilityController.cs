@@ -10,7 +10,7 @@ public class PassiveAbilityController : MonoBehaviour
         {
             passiveAbility = passive.passiveAbility,
             icon = passive.iconImage.sprite,
-            frameColor = passive.image.color,
+            //frameColor = passive.image.color,
             description = passive.description
         };
         

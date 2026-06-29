@@ -15,7 +15,6 @@ public abstract class Ability : ScriptableObject
     public float debtThreshold;
 
     public MissionData unlockMission;
-    public GameObject abilityLockOverlay;
     
     //public bool requiredUnlockItems;
 

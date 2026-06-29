@@ -15,10 +15,11 @@ MonoBehaviour:
   abilityID: MetalDetector
   abilityName: Metal Detector
   abilityDescription: Points you towards the most valuable item
-  icon: {fileID: 21300000, guid: b3316864a48bd5e49a19f59c55b7ee80, type: 3}
+  icon: {fileID: 21300000, guid: fc965990e572e5c42b1476262bec59f5, type: 3}
   abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
   debtThreshold: 0.45
   unlockMission: {fileID: 11400000, guid: 6e51e58c0f0a9b1459dd6e4a0bacab9f, type: 2}
+  abilityLockOverlay: {fileID: 0}
   duration: 10
   warningThreshold: 0.3
   cooldown: 30

@@ -68,7 +68,12 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public void OnButtonNorth()
     {
-        currentItem.DropItem();
+        if (currentItem != null) 
+            currentItem.DropItem();
+        else
+        {
+            Debug.Log("No item selected");
+        }
     }
 
     public void OnCancel()

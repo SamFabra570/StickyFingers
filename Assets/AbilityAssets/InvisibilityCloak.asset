@@ -15,10 +15,11 @@ MonoBehaviour:
   abilityID: InvisibilityCloak
   abilityName: Invisibility Cloak
   abilityDescription: Hides you from most enemies (watch out for mages!)
-  icon: {fileID: 21300000, guid: 04dc10970c60c814c9600ac71b8aee4c, type: 3}
+  icon: {fileID: 21300000, guid: cd0e1d2d9398e0742b34d262c7b3b819, type: 3}
   abilityColour: {fileID: 2100000, guid: 0abcbadfd2de8fa4ba3e55ec3495128e, type: 2}
   debtThreshold: 0.1
   unlockMission: {fileID: 11400000, guid: 9255adf4527a5704285959ebde53e367, type: 2}
+  abilityLockOverlay: {fileID: 0}
   duration: 10
   warningThreshold: 0.3
   cooldown: 15
