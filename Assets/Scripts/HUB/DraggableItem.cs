@@ -1,23 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public enum AbilityType
-{
-    Ability,
-    Passive
-}
-
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public AbilityType abilityType;
-    
     [Header("Abilities")]
     public AbilitySlot ability;
     
-    [Header("Passives")]
-    public PassiveAbilities passiveAbility;
     
     [Header("UI")]
     public Image iconImage;
@@ -31,10 +20,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         //iconImage = transform.GetChild(0).GetComponent<Image>();
         originalParent = transform.parent;
 
-        if (abilityType == AbilityType.Ability)
-        {
-            iconImage.sprite = ability.ability.icon;
-        }
+        iconImage.sprite = ability.ability.icon;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

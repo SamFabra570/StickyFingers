@@ -72,26 +72,29 @@ public class TooltipUI : MonoBehaviour
     {
         Ability selectedAbility = item.ability.ability;
         
-        //Abilities
-        if (item.abilityType == AbilityType.Ability)
-        {
-            if (!cooldownText.gameObject.activeSelf)
-                cooldownText.gameObject.SetActive(true);
+        if (!cooldownText.gameObject.activeSelf)
+            cooldownText.gameObject.SetActive(true);
             
-            nameText.text = selectedAbility.abilityName;
-            descriptionText.text = selectedAbility.abilityDescription;
-            durationText.text = (selectedAbility.duration + "s");
-            cooldownText.text = (selectedAbility.cooldown + "s");
-        }
+        nameText.text = selectedAbility.abilityName;
+        descriptionText.text = selectedAbility.abilityDescription;
+        durationText.text = (selectedAbility.duration + "s");
+        cooldownText.text = (selectedAbility.cooldown + "s");
         
-        //Passives
-        if (item.abilityType ==  AbilityType.Passive)
-        {
-            nameText.text = ("" + item.passiveAbility);
-            descriptionText.text = ("" + item.description);
-            durationText.text = ("Passive");
-            cooldownText.gameObject.SetActive(false);
-        }
+        
+        //Abilities
+        // if (item.abilityType == AbilityType.Ability)
+        // {
+        //     
+        // }
+        //
+        // //Passives
+        // if (item.abilityType ==  AbilityType.Passive)
+        // {
+        //     nameText.text = ("" + item.passiveAbility);
+        //     descriptionText.text = ("" + item.description);
+        //     durationText.text = ("Passive");
+        //     cooldownText.gameObject.SetActive(false);
+        // }
     }
 
     private void PositionTooltip(Transform selectedSlot)

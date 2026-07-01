@@ -166,14 +166,11 @@ public class UIManager : MonoBehaviour
             totalBountyText.text = ("" + inventory.totalBounty);
     }
 
-    private void UpdatePassiveUI(PassivesUIData passive)
+    private void UpdatePassiveUI(Passive passive)
     {
         if (passive != null)
         {
-            if (passive.icon != null) 
-                passiveIcon.sprite = passive.icon;
-            
-            passiveBackground.color = passive.frameColor;
+            passiveBackground.color = passive.passiveColour.color;
         }
     }
 
@@ -317,7 +314,7 @@ public class UIManager : MonoBehaviour
     public void UpdateTotals()
     {
         textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
-        textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
+        textTotalBounty.SetText("" + inventory.totalBounty);
     }
     
     private void UpdateWeightUI()

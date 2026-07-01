@@ -2,10 +2,96 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIAbilitySlot : MonoBehaviour, IDropHandler
 {
-    //[SerializeField] private GameObject equippedAbility;
+    [HideInInspector] public Button slotButton;
+
+    public bool isContainer = true;
+    public GameObject abilityLockOverlay;
+    
+    public enum SlotState
+    {
+        Locked,
+        Empty,
+        Full
+    }
+    
+    public SlotState slotState = SlotState.Locked;
+
+    private void Start()
+    {
+        slotButton = GetComponent<Button>();
+        
+        CheckIfUnlocked();
+    }
+
+    private void Update()
+    {
+        if (ProgressionManager.Instance.isDirty)
+        {
+            CheckIfUnlocked();
+            
+            ProgressionManager.Instance.isDirty = false;
+        }
+        
+        UpdateSlotBasedOnState();
+    }
+
+    private void CheckIfUnlocked()
+    {
+        if (isContainer)
+        {
+            Ability ability = GetComponentInChildren<DraggableItem>().ability.ability;
+
+            if (ProgressionManager.Instance.IsUnlocked(ability))
+            {
+                UpdateSlotState(SlotState.Full);
+            }
+            else
+            {
+                UpdateSlotState(SlotState.Locked);
+            }
+        }
+        
+    }
+
+    public void UpdateSlotState(SlotState state)
+    {
+        slotState = state;
+        
+        Debug.Log("New state: " + slotState);
+        
+        UpdateSlotBasedOnState();
+    }
+
+    public void UpdateSlotBasedOnState()
+    {
+        {
+            switch (slotState)
+            {
+                case SlotState.Locked: 
+                    abilityLockOverlay.SetActive(true);
+                    slotButton.interactable = false;
+                    break;
+                case SlotState.Empty:
+                    if (!isContainer)
+                    {
+                        ResetAbilitySlot();
+                        transform.GetChild(0).gameObject.SetActive(true);
+                    }
+                    
+                    abilityLockOverlay.SetActive(false);
+                    slotButton.interactable = true;
+                    break;
+                case SlotState.Full:
+                    abilityLockOverlay.SetActive(false);
+                    slotButton.interactable = true;
+                    break;
+            }
+        }
+    }
 
     private void SetAbilitySlot(AbilitySlot slot)
     {
@@ -26,13 +112,8 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
             AbilityManager.Instance.EquipAbility(2, slot);
             Debug.Log("Ability 3 set: " + slot.ability);
         }
-    }
-    
-    private void SetPassiveSlot(DraggableItem passive)
-    {
-        PassiveAbilityController playerPassives = GameManager.Instance.PlayerPassives;
-
-        playerPassives.EquipPassive(passive);
+        
+        UpdateSlotState(SlotState.Full);
     }
 
     private void ResetAbilitySlot()
@@ -45,52 +126,48 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
         
         else if(gameObject.CompareTag("Slot3"))
             AbilityManager.Instance.DequipAbility(2);
-        
-        else if (gameObject.CompareTag("PassiveSlot"))
-        {
-            //Add dequip passive logic
-        }
-            
     }
     
     private void OnTransformChildrenChanged()
     {
-        if (transform.childCount != 0)
+        if (!isContainer)
         {
-            if (transform.GetChild(0).CompareTag("Placeholder"))
-            {
-                Destroy(transform.GetChild(0).gameObject);
-                //ResetAbilitySlot(); this breaks abilities, will reset them when equipped, look for where to put this
-            }
+            if (transform.childCount <= 1)
+                UpdateSlotState(SlotState.Empty);
+            else
+                UpdateSlotState(SlotState.Full);
         }
+        else if (isContainer)
+        {
+            if (transform.childCount == 0)
+                UpdateSlotState(SlotState.Empty);
+            else
+                UpdateSlotState(SlotState.Full);
+        }
+        
+        //Debug.Log(gameObject + (", children: ") + transform.childCount + (", slotState: " + slotState));
     }
     
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount != 0)
+        if (slotState != SlotState.Locked)
         {
-            if (transform.GetChild(0).CompareTag("Placeholder"))
-            {
-                Destroy(transform.GetChild(0).gameObject);
-                
-                GameObject dropped = eventData.pointerDrag;
-                DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-
-                //Abilities
-                if (draggableItem.abilityType == AbilityType.Ability)
-                {
-                    SetAbilitySlot(draggableItem.ability);
-                }
-
-                //Passives
-                else if (draggableItem.abilityType == AbilityType.Passive)
-                {
-                    SetPassiveSlot(draggableItem);
-                }
+            GameObject dropped = eventData.pointerDrag;
+            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
             
-                draggableItem.parentAfterDrag = transform;
+            if (!isContainer)
+            {
+                if (transform.GetChild(0).CompareTag("Placeholder"))
+                {
+                    Destroy(transform.GetChild(0).gameObject);
+                }
+                
+                SetAbilitySlot(draggableItem.ability);
             }
-
+            
+            draggableItem.parentAfterDrag = transform;
+            
+            UpdateSlotState(SlotState.Full);
         }
     }
 }

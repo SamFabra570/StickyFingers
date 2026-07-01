@@ -57,7 +57,7 @@ public class MissionTemplateUI : MonoBehaviour
         if (abilityUnlockedOverlay.activeSelf) 
             abilityUnlockedOverlay.SetActive(false);
         
-        if (abilityUnlock.unlocked) //If ability is fully unlocked
+        if (ProgressionManager.Instance.IsUnlocked(abilityUnlock.ability)) //If ability is fully unlocked
         {
             abilityUnlockedOverlay.SetActive(true);
             return;
@@ -100,7 +100,7 @@ public class MissionTemplateUI : MonoBehaviour
             return;
         }
         
-        if (!abilityUnlock.canUnlock) //If ability mission is locked
+        if (!ProgressionManager.Instance.CanUnlock(abilityUnlock.ability)) //If ability mission is locked
         {
             Debug.Log("Ability mission is locked");
             
@@ -111,7 +111,7 @@ public class MissionTemplateUI : MonoBehaviour
             
             UpdateLockedPanel(abilityUnlock);
         }
-        else if (abilityUnlock.canUnlock) //If ability mission is unlocked
+        else if (ProgressionManager.Instance.CanUnlock(abilityUnlock.ability)) //If ability mission is unlocked
         {
             Debug.Log("Ability mission is unlocked");
             

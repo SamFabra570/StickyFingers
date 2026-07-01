@@ -15,11 +15,7 @@ public abstract class Ability : ScriptableObject
     public float debtThreshold;
 
     public MissionData unlockMission;
-    
-    //public bool requiredUnlockItems;
-
-    //public string unlockItemID;
-    //public int unlockItemAmount;
+    public bool unlockedByDefault;
     
     [Header("Gameplay")]
     public float duration;

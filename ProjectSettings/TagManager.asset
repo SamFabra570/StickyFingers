@@ -19,6 +19,7 @@ TagManager:
   - Passive
   - Ability
   - PopupUI
+  - ReadyButton
   layers:
   - Default
   - TransparentFX

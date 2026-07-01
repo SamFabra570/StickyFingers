@@ -17,8 +17,8 @@ public class AbilityUnlock : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI abilityDescription;
     private Button unlockButton;
     
-    public bool unlocked;
-    public bool canUnlock;
+    private bool unlocked;
+    private bool canUnlock;
     
     private ProgressionManager progressionManager;
 
@@ -91,10 +91,10 @@ public class AbilityUnlock : MonoBehaviour
         else
         {
             abilityIcon.color = Color.gray4;
-            Debug.Log("Mission is locked!");
+            //Debug.Log("Mission is locked!");
         }
         
-        abilityLockOverlay.SetActive(!unlocked);
+        //abilityLockOverlay.SetActive(!unlocked);
             
         //unlockButton.interactable = canUnlock;
         //abilityLockOverlay.SetActive(!unlocked);

@@ -11,6 +11,8 @@ public class ProgressionManager : MonoBehaviour
 
     public bool unlockingAbility;
 
+    public bool isDirty = true;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,6 +31,12 @@ public class ProgressionManager : MonoBehaviour
     
     public bool IsUnlocked(Ability ability)
     {
+        if (ability.unlockedByDefault)
+        {
+            unlockedAbilities.Add(ability.abilityID);
+            return true;
+        }
+        
         return unlockedAbilities.Contains(ability.abilityID);
     }
 
@@ -46,5 +54,7 @@ public class ProgressionManager : MonoBehaviour
         unlockingAbility = true;
         
         Debug.Log(ability.abilityName + " unlocked");
+
+        isDirty = true;
     }
 }
