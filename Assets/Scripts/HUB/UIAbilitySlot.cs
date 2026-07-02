@@ -61,7 +61,7 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
     {
         slotState = state;
         
-        Debug.Log("New state: " + slotState);
+        //Debug.Log("New state: " + slotState);
         
         UpdateSlotBasedOnState();
     }

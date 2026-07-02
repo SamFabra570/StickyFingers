@@ -15,7 +15,7 @@ MonoBehaviour:
   passiveID: 2
   passiveName: Deeper Pockets
   passiveDescription: 
-  passiveColour: {fileID: 0}
+  passiveColour: {fileID: 2100000, guid: b58e2bd227ceeb640ad61c78899233d6, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}
   unlockedByDefault: 1

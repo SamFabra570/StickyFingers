@@ -15,7 +15,7 @@ MonoBehaviour:
   passiveID: 4
   passiveName: Extra Time
   passiveDescription: 
-  passiveColour: {fileID: 0}
+  passiveColour: {fileID: 2100000, guid: 67ea2127fc249a64395ab2969d490bd2, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}
   unlockedByDefault: 0

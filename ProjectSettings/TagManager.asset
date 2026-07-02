@@ -20,6 +20,7 @@ TagManager:
   - Ability
   - PopupUI
   - ReadyButton
+  - BackButton
   layers:
   - Default
   - TransparentFX

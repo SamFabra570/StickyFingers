@@ -15,7 +15,7 @@ MonoBehaviour:
   passiveID: 0
   passiveName: 5thPassive
   passiveDescription: 
-  passiveColour: {fileID: 0}
+  passiveColour: {fileID: 2100000, guid: a5c9d95959a19554aa65500e1e62c4e5, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}
   unlockedByDefault: 0

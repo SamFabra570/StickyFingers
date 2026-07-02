@@ -31,12 +31,15 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     public GameObject firstPassive;
 
     public GameObject readyButton;
+    public GameObject backButton;
 
     private GameObject selectedSlot;
     private GameObject lastSelected;
 
     private GameObject selectedAbilityUI;
     private GameObject selectedPassive;
+
+    [SerializeField] private GameObject selectionImage;
     
     [SerializeField] private GameObject abilityUnlockButtons;
 
@@ -179,11 +182,22 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     public void SelectPassive(Passive passive)
     {
         if (selectedPassive != null)
+        {
+            //If selecting already equipped passive, deselect only
+            if (GameManager.Instance.PlayerPassives.Has(passive.passiveID))
+            {
+                DeselectAbility(selectedPassive);
+                return;
+            }
+            
             DeselectAbility(selectedPassive);
+        }
         
         GameManager.Instance.PlayerPassives.EquipPassive(passive);
         
         selectedPassive = eventSystem.currentSelectedGameObject;
+        selectedPassive.GetComponent<Image>().color = Color.gray2;
+        
         lastSelected = selectedPassive;
         
         state = State.Ready;
@@ -260,6 +274,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         if (selected.CompareTag("Passive"))
         {
             GameManager.Instance.PlayerPassives.DequipPassive();
+            selectedPassive.GetComponent<Image>().color = selectedPassive.GetComponent<PassiveButton>().passive.passiveColour.color;
             selectedPassive = null;
         }
         else if (selected.CompareTag("Ability"))
@@ -280,17 +295,24 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     private void UpdateAvailableSlots()
     {
-        if (ProgressionManager.Instance.unlockedAbilities.Count == 1)
+        if (ProgressionManager.Instance.unlockedAbilities.Count >= 1 
+            && slot1.GetComponent<UIAbilitySlot>().slotState == UIAbilitySlot.SlotState.Locked)
         {
+            Debug.Log("Unlock slot 1");
             slot1.GetComponent<UIAbilitySlot>().UpdateSlotState(UIAbilitySlot.SlotState.Empty);
-        }
-        else if (ProgressionManager.Instance.unlockedAbilities.Count == 2)
-        {
-            slot2.GetComponent<UIAbilitySlot>().UpdateSlotState(UIAbilitySlot.SlotState.Empty);
-        }
-        else if (ProgressionManager.Instance.unlockedAbilities.Count >= 3)
-        {
-            slot3.GetComponent<UIAbilitySlot>().UpdateSlotState(UIAbilitySlot.SlotState.Empty);
+            
+            if (ProgressionManager.Instance.unlockedAbilities.Count >= 2 
+                && slot2.GetComponent<UIAbilitySlot>().slotState == UIAbilitySlot.SlotState.Locked)
+            {
+                Debug.Log("Unlock slot 2");
+                slot2.GetComponent<UIAbilitySlot>().UpdateSlotState(UIAbilitySlot.SlotState.Empty);
+                
+                if (ProgressionManager.Instance.unlockedAbilities.Count >= 3 
+                    && slot3.GetComponent<UIAbilitySlot>().slotState == UIAbilitySlot.SlotState.Locked)
+                {
+                    slot3.GetComponent<UIAbilitySlot>().UpdateSlotState(UIAbilitySlot.SlotState.Empty);
+                }
+            }
         }
     }
     
@@ -304,9 +326,21 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
         slot = target.GetComponent<UIAbilitySlot>();
 
-        if (slot != null && slot.slotState == UIAbilitySlot.SlotState.Locked)
-            return;
-
+        if (slot != null)
+        {
+            if (slot.slotState == UIAbilitySlot.SlotState.Locked)
+                return;
+            
+            if (!selectionImage.activeSelf)
+                selectionImage.SetActive(true);
+            
+            selectionImage.transform.position =  target.transform.position;
+        }
+        else
+        {
+            selectionImage.SetActive(false);
+        }
+        
         eventSystem.SetSelectedGameObject(target);
         lastSelected = target;
     }
@@ -318,18 +352,29 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
         slot = current.GetComponent<UIAbilitySlot>();
 
-        // PASSIVE
+        //Always track last valid selection
+        lastSelected = current;
+        
+        //Passive
         if (current.CompareTag("Passive"))
         {
+            selectionImage.SetActive(false);
+            
             state = State.PassiveSelect;
-            selectedPassive = current;
         }
-        // READY BUTTON
+        //Ready button
         else if (current.CompareTag("ReadyButton"))
         {
+            selectionImage.SetActive(false);
+            
             state = State.Ready;
         }
-        // SLOT / CONTAINER
+        //Back button
+        else if (current.CompareTag("BackButton"))
+        {
+            selectionImage.SetActive(false);
+        }
+        //Slots/Containers
         else if (slot != null)
         {
             if (slot.isContainer)
@@ -339,111 +384,124 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
                 selectedSlot = current;
                 state = State.AbilitySlotSelect;
             }
-                
+            
+            if (!selectionImage.activeSelf)
+                selectionImage.SetActive(true);
+            
+            selectionImage.transform.position = lastSelected.transform.position;
         }
+    }
 
-        // ALWAYS track last valid selection
-        lastSelected = current;
+    public void OnCancel()
+    {
+        SetSelection(backButton);
     }
     
-    public void OnCancel() //FIX THIS BULLSHIT
-    {
-        switch (state)
-        {
-            case (State.AbilitySlotSelect): //Cancel while selecting ability slot
-                //If slot is not empty, and child of slot is an ability, deselect ability
-                if (selectedSlot.transform.childCount != 0)
-                {
-                    if (selectedSlot.transform.GetChild(0).CompareTag("Ability"))
-                    {
-                        DeselectAbility(selectedSlot.transform.GetChild(1).gameObject);
-                        TooltipUI.Instance.StopTooltip();
-                        return;
-                    }
-                }
-
-                if (selectedSlot == slot3)
-                {
-                    slot2.GetComponent<Button>().interactable = true;
-                    selectedSlot = slot2;
-                }
-
-                else if (selectedSlot == slot2)
-                {
-                    slot1.GetComponent<Button>().interactable = true;
-                    selectedSlot = slot1;
-                }
-                else if (selectedSlot == slot1)
-                {
-                    UIManager.Instance.HideMenu();
-                    return;
-                }
-
-                SetSelection(selectedSlot);
-                return;
-            
-            
-            case (State.AbilitySelect): //Cancel while selecting ability
-                if (!selectedSlot.GetComponent<Button>().interactable)
-                    selectedSlot.GetComponent<Button>().interactable = true;
-
-                SetSelection(selectedSlot);
-
-                state = State.AbilitySlotSelect;
-                return;
-            
-            case (State.PassiveSelect): //Cancel while selecting passive
-
-                //If passive was already selected, deselect it
-                if (selectedPassive != null)
-                {
-                    DeselectAbility(selectedPassive);
-                    //eventSystem.SetSelectedGameObject(selectedPassive);
-                    return;
-                }
-                
-                if (!slot3.GetComponent<Button>().interactable)
-                {
-                    if (slot3.transform.childCount == 0 || !slot3.transform.GetChild(0).CompareTag("Placeholder"))
-                    {
-                        slot3.GetComponent<Button>().interactable = true;
-                        selectedSlot = slot3;
-                    }
-
-                    else if (!slot2.GetComponent<Button>().interactable)
-                    {
-                        if (slot2.transform.childCount == 0 || !slot2.transform.GetChild(0).CompareTag("Placeholder"))
-                        {
-                            slot2.GetComponent<Button>().interactable = true;
-                            selectedSlot = slot2;
-                        }
-
-                        else if (!slot1.GetComponent<Button>().interactable)
-                        {
-                            if (slot1.transform.childCount == 0 || !slot1.transform.GetChild(0).CompareTag("Placeholder"))
-                            {
-                                slot1.GetComponent<Button>().interactable = true;
-                                selectedSlot = slot1;
-                            }
-                        }
-                    }
-                    
-                    SetSelection(selectedSlot);
-                }
-                else 
-                    UIManager.Instance.HideMenu();
-                
-                return;
-            
-            case (State.Ready): //Cancel while ready
-                
-                if (selectedPassive != null) 
-                    SetSelection(selectedPassive);
-                else
-                    SetSelection(lastSelected);
-                
-                state = State.PassiveSelect;
-                break;
-        }
-    }
+    // public void OnCancel() Fix this if u wanna lol
+    // {
+    //     // switch (state)
+    //     // {
+    //     //     case (State.AbilitySlotSelect): //Cancel while selecting ability slot
+    //     //         //If slot is not empty, and child of slot is an ability, deselect ability
+    //     //         if (selectedSlot.transform.childCount != 0)
+    //     //         {
+    //     //             if (selectedSlot.transform.GetChild(0).CompareTag("Ability"))
+    //     //             {
+    //     //                 DeselectAbility(selectedSlot.transform.GetChild(1).gameObject);
+    //     //                 TooltipUI.Instance.StopTooltip();
+    //     //                 return;
+    //     //             }
+    //     //         }
+    //     //
+    //     //         if (selectedSlot == slot3)
+    //     //         {
+    //     //             slot2.GetComponent<Button>().interactable = true;
+    //     //             selectedSlot = slot2;
+    //     //         }
+    //     //
+    //     //         else if (selectedSlot == slot2)
+    //     //         {
+    //     //             slot1.GetComponent<Button>().interactable = true;
+    //     //             selectedSlot = slot1;
+    //     //         }
+    //     //         else if (selectedSlot == slot1)
+    //     //         {
+    //     //             UIManager.Instance.HideMenu();
+    //     //             return;
+    //     //         }
+    //     //
+    //     //         SetSelection(selectedSlot);
+    //     //         return;
+    //     //     
+    //     //     
+    //     //     case (State.AbilitySelect): //Cancel while selecting ability
+    //     //         if (!selectedSlot.GetComponent<Button>().interactable)
+    //     //             selectedSlot.GetComponent<Button>().interactable = true;
+    //     //
+    //     //         SetSelection(selectedSlot);
+    //     //
+    //     //         state = State.AbilitySlotSelect;
+    //     //         return;
+    //     //     
+    //     //     case (State.PassiveSelect): //Cancel while selecting passive
+    //     //
+    //     //         //If passive was already selected, deselect it
+    //     //         if (selectedPassive != null)
+    //     //         {
+    //     //             DeselectAbility(selectedPassive);
+    //     //             //eventSystem.SetSelectedGameObject(selectedPassive);
+    //     //             return;
+    //     //         }
+    //     //         
+    //     //         if (slot3.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+    //     //         {
+    //     //             if (slot3.transform.childCount == 0 || !slot3.transform.GetChild(0).CompareTag("Placeholder"))
+    //     //             {
+    //     //                 slot3.GetComponent<Button>().interactable = true;
+    //     //                 
+    //     //             }
+    //     //
+    //     //             else if (!slot2.GetComponent<Button>().interactable)
+    //     //             {
+    //     //                 if (slot2.transform.childCount == 0 || !slot2.transform.GetChild(0).CompareTag("Placeholder"))
+    //     //                 {
+    //     //                     slot2.GetComponent<Button>().interactable = true;
+    //     //                     selectedSlot = slot2;
+    //     //                 }
+    //     //
+    //     //                 else if (!slot1.GetComponent<Button>().interactable)
+    //     //                 {
+    //     //                     if (slot1.transform.childCount == 0 || !slot1.transform.GetChild(0).CompareTag("Placeholder"))
+    //     //                     {
+    //     //                         slot1.GetComponent<Button>().interactable = true;
+    //     //                         selectedSlot = slot1;
+    //     //                     }
+    //     //                 }
+    //     //             }
+    //     //             
+    //     //             SetSelection(selectedSlot);
+    //     //         }
+    //     //
+    //     //         if (slot3.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+    //     //         {
+    //     //             
+    //     //         }
+    //     //         
+    //     //         
+    //     //         else 
+    //     //             UIManager.Instance.HideMenu();
+    //     //         
+    //     //         return;
+    //     //     
+    //     //     case (State.Ready): //Cancel while ready
+    //     //         
+    //     //         if (selectedPassive != null) 
+    //     //             SetSelection(selectedPassive);
+    //     //         else
+    //     //             SetSelection(lastSelected);
+    //     //         
+    //     //         state = State.PassiveSelect;
+    //     //         break;
+    //     // }
+    // }
 }
