@@ -133,16 +133,33 @@ public class UIAbilitySlot : MonoBehaviour, IDropHandler
         if (!isContainer)
         {
             if (transform.childCount <= 1)
+            {
+                
                 UpdateSlotState(SlotState.Empty);
+                //Debug.Log(gameObject.name + " children count: " + transform.childCount + " State:  " + slotState );
+            }
+
             else
+            {
                 UpdateSlotState(SlotState.Full);
+                //Debug.Log(gameObject.name + " children count: " + transform.childCount + " State:  " + slotState );
+            }
+                
         }
         else if (isContainer)
         {
             if (transform.childCount == 0)
+            {
                 UpdateSlotState(SlotState.Empty);
+                //Debug.Log(gameObject.name + " children count: " + transform.childCount + " State:  " + slotState );
+            }
+                
             else
+            {
                 UpdateSlotState(SlotState.Full);
+                //Debug.Log(gameObject.name + " children count: " + transform.childCount + " State:  " + slotState );
+            }
+                
         }
         
         //Debug.Log(gameObject + (", children: ") + transform.childCount + (", slotState: " + slotState));

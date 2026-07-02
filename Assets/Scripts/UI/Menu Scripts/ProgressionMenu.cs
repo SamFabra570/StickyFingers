@@ -70,14 +70,22 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
         if (current != null)
         {
             var button = current.GetComponent<Button>();
+            
+            if (!selectionImage.activeSelf) 
+                selectionImage.SetActive(true);
+            
+            lastSelected = current.gameObject;
 
             if (button != null && !button.interactable)
             {
                 eventSystem.SetSelectedGameObject(lastSelected);
             }
+            else if (current.CompareTag("BackButton"))
+            {
+                selectionImage.SetActive(false);
+            }
             else
             {
-                lastSelected =  button.gameObject;
                 missionUI.UpdateMissionPanel(lastSelected);
                 selectionImage.transform.position = lastSelected.transform.position;
             }

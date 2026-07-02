@@ -127,17 +127,17 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     private void MoveToNextSlot()
     {
-        if (selectedSlot == slot1 && slot2.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+        if (slot2.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
         {
             selectedSlot = slot2;
         }
 
-        else if (selectedSlot == slot2 && slot3.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+        else if (slot3.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
         {
             selectedSlot = slot3;
         }
 
-        else if (selectedSlot == slot3)
+        else
         {
             if (selectedPassive != null)
                 SetSelection(selectedPassive);
@@ -216,12 +216,13 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         
         UIAbilitySlot selectedSlotState = selectedSlot.GetComponent<UIAbilitySlot>();
         
-        Debug.Log("Slot: " + selectedSlot + ", State: " + selectedSlotState.slotState);
+        //Debug.Log("Slot: " + selectedSlot + ", State: " + selectedSlotState.slotState);
         
         switch (selectedSlotState.slotState)
         {
             case UIAbilitySlot.SlotState.Locked:
                 return;
+            
             case UIAbilitySlot.SlotState.Empty:
                 if (slot.slotState == UIAbilitySlot.SlotState.Empty)
                 {
@@ -233,6 +234,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
                 if (selectedSlot.transform.childCount != 0)
                      selectedSlot.transform.GetChild(0).gameObject.SetActive(false);
                 break;
+            
             case UIAbilitySlot.SlotState.Full:
                 if (slot.slotState == UIAbilitySlot.SlotState.Empty)
                 {
@@ -242,6 +244,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
                 }
                 
                 DeselectAbility(selectedSlot.transform.GetChild(1).gameObject);
+                selectedSlot.GetComponent<UIAbilitySlot>().transform.GetChild(0).gameObject.SetActive(false);
                 break;
         }
 
@@ -295,6 +298,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     private void UpdateAvailableSlots()
     {
+        selectionImage.SetActive(true);
+        
         if (ProgressionManager.Instance.unlockedAbilities.Count >= 1 
             && slot1.GetComponent<UIAbilitySlot>().slotState == UIAbilitySlot.SlotState.Locked)
         {
@@ -314,6 +319,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
                 }
             }
         }
+        else
+            selectionImage.SetActive(false);
     }
     
     public void SetSelection(GameObject target)

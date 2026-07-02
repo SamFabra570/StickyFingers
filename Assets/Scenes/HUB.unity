@@ -3958,6 +3958,17 @@ Transform:
   - {fileID: 1702677057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &766395716 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2986671673400520399, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
+  m_PrefabInstance: {fileID: 1641934921}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &817103928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7917,7 +7928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1379416899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10864,6 +10875,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 6619184346881635790}
     m_Modifications:
     - target: {fileID: 2986671673400520399, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986671673400520399, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 840385759}
+    - target: {fileID: 2986671673400520399, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 840385759}
+    - target: {fileID: 2986671673400520399, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1805571311}
@@ -10954,6 +10977,10 @@ PrefabInstance:
     - target: {fileID: 8186401594701675445, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
       propertyPath: m_Name
       value: Back_Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186401594701675445, guid: 1c1de4323edc2c345ad64b65af3610ca, type: 3}
+      propertyPath: m_TagString
+      value: BackButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35210,6 +35237,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 525183913}
     - target: {fileID: 3620559507068312950, guid: db72f5c5aae9ee441a8d470d74ddb152, type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 766395716}
+    - target: {fileID: 3620559507068312950, guid: db72f5c5aae9ee441a8d470d74ddb152, type: 3}
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 1248146644}
@@ -42143,6 +42174,10 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
       objectReference: {fileID: 840385759}
+    - target: {fileID: 3620559507068312950, guid: db72f5c5aae9ee441a8d470d74ddb152, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 766395716}
     - target: {fileID: 3620559507068312950, guid: db72f5c5aae9ee441a8d470d74ddb152, type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 

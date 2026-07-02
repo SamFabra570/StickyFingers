@@ -19,7 +19,7 @@ MonoBehaviour:
   abilityColour: {fileID: 2100000, guid: f99840d89d54a444f91e9fbe6fa78672, type: 2}
   debtThreshold: 0.35
   unlockMission: {fileID: 11400000, guid: 9ce28dc0177e21f46afe5c88738af6ce, type: 2}
-  unlockedByDefault: 1
+  unlockedByDefault: 0
   duration: 5
   warningThreshold: 0.3
   cooldown: 40
