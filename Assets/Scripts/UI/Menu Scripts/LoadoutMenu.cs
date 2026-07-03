@@ -81,7 +81,9 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         UpdateMissionButtonState(false);
         UpdateAvailableSlots();
         UpdateDebtInfo();
-        
+
+
+        ProgressionMenu.Instance.backButton.interactable = false;
         loadoutCanvas.enabled = true;
 
         state = State.AbilitySlotSelect;
@@ -102,7 +104,10 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         TooltipUI.Instance.StopTooltip();
         eventSystem.SetSelectedGameObject(null);
         
+        ProgressionMenu.Instance.backButton.interactable = true;
         loadoutCanvas.enabled = false;
+        
+        UIManager.Instance.ToggleInteractText(true, "");
     }
 
     public void UpdateDebtInfo()
@@ -356,6 +361,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     {
         var current = eventSystem.currentSelectedGameObject;
         if (current == null) return;
+        
+        Debug.Log(current.gameObject.name);
 
         slot = current.GetComponent<UIAbilitySlot>();
 

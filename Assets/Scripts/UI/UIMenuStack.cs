@@ -25,8 +25,8 @@ public static class UIMenuStack
         
         UIManager.Instance.ToggleInteractText(false, "");
         
-        PlayerController.Instance.inputMap.UI.Enable();
         PlayerController.Instance.inputMap.Player.Disable();
+        PlayerController.Instance.inputMap.UI.Enable();
     }
 
     public static void Pop()

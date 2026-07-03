@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Wings")]
 public class WingsAbility : Ability
 {
-    public float flyHeight = 2f;
+    public float flyHeight = 1.3f;
     public float flySpeed = 10f;
     
     public override void Activate(GameObject user)

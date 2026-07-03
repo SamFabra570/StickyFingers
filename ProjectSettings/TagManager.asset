@@ -21,6 +21,8 @@ TagManager:
   - PopupUI
   - ReadyButton
   - BackButton
+  - SortButton
+  - ItemSlot
   layers:
   - Default
   - TransparentFX

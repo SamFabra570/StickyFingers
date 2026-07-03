@@ -3070,8 +3070,8 @@ MonoBehaviour:
   turnSpeed: 360
   currentState: 0
   currentWeight: 0
-  mediumThreshold: 0.4
-  heavyThreshold: 0.75
+  mediumThreshold: 0.34
+  heavyThreshold: 0.65
   mediumSpeedModifier: -1
   heavySpeedModifier: -2
   useGravity: 1

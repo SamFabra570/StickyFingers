@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerInput inputMap;
     public bool isPaused;
-    [HideInInspector] public bool isInvOpen;
+    [HideInInspector] public bool isInvOpen = false;
     [HideInInspector] public bool isPauseOpen;
 
     [Header ("Freeze Player Checks")]
@@ -685,10 +685,15 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("End Game FROM PORTAL");
                     GameManager.Instance.EndGame(true, "");
                 }
-                
+
                 if (SceneManager.GetActiveScene().name == "HUB")
+                {
                     GameManager.Instance.StartGame();
+                }
+                    
             }
+            
+            this.interactable = null;
 
             return;
         }

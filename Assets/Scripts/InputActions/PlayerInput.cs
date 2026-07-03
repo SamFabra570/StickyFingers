@@ -413,6 +413,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""216f467c-a05f-4479-88c0-da6bf888dffc"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0b1fcd62-dabe-4521-b904-2740fe18c68c"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -815,6 +826,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""id"": ""3c31fb81-7766-45a2-acc2-bad50d7f41dc"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a50211e1-e305-4b6d-b53d-760e2d8d0230"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54f19bca-ef03-4a05-9e3f-46778b8fdae5"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0978c4e1-6cef-4fe1-b61a-fe6cbce7a939"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cancel"",

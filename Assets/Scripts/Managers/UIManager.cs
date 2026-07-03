@@ -76,13 +76,6 @@ public class UIManager : MonoBehaviour
     
     [Header ("Object Pick Up Notification Refs")]
     public PopupUI objectPopupUI;
-    // public GameObject objectDropUI;
-    // public TextMeshProUGUI textNameNotif;
-    // public TextMeshProUGUI textRemoveNameNotif;
-    // public TextMeshProUGUI textWeightNotif;
-    // public TextMeshProUGUI textValueNotif;
-    
-    // public Sprite emptySprite;
     
     public InventorySystem inventory;
 
@@ -113,7 +106,7 @@ public class UIManager : MonoBehaviour
         if (textTotalWeight != null) 
             textTotalWeight.SetText("Total Weight: "+inventory.totalWeight);
         if (textTotalBounty != null) 
-            textTotalBounty.SetText("Total Bounty: "+inventory.totalBounty);
+            textTotalBounty.SetText("" + inventory.totalBounty);
         if (objectPopupUI != null) 
             objectPopupUI.gameObject.SetActive(false); 
         if (mageSpawnNotif != null)
@@ -149,7 +142,7 @@ public class UIManager : MonoBehaviour
                 weightStateText.text = ("Light");
                 break;
             case PlayerController.WeightState.Medium:
-                weightStateText.text = ("Medium");
+                weightStateText.text = ("Moderate");
                 break;
             case PlayerController.WeightState.Heavy:
                 weightStateText.text = ("Heavy");
@@ -164,6 +157,8 @@ public class UIManager : MonoBehaviour
 
         if (inventory.totalBounty > 0) 
             totalBountyText.text = ("" + inventory.totalBounty);
+        else
+            totalBountyText.text = ("0");
     }
 
     private void UpdatePassiveUI(Passive passive)
@@ -242,9 +237,18 @@ public class UIManager : MonoBehaviour
             interactText.gameObject.SetActive(false);
             return;
         }
+
+        if (interactType == "")
+        {
+            if (SceneManager.GetActiveScene().name == "HUB") 
+                interactText.SetText("Interact");
+            else
+                interactText.SetText("Steal");
+
+            lastInteracted = null;
+        }
         
-        if (interactType == "") 
-            lastInteracted = interactType;
+        lastInteracted = interactType;
 
         switch (lastInteracted)
         {

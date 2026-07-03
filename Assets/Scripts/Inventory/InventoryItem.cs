@@ -5,6 +5,7 @@ public class InventoryItem
 {
     public InventoryItemData data;
     public int stackSize;
+    public int pickupOrder;
     
     public InventoryItem(InventoryItemData source)
     {

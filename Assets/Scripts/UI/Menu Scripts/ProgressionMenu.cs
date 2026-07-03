@@ -17,6 +17,7 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     
     [SerializeField] private GameObject firstButton;
     [SerializeField] private GameObject readyButton;
+    public Button backButton;
 
     [SerializeField] private GameObject selectionImage;
 
@@ -60,6 +61,8 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     public void OnHideMenu()
     {
         progressionCanvas.enabled = false;
+        
+        UIManager.Instance.ToggleInteractText(true, "");
     }
 
     //Check if newly selected button is navigable, if not, return to last selected button

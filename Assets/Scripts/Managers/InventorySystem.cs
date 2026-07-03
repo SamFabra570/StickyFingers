@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+
 [Serializable]
 public class InventorySystem 
 {
@@ -15,13 +17,22 @@ public class InventorySystem
     public float totalBounty;
 
     public GameObject content;
-    public Image itemDescriptionImage;
     public TMP_Text itemDescriptionNameText;
     public TMP_Text itemDescriptionText;
     public TMP_Text itemWeightText;
     public TMP_Text itemValueText;
     
-    public Sprite emptySprite;
+    private int nextPickupOrder = 0;
+
+    public bool isSorting;
+    
+    public enum SortMode
+    {
+        None,
+        Value,
+        Weight
+    }
+    public SortMode sortMode =  SortMode.None;
 
     public InventorySystem()
     {
@@ -43,6 +54,7 @@ public class InventorySystem
         else
         {
             InventoryItem newItem = new InventoryItem(referenceData);
+            newItem.pickupOrder = nextPickupOrder++;
             inventory.Add(newItem);
             m_itemDictionary.Add(referenceData, newItem);
             itemSlots[freeSlot].AddItem(newItem);
@@ -72,7 +84,7 @@ public class InventorySystem
                     itemDescriptionText.SetText("");
                     itemWeightText.SetText("");
                     itemValueText.SetText("");
-                    itemDescriptionImage.sprite = emptySprite;
+                    //itemDescriptionImage.sprite = emptySprite;
                     
                     inventory.Remove(value);
                     m_itemDictionary.Remove(referenceData);
@@ -92,8 +104,44 @@ public class InventorySystem
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            itemSlots[i].selectedShader.SetActive(false);
+            InventoryMenu.Instance.selectionImage.SetActive(false);
+            //Debug.Log("Selection image off (from inventory system)");
+            //itemSlots[i].selectedShader.SetActive(false);
         }
+    }
+
+    public void SortInventory(SortMode mode)
+    {
+        sortMode = mode;
+
+        switch (mode)
+        {
+            case SortMode.None:
+                inventory.Sort((a, b) => a.pickupOrder.CompareTo(b.pickupOrder));
+                
+                InventoryMenu.Instance.valueSortButton.GetComponent<Image>().color = InventoryMenu.Instance.valueSortButton.colors.normalColor;
+                InventoryMenu.Instance.weightSortButton.GetComponent<Image>().color = InventoryMenu.Instance.weightSortButton.colors.normalColor;
+                isSorting = false;
+                break;
+
+            case SortMode.Value:
+                inventory.Sort((a, b) => (b.data.itemPrice * b.stackSize).CompareTo(a.data.itemPrice * a.stackSize));
+                
+                InventoryMenu.Instance.valueSortButton.GetComponent<Image>().color = Color.gray3;
+                InventoryMenu.Instance.weightSortButton.GetComponent<Image>().color = InventoryMenu.Instance.weightSortButton.colors.normalColor;
+                isSorting = true;
+                break;
+
+            case SortMode.Weight:
+                inventory.Sort((a, b) => (b.data.itemWeight * b.stackSize).CompareTo(a.data.itemWeight * a.stackSize));
+                
+                InventoryMenu.Instance.weightSortButton.GetComponent<Image>().color = Color.gray3;
+                InventoryMenu.Instance.valueSortButton.GetComponent<Image>().color = InventoryMenu.Instance.valueSortButton.colors.normalColor;
+                isSorting = true;
+                break;
+        }
+        
+        RefreshInventory();
     }
 
     public void RefreshInventory()

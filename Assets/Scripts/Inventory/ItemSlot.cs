@@ -16,7 +16,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     
     public Image image;
     
-    public GameObject selectedShader;
+    //public GameObject selectedShader;
     public bool isSelected;
 
     public void AddItem(InventoryItem source)
@@ -76,11 +76,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void ShowItemDetails()
     {
-        InventorySystem inventory =
-            GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
-        inventory.DeselectAllSlots();
-        selectedShader.SetActive(true);
+        InventorySystem inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
         isSelected = true;
+        
         if (item.data != null)
         {
             inventory.content.SetActive(true);
@@ -89,15 +87,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             inventory.itemDescriptionText.SetText(item.data.itemDescription);
             inventory.itemWeightText.SetText("" + item.data.itemWeight);
             inventory.itemValueText.SetText("" + item.data.itemPrice);
-            inventory.itemDescriptionImage.sprite = item.data.icon;
+            //inventory.itemDescriptionImage.sprite = item.data.icon;
         }
         else
         {
+            inventory.content.SetActive(false);
+            
             inventory.itemDescriptionNameText.SetText("");
             inventory.itemDescriptionText.SetText("");
             inventory.itemWeightText.SetText("");
             inventory.itemValueText.SetText("");
-            inventory.itemDescriptionImage.sprite = emptySprite;
+            //inventory.itemDescriptionImage.sprite = emptySprite;
         }
 
     }

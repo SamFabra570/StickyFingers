@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PostGameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PostGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI extractedBountyText;
     [SerializeField] private TextMeshProUGUI timeRemainingText;
 
+    [SerializeField] private Slider debtPaidFill;
+
     private void Start()
     {
         runEfficiencyText.gameObject.SetActive(false);
@@ -21,9 +24,10 @@ public class PostGameManager : MonoBehaviour
         extractedBounty = GameManager.Instance.extractedBounty;
         timeRemaining = GameManager.Instance.timeRemaining;
         
-        extractedBountyText.text = ("" +  extractedBounty);
+        extractedBountyText.text = ("+" +  extractedBounty);
         timeRemainingText.text = ("" +  (int) timeRemaining);
         
+        UpdateDebtInfo();
         UpdateRunEfficiencyText(GameManager.Instance.successfulRun);
         
         PlayerController.Instance.inputMap.UI.Enable();
@@ -54,6 +58,13 @@ public class PostGameManager : MonoBehaviour
         }
         
         runEfficiencyText.gameObject.SetActive(true);
+    }
+    
+    public void UpdateDebtInfo()
+    {
+        debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
+        //debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));
+        //totalDebtText.text = ("" + GameManager.Instance.maxDebt);
     }
 
     private void OnSubmit(InputAction.CallbackContext context)
