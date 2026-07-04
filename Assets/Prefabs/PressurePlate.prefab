@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4770767553996563734}
   - component: {fileID: 1529812568231210951}
   - component: {fileID: 6625792661862145706}
+  - component: {fileID: 1761620317026991193}
   m_Layer: 0
   m_Name: PressurePlate
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 47e51ac0189036541942b5e14d2be2e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,7 +133,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Size: {x: 0.7, y: 8.56, z: 0.7}
   m_Center: {x: 0, y: 0.47, z: 0}
 --- !u!114 &6625792661862145706
 MonoBehaviour:
@@ -149,3 +150,23 @@ MonoBehaviour:
   objectSpawner: {fileID: 0}
   sinkDistance: 0.5
   sinkDuration: 1.5
+--- !u!114 &1761620317026991193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8409460260225629841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

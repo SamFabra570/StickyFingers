@@ -11,7 +11,7 @@ public class PressurePlateController : MonoBehaviour
     [SerializeField] private float sinkDistance = 0.5f;
     [SerializeField] private float sinkDuration = 1.5f;
 
-    private bool _triggered = false;
+    private bool _triggered;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,13 +21,13 @@ public class PressurePlateController : MonoBehaviour
             Debug.LogWarning("[PressurePlateController] No ObjectSpawner assigned.");
             return;
         }
-        var inventory = GameObject.Find("InventoryContainer")
-            .GetComponent<InventoryContainer>()
-            .inventorySystem;
+        // var inventory = GameObject.Find("InventoryContainer")
+        //     .GetComponent<InventoryContainer>()
+        //     .inventorySystem;
 
-        float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
+        //float normalizedWeight = inventory.totalWeight / GameManager.Instance.maxWeight;
 
-        if (normalizedWeight <= 0.66f) return;
+        if (PlayerController.Instance.currentState == PlayerController.WeightState.Light) return;
         _triggered = true;
         objectSpawner.TriggerSpawn();
         StartCoroutine(SinkAndDestroy());
