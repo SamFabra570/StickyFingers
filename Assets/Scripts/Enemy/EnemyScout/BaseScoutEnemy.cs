@@ -44,7 +44,7 @@ public class BaseScoutEnemy : MonoBehaviour
     public float stop_attack_distance_multiplier = 1.2f;
 
     //Detection memory: keep pursuing the last known position for this long after losing line of sight, so a single-frame occlusion (corner, lag, momentary cover) does not make the scout give up.
-    public float loseSightGracePeriod = 1.5f;
+    public float loseSightGracePeriod = 3.5f;
     [HideInInspector] public float lastSeenTime = -Mathf.Infinity;
     
     [SerializeField] public bool isBeingSeen;

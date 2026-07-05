@@ -5478,7 +5478,7 @@ MonoBehaviour:
   suspicion: 0
   attack_distance_: 2
   stop_attack_distance_multiplier: 1.2
-  loseSightGracePeriod: 1.5
+  loseSightGracePeriod: 3.5
   lastSeenTime: -Infinity
   isBeingSeen: 0
   hiddenSpeed: 1.5

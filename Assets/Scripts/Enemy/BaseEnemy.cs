@@ -47,7 +47,7 @@ public class BaseEnemy : MonoBehaviour
     [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
 
     //Detection memory: keep pursuing the last known position for this long after losing line of sight, so a single-frame occlusion (corner, lag, momentary cover) does not make the enemy give up.
-    public float loseSightGracePeriod = 1.5f;
+    public float loseSightGracePeriod = 3.5f;
     [HideInInspector] public float lastSeenTime = -Mathf.Infinity;
     
     [SerializeField] public bool isBeingSeen;
