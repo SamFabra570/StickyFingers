@@ -55,19 +55,22 @@ public class PlayerVisionCone : MonoBehaviour
             if (dv == null) continue;
 
             Vector3 dirToTarget = (col.bounds.center - transform.position);
+            float distToTarget  = dirToTarget.magnitude;
             float angle = Vector3.Angle(transform.forward, dirToTarget);
 
             // Inside the cone angle, OR close enough to reveal peripherally (peripheralRadius = 0 disables it)
             bool insideCone       = angle <= visionAngle * 0.5f;
-            bool insidePeripheral = dirToTarget.magnitude <= peripheralRadius;
+            bool insidePeripheral = distToTarget <= peripheralRadius;
             if (!insideCone && !insidePeripheral) continue;
 
-            // Raycast for occlusion
+            // Occlusion: raycast ONLY against walls (detectionMask), stopping just short of the target.
+            // This way the target's OWN colliders (e.g. a solid MeshCollider sharing the wall layer) never
+            // count as occluders — the old `hit.collider != col` check broke once items gained a 2nd collider.
             if (Physics.Raycast(transform.position, dirToTarget.normalized,
-                                 out RaycastHit hit, visionRadius, detectionMask | targetMask))
+                                 out RaycastHit hit, distToTarget - 0.1f, detectionMask, QueryTriggerInteraction.Ignore))
             {
-                // Make sure we hit the target, not a wall first
-                if (hit.collider != col) continue;
+                // A wall sits between us and the target — but ignore hits on the target's own geometry.
+                if (hit.collider.GetComponentInParent<DitherVisibility>() != dv) continue;
             }
 
             visibleThisFrame.Add(dv);
