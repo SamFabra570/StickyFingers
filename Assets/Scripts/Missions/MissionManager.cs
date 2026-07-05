@@ -11,7 +11,7 @@ public class MissionManager : MonoBehaviour
     public MissionData activeMission;
     public int currentAmount;
     
-    private bool IsComplete => currentAmount >= activeMission.requiredAmount;
+    public bool IsComplete => activeMission.currentAmount >= activeMission.requiredAmount;
     
     private void Awake()
     {
@@ -25,23 +25,9 @@ public class MissionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // private void Update()
-    // {
-    //     if (SceneManager.GetActiveScene().name != "HUB")
-    //         return;
-    //
-    //     if (activeMission != null)
-    //     {
-    //         if (IsComplete)
-    //             CompleteMission();
-    //     }
-    //     
-    // }
-
     public void StartMission(MissionData mission)
     {
         activeMission = mission;
-        currentAmount = 0;
         
         missionUI.activeMissionIndicator.SetActive(true);
         
@@ -58,7 +44,7 @@ public class MissionManager : MonoBehaviour
         if (activeMission.targetItem != item)
             return;
         
-        currentAmount += amount;
+        activeMission.currentAmount += amount;
         
         Debug.Log("Progress: " + (float) currentAmount/activeMission.requiredAmount);
 
@@ -77,19 +63,4 @@ public class MissionManager : MonoBehaviour
         Debug.Log("Mission Complete!");
         activeMission = null;
     }
-    
-    private void OnEnable()
-    {
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        //SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    // private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    // {
-    //     
-    // }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Passive
   passiveID: 3
   passiveName: Second Chance
-  passiveDescription: 
+  passiveDescription: Saves you from the mage! One time per run!
   passiveColour: {fileID: 2100000, guid: bc2154baa1dad1b4882743effbff5c76, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}

@@ -408,6 +408,13 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
 
     public void OnCancel()
     {
+        if (lastSelected == backButton)
+        {
+            OnHideMenu();
+            return;
+        }
+            
+        
         SetSelection(backButton);
     }
     

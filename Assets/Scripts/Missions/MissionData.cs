@@ -8,7 +8,9 @@ public class MissionData : ScriptableObject
     
     [Header ("Objective")]
     public InventoryItemData targetItem;
+    public GameObject itemPrefab;
     public int requiredAmount;
+    public int currentAmount;
 
     public Ability rewardAbility;
 

@@ -6,6 +6,7 @@ public class InventoryItemData : ScriptableObject
     public int id;
     public int itemType; 
     public string itemName;
+    public bool missionItem;
     [TextArea]
     public string itemDescription;
     public float itemWeight;

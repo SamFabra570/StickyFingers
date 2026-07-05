@@ -87,6 +87,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             inventory.itemDescriptionText.SetText(item.data.itemDescription);
             inventory.itemWeightText.SetText("" + item.data.itemWeight);
             inventory.itemValueText.SetText("" + item.data.itemPrice);
+
+            if (item.data.missionItem)
+            {
+                if (!inventory.missionItemIcon.activeSelf)
+                    inventory.missionItemIcon.SetActive(true);
+            }
+
+            else
+            {
+                if (inventory.missionItemIcon.activeSelf)
+                    inventory.missionItemIcon.SetActive(false);
+            }
             //inventory.itemDescriptionImage.sprite = item.data.icon;
         }
         else
@@ -97,6 +109,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             inventory.itemDescriptionText.SetText("");
             inventory.itemWeightText.SetText("");
             inventory.itemValueText.SetText("");
+            //inventory.missionItemIcon.SetActive(false);
             //inventory.itemDescriptionImage.sprite = emptySprite;
         }
 

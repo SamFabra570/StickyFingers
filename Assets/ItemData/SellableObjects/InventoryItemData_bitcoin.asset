@@ -15,8 +15,9 @@ MonoBehaviour:
   id: 0
   itemType: 0
   itemName: Bitcoin
+  missionItem: 0
   itemDescription: one hundred million billion
-  itemWeight: 8
-  itemPrice: 500
+  itemWeight: 4
+  itemPrice: 800
   icon: {fileID: 0}
   prefab: {fileID: 6738872543802313137, guid: 0f148b3bebe34b341adbdfd72eaf2164, type: 3}

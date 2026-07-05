@@ -61,6 +61,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         
         currentItem = lastSelected.GetComponent<ItemSlot>();
         currentItem.ShowItemDetails();
+        selectionImage.transform.position = currentItem.transform.position;
     }
 
     public void OnHideMenu()

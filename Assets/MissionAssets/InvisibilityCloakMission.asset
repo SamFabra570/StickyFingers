@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: InvisibilityCloakMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Unlock the Invisibility Cloak!
-  description: Mission items do not exist yet
-  targetItem: {fileID: 0}
+  description: Collect all the cloak patches!
+  targetItem: {fileID: 11400000, guid: ae225aa888a4265468b6a354fb0cd9d3, type: 2}
+  itemPrefab: {fileID: 4408125531739160075, guid: 73662806b0458444cb8037d961c3522b, type: 3}
   requiredAmount: 10
+  currentAmount: 0
   rewardAbility: {fileID: 11400000, guid: 506e9242de8a73146b642cba971603ac, type: 2}

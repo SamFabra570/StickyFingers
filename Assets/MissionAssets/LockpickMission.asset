@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: LockpickMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionName: Lockpick? Idk
-  description: Mission items do not exist yet
-  targetItem: {fileID: 0}
+  description: Collect all the parts
+  targetItem: {fileID: 11400000, guid: f7f71769ad0947d42bf8a492d8526e8e, type: 2}
+  itemPrefab: {fileID: 4408125531739160075, guid: dac979d5dc488264ea56186222976e46, type: 3}
   requiredAmount: 67
+  currentAmount: 0
   rewardAbility: {fileID: 11400000, guid: b7d6a88c19e65754ab96dc97638fc04b, type: 2}

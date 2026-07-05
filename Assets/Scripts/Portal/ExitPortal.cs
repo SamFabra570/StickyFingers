@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitPortal : MonoBehaviour
 {
@@ -54,12 +55,28 @@ public class ExitPortal : MonoBehaviour
                 StopChargeLoop();
                 if (audioSource != null && chargedReady != null)
                     audioSource.PlayOneShot(chargedReady);
+                
+                ActivatePortal();
             }
 
         }
         
         chargePercent = currentCharge / chargeTime;
         AnimatePortal(chargePercent);
+    }
+
+    private void ActivatePortal()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            Debug.Log("End Game FROM PORTAL");
+            GameManager.Instance.EndGame(true, "");
+        }
+        
+        if (SceneManager.GetActiveScene().name == "HUB")
+        {
+            GameManager.Instance.StartGame();
+        }
     }
 
     private void AnimatePortal(float charge)

@@ -672,31 +672,31 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(GameObject obj)
     {
-        if (obj.TryGetComponent(out ExitPortal portalClass))
-        {
-            if (portalClass.state == PortalState.Charged)
-            {
-                portalClass.PlayActivate();
-
-                if (SceneManager.GetActiveScene().name == "Game")
-                {
-                    arrow.SetActive(false);
-                    
-                    Debug.Log("End Game FROM PORTAL");
-                    GameManager.Instance.EndGame(true, "");
-                }
-
-                if (SceneManager.GetActiveScene().name == "HUB")
-                {
-                    GameManager.Instance.StartGame();
-                }
-                    
-            }
-            
-            this.interactable = null;
-
-            return;
-        }
+        // if (obj.TryGetComponent(out ExitPortal portalClass))
+        // {
+        //     if (portalClass.state == PortalState.Charged)
+        //     {
+        //         portalClass.PlayActivate();
+        //
+        //         if (SceneManager.GetActiveScene().name == "Game")
+        //         {
+        //             arrow.SetActive(false);
+        //             
+        //             Debug.Log("End Game FROM PORTAL");
+        //             GameManager.Instance.EndGame(true, "");
+        //         }
+        //
+        //         if (SceneManager.GetActiveScene().name == "HUB")
+        //         {
+        //             GameManager.Instance.StartGame();
+        //         }
+        //             
+        //     }
+        //     
+        //     this.interactable = null;
+        //
+        //     return;
+        // }
         
         if (obj.TryGetComponent(out InteractableHandler type))
         {

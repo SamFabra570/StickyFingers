@@ -21,6 +21,7 @@ public class InventorySystem
     public TMP_Text itemDescriptionText;
     public TMP_Text itemWeightText;
     public TMP_Text itemValueText;
+    public GameObject missionItemIcon;
     
     private int nextPickupOrder = 0;
 

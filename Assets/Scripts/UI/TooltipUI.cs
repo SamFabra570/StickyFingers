@@ -49,7 +49,7 @@ public class TooltipUI : MonoBehaviour
         Hide();
     }
 
-    private void Show(DraggableItem item, Transform selectedSlot)
+    private void Show(GameObject item, Transform selectedSlot)
     {
         if (item == null)
             return;
@@ -68,33 +68,39 @@ public class TooltipUI : MonoBehaviour
         tooltipObj.SetActive(false);
     }
 
-    private void UpdateTooltip(DraggableItem item)
+    private void UpdateTooltip(GameObject item)
     {
-        Ability selectedAbility = item.ability.ability;
+        if (item.CompareTag("Ability"))
+        {
+            Ability selectedAbility = item.GetComponentInChildren<DraggableItem>().ability.ability;
+
+            if (selectedAbility == null)
+            {
+                StopTooltip();
+                return;
+            }
         
-        if (!cooldownText.gameObject.activeSelf)
-            cooldownText.gameObject.SetActive(true);
+            if (!cooldownText.gameObject.activeSelf)
+                cooldownText.gameObject.SetActive(true);
             
-        nameText.text = selectedAbility.abilityName;
-        descriptionText.text = selectedAbility.abilityDescription;
-        durationText.text = (selectedAbility.duration + "s");
-        cooldownText.text = (selectedAbility.cooldown + "s");
-        
-        
-        //Abilities
-        // if (item.abilityType == AbilityType.Ability)
-        // {
-        //     
-        // }
-        //
-        // //Passives
-        // if (item.abilityType ==  AbilityType.Passive)
-        // {
-        //     nameText.text = ("" + item.passiveAbility);
-        //     descriptionText.text = ("" + item.description);
-        //     durationText.text = ("Passive");
-        //     cooldownText.gameObject.SetActive(false);
-        // }
+            nameText.text = selectedAbility.abilityName;
+            descriptionText.text = selectedAbility.abilityDescription;
+            durationText.text = (selectedAbility.duration + "s");
+            cooldownText.text = (selectedAbility.cooldown + "s");
+        }
+        else if (item.CompareTag("Passive"))
+        {
+            Passive passive = item.GetComponent<PassiveButton>().passive;
+
+            nameText.text = passive.passiveName;
+            descriptionText.text = passive.passiveDescription;
+            durationText.text = ("Passive");
+            cooldownText.gameObject.SetActive(false);
+        }
+        else
+        {
+            StopTooltip();
+        }
     }
 
     private void PositionTooltip(Transform selectedSlot)
@@ -146,19 +152,12 @@ public class TooltipUI : MonoBehaviour
     private IEnumerator ShowTooltip(GameObject tooltipTrigger)
     {
         yield return new WaitForSecondsRealtime(tooltipDelay);
-        
-        DraggableItem item = tooltipTrigger.GetComponentInChildren<DraggableItem>();
 
-        if (item == null)
-        {
-            yield break;
-        }
-        
         targetCanvas = tooltipTrigger.GetComponent<Canvas>();
 
         SetSelectedCanvasOrder();
         
-        Show(item, tooltipTrigger.transform);
+        Show(tooltipTrigger, tooltipTrigger.transform);
     }
 
     private void SetSelectedCanvasOrder()

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1272988196700550898}
   - component: {fileID: 1421391079292497460}
   - component: {fileID: 2723798774489984160}
+  - component: {fileID: 3976239350761164296}
   m_Layer: 9
   m_Name: Bitcoin
   m_TagString: Object
@@ -127,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: 260f7876d5ea8fd4f96471215d1b4883, type: 2}
   isBeingSeen: 0
-  replacementPrefab: {fileID: 0}
 --- !u!114 &2723798774489984160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +145,25 @@ MonoBehaviour:
   hiddenAlpha: 0
   staysVisibleOnceSeen: 1
   lingerTime: 0
+--- !u!64 &3976239350761164296
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408125531739160075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4536338694227619153, guid: 5a2c1b737063e5f4a9c17c1eed82e294, type: 3}

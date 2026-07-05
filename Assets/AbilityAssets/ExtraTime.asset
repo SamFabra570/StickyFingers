@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Passive
   passiveID: 4
   passiveName: Extra Time
-  passiveDescription: 
+  passiveDescription: Adds an extra 30 seconds to run timer!
   passiveColour: {fileID: 2100000, guid: 67ea2127fc249a64395ab2969d490bd2, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}

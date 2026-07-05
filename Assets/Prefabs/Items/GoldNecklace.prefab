@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 794172407457675465}
   - component: {fileID: 1326252951599300620}
   - component: {fileID: 3318344970948515216}
+  - component: {fileID: 7859039788708323514}
   m_Layer: 0
   m_Name: GoldNecklace
   m_TagString: Object
@@ -127,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: b9199cf4ca865df43b62c291866d1f97, type: 2}
   isBeingSeen: 0
-  replacementPrefab: {fileID: 0}
 --- !u!114 &3318344970948515216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +145,25 @@ MonoBehaviour:
   hiddenAlpha: 0
   staysVisibleOnceSeen: 0
   lingerTime: 0
+--- !u!64 &7859039788708323514
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035009501859959727}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4536338694227619153, guid: 5a2c1b737063e5f4a9c17c1eed82e294, type: 3}

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2715613814622310495}
   - component: {fileID: 2752583587806075057}
   - component: {fileID: 1067478336906683076}
+  - component: {fileID: -6038880844786298052}
   m_Layer: 0
   m_Name: MagicWand
   m_TagString: Object
@@ -127,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
   isBeingSeen: 0
-  replacementPrefab: {fileID: 0}
 --- !u!114 &1067478336906683076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +145,25 @@ MonoBehaviour:
   hiddenAlpha: 0
   staysVisibleOnceSeen: 0
   lingerTime: 0
+--- !u!64 &-6038880844786298052
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5989388894603941869}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4536338694227619153, guid: 5a2c1b737063e5f4a9c17c1eed82e294, type: 3}

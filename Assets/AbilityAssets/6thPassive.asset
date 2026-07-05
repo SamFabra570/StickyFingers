@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Passive
   passiveID: 0
   passiveName: 6thPassive
-  passiveDescription: 
+  passiveDescription: Nothing yet :(
   passiveColour: {fileID: 2100000, guid: 5becbfcdb7bf3b34bae474c2401c3378, type: 2}
   debtThreshold: 0
   unlockMission: {fileID: 0}
