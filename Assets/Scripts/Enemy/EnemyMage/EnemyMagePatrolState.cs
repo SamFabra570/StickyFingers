@@ -14,7 +14,7 @@ public class EnemyMagePatrolState : EnemyMageState
         enemy.fireEffect.SetActive(false);
 
         //If enemy doesn't have patrol target, find nearest waypoint
-        if (enemy.currentTarget == null)
+        if (!enemy.hasTarget)
         {
             enemy.FindNearestWaypoint();
         }
@@ -31,7 +31,7 @@ public class EnemyMagePatrolState : EnemyMageState
         }
         
         //Move to next waypoint when reached
-        else if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
+        else if (enemy.hasTarget && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
         {
             enemy.StartCoroutine(enemy.MoveToNextWaypoint());
         }

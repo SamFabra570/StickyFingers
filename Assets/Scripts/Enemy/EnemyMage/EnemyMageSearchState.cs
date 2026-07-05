@@ -40,10 +40,10 @@ public class EnemyMageSearchState : EnemyMageState
             enemy.agent_.SetDestination(forwardPoint);
         }
 
-        //Back to patrol when search time ends
+        //Back to patrol when search time ends — clear the target so Patrol re-picks the nearest point.
         if (Time.time > searchEndTime)
         {
-            enemy.currentTarget = null;
+            enemy.hasTarget = false;
             stateMachine.ChangeState(new EnemyMagePatrolState(enemy, stateMachine, animationController, "Patrol"));
         }
     }

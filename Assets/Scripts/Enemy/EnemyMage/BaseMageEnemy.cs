@@ -18,12 +18,19 @@ public class BaseMageEnemy : MonoBehaviour
     
     public GameObject fireEffect;
     
-    //Patrolling
-    public List<Transform> waypoints;
-    public Transform currentTarget;
+    //Patrolling — points are generated at runtime (base scene waypoints + detection clusters), so they are
+    //world positions, not Transforms. Seeded by MageSpawner.SpawnMage and grown by AddPatrolArea.
+    public List<Vector3> patrolPoints = new List<Vector3>();
+    [HideInInspector] public Vector3 currentTarget;
+    [HideInInspector] public bool hasTarget = false;
     private int index = 0;
     private bool isMovingToWaypoint = false;
     public float patrolWaitTime = 2.0f;
+
+    //Dynamic patrol: each scout detection scatters this many NavMesh-sampled points within this radius
+    //around where the player was spotted, so the mage concentrates its patrol on hot zones.
+    public float detectionClusterRadius = 6f;
+    public int detectionClusterCount = 4;
 
     //Searching for player
     private Vector3 searchDir;
@@ -38,7 +45,7 @@ public class BaseMageEnemy : MonoBehaviour
     public float stop_attack_distance_multiplier = 1.2f;
 
     //Detection memory: keep pursuing the last known position for this long after losing line of sight, so a single-frame occlusion (corner, lag, momentary cover) does not make the mage give up.
-    public float loseSightGracePeriod = 1.5f;
+    public float loseSightGracePeriod = 3.5f;
     [HideInInspector] public float lastSeenTime = -Mathf.Infinity;
     
     [SerializeField] public bool isBeingSeen;
@@ -60,13 +67,14 @@ public class BaseMageEnemy : MonoBehaviour
     {
         fireEffect.SetActive(false);
         
-        if (waypoints.Count > 0 && waypoints[0] != null)
+        if (patrolPoints.Count > 0)
         {
             //Set first target
-            currentTarget = waypoints[index];
-            
+            currentTarget = patrolPoints[index];
+            hasTarget = true;
+
             //Start moving towards first target
-            agent_.SetDestination(currentTarget.position);
+            agent_.SetDestination(currentTarget);
         }
         
         //Initialize state machine
@@ -119,58 +127,76 @@ public class BaseMageEnemy : MonoBehaviour
 
         isMovingToWaypoint = true;
 
-        if (waypoints == null || waypoints.Count == 0)
+        if (patrolPoints == null || patrolPoints.Count == 0)
         {
+            hasTarget = false;
             isMovingToWaypoint = false;
             yield break;
         }
-        
+
         //Pause movement at each waypoint
         agent_.isStopped = true;
         yield return new WaitForSeconds(patrolWaitTime);
 
         //Clamp waypoint index
-        index = Mathf.Clamp(index, 0, waypoints.Count - 1);
-        
+        index = Mathf.Clamp(index, 0, patrolPoints.Count - 1);
+
         index++;
 
         //Loop if reached the last waypoint
-        if (index >= waypoints.Count)
+        if (index >= patrolPoints.Count)
             index = 0;
-        
-        currentTarget = waypoints[index];
-        
+
+        currentTarget = patrolPoints[index];
+        hasTarget = true;
+
         //Move to next waypoint
         agent_.isStopped = false;
-        agent_.SetDestination(currentTarget.position);
-        
+        agent_.SetDestination(currentTarget);
+
         isMovingToWaypoint = false;
     }
     
     public void FindNearestWaypoint()
     {
-        Transform nearestWaypoint = null;
+        if (patrolPoints == null || patrolPoints.Count == 0)
+        {
+            hasTarget = false;
+            return;
+        }
+
+        int nearest = 0;
         float nearestDistance = float.MaxValue;
 
-        //Check distance of each waypoint, find nearest waypoint
-        for (int i = 0; i < waypoints.Count; i++)
+        //Check distance of each patrol point, find the nearest
+        for (int i = 0; i < patrolPoints.Count; i++)
         {
-            float distance = Vector3.Distance(transform.position, waypoints[i].position);
-            
+            float distance = Vector3.Distance(transform.position, patrolPoints[i]);
+
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
-                nearestWaypoint = waypoints[i];
+                nearest = i;
             }
         }
-        
-        //Go to nearest waypoint once it has been set
-        if (nearestWaypoint != null)
+
+        index = nearest;
+        currentTarget = patrolPoints[index];
+        hasTarget = true;
+        agent_.isStopped = false;
+        agent_.SetDestination(currentTarget);
+    }
+
+    //Scatters `count` NavMesh-sampled patrol points within `radius` of `center` and appends them, so each
+    //scout detection piles a fresh hot-zone onto the mage's patrol. Called by MageSpawner.SpawnMage.
+    public void AddPatrolArea(Vector3 center, float radius, int count)
+    {
+        for (int i = 0; i < count; i++)
         {
-            agent_.isStopped = false;
-            agent_.SetDestination(nearestWaypoint.position);
-            currentTarget = nearestWaypoint;
-            index = waypoints.IndexOf(nearestWaypoint);
+            Vector3 candidate = center + UnityEngine.Random.insideUnitSphere * radius;
+            candidate.y = center.y;
+            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, radius, NavMesh.AllAreas))
+                patrolPoints.Add(hit.position);
         }
     }
 }

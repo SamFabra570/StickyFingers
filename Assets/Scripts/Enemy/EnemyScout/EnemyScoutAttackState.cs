@@ -40,7 +40,9 @@ public class EnemyScoutAttackState : EnemyScoutState
                 {
                     //player.FreezeMovement(2);
                     Debug.Log("Intruso encontrado, ALERTAR AL MAGOOO !!!");
-                    MageSpawner.Instance.SpawnMage();
+                    //Pass WHERE the player was spotted so the mage patrols that hot-zone (additive per scout).
+                    Vector3 detectionPoint = enemy.sight_sensor_.detected_object_.transform.position;
+                    MageSpawner.Instance.SpawnMage(detectionPoint);
                     lastAttackTime = Time.time;
                     enemy.gameObject.SetActive(false);
                 }
