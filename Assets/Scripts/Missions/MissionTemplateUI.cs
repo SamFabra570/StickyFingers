@@ -69,7 +69,7 @@ public class MissionTemplateUI : MonoBehaviour
         {
             if (!MissionManager.Instance.IsComplete)
             {
-                progressText.text = (MissionManager.Instance.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
+                progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
                 activeMissionIndicator.SetActive(true);
             }
         }

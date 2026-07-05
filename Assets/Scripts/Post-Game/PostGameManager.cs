@@ -17,6 +17,12 @@ public class PostGameManager : MonoBehaviour
 
     [SerializeField] private Slider debtPaidFill;
 
+    [Header("Mission Info")] 
+    [SerializeField] private GameObject missionRequirements;
+    [SerializeField] private Image missionRewardIcon;
+    [SerializeField] private TextMeshProUGUI missionDescriptionText;
+    [SerializeField] private TextMeshProUGUI progressText;
+
     private void Start()
     {
         runEfficiencyText.gameObject.SetActive(false);
@@ -29,6 +35,7 @@ public class PostGameManager : MonoBehaviour
         
         UpdateDebtInfo();
         UpdateRunEfficiencyText(GameManager.Instance.successfulRun);
+        UpdateMissionInfo();
         
         PlayerController.Instance.inputMap.UI.Enable();
         PlayerController.Instance.inputMap.Player.Disable();
@@ -59,8 +66,34 @@ public class PostGameManager : MonoBehaviour
         
         runEfficiencyText.gameObject.SetActive(true);
     }
+
+    private void UpdateMissionInfo()
+    {
+        if (MissionManager.Instance.activeMission == null)
+        {
+            if (missionRequirements.activeSelf) 
+                missionRequirements.SetActive(false);
+            return;
+        }
+        
+        if (!missionRequirements.activeSelf) 
+            missionRequirements.SetActive(true);
+        
+        if (!MissionManager.Instance.IsComplete)
+        {
+            missionDescriptionText.text = MissionManager.Instance.activeMission.description;
+            
+        }
+        else if (MissionManager.Instance.IsComplete)
+        {
+            missionDescriptionText.text = "MISSION COMPLETE!";
+        }
+
+        missionRewardIcon.sprite = MissionManager.Instance.activeMission.rewardAbility.icon;
+        progressText.text = (MissionManager.Instance.activeMission.currentAmount + " / " + MissionManager.Instance.activeMission.requiredAmount);
+    }
     
-    public void UpdateDebtInfo()
+    private void UpdateDebtInfo()
     {
         debtPaidFill.value = GameManager.Instance.GetDebtPaidPercent();
         //debtPaidText.text = ("" + (GameManager.Instance.maxDebt - GameManager.Instance.remainingDebt));

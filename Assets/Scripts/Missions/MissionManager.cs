@@ -9,7 +9,7 @@ public class MissionManager : MonoBehaviour
     public MissionTemplateUI missionUI;
     
     public MissionData activeMission;
-    public int currentAmount;
+    //public int currentAmount;
     
     public bool IsComplete => activeMission.currentAmount >= activeMission.requiredAmount;
     
@@ -46,7 +46,7 @@ public class MissionManager : MonoBehaviour
         
         activeMission.currentAmount += amount;
         
-        Debug.Log("Progress: " + (float) currentAmount/activeMission.requiredAmount);
+        Debug.Log("Progress: " + (float) activeMission.currentAmount/activeMission.requiredAmount);
 
         if (IsComplete)
              CompleteMission();
