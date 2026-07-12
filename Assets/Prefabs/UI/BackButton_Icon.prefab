@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 628279306676063544}
   - component: {fileID: 6898044146426512695}
   - component: {fileID: 6341888589263839783}
+  - component: {fileID: 1488449403352771328}
   m_Layer: 5
   m_Name: BackButton_Icon
   m_TagString: Untagged
@@ -212,3 +213,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1488449403352771328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9187286593169562304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9bbe139d93f2d49b38d41ee5d3f034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputIconImage
+  keyboardSprite: {fileID: 21300000, guid: fd216ca684569d44fb695bfb5b5a3510, type: 3}
+  xboxSprite: {fileID: -1450906818, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
+  playstationSprite: {fileID: -813255441, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}

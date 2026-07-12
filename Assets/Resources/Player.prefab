@@ -2837,6 +2837,7 @@ GameObject:
   - component: {fileID: 997110860369900589}
   - component: {fileID: 6635944905762751766}
   - component: {fileID: 6683329411806514263}
+  - component: {fileID: -9046828113248616220}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3019,14 +3020,6 @@ MonoBehaviour:
   arrow: {fileID: 0}
   buttonMashObj: {fileID: 0}
   inventoryItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
-  HUDTutorial:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  HUDTutorialElements:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   stealingTutorial: []
   itemPickupUI: {fileID: 5413737246395384019}
   itemDropUI: {fileID: 3058614869919549186}
@@ -3356,6 +3349,36 @@ MonoBehaviour:
   revealLayerName: VisionReveal
   playerRevealRadius: 2
   circleSegments: 32
+--- !u!114 &-9046828113248616220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031276868296371547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7139021676105785100
 GameObject:
   m_ObjectHideFlags: 0

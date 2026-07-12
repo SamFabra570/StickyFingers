@@ -338,7 +338,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7818170219135605266, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 325047405}
   m_SourcePrefab: {fileID: 100100000, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
 --- !u!1 &28469940
 GameObject:
@@ -1806,6 +1809,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1488449403352771328, guid: 20f797058af0285499c39b90183e8ed2, type: 3}
+      propertyPath: keyboardSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cdacb1f6729aa244b8ffce4267228090, type: 3}
     - target: {fileID: 9187286593169562304, guid: 20f797058af0285499c39b90183e8ed2, type: 3}
       propertyPath: m_Name
       value: BackButton_Icon
@@ -2174,6 +2181,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2726319787159557766, guid: 757155abe42297a418d1fa18c28b707e, type: 3}
   m_PrefabInstance: {fileID: 321302121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &325047398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7818170219135605266, guid: 325f5fde9b726434a988257875c8be0f, type: 3}
+  m_PrefabInstance: {fileID: 17741110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &325047405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325047398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6efd0ef6150924e8ca0a0d7dea7b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputIconManager
 --- !u!64 &326075046
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2685,6 +2709,7 @@ GameObject:
   - component: {fileID: 434440545}
   - component: {fileID: 434440547}
   - component: {fileID: 434440546}
+  - component: {fileID: 434440548}
   m_Layer: 5
   m_Name: InteractButtonIcon
   m_TagString: Untagged
@@ -2749,6 +2774,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434440544}
   m_CullTransparentMesh: 1
+--- !u!114 &434440548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434440544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9bbe139d93f2d49b38d41ee5d3f034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputIconImage
+  keyboardSprite: {fileID: 21300000, guid: 59a46a14b2e2f294fb1a61c8836aefa2, type: 3}
+  xboxSprite: {fileID: -709837167, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
+  playstationSprite: {fileID: 656464104, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}
 --- !u!1001 &457600842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3615,6 +3655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bitcoin
       objectReference: {fileID: 0}
+    - target: {fileID: 4408125531739160075, guid: e1e79cf80913ba74bb74b079450edd83, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4763774442169732794, guid: e1e79cf80913ba74bb74b079450edd83, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -4073,7 +4117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &705723419
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6359,15 +6403,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090145434}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000029504295}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.17793238, z: -0, w: -0.9840427}
+  m_LocalPosition: {x: 5.53, y: -0.08, z: -7.9}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 501348719}
   - {fileID: 1505122801}
   m_Father: {fileID: 2028091074}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -20.499, z: 0}
 --- !u!1001 &1091292076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8561,7 +8605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1417651187
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12910,7 +12954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1902345349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17544,6 +17588,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1488449403352771328, guid: 20f797058af0285499c39b90183e8ed2, type: 3}
+      propertyPath: keyboardSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cdacb1f6729aa244b8ffce4267228090, type: 3}
     - target: {fileID: 9187286593169562304, guid: 20f797058af0285499c39b90183e8ed2, type: 3}
       propertyPath: m_Name
       value: BackButton_Icon
@@ -26029,14 +26077,6 @@ PrefabInstance:
     - target: {fileID: 6106892601648353285, guid: f4b390edd1423a444bf8049cd74dcef4, type: 3}
       propertyPath: m_Name
       value: TutorialCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6106892601648353285, guid: f4b390edd1423a444bf8049cd74dcef4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8623405642881149867, guid: f4b390edd1423a444bf8049cd74dcef4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -189,6 +189,8 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.PauseGame(1);
         
+        InputIconManager.Instance.RefreshIcons();
+        
         if (openInventoryText != null) 
             openInventoryText.SetActive(false);
 

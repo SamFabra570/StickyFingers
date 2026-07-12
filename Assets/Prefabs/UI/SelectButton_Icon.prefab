@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5903446804313608474}
   - component: {fileID: 330529996998488516}
   - component: {fileID: 5327397703408185370}
+  - component: {fileID: 1501467349577539633}
   m_Layer: 5
   m_Name: SelectButton_Icon
   m_TagString: Untagged
@@ -76,6 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1501467349577539633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928944789257304627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9bbe139d93f2d49b38d41ee5d3f034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputIconImage
+  keyboardSprite: {fileID: 21300000, guid: 3d3da9c7ffcdd484e9749ebc6658f5f6, type: 3}
+  xboxSprite: {fileID: -1150737885, guid: ab3b26c0a757a3d4ca2e56ca72c4b277, type: 3}
+  playstationSprite: {fileID: -590866653, guid: 01b6922beaee3a942aa88816a27f45b0, type: 3}
 --- !u!1 &9149812779066531508
 GameObject:
   m_ObjectHideFlags: 0

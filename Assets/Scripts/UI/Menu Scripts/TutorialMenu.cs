@@ -9,6 +9,8 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
     [SerializeField] private List<TutorialSegment> tutorialSegments = new();
     private List<Transform> elementsToFocus = new();
     private int index;
+
+    private bool isTutorialActive;
     
     [Header ("Tutorial UI")]
     [SerializeField] private GameObject tutorialUI;
@@ -66,7 +68,18 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
 
     private void CompleteTutorial()
     {
-        //if (GameManager.Instance.completedTutorials.Contains(tutorialSegments[index].id)) return;
+        // if (GameManager.Instance.completedTutorials.Contains(tutorialSegments[index].id))
+        // {
+        //     Debug.Log("No more tutorial segments");
+        //
+        //     tutorialSegments.Clear();
+        //     elementsToFocus.Clear();
+        //     index = 0;
+        //
+        //     UIManager.Instance.HideMenu();
+        //     
+        //     return;
+        // }
         
         GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
         
@@ -75,24 +88,48 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         
         index++;
 
-        if (index <= tutorialSegments.Count - 1)
+        if (index < tutorialSegments.Count)
         {
             Debug.Log("Next tutorial segment");
             ShowTutorialUI();
+            return;
         }
-        else
-        {
-            Debug.Log("No more tutorial segments");
-            tutorialSegments.Clear();
-            elementsToFocus.Clear();
-            index = 0;
-            
-            UIManager.Instance.HideMenu();
-        }
+
+        Debug.Log("No more tutorial segments");
+
+        tutorialSegments.Clear();
+        elementsToFocus.Clear();
+        index = 0;
+        
+        isTutorialActive = false;
+
+        UIManager.Instance.HideMenu();
+        
+        // index++;
+        //
+        // if (index <= tutorialSegments.Count - 1)
+        // {
+        //     Debug.Log("Next tutorial segment");
+        //     ShowTutorialUI();
+        // }
+        // else
+        // {
+        //     Debug.Log("No more tutorial segments");
+        //     tutorialSegments.Clear();
+        //     elementsToFocus.Clear();
+        //     index = 0;
+        //     
+        //     UIManager.Instance.HideMenu();
+        // }
     }
 
     public void CacheTutorialContent(List<TutorialSegment> segments, List<Transform> elements)
     {
+        if (isTutorialActive)
+            return;
+
+        isTutorialActive = true;
+        
         for (int i = 0; i < segments.Count; i++)
         {
             tutorialSegments.Add(segments[i]);
@@ -133,6 +170,8 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         tutorialSegments.Clear();
         elementsToFocus.Clear();
         index = 0;
+        
+        isTutorialActive = false;
             
         UIManager.Instance.HideMenu();
     }

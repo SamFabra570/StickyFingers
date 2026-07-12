@@ -67,7 +67,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraPivot;
     [SerializeField] private IsometricCamera cameraScript;
 
-    public PlayerInput inputMap;
+    public PlayerInput playerInput;
+    public GameInput inputMap;
     public bool isPaused;
     [HideInInspector] public bool isInvOpen = false;
     [HideInInspector] public bool isPauseOpen;
@@ -142,8 +143,9 @@ public class PlayerController : MonoBehaviour
         _playerCover = GetComponent<PlayerCover>();
 
         //cameraScript = FindFirstObjectByType<IsometricCamera>();
-        
-        inputMap = new PlayerInput();
+
+        playerInput = GetComponent<PlayerInput>();
+        inputMap = new GameInput();
         //inputMap = GetComponent<PlayerInput>();
 
         inputMap.Player.Movement.performed += Movement_performed =>
@@ -289,6 +291,8 @@ public class PlayerController : MonoBehaviour
         forceField.SetActive(false);
         wings.SetActive(false);
 
+        //InputIconManager.Instance.RegisterPlayerInput(playerInput);
+        
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
         
