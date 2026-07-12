@@ -5,11 +5,9 @@ using UnityEngine;
 public class TutorialMenu : MonoBehaviour, IUIMenu
 {
     public static TutorialMenu Instance;
-    
-    private HashSet<string> completedTutorials;
 
-    private List<TutorialSegment> tutorialSegments;
-    private List<Transform> elementsToFocus;
+    [SerializeField] private List<TutorialSegment> tutorialSegments = new();
+    private List<Transform> elementsToFocus = new();
     private int index;
     
     [Header ("Tutorial UI")]
@@ -17,7 +15,7 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI bodyText;
 
-    private GameObject currentFocusedElement;
+    private Transform currentFocusedElement;
     private Transform focusedElementOGParent;
 
     private void Awake()
@@ -29,12 +27,14 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         }
         
         Instance = this;
+        
+        tutorialUI.SetActive(false);
     }
     
     public void OnShowMenu()
     {
         tutorialUI.SetActive(true);
-        
+        ShowTutorialUI();
     }
     
     public void OnHideMenu()
@@ -47,30 +47,47 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
 
     public bool HasCompletedTutorial(TutorialSegment tutorial)
     {
-        return (completedTutorials.Contains(tutorial.id));
+        return GameManager.Instance.completedTutorials.Contains(tutorial.id);
     }
 
-    public void ShowTutorialUI(List<TutorialSegment> tutorial)
+    private void ShowTutorialUI()
     {
-        if (tutorial[index].title != "") 
-            titleText.text = tutorial[index].title;
+        if (tutorialSegments[index].title != "") 
+            titleText.text = tutorialSegments[index].title;
+        
         titleText.color = Color.darkRed;
-        bodyText.text = tutorial[index].body;
+        bodyText.text = tutorialSegments[index].body;
+        
+        if (tutorialSegments[index].needsFocusedElement) 
+            FocusTutorialSegment(elementsToFocus[index]);
+        
+        Debug.Log("Tutorial Segment Count: " + tutorialSegments.Count + "Index: " + index);
     }
 
-    private void CompleteTutorial(TutorialSegment tutorial)
+    private void CompleteTutorial()
     {
-        if (completedTutorials.Contains(tutorial.id)) return;
+        //if (GameManager.Instance.completedTutorials.Contains(tutorialSegments[index].id)) return;
         
-        completedTutorials.Add(tutorial.id);
+        GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
         
-        if (index < tutorialSegments.Count -1) 
-            index++;
+        if (tutorialSegments[index].needsFocusedElement) 
+            UnfocusTutorialSegment();
+        
+        index++;
+
+        if (index <= tutorialSegments.Count - 1)
+        {
+            Debug.Log("Next tutorial segment");
+            ShowTutorialUI();
+        }
         else
         {
-            tutorialSegments = null;
-            elementsToFocus = null;
+            Debug.Log("No more tutorial segments");
+            tutorialSegments.Clear();
+            elementsToFocus.Clear();
             index = 0;
+            
+            UIManager.Instance.HideMenu();
         }
     }
 
@@ -80,26 +97,43 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         {
             tutorialSegments.Add(segments[i]);
             
-            
             elementsToFocus.Add(elements[i]);
         }
     }
 
-    public void FocusTutorialSegment(GameObject segmentFocus)
+    private void FocusTutorialSegment(Transform segmentFocus)
     {
         currentFocusedElement = segmentFocus;
-        focusedElementOGParent = currentFocusedElement.transform.parent;
+        focusedElementOGParent = currentFocusedElement.parent;
         
-        segmentFocus.transform.SetParent(tutorialUI.transform);
+        currentFocusedElement.SetParent(tutorialUI.transform);
+        currentFocusedElement.SetAsFirstSibling();
     }
 
     private void UnfocusTutorialSegment()
     {
-        currentFocusedElement.transform.SetParent(focusedElementOGParent);
+        currentFocusedElement.SetParent(focusedElementOGParent);
+        currentFocusedElement.SetAsFirstSibling();
+        
+        currentFocusedElement = null;
+        focusedElementOGParent = null;
     }
 
     public void OnSubmit()
     {
-        CompleteTutorial(tutorialSegments[index]);
+        CompleteTutorial();
+    }
+
+    public void OnButtonNorth()
+    {
+        Debug.Log("Skipping tutorial");
+        
+        GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
+        
+        tutorialSegments.Clear();
+        elementsToFocus.Clear();
+        index = 0;
+            
+        UIManager.Instance.HideMenu();
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: VacuumMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Vacuum
   missionName: Unlock the Vacuum ability!
   description: Collect all the vacuum parts!
   targetItem: {fileID: 11400000, guid: 687b017543e41c44cac642046c9d4465, type: 2}

@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ef4ebe714ce5f848ba84d7e030e741b, type: 3}
-  m_Name: MissionMenu
+  m_Name: Time
   m_EditorClassIdentifier: Assembly-CSharp::TutorialSegment
-  id: 
+  id: Time
   title: 
-  body: 
+  body: Finally, this is the amount of time you have to steal all you can and get
+    out safely. When this timer reaches one minute remaining, I will create a portal
+    for you to use to escape. Make sure you find it before time runs out or you will
+    lose everything!
+  needsFocusedElement: 1

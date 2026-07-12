@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,9 +25,14 @@ public class UIManager : MonoBehaviour
     public HelpMenu helpMenu;
     public LoadoutMenu loadoutMenu;
     public ProgressionMenu progressionMenu;
+    public TutorialMenu tutorialMenu;
     
     public GameObject HUDCanvas;
     public Canvas HUBCanvas;
+    
+    [Header ("Tutorial")]
+    public List<TutorialSegment> HUDTutorial = new();
+    public List<Transform> HUDTutorialElements = new();
     
     [Header("Inventory UI Refs")]
     public Image weightFillInv;
@@ -135,6 +141,15 @@ public class UIManager : MonoBehaviour
             UpdateMashBar();
     }
 
+    public void StartTutorial()
+    {
+        if (!TutorialMenu.Instance.HasCompletedTutorial(HUDTutorial[0]))
+        {
+            TutorialMenu.Instance.CacheTutorialContent(HUDTutorial, HUDTutorialElements);
+            OpenMenu("TutorialMenu");
+        }
+    }
+
     public void UpdateInventoryUI()
     {
         switch (PlayerController.Instance.currentState)
@@ -194,6 +209,9 @@ public class UIManager : MonoBehaviour
             case ("ProgressionMenu"):
                 UIMenuStack.Push(progressionMenu);
                 break;
+            case ("TutorialMenu"):
+                UIMenuStack.PushOverlay(tutorialMenu);
+                break;
         }
     }
 
@@ -214,6 +232,16 @@ public class UIManager : MonoBehaviour
             case (LoadoutMenu):
                 break;
             case (ProgressionMenu):
+                break;
+            case (TutorialMenu):
+                UIMenuStack.PopOverlay();
+                
+                if (UIMenuStack.Current != null)
+                {
+                    UIMenuStack.Current.OnShowMenu();
+                    return;
+                }
+
                 break;
         }
         

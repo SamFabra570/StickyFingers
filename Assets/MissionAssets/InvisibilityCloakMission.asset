@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: InvisibilityCloakMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Cloak
   missionName: Unlock the Invisibility Cloak!
   description: Collect all the cloak patches!
   targetItem: {fileID: 11400000, guid: ae225aa888a4265468b6a354fb0cd9d3, type: 2}

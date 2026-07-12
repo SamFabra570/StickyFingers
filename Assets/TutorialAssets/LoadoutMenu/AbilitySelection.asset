@@ -15,4 +15,4 @@ MonoBehaviour:
   id: Abilities
   title: 
   body: These are your abilites. You may equip up to 3 before you begin your run.
-  needsFocusedElement: 0
+  needsFocusedElement: 1

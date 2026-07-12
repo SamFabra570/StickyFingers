@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: WingsMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Wings
   missionName: Unlock the Wings ability
   description: Collect 5 feathers to unlock the wings
   targetItem: {fileID: 11400000, guid: 8862531a9cdcfbe40a40e815ce70de47, type: 2}

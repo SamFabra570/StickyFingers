@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Mission", menuName = "Mission Data")]
 public class MissionData : ScriptableObject
 {
+    public string missionID;
     public string missionName;
     public string description;
     

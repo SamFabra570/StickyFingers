@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: ShieldMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Shield
   missionName: Unlock the Shield!
   description: Collect all the shield parts!
   targetItem: {fileID: 11400000, guid: e1eeb8fbc9d04bd43949c9025afe2dc6, type: 2}

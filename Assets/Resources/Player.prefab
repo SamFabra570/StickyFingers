@@ -3019,6 +3019,15 @@ MonoBehaviour:
   arrow: {fileID: 0}
   buttonMashObj: {fileID: 0}
   inventoryItem: {fileID: 11400000, guid: 3773be4825f94c74a9f103f90f3d39f7, type: 2}
+  HUDTutorial:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  HUDTutorialElements:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stealingTutorial: []
   itemPickupUI: {fileID: 5413737246395384019}
   itemDropUI: {fileID: 3058614869919549186}
 --- !u!114 &7927132834306372734

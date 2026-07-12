@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,8 +19,11 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     [SerializeField] private GameObject firstButton;
     [SerializeField] private GameObject readyButton;
     public Button backButton;
-
     [SerializeField] private GameObject selectionImage;
+
+    [Header("Tutorial")] 
+    public List<TutorialSegment> progressionMenuTutorial = new();
+    public List<Transform> progressionMenuTutorialElements = new();
 
     private GameObject lastSelected;
 
@@ -51,6 +55,19 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
     public void OnShowMenu()
     {
         progressionCanvas.enabled = true;
+
+        if (!TutorialMenu.Instance.HasCompletedTutorial(progressionMenuTutorial[0]))
+        {
+            selectionImage.SetActive(false);
+            
+            TutorialMenu.Instance.CacheTutorialContent(progressionMenuTutorial, progressionMenuTutorialElements);
+            
+            UIManager.Instance.OpenMenu("TutorialMenu");
+            return;
+        }
+        
+        if (!selectionImage.activeSelf) 
+            selectionImage.SetActive(true);
 
         if (firstButton.activeSelf)
             eventSystem.SetSelectedGameObject(firstButton);

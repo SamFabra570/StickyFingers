@@ -27,6 +27,12 @@ public class MissionManager : MonoBehaviour
 
     public void StartMission(MissionData mission)
     {
+        if (ProgressionManager.Instance.IsUnlocked(mission.rewardAbility))
+        {
+            Debug.Log(mission.missionName + " is already complete!");
+            return;
+        }
+        
         activeMission = mission;
         
         missionUI.activeMissionIndicator.SetActive(true);

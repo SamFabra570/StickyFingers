@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: LockpickMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Lockpick
   missionName: Lockpick? Idk
   description: Collect all the parts
   targetItem: {fileID: 11400000, guid: f7f71769ad0947d42bf8a492d8526e8e, type: 2}

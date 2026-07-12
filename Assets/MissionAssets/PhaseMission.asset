@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: PhaseMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Phase
   missionName: Unlock the Phase ability!
   description: Collect all the phase items!
   targetItem: {fileID: 11400000, guid: e1e5128f54f2a6743b2adafd376b3cd8, type: 2}

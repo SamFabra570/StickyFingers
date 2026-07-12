@@ -15,8 +15,8 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     public Canvas loadoutCanvas;
 
     [Header("Tutorial")] 
-    public List<TutorialSegment> segments;
-    public List<Transform> elementsToFocus;
+    public List<TutorialSegment> segments = new();
+    public List<Transform> elementsToFocus = new();
     
     [Header("Debt UI")]
     public Slider debtPaidFill;
@@ -94,11 +94,19 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         {
             TutorialMenu.Instance.CacheTutorialContent(segments, elementsToFocus);
             
-            TutorialMenu.Instance.OnShowMenu();
+            UIManager.Instance.OpenMenu("TutorialMenu");
             return;
         }
 
-        FinishOpeningMenu();
+        state = State.AbilitySlotSelect;
+        selectedSlot = slot1;
+
+        if (slot1.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+        {
+            SetSelection(selectedSlot);   
+        }
+        else 
+            MoveToNextSlot();
     }
 
     public void OnHideMenu()
@@ -112,24 +120,6 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         loadoutCanvas.enabled = false;
         
         UIManager.Instance.ToggleInteractText(true, "");
-    }
-
-    private void FinishOpeningMenu()
-    {
-        state = State.AbilitySlotSelect;
-        selectedSlot = slot1;
-
-        if (slot1.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
-        {
-            SetSelection(selectedSlot);   
-        }
-        else 
-            MoveToNextSlot();
-    }
-
-    public void OnTutorialFinished()
-    {
-        FinishOpeningMenu();
     }
 
     public void UpdateDebtInfo()
@@ -432,7 +422,7 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     {
         if (lastSelected == backButton)
         {
-            OnHideMenu();
+            UIManager.Instance.HideMenu();
             return;
         }
             

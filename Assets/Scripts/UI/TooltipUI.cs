@@ -72,6 +72,12 @@ public class TooltipUI : MonoBehaviour
     {
         if (item.CompareTag("Ability"))
         {
+            if (item.transform.childCount == 0)
+            {
+                StopTooltip();
+                return;
+            }
+            
             Ability selectedAbility = item.GetComponentInChildren<DraggableItem>().ability.ability;
 
             if (selectedAbility == null)

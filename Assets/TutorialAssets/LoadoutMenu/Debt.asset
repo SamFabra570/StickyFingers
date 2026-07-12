@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialSegment
   id: Debt
   title: 
-  body: This is your current progress toward repaying your debt. Most of the items
-    you steal will go towards repaying your debt. The more you pay, the more abilities
-    you will be able to unlock.
-  needsFocusedElement: 0
+  body: This displays your progress toward repaying your debt. Most items you steal
+    will go towards repaying your debt. The more you pay, the more abilities you
+    can unlock.
+  needsFocusedElement: 1

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,11 +17,16 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public Button valueSortButton;
     public Button weightSortButton;
+
+    [Header("Tutorial")] 
+    public List<TutorialSegment> inventoryTutorial = new();
+    public List<Transform> inventoryTutorialElements = new();
     
     [Header ("Inventory")]
     public InventorySystem inventory;
     private ItemSlot currentItem;
     public GameObject selectionImage;
+    public Transform inventoryDescriptionBackground;
 
     private void Awake()
     {
@@ -45,6 +51,18 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         UIManager.Instance.HUDCanvas.SetActive(false);
         inventoryScreenUI.SetActive(true);
 
+        if (!TutorialMenu.Instance.HasCompletedTutorial(inventoryTutorial[0]))
+        {
+            selectionImage.SetActive(false);
+            
+            TutorialMenu.Instance.CacheTutorialContent(inventoryTutorial, inventoryTutorialElements);
+            
+            UIManager.Instance.OpenMenu("TutorialMenu");
+            return;
+        }
+        
+        inventoryDescriptionBackground.SetAsFirstSibling();
+
         if (firstItem != null)
         {
             eventSystem.SetSelectedGameObject(firstItem);
@@ -58,6 +76,8 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
         if (!selectionImage.activeSelf)
             selectionImage.SetActive(true);
+        
+        selectionImage.transform.SetAsFirstSibling();
         
         currentItem = lastSelected.GetComponent<ItemSlot>();
         currentItem.ShowItemDetails();
@@ -76,7 +96,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         UIManager.Instance.HUDCanvas.SetActive(true);
         
         inventoryScreenUI.SetActive(false);
-        Debug.Log("Close inventory (InventoryMenu), isActive: " + inventoryScreenUI.activeSelf);
+        //Debug.Log("Close inventory (InventoryMenu), isActive: " + inventoryScreenUI.activeSelf);
 
         PlayerController.Instance.isInvOpen = false;
     }
@@ -101,6 +121,8 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
                         selectionImage.SetActive(true);
                 
                     selectionImage.transform.position = currentItem.transform.position;
+                    
+                    //Debug.Log("sSHOW BITACHASSS");
                     
                     currentItem.ShowItemDetails();
                 }

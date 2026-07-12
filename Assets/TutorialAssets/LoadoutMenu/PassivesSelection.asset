@@ -16,4 +16,4 @@ MonoBehaviour:
   title: 
   body: 'These are your passives. You may select 1 and it will stay active during
     your run. '
-  needsFocusedElement: 0
+  needsFocusedElement: 1

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4c8342d8fd35746863c9808c1e1182, type: 3}
   m_Name: MetalDetectorMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionID: Detector
   missionName: Unlock the Metal Detector!
   description: Collect all the metal detector parts!
   targetItem: {fileID: 11400000, guid: faf5da59115c02241b6bc6166a252530, type: 2}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -104,6 +105,9 @@ public class PlayerController : MonoBehaviour
     
     private CharacterController cc;
     private SoundPlayer soundPlayer;
+    
+    [Header("Tutorial")] 
+    public List<TutorialSegment> stealingTutorial = new();
 
     [Header("Extra References")] 
     public PopupUI itemPickupUI;
@@ -144,6 +148,9 @@ public class PlayerController : MonoBehaviour
 
         inputMap.Player.Movement.performed += Movement_performed =>
         {
+            if (SceneManager.GetActiveScene().name == "Game")
+                UIManager.Instance.StartTutorial();
+            
             inputData = Movement_performed.ReadValue<Vector2>();
         };
         
@@ -668,36 +675,11 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("Camera not found in scene!");
         }
+        
     }
 
     private void Interact(GameObject obj)
     {
-        // if (obj.TryGetComponent(out ExitPortal portalClass))
-        // {
-        //     if (portalClass.state == PortalState.Charged)
-        //     {
-        //         portalClass.PlayActivate();
-        //
-        //         if (SceneManager.GetActiveScene().name == "Game")
-        //         {
-        //             arrow.SetActive(false);
-        //             
-        //             Debug.Log("End Game FROM PORTAL");
-        //             GameManager.Instance.EndGame(true, "");
-        //         }
-        //
-        //         if (SceneManager.GetActiveScene().name == "HUB")
-        //         {
-        //             GameManager.Instance.StartGame();
-        //         }
-        //             
-        //     }
-        //     
-        //     this.interactable = null;
-        //
-        //     return;
-        // }
-        
         if (obj.TryGetComponent(out InteractableHandler type))
         {
             if (type == (type.interactableType == Interactables.PlanningDesk))
