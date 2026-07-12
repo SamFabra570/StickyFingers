@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,10 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
     
     [Header ("Loadout UI Refs")]
     public Canvas loadoutCanvas;
+
+    [Header("Tutorial")] 
+    public List<TutorialSegment> segments;
+    public List<Transform> elementsToFocus;
     
     [Header("Debt UI")]
     public Slider debtPaidFill;
@@ -81,20 +86,19 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         UpdateMissionButtonState(false);
         UpdateAvailableSlots();
         UpdateDebtInfo();
-
-
+        
         ProgressionMenu.Instance.backButton.interactable = false;
         loadoutCanvas.enabled = true;
 
-        state = State.AbilitySlotSelect;
-        selectedSlot = slot1;
-
-        if (slot1.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+        if (!TutorialMenu.Instance.HasCompletedTutorial(segments[0]))
         {
-            SetSelection(selectedSlot);   
+            TutorialMenu.Instance.CacheTutorialContent(segments, elementsToFocus);
+            
+            TutorialMenu.Instance.OnShowMenu();
+            return;
         }
-        else 
-            MoveToNextSlot();
+
+        FinishOpeningMenu();
     }
 
     public void OnHideMenu()
@@ -108,6 +112,24 @@ public class LoadoutMenu : MonoBehaviour, IUIMenu
         loadoutCanvas.enabled = false;
         
         UIManager.Instance.ToggleInteractText(true, "");
+    }
+
+    private void FinishOpeningMenu()
+    {
+        state = State.AbilitySlotSelect;
+        selectedSlot = slot1;
+
+        if (slot1.GetComponent<UIAbilitySlot>().slotState != UIAbilitySlot.SlotState.Locked)
+        {
+            SetSelection(selectedSlot);   
+        }
+        else 
+            MoveToNextSlot();
+    }
+
+    public void OnTutorialFinished()
+    {
+        FinishOpeningMenu();
     }
 
     public void UpdateDebtInfo()

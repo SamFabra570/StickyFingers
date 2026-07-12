@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     private PlayerController player;
-    
+
+    public InputActionReference submitAction;
     public InputActionReference cancelAction;
     public InputActionReference buttonNorthAction;
     
@@ -394,6 +395,9 @@ public class UIManager : MonoBehaviour
     
     private void OnEnable()
     {
+        submitAction.action.performed += OnSubmit;
+        submitAction.action.Enable();
+        
         cancelAction.action.performed += OnCancel;
         cancelAction.action.Enable();
         
@@ -403,6 +407,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
+        submitAction.action.performed -= OnSubmit;
+        submitAction.action.Disable();
+        
         cancelAction.action.performed -= OnCancel;
         cancelAction.action.Disable();
         
@@ -410,6 +417,11 @@ public class UIManager : MonoBehaviour
         buttonNorthAction.action.Disable();
     }
 
+    private void OnSubmit(InputAction.CallbackContext context)
+    {
+        UIMenuStack.Current?.OnSubmit();
+    }
+    
     private void OnCancel(InputAction.CallbackContext context)
     {
         UIMenuStack.Current?.OnCancel();

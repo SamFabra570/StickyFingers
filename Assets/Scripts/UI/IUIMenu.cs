@@ -6,7 +6,8 @@ public interface IUIMenu
     void OnHideMenu();
 
     void OnSubmit() { }
-    void OnCancel();
+
+    void OnCancel() { }
 
     void OnButtonNorth() { }
     void OnButtonEast() { }

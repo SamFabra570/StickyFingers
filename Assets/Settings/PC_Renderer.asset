@@ -216,7 +216,8 @@ MonoBehaviour:
   - {fileID: -1200841433071910710}
   - {fileID: -8570584249823716460}
   - {fileID: -2581295564620252128}
-  m_RendererFeatureMap: ad6b866f10d7b46c603e9613ded09b118ba70bcae585cc2c0b80d2f253a419b52f009e7b2b6fb3b5ca802d3614c155ef941bb39f082b0f8920bc843a5c652ddc
+  - {fileID: 5905320217392195613}
+  m_RendererFeatureMap: ad6b866f10d7b46c603e9613ded09b118ba70bcae585cc2c0b80d2f253a419b52f009e7b2b6fb3b5ca802d3614c155ef941bb39f082b0f8920bc843a5c652ddc1d28983273e9f351
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -329,6 +330,22 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &5905320217392195613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052a0051f28380a49905d797cf6fd45d, type: 3}
+  m_Name: MKToonPerObjectOutlines
+  m_EditorClassIdentifier: MK.Toon.URP::MK.Toon.URP.MKToonPerObjectOutlines
+  m_Active: 1
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0
