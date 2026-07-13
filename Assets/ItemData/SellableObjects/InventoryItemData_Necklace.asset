@@ -19,5 +19,5 @@ MonoBehaviour:
   itemDescription: SIUUUU gold necklace
   itemWeight: 3
   itemPrice: 400
-  icon: {fileID: 21300000, guid: c11cf1b8c56baba469da0cc7ac0f1d47, type: 3}
+  icon: {fileID: 0}
   prefab: {fileID: 4191467573436778927, guid: cbfb56b52d76d6a419c729f7d03184c2, type: 3}

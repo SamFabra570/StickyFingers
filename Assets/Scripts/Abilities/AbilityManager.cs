@@ -8,10 +8,6 @@ public class AbilityManager : MonoBehaviour
     
     public AbilitySlot[] abilities = new AbilitySlot[3];
 
-    public AbilitySlot activeSlot;
-
-    private AbilityState state;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,19 +24,20 @@ public class AbilityManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (var slot in abilities)
+        foreach (AbilitySlot slot in abilities)
         {
-            if (slot?.ability != null)
-            {
-                slot.UpdateCooldown(Time.deltaTime);
-                slot.UpdateDuration(Time.deltaTime);
-            }
+            if (slot == null) continue;
+
+            if (slot.ability == null) continue;
+            
+            slot.UpdateCooldown(Time.deltaTime);
+            slot.UpdateDuration(Time.deltaTime);
         }
     }
 
     public void ActivateAbility(int slotIndex)
     {
-        if (activeSlot.ability != null)
+        if (IsAbilityActive())
         {
             Debug.Log("Ability already active");
             return;
@@ -53,8 +50,6 @@ public class AbilityManager : MonoBehaviour
         }
         
         AbilitySlot slot = abilities[slotIndex];
-        
-        activeSlot.ability = slot.ability;
 
         if (slot.ability == null)
         {
@@ -63,41 +58,44 @@ public class AbilityManager : MonoBehaviour
         }
 
         //Check if ability is ready, if not, exit method
-        if (!slot.IsReady())
+        if (!slot.IsReady)
         {
             Debug.Log(slot.ability.name + " not ready!");
             return;
         }
         
-        slot.StartDuration();
         slot.ability.Activate(gameObject);
+        slot.BeginActive();
     }
 
     public void DeactivateAbility(AbilitySlot slot)
     {
         slot.ability.Deactivate(gameObject);
-             
-        slot.isActive = false;
-        slot.cooldownRemaining = slot.ability.cooldown;
-        slot.state = AbilityState.Cooldown;
-        
-        if (activeSlot.ability == slot.ability)
-            activeSlot.ability = null;
+
+        slot.BeginCooldown();
+    }
+    
+    public bool IsAbilityActive()
+    {
+        foreach (AbilitySlot slot in abilities)
+        {
+            if (slot != null && slot.IsActive)
+                return true;
+        }
+
+        return false;
     }
 
-    public void DeactivateAbilitiesGameOver()
+    public void InterruptAllAbilities()
     {
-        foreach (var slot in abilities)
+        foreach (AbilitySlot slot in abilities)
         {
-            if (slot?.ability != null)
-            {
-                slot.ability.Deactivate(gameObject);
-                slot.isActive = false;
-                slot.state = AbilityState.Ready;
-                
-                if (activeSlot.ability == slot.ability)
-                    activeSlot.ability = null;
-            }
+            if (slot == null || slot.ability == null)
+                continue;
+
+            slot.ability.Deactivate(gameObject);
+
+            slot.Disable();
         }
     }
 
@@ -110,7 +108,6 @@ public class AbilityManager : MonoBehaviour
         }
         
         abilities[slotIndex] = ability;
-        //Debug.Log("ability should be equipped - ability manager" + slotIndex + ability.ability.name);
     }
 
     public void DequipAbility(int slotIndex)
@@ -131,17 +128,11 @@ public class AbilityManager : MonoBehaviour
 
     public void ResetAbilityCooldowns()
     {
-        activeSlot.ability = null;
-        
         //Reset all equipped abilities
-        foreach (var slot in abilities)
+        foreach (AbilitySlot slot in abilities)
         {
             if (slot != null)
-            {
-                slot.cooldownRemaining = 0f;
-                slot.state = AbilityState.Ready;
-            }
-                
+                slot.SetReady();
         }
     }
 }

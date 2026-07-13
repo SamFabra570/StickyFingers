@@ -599,8 +599,9 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("MashEvent"))
         {
-            //interactable = null;
-            //buttonMashObj = null;
+
+            if (other.GetComponent<ButtonMash>().isMashing)
+                return;
         }
         
         UIManager.Instance.ToggleInteractText(false, "");

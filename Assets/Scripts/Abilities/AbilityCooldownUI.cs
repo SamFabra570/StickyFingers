@@ -19,20 +19,20 @@ public class AbilityCooldownUI : MonoBehaviour
 
         if (slot == null || slot.ability == null)
         {
-            //abilityIcon.gameObject.SetActive(false);
-            abilityIcon.sprite = abilityEmptyIcon;
-            abilityIcon.color = Color.gray3;
+            SetIcon(null);
             return;
         }
         
         SetIcon(slot);
         
-        bool anotherAbilityActive = manager.activeSlot != null 
-                                    && manager.activeSlot.ability != null 
-                                        && manager.activeSlot != slot;
+        if (slot.IsDisabled)
+        {
+            abilityIcon.color = Color.gray2;
+            return;
+        }
 
         //Ability cooldown
-        if (slot.state ==  AbilityState.Cooldown)
+        if (slot.IsOnCooldown)
         {
             durationFill.fillAmount = 0;
             
@@ -44,8 +44,7 @@ public class AbilityCooldownUI : MonoBehaviour
         }
         
         //Ability active - duration fill
-        if (IsThisActiveAbility(slot, manager) && 
-            (slot.state ==  AbilityState.Active ||  slot.state ==  AbilityState.Ending))
+        if (slot.IsActive)
         {
             cooldownFill.fillAmount = 0;
             
@@ -54,27 +53,28 @@ public class AbilityCooldownUI : MonoBehaviour
             return;
         }
         
-        if (anotherAbilityActive)
+        if (manager.IsAbilityActive() && !slot.IsActive)
         {
-            if (!IsThisActiveAbility(slot, manager)) 
-                durationFill.fillAmount = 1f;
+            durationFill.fillAmount = 1f;
             return;
         }
+
+        
         
         //Ability Ready
         cooldownFill.fillAmount = 0;
         durationFill.fillAmount = 0;
     }
 
-    private bool IsThisActiveAbility(AbilitySlot slot, AbilityManager manager)
-    {
-        bool isActiveAbility = slot.ability == manager.activeSlot.ability;
-        
-        return isActiveAbility;
-    }
-
     private void SetIcon(AbilitySlot slot)
     {
+        if (slot == null)
+        {
+            abilityIcon.sprite = abilityEmptyIcon;
+            abilityIcon.color = Color.gray3;
+            return;
+        }
+        
         abilityIcon.sprite = slot.ability.icon;
     }
     

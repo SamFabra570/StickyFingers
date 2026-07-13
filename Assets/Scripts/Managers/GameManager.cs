@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPassives.Has(PassiveAbilities.SecondChance))
             PlayerController.Instance.hasUsedSecondChance = false;
+        
+        AbilityManager.Instance.ResetAbilityCooldowns();
     }
 
     public void EndGame(bool hasExtracted, string endType)
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
         
         InventoryContainer inv = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>();
         
-        AbilityManager.Instance.DeactivateAbilitiesGameOver();
+        AbilityManager.Instance.InterruptAllAbilities();
 
         if (successfulRun)
         {

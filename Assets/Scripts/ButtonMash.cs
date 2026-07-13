@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ButtonMash : MonoBehaviour
 {
-    private bool isMashing;
+    public bool isMashing;
 
     [SerializeField] private int buttonPressNeeded = 20;
     [SerializeField] public float maxEventTime = 15;
@@ -28,13 +28,17 @@ public class ButtonMash : MonoBehaviour
             {
                 timeRemaining = maxEventTime;
                 ToggleMashingEvent(false);
-                UIManager.Instance.ToggleInteractText(false, "");
+                //UIManager.Instance.ToggleInteractText(false, "");
                 UIManager.Instance.mashBar.gameObject.SetActive(false);
                 UIManager.Instance.isMashing = false;
                 Destroy(gameObject);
-
+                
+                //Debug.Log("mashing ended");
+                
                 PlayerController.Instance.interactable = null;
                 PlayerController.Instance.buttonMashObj = null;
+                
+                UIManager.Instance.ToggleInteractText(false, "");
             }
         }
     }

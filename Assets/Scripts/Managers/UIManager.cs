@@ -266,6 +266,7 @@ public class UIManager : MonoBehaviour
         if (!showText)
         {
             interactText.gameObject.SetActive(false);
+            //Debug.Log("turn off text");
             return;
         }
 
@@ -419,8 +420,10 @@ public class UIManager : MonoBehaviour
     
     public void LoadScene()
     {
+        AbilityManager.Instance.InterruptAllAbilities();
         SceneManager.LoadScene("MainMenu");
         GameManager.Instance.PauseGame(0);
+        
     }
     
     private void OnEnable()

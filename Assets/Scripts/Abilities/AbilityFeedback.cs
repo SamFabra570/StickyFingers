@@ -66,6 +66,10 @@ public class AbilityFeedback : MonoBehaviour
             case AbilityState.Ready:
                 StopBlink();
                 break;
+            
+            case AbilityState.Disabled:
+                StopBlink();
+                break;
         }
     }
 
