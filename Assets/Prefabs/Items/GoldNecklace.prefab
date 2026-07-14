@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: b9199cf4ca865df43b62c291866d1f97, type: 2}
+  meshRenderer: {fileID: 4158092428716655607}
+  outlineMat: {fileID: 2100000, guid: 00c02906ed921c541ae4058a84edcc84, type: 2}
   isBeingSeen: 0
 --- !u!114 &3318344970948515216
 MonoBehaviour:

@@ -560,6 +560,8 @@ public class PlayerController : MonoBehaviour
         //Add object outline
         if (other.CompareTag("Object"))
         {
+            other.GetComponent<ItemController>().SetHighlighted(true);
+            
             interactType = 0;
             objectToSteal = other.GetComponent<ItemController>();
             
@@ -588,6 +590,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Object"))
         {
+            other.GetComponent<ItemController>().SetHighlighted(false);
+            
             UIManager.Instance.DisablePreview();
             objectToSteal = null;
             
