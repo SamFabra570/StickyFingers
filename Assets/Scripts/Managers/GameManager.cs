@@ -84,6 +84,9 @@ public class GameManager : MonoBehaviour
         
         AbilityManager.Instance.InterruptAllAbilities();
 
+        if (PlayerController.Instance.isFrozen)
+            PlayerController.Instance.isFrozen = false;
+
         if (successfulRun)
         {
             extractedBounty = inv.inventorySystem.totalBounty;
