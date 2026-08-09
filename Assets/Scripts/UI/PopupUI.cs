@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PopupUI : MonoBehaviour
 {
-    public static PopupUI Instance;
-    
     [Header ("Object Ref")]
     public GameObject objectPickupUI;
 
@@ -25,11 +23,6 @@ public class PopupUI : MonoBehaviour
     }
     
     public PopupType popupType;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     public void SetPopupContent(InventoryItemData itemData, PopupType state)
     {

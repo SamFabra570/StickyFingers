@@ -327,6 +327,9 @@ public class UIManager : MonoBehaviour
             case "MashEvent":
                 interactText.SetText("Mash");
                 break;
+            case "Mole":
+                interactText.SetText("Enter hole");
+                break;
         }
         
         interactText.gameObject.SetActive(true);
@@ -334,7 +337,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowItemPopupUI(InventoryItemData itemData, PopupUI.PopupType popupType)
     {
-        PopupUI.Instance.SetPopupContent(itemData, popupType);
+        PlayerController.Instance.itemPickupUI.SetPopupContent(itemData, popupType);
         StartCoroutine(ItemPickupNotif(itemData));
     }
 

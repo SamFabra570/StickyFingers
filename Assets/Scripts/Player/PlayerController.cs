@@ -564,6 +564,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (interactable != null)
+            return;
+        
         //Add object outline
         if (other.CompareTag("Object"))
         {
@@ -579,9 +582,17 @@ public class PlayerController : MonoBehaviour
         {
             interactType = 1;
             interactable = other.gameObject;
-            
-            UIManager.Instance.ToggleInteractText(true, other.tag);
-            //Debug.Log("Showing interact text");
+
+            if (other.GetComponent<MoleHole>() != null)
+            {
+                //Debug.Log("MOLE DETECTED MOLE DETECTED");
+                UIManager.Instance.ToggleInteractText(true, "Mole");
+            }
+            else
+            {
+                //Debug.Log("Interactable");
+                UIManager.Instance.ToggleInteractText(true, other.tag);
+            }
         }
         else if (other.CompareTag("MashEvent"))
         {
@@ -601,7 +612,8 @@ public class PlayerController : MonoBehaviour
             
             UIManager.Instance.DisablePreview();
             objectToSteal = null;
-            
+            interactable = null;
+
         }
         if (other.CompareTag("Interactable"))
         {
@@ -625,6 +637,8 @@ public class PlayerController : MonoBehaviour
         GetComponent<PlayerSoundController>()?.PlaySteal();
         UIManager.Instance.DisablePreview();
         Debug.Log("Add " + objectToSteal.name + " to inventory");
+
+        interactable = null;
     }
 
     private void Look()

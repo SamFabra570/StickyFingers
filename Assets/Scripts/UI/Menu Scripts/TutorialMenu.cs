@@ -68,19 +68,6 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
 
     private void CompleteTutorial()
     {
-        // if (GameManager.Instance.completedTutorials.Contains(tutorialSegments[index].id))
-        // {
-        //     Debug.Log("No more tutorial segments");
-        //
-        //     tutorialSegments.Clear();
-        //     elementsToFocus.Clear();
-        //     index = 0;
-        //
-        //     UIManager.Instance.HideMenu();
-        //     
-        //     return;
-        // }
-        
         GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
         
         if (tutorialSegments[index].needsFocusedElement) 
@@ -104,23 +91,6 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         isTutorialActive = false;
 
         UIManager.Instance.HideMenu();
-        
-        // index++;
-        //
-        // if (index <= tutorialSegments.Count - 1)
-        // {
-        //     Debug.Log("Next tutorial segment");
-        //     ShowTutorialUI();
-        // }
-        // else
-        // {
-        //     Debug.Log("No more tutorial segments");
-        //     tutorialSegments.Clear();
-        //     elementsToFocus.Clear();
-        //     index = 0;
-        //     
-        //     UIManager.Instance.HideMenu();
-        // }
     }
 
     public void CacheTutorialContent(List<TutorialSegment> segments, List<Transform> elements)

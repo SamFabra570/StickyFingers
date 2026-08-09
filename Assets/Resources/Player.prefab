@@ -3508,8 +3508,8 @@ Transform:
   m_GameObject: {fileID: 7193629614026690966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.44, z: 0}
-  m_LocalScale: {x: 1.3, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6159478961986830444}
@@ -3585,7 +3585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisualController
   player: {fileID: 987195410549008897}
-  cameraPivot: {fileID: 0}
+  cam: {fileID: 0}
   spriteRenderer: {fileID: 6947636143858234705}
   frontSprite: {fileID: 21300000, guid: d36a5933d92ace24e83488d78b991f66, type: 3}
   backSprite: {fileID: 21300000, guid: eac919ee48cd3ea46a0ceeb117f35650, type: 3}
@@ -3691,7 +3691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.45}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3495519477018575817
