@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,6 +27,8 @@ public class MainMenuManager : MonoBehaviour
             settingsMenu.SetActive(false);
         
         eventSystem.SetSelectedGameObject(menuStartButton);
+        
+        GraphicsSettings.Instance.SetFPS(1);
     }
 
     public void LoadScene()
@@ -35,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void Settings()
     {
-        mainMenu.enabled = false;
+        mainMenu.gameObject.SetActive(false);
         settingsMenu.SetActive(true);
         
         eventSystem.SetSelectedGameObject(settingsBackButton);
@@ -43,16 +46,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        mainMenu.enabled = true;
+        mainMenu.gameObject.SetActive(false);
         settingsMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(menuStartButton);
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-        //EditorApplication.isPlaying = false;
-    }
+    
 
     private void OnEnable()
     {

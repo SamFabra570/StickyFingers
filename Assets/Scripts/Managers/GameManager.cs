@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public float extractedBounty;
     public float timeRemaining;
 
+    public bool isPaused;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -54,6 +56,8 @@ public class GameManager : MonoBehaviour
                 PlayerController.Instance.isPaused = true;
                 break;
         }
+        
+        isPaused = PlayerController.Instance.isPaused;
     }
 
     public void StartGame()

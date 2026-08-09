@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeed = 7f;
     [SerializeField] private float frozenFloorSpeed = 12f;
     public float abilityMoveSpeed;
+    
+    public Vector3 MovementDirection { get; private set; }
 
     private Vector3 horizontalVelocity;
     
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
     
     //Camera
     [Header ("Camera Refs")]
-    [SerializeField] private Transform cameraPivot;
+    public Transform cameraPivot;
     [SerializeField] private IsometricCamera cameraScript;
 
     public PlayerInput playerInput;
@@ -298,6 +300,9 @@ public class PlayerController : MonoBehaviour
         
         interactable = null;
         objectToSteal = null;
+        
+        //inputMap.UI.Disable();
+        //inputMap.Player.Enable();
     }
 
     // Update is called once per frame
@@ -434,6 +439,8 @@ public class PlayerController : MonoBehaviour
         float inputMagnitude = Mathf.Clamp01(correctedDir.magnitude);
         if (inputMagnitude > 0f)
             correctedDir = correctedDir.normalized * inputMagnitude;
+        
+        MovementDirection = correctedDir;
     
         //Acceleration system
         Vector3 targetVelocity = correctedDir * currentSpeed;

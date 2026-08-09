@@ -586,24 +586,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Left Click"",
-                    ""type"": ""Button"",
-                    ""id"": ""e2b3b513-b965-4524-9347-a4bb0c331ad8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Right Click"",
-                    ""type"": ""Button"",
-                    ""id"": ""12d469c6-e560-4bf2-93ef-379a055848ff"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""ButtonNorth"",
                     ""type"": ""Button"",
                     ""id"": ""dc573087-3661-4f15-bdf0-78384bc0ee28"",
@@ -627,7 +609,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""name"": ""Keyboard"",
                     ""id"": ""952c14a4-ba1d-4073-a634-312794c192bc"",
                     ""path"": ""2DVector"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Navigate"",
@@ -682,7 +664,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""name"": ""Joystick"",
                     ""id"": ""04e2e8d9-762f-445f-be17-d75f26a9540d"",
                     ""path"": ""2DVector"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Navigate"",
@@ -812,17 +794,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""68322cc8-6ac2-446d-b752-92c8ae4cbf28"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""6a9abecb-d893-489d-9195-9dd5e356c3db"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -889,17 +860,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8bb947d3-0736-4cde-a586-4b879b64b958"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Left Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""727a112f-762d-493d-abc5-5d1419b11b46"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -939,17 +899,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Start"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d27f3096-de3b-4cdc-ad73-4f174cac692d"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Right Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1001,8 +950,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        m_UI_LeftClick = m_UI.FindAction("Left Click", throwIfNotFound: true);
-        m_UI_RightClick = m_UI.FindAction("Right Click", throwIfNotFound: true);
         m_UI_ButtonNorth = m_UI.FindAction("ButtonNorth", throwIfNotFound: true);
         m_UI_Start = m_UI.FindAction("Start", throwIfNotFound: true);
     }
@@ -1307,8 +1254,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_LeftClick;
-    private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_ButtonNorth;
     private readonly InputAction m_UI_Start;
     /// <summary>
@@ -1338,14 +1283,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/LeftClick".
-        /// </summary>
-        public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
-        /// <summary>
-        /// Provides access to the underlying input action "UI/RightClick".
-        /// </summary>
-        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         /// <summary>
         /// Provides access to the underlying input action "UI/ButtonNorth".
         /// </summary>
@@ -1392,12 +1329,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
-            @LeftClick.started += instance.OnLeftClick;
-            @LeftClick.performed += instance.OnLeftClick;
-            @LeftClick.canceled += instance.OnLeftClick;
-            @RightClick.started += instance.OnRightClick;
-            @RightClick.performed += instance.OnRightClick;
-            @RightClick.canceled += instance.OnRightClick;
             @ButtonNorth.started += instance.OnButtonNorth;
             @ButtonNorth.performed += instance.OnButtonNorth;
             @ButtonNorth.canceled += instance.OnButtonNorth;
@@ -1427,12 +1358,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
-            @LeftClick.started -= instance.OnLeftClick;
-            @LeftClick.performed -= instance.OnLeftClick;
-            @LeftClick.canceled -= instance.OnLeftClick;
-            @RightClick.started -= instance.OnRightClick;
-            @RightClick.performed -= instance.OnRightClick;
-            @RightClick.canceled -= instance.OnRightClick;
             @ButtonNorth.started -= instance.OnButtonNorth;
             @ButtonNorth.performed -= instance.OnButtonNorth;
             @ButtonNorth.canceled -= instance.OnButtonNorth;
@@ -1625,20 +1550,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Left Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLeftClick(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Right Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRightClick(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ButtonNorth" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

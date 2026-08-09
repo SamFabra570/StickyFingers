@@ -500,24 +500,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Left Click",
-                    "type": "Button",
-                    "id": "e2b3b513-b965-4524-9347-a4bb0c331ad8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Right Click",
-                    "type": "Button",
-                    "id": "12d469c6-e560-4bf2-93ef-379a055848ff",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ButtonNorth",
                     "type": "Button",
                     "id": "dc573087-3661-4f15-bdf0-78384bc0ee28",
@@ -541,7 +523,7 @@
                     "name": "Keyboard",
                     "id": "952c14a4-ba1d-4073-a634-312794c192bc",
                     "path": "2DVector",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Navigate",
@@ -596,7 +578,7 @@
                     "name": "Joystick",
                     "id": "04e2e8d9-762f-445f-be17-d75f26a9540d",
                     "path": "2DVector",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Navigate",
@@ -726,17 +708,6 @@
                 },
                 {
                     "name": "",
-                    "id": "68322cc8-6ac2-446d-b752-92c8ae4cbf28",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6a9abecb-d893-489d-9195-9dd5e356c3db",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -803,17 +774,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8bb947d3-0736-4cde-a586-4b879b64b958",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Left Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "727a112f-762d-493d-abc5-5d1419b11b46",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -853,17 +813,6 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d27f3096-de3b-4cdc-ad73-4f174cac692d",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Right Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class HelpMenu : MonoBehaviour, IUIMenu
 {
-    //[SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject helpMenuScreen;
     
     public void OnShowMenu()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class UIMenuStack
 {
@@ -26,9 +27,15 @@ public static class UIMenuStack
         UIManager.Instance.ToggleInteractText(false, "");
         
         //PlayerController.Instance.playerInput.SwitchCurrentActionMap("UI");
+
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.inputMap.Player.Disable();
+            PlayerController.Instance.inputMap.UI.Enable();
+        }
         
-        PlayerController.Instance.inputMap.Player.Disable();
-        PlayerController.Instance.inputMap.UI.Enable();
+        //Debug.Log($"Push: {menu.GetType().Name}");
+        //Debug.Log($"Stack Count: {menuStack.Count}");
     }
     
     public static void PushOverlay(IUIMenu menu)
@@ -39,9 +46,12 @@ public static class UIMenuStack
         UIManager.Instance.ToggleInteractText(false, "");
         
         //PlayerController.Instance.playerInput.SwitchCurrentActionMap("UI");
-        
-        PlayerController.Instance.inputMap.Player.Disable();
-        PlayerController.Instance.inputMap.UI.Enable();
+
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.inputMap.Player.Disable();
+            PlayerController.Instance.inputMap.UI.Enable();
+        }
     }
 
     public static void Pop()
@@ -56,6 +66,9 @@ public static class UIMenuStack
         {
             Current.OnShowMenu();
         }
+        
+        //Debug.Log($"Pop: {top.GetType().Name}");
+        //Debug.Log($"Stack Count: {menuStack.Count}");
     }
     
     public static void PopOverlay()
@@ -73,10 +86,13 @@ public static class UIMenuStack
             menuStack.Pop().OnHideMenu();
         
         //PlayerController.Instance.playerInput.SwitchCurrentActionMap("Player");
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.inputMap.UI.Disable();
+            PlayerController.Instance.inputMap.Player.Enable();
+        }
         
-        PlayerController.Instance.inputMap.UI.Disable();
-        PlayerController.Instance.inputMap.Player.Enable();
-        
+        //Debug.Log("Clearing menu stack");
         //UIManager.Instance.ToggleInteractText(false, "");
     }
 }

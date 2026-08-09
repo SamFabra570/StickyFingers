@@ -10,6 +10,9 @@ public abstract class Ability : ScriptableObject
     public Sprite icon;
     public Material abilityColour;
     
+    [Header("Player Visuals")]
+    public PlayerVisualSet playerVisuals;
+    
     [Header("Progression")] 
     [Range(0f, 1f)]
     public float debtThreshold;

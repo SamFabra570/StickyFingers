@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6641461818834371875}
   - component: {fileID: 2722535253797314063}
   - component: {fileID: 2422538918856689847}
+  - component: {fileID: 4669812913809545182}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -83,11 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c531132699e6f4b8baa90e1f2a39af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PassiveAbilityController
-  equippedPassive:
-    passiveAbility: 0
-    icon: {fileID: 0}
-    frameColor: {r: 0, g: 0, b: 0, a: 0}
-    description: 
+  equippedPassive: {fileID: 0}
+  equippedPassiveState: 0
 --- !u!114 &2722535253797314063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +101,7 @@ MonoBehaviour:
   unlockedAbilities: []
   missionCompleteAbilities: []
   unlockingAbility: 0
+  isDirty: 1
 --- !u!114 &2422538918856689847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,4 +116,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionManager
   missionUI: {fileID: 0}
   activeMission: {fileID: 0}
-  currentAmount: 0
+--- !u!114 &4669812913809545182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818170219135605266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6efd0ef6150924e8ca0a0d7dea7b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputIconManager

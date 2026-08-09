@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     private PlayerController player;
 
+    public InputActionReference navigateAction;
     public InputActionReference submitAction;
     public InputActionReference cancelAction;
     public InputActionReference buttonNorthAction;
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour
     public LoadoutMenu loadoutMenu;
     public ProgressionMenu progressionMenu;
     public TutorialMenu tutorialMenu;
+    public MainMenu mainMenu;
+    public SettingsMenu settingsMenu;
     
     public GameObject HUDCanvas;
     public Canvas HUBCanvas;
@@ -99,6 +102,16 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            OpenMenu("MainMenu");
+            
+            if (!GraphicsSettings.Instance.hasAppliedCustomSettings) 
+                GraphicsSettings.Instance.SetFPS(1); //Set FPS to 60
+
+            return;
+        }
+        
         if (SceneManager.GetActiveScene().name == "Game")
         {
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
@@ -126,7 +139,7 @@ public class UIManager : MonoBehaviour
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
         interactText.gameObject.SetActive(false);
         
-        UIMenuStack.Clear();
+        //UIMenuStack.Clear();
     }
 
     private void Update()
@@ -187,12 +200,17 @@ public class UIManager : MonoBehaviour
 
     public void OpenMenu(string menu)
     {
-        GameManager.Instance.PauseGame(1);
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            GameManager.Instance.PauseGame(1);
+            
+            if (openInventoryText != null) 
+                openInventoryText.SetActive(false);
+        }
+        
+        
         
         InputIconManager.Instance.RefreshIcons();
-        
-        if (openInventoryText != null) 
-            openInventoryText.SetActive(false);
 
         switch (menu)
         {
@@ -213,6 +231,12 @@ public class UIManager : MonoBehaviour
                 break;
             case ("TutorialMenu"):
                 UIMenuStack.PushOverlay(tutorialMenu);
+                break;
+            case ("MainMenu"):
+                UIMenuStack.Push(mainMenu);
+                break;
+            case ("SettingsMenu"):
+                UIMenuStack.Push(settingsMenu);
                 break;
         }
     }
@@ -245,11 +269,18 @@ public class UIManager : MonoBehaviour
                 }
 
                 break;
+            case (MainMenu):
+                break;
+            case (SettingsMenu):
+                UIMenuStack.Pop();
+                return;
         }
         
         UIMenuStack.Clear();
         
-        GameManager.Instance.PauseGame(0);
+        if (SceneManager.GetActiveScene().name != "MainMenu") 
+            GameManager.Instance.PauseGame(0);
+            
     }
     
     public void SetTriggeredObject(GameObject objectTriggered)
@@ -263,6 +294,9 @@ public class UIManager : MonoBehaviour
 
     public void ToggleInteractText(bool showText, string interactType)
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            return;
+        
         if (!showText)
         {
             interactText.gameObject.SetActive(false);
@@ -428,6 +462,9 @@ public class UIManager : MonoBehaviour
     
     private void OnEnable()
     {
+        navigateAction.action.performed += OnNavigate;
+        navigateAction.action.Enable();
+        
         submitAction.action.performed += OnSubmit;
         submitAction.action.Enable();
         
@@ -440,6 +477,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
+        navigateAction.action.performed -= OnNavigate;
+        navigateAction.action.Disable();
+        
         submitAction.action.performed -= OnSubmit;
         submitAction.action.Disable();
         
@@ -448,6 +488,13 @@ public class UIManager : MonoBehaviour
         
         buttonNorthAction.action.performed -= OnButtonNorth;
         buttonNorthAction.action.Disable();
+    }
+
+    private void OnNavigate(InputAction.CallbackContext context)
+    {
+        Vector2 input = context.ReadValue<Vector2>();
+
+        UIMenuStack.Current?.OnNavigate(input);
     }
 
     private void OnSubmit(InputAction.CallbackContext context)
