@@ -41,7 +41,7 @@ public class BaseEnemy : MonoBehaviour
     public float stop_attack_distance_multiplier = 1.2f;
 
     //After a successful hit, the guard must wait this long before attacking again, and Pursuit will back off during the window so the (freshly unfrozen) player has a chance to escape.
-    public float attackCooldown = 3f;
+    public float attackCooldown = 5f;
     public float postAttackBackoffDistance = 3f;
     public float attackAnimHold = 0.6f;
     [HideInInspector] public float lastAttackTime = -Mathf.Infinity;

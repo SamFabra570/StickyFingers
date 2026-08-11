@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 938271499932049636}
   - component: {fileID: 2005153450018004263}
   - component: {fileID: 4763774442169732794}
-  - component: {fileID: 1272988196700550898}
   - component: {fileID: 1421391079292497460}
   - component: {fileID: 2723798774489984160}
   - component: {fileID: 3976239350761164296}
@@ -93,27 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1272988196700550898
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408125531739160075}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.03
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1421391079292497460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +107,6 @@ MonoBehaviour:
   referenceItem: {fileID: 11400000, guid: 260f7876d5ea8fd4f96471215d1b4883, type: 2}
   meshRenderer: {fileID: 4763774442169732794}
   outlineMat: {fileID: 2100000, guid: 4fcab14e816725742b083b418f0c5c39, type: 2}
-  isBeingSeen: 0
 --- !u!114 &2723798774489984160
 MonoBehaviour:
   m_ObjectHideFlags: 0

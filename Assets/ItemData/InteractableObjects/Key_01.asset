@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
   id: 100
   itemType: 0
-  itemName: Llave
+  itemName: Key
+  missionItem: 0
+  isDroppable: 1
   itemDescription: 
   itemWeight: 0.1
   itemPrice: 0

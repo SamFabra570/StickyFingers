@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Feather
   missionItem: 1
+  isDroppable: 0
   itemDescription: These feathers seem to have an enchantment of some kind...
   itemWeight: 1
   itemPrice: 0

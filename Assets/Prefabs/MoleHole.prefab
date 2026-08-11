@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2295018844264178798}
   - component: {fileID: 8770086275719481649}
   - component: {fileID: 3033208610293472464}
-  - component: {fileID: 6644006564909783889}
   - component: {fileID: 5281445142984965053}
+  - component: {fileID: 367701839117348159}
   m_Layer: 0
   m_Name: MoleHole
   m_TagString: Interactable
@@ -91,27 +91,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6644006564909783889
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279270181375119654}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
 --- !u!114 &5281445142984965053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +106,24 @@ MonoBehaviour:
   holeLifetime: 15
   mapRange: 50
   moleHolePrefab: {fileID: 7279270181375119654}
+--- !u!65 &367701839117348159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279270181375119654}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 14, y: 2.41, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

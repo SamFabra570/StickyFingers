@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Metal Detector Part
   missionItem: 1
+  isDroppable: 0
   itemDescription: This could be useful, need all the pieces though...
   itemWeight: 2
   itemPrice: 0

@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Final Ability Part
   missionItem: 1
+  isDroppable: 0
   itemDescription: Part for final ability... ooooh what could it beeee
   itemWeight: 6
   itemPrice: 0

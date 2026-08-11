@@ -10,7 +10,7 @@ public class ItemController : MonoBehaviour
     private Material baseMat;
     [SerializeField] Material outlineMat;
 
-    [SerializeField] public bool isBeingSeen;
+    //[SerializeField] public bool isBeingSeen;
     
     private void Start()
     {

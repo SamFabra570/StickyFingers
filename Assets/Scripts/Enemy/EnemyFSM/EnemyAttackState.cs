@@ -45,11 +45,8 @@ public class EnemyAttackState : EnemyState
 
         InventorySystem inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
         InventoryItemData stolen = PickRandomItem(inventory);
-        if (stolen != null)
-        {
-            inventory.Remove(stolen, PopupUI.PopupType.Stolen);
-            //UIManager.Instance.ShowItemStolen(stolen);
-        }
+        
+        inventory.Remove(stolen, PopupUI.PopupType.Stolen);
 
         enemy.lastAttackTime = Time.time;
     }

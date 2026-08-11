@@ -50,6 +50,14 @@ public class ButtonMash : MonoBehaviour
             if (!isMashing)
             {
                 Debug.Log("GOTCHA!! U BETTER START MASHING MF");
+                PlayerController.Instance.interactType = 2;
+                PlayerController.Instance.interactable = gameObject;
+
+                PlayerController.Instance.buttonMashObj = GetComponent<ButtonMash>();
+                
+                UIManager.Instance.ToggleInteractText(true, other.tag);
+            
+                Debug.Log("Register mash interactable");
                 
                 //Set number of mashes needed for min time
                 buttonMashInterval = maxEventTime / buttonPressNeeded;

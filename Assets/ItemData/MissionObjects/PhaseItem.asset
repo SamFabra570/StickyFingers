@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Phase Item
   missionItem: 1
+  isDroppable: 0
   itemDescription: Literally don't know what this would even be lol
   itemWeight: 4
   itemPrice: 0

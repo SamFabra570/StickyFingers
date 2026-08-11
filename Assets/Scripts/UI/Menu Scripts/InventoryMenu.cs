@@ -23,7 +23,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
     public List<Transform> inventoryTutorialElements = new();
     
     [Header ("Inventory")]
-    public InventorySystem inventory;
+    [HideInInspector] public InventorySystem inventory;
     private ItemSlot currentItem;
     public GameObject selectionImage;
     public Transform inventoryDescriptionBackground;
@@ -89,7 +89,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         lastSelected = null;
         currentItem = null;
         
-        inventory.DeselectAllSlots();
+        inventory.DeselectSlot();
         inventory.itemDescriptionNameText.SetText("");
         inventory.itemDescriptionText.SetText("");
         

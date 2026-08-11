@@ -22,6 +22,7 @@ public class InventorySystem
     public TMP_Text itemWeightText;
     public TMP_Text itemValueText;
     public GameObject missionItemIcon;
+    public GameObject dropItemText;
     
     private int nextPickupOrder = 0;
 
@@ -71,7 +72,6 @@ public class InventorySystem
     
     public void Remove(InventoryItemData referenceData, PopupUI.PopupType popupType)
     {
-
         if (referenceData != null)
         {
             if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
@@ -92,23 +92,28 @@ public class InventorySystem
                     freeSlot--;
                     
                     content.gameObject.SetActive(false);
-                    DeselectAllSlots();
+                    DeselectSlot();
                 }
                 RefreshInventory();
             }
             UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Stolen);
             UIManager.Instance.UpdateTotals();
         }
+        
+        UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Stolen);
     }
 
-    public void DeselectAllSlots()
+    public void DeselectSlot()
     {
-        for (int i = 0; i < itemSlots.Length; i++)
-        {
+        if (PlayerController.Instance.isInvOpen) 
             InventoryMenu.Instance.selectionImage.SetActive(false);
-            //Debug.Log("Selection image off (from inventory system)");
-            //itemSlots[i].selectedShader.SetActive(false);
-        }
+        
+        // for (int i = 0; i < itemSlots.Length; i++)
+        // {
+        //     
+        //     //Debug.Log("Selection image off (from inventory system)");
+        //     //itemSlots[i].selectedShader.SetActive(false);
+        // }
     }
 
     public void SortInventory(SortMode mode)

@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Vacuum Part
   missionItem: 1
+  isDroppable: 0
   itemDescription: Pieces of a vacuum... what am I gonna do, suck up the guards?
     lol... unless...
   itemWeight: 2

@@ -93,17 +93,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 if (!inventory.missionItemIcon.activeSelf)
                     inventory.missionItemIcon.SetActive(true);
             }
-
             else
             {
                 if (inventory.missionItemIcon.activeSelf)
                     inventory.missionItemIcon.SetActive(false);
             }
+            
+            if (!item.data.isDroppable)
+                inventory.dropItemText.SetActive(false);
+            
             //inventory.itemDescriptionImage.sprite = item.data.icon;
         }
         else
         {
             inventory.content.SetActive(false);
+            
+            inventory.dropItemText.SetActive(false);
             
             inventory.itemDescriptionNameText.SetText("");
             inventory.itemDescriptionText.SetText("");
@@ -117,8 +122,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     
     public void DropItem()
     {
-        InventorySystem inventory =
-            GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
+        InventorySystem inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
 
         bool hadItem = item.data != null;
         inventory.Remove(item.data, PopupUI.PopupType.Dropped);
@@ -126,8 +130,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         // Drop SFX — only when an actual item left the slot
         if (hadItem && PlayerController.Instance != null)
             PlayerController.Instance.GetComponent<PlayerSoundController>()?.PlayDrop();
-
-        inventory.DeselectAllSlots();
         
         UIManager.Instance.UpdateInventoryUI();
     }

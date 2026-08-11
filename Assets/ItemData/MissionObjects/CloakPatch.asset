@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Cloak Patch
   missionItem: 1
+  isDroppable: 0
   itemDescription: These seem to go together to create something... invisible?
   itemWeight: 3
   itemPrice: 0

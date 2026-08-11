@@ -330,6 +330,9 @@ public class UIManager : MonoBehaviour
             case "Mole":
                 interactText.SetText("Enter hole");
                 break;
+            case "Chest":
+                interactText.SetText("Use key");
+                break;
         }
         
         interactText.gameObject.SetActive(true);
@@ -338,7 +341,15 @@ public class UIManager : MonoBehaviour
     public void ShowItemPopupUI(InventoryItemData itemData, PopupUI.PopupType popupType)
     {
         PlayerController.Instance.itemPickupUI.SetPopupContent(itemData, popupType);
-        StartCoroutine(ItemPickupNotif(itemData));
+
+        float displayTime;
+        
+        if (popupType == PopupUI.PopupType.Stolen)
+            displayTime = 3.5f;
+        else 
+            displayTime = 2.5f;
+        
+        StartCoroutine(ItemPickupNotif(displayTime));
     }
 
     public void ShowMageSpawnNotif()
@@ -369,11 +380,11 @@ public class UIManager : MonoBehaviour
         portalSpawnNotif.SetActive(false);
     }
 
-    private IEnumerator ItemPickupNotif(InventoryItemData itemData)
+    private IEnumerator ItemPickupNotif(float displayTime)
     {
         objectPopupUI.gameObject.SetActive(true);
         
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(displayTime);
 
         objectPopupUI.gameObject.SetActive(false);
     }

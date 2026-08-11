@@ -16,6 +16,7 @@ MonoBehaviour:
   itemType: 0
   itemName: Shield Part
   missionItem: 1
+  isDroppable: 0
   itemDescription: Parts of a broken shield... maybe something can be made out of
     this
   itemWeight: 5

@@ -7,6 +7,7 @@ public class InventoryItemData : ScriptableObject
     public int itemType; 
     public string itemName;
     public bool missionItem;
+    public bool isDroppable = true;
     [TextArea]
     public string itemDescription;
     public float itemWeight;

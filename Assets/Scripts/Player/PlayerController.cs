@@ -94,9 +94,9 @@ public class PlayerController : MonoBehaviour
     
     public Material basePlayerMat;
 
-    private ItemController objectToSteal;
+    public ItemController objectToSteal;
     public GameObject interactable;
-    private int interactType;
+    public int interactType;
     
     public CompassArrow arrow;
 
@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 //Mash Event
                 case 2:
+                    Debug.Log("MAsh");
                     buttonMashObj.MashEvent();
                     break;
             }
@@ -562,73 +563,73 @@ public class PlayerController : MonoBehaviour
     public void AddDetector() => _detectorCount++;
     public void RemoveDetector() => _detectorCount = Mathf.Max(0, _detectorCount - 1);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (interactable != null)
-            return;
-        
-        //Add object outline
-        if (other.CompareTag("Object"))
-        {
-            other.GetComponent<ItemController>().SetHighlighted(true);
-            
-            interactType = 0;
-            objectToSteal = other.GetComponent<ItemController>();
-            
-            UIManager.Instance.ShowPreviewItem(objectToSteal.referenceItem);
-            UIManager.Instance.ToggleInteractText(true, other.tag);
-        }
-        else if (other.CompareTag("Interactable"))
-        {
-            interactType = 1;
-            interactable = other.gameObject;
-
-            if (other.GetComponent<MoleHole>() != null)
-            {
-                //Debug.Log("MOLE DETECTED MOLE DETECTED");
-                UIManager.Instance.ToggleInteractText(true, "Mole");
-            }
-            else
-            {
-                //Debug.Log("Interactable");
-                UIManager.Instance.ToggleInteractText(true, other.tag);
-            }
-        }
-        else if (other.CompareTag("MashEvent"))
-        {
-            interactType = 2;
-            interactable = other.gameObject;
-
-            buttonMashObj = interactable.GetComponent<ButtonMash>();
-            UIManager.Instance.ToggleInteractText(true, other.tag);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Object"))
-        {
-            other.GetComponent<ItemController>().SetHighlighted(false);
-            
-            UIManager.Instance.DisablePreview();
-            objectToSteal = null;
-            interactable = null;
-
-        }
-        if (other.CompareTag("Interactable"))
-        {
-            interactable = null;
-        }
-
-        if (other.CompareTag("MashEvent"))
-        {
-
-            if (other.GetComponent<ButtonMash>().isMashing)
-                return;
-        }
-        
-        UIManager.Instance.ToggleInteractText(false, "");
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (interactable != null)
+    //         return;
+    //     
+    //     //Add object outline
+    //     if (other.CompareTag("Object"))
+    //     {
+    //         other.GetComponent<ItemController>().SetHighlighted(true);
+    //         
+    //         interactType = 0;
+    //         objectToSteal = other.GetComponent<ItemController>();
+    //         
+    //         UIManager.Instance.ShowPreviewItem(objectToSteal.referenceItem);
+    //         UIManager.Instance.ToggleInteractText(true, other.tag);
+    //     }
+    //     else if (other.CompareTag("Interactable"))
+    //     {
+    //         interactType = 1;
+    //         interactable = other.gameObject;
+    //
+    //         if (other.GetComponent<MoleHole>() != null)
+    //         {
+    //             //Debug.Log("MOLE DETECTED MOLE DETECTED");
+    //             UIManager.Instance.ToggleInteractText(true, "Mole");
+    //         }
+    //         else
+    //         {
+    //             //Debug.Log("Interactable");
+    //             UIManager.Instance.ToggleInteractText(true, other.tag);
+    //         }
+    //     }
+    //     else if (other.CompareTag("MashEvent"))
+    //     {
+    //         interactType = 2;
+    //         interactable = other.gameObject;
+    //
+    //         buttonMashObj = interactable.GetComponent<ButtonMash>();
+    //         UIManager.Instance.ToggleInteractText(true, other.tag);
+    //     }
+    // }
+    //
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.CompareTag("Object"))
+    //     {
+    //         other.GetComponent<ItemController>().SetHighlighted(false);
+    //         
+    //         UIManager.Instance.DisablePreview();
+    //         objectToSteal = null;
+    //         interactable = null;
+    //
+    //     }
+    //     if (other.CompareTag("Interactable"))
+    //     {
+    //         interactable = null;
+    //     }
+    //
+    //     if (other.CompareTag("MashEvent"))
+    //     {
+    //
+    //         if (other.GetComponent<ButtonMash>().isMashing)
+    //             return;
+    //     }
+    //     
+    //     UIManager.Instance.ToggleInteractText(false, "");
+    // }
 
     private void StealObject()
     {

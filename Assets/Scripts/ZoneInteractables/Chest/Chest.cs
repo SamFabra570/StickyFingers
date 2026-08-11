@@ -9,7 +9,7 @@ public class Chest : MonoBehaviour, IInteractable
     [Header("Lock Settings")]
     [SerializeField] private int requiredKeyId;
 
-    private bool _isOpen = false;
+    private bool _isOpen;
 
     public void Interact(GameObject player)
     {
@@ -19,13 +19,12 @@ public class Chest : MonoBehaviour, IInteractable
         {
             ConsumeKey(key);
             Open();
-            return;
+            
+            UIManager.Instance.ShowItemPopupUI(key, PopupUI.PopupType.Consumed);
         }
-
-        if (HasLockpick())
+        else
         {
-            Open();
-            return;
+            UIManager.Instance.ShowItemPopupUI(null, PopupUI.PopupType.NeedKey);
         }
 
         Debug.Log("[Chest] Locked. You need a key or the Lockpick ability.");
@@ -50,19 +49,19 @@ public class Chest : MonoBehaviour, IInteractable
         return false;
     }
 
-    private bool HasLockpick()
-    {
-        foreach (var slot in AbilityManager.Instance.abilities)
-        {
-            if (slot?.ability is LockpickAbility)
-                return true;
-        }
-        return false;
-    }
+    // private bool HasLockpick()
+    // {
+    //     foreach (var slot in AbilityManager.Instance.abilities)
+    //     {
+    //         if (slot?.ability is LockpickAbility)
+    //             return true;
+    //     }
+    //     return false;
+    // }
 
     private void ConsumeKey(KeyItemData key)
     {
-        GetInventory().Remove(key, PopupUI.PopupType.Dropped);
+        GetInventory().Remove(key, PopupUI.PopupType.Consumed);
     }
 
     private void Open()
