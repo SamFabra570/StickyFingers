@@ -36,8 +36,8 @@ public class BaseScoutEnemy : MonoBehaviour
     
     //Detection warmup — player must stay in sight this long before the scout commits to attacking
     [Tooltip("Seconds the player must stay in sight before the scout commits to attacking.")]
-    public float detectionWarmup = 1.0f;
-    [HideInInspector] public float suspicion;   // 0..detectionWarmup, exposed for a future UI cue
+    public float detectionWarmup = 2.5f;
+     public float suspicion;   // 0..detectionWarmup, exposed for a future UI cue
 
     //Attacking
     public float attack_distance_ = 2.0f;

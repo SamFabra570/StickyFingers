@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
-  m_Name: InventoryItemData_Necklace
+  m_Name: Item_SilverCrown
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
-  id: 1
+  id: 0
   itemType: 0
-  itemName: Gold Necklace
+  itemName: Silver Crown
   missionItem: 0
-  itemDescription: SIUUUU gold necklace
-  itemWeight: 3
-  itemPrice: 400
-  icon: {fileID: 0}
-  prefab: {fileID: 4191467573436778927, guid: cbfb56b52d76d6a419c729f7d03184c2, type: 3}
+  isDroppable: 1
+  itemDescription: 
+  itemWeight: 0
+  itemPrice: 0
+  icon: {fileID: 21300000, guid: d1d2e6d0406703a4b86ccc52d15eceb4, type: 3}
+  prefab: {fileID: 0}

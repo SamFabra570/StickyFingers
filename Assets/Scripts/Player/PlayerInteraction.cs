@@ -35,9 +35,11 @@ public class PlayerInteraction : MonoBehaviour
             player.interactType = 1;
             player.interactable = other.gameObject;
 
-            if (other.GetComponent<MoleHole>() != null)
+            if (other.TryGetComponent(out MoleHole hole))
             {
-                //Debug.Log("MOLE DETECTED MOLE DETECTED");
+                hole.playerInRange = true;
+                hole.playerTransform = player.transform;
+                
                 UIManager.Instance.ToggleInteractText(true, "Mole");
             }
             else if (other.GetComponent<Chest>() != null)
@@ -71,6 +73,12 @@ public class PlayerInteraction : MonoBehaviour
         }
         else if (other.CompareTag("Interactable"))
         {
+            if (other.TryGetComponent(out MoleHole hole))
+            {
+                hole.playerInRange = false;
+                hole.playerTransform = null;
+            }
+            
             player.interactable = null;
         }
     }

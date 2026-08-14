@@ -101,6 +101,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             
             if (!item.data.isDroppable)
                 inventory.dropItemText.SetActive(false);
+            else 
+                inventory.dropItemText.SetActive(true);
             
             //inventory.itemDescriptionImage.sprite = item.data.icon;
         }

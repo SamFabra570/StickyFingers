@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoleHole : MonoBehaviour
+public class MoleHole : MonoBehaviour, IInteractable
 {
     [SerializeField] private float holeLifetime = 15f;
     [SerializeField] private float mapRange = 50f;
@@ -12,9 +12,9 @@ public class MoleHole : MonoBehaviour
     private static Vector3 exitHolePos;
 
     private float timer;
-    private bool playerInRange = false;
-    private bool isTeleporting = false;
-    private Transform playerTransform;
+    public bool playerInRange;
+    private bool isTeleporting;
+    public Transform playerTransform;
     public GameObject moleHolePrefab;
 
     private void OnEnable()
@@ -31,30 +31,16 @@ public class MoleHole : MonoBehaviour
         if (timer <= 0f)
         {
             CloseHole();
-            return;
         }
+    }
 
-        if (playerInRange && Input.GetKeyDown(KeyCode.F))
+    public void Interact(GameObject player)
+    {
+        if (playerInRange)
         {
             isTeleporting = true;
             TeleportPlayer();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-
-        playerInRange = true;
-        playerTransform = other.transform;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-
-        playerInRange = false;
-        playerTransform = null;
     }
 
     private void TeleportPlayer()
@@ -110,6 +96,9 @@ public class MoleHole : MonoBehaviour
 
     private void CloseHole()
     {
+        playerInRange = false;
+        playerTransform = null;
+        
         Destroy(gameObject);
     }
 }

@@ -92,7 +92,7 @@ public class InventorySystem
                     freeSlot--;
                     
                     content.gameObject.SetActive(false);
-                    DeselectSlot();
+                    //DeselectSlot();
                 }
                 RefreshInventory();
             }

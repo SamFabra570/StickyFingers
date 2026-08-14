@@ -5548,9 +5548,11 @@ MonoBehaviour:
   objectPickupUI: {fileID: 1019968832}
   icon: {fileID: 0}
   textNameNotif: {fileID: 2095931390}
-  textRemoveNameNotif: {fileID: 0}
   textWeightNotif: {fileID: 0}
+  weightIcon: {fileID: 0}
   textValueNotif: {fileID: 0}
+  valueIcon: {fileID: 0}
+  notificationText: {fileID: 0}
   popupType: 0
 --- !u!64 &1048368482
 MeshCollider:
@@ -26251,9 +26253,11 @@ MonoBehaviour:
   objectPickupUI: {fileID: 8879316335176433897}
   icon: {fileID: 0}
   textNameNotif: {fileID: 4835488403325011438}
-  textRemoveNameNotif: {fileID: 0}
   textWeightNotif: {fileID: 0}
+  weightIcon: {fileID: 0}
   textValueNotif: {fileID: 0}
+  valueIcon: {fileID: 0}
+  notificationText: {fileID: 0}
   popupType: 0
 --- !u!4 &4891294558418326941
 Transform:

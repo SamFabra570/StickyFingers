@@ -23,6 +23,7 @@ TagManager:
   - BackButton
   - SortButton
   - ItemSlot
+  - InteractionRadius
   layers:
   - Default
   - TransparentFX

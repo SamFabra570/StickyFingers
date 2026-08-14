@@ -130,6 +130,7 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
                 {
                     currentItem = null;
                     selectionImage.SetActive(false);
+                    inventory.dropItemText.SetActive(false);
                 }
             }
         }

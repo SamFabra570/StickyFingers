@@ -37,6 +37,7 @@ public class PopupUI : MonoBehaviour
         {
             case PopupType.Pickup:
                 SetTextColour(Color.black);
+                SetIconImage(itemData);
                 
                 textNameNotif.SetText(itemData.itemName);
                 textWeightNotif.SetText("" + itemData.itemWeight);
@@ -44,6 +45,7 @@ public class PopupUI : MonoBehaviour
                 break;
             case PopupType.Dropped:
                 SetTextColour(Color.yellowNice);
+                SetIconImage(itemData);
                 
                 textNameNotif.SetText("- " + itemData.itemName);
                 textWeightNotif.SetText("-" + itemData.itemWeight);
@@ -61,12 +63,15 @@ public class PopupUI : MonoBehaviour
                     return;
                 }
                 
+                SetIconImage(itemData);
+                
                 textNameNotif.SetText("- " + itemData.itemName);
                 textWeightNotif.SetText("-" + itemData.itemWeight);
                 textValueNotif.SetText("-" + itemData.itemPrice);
                 break;
             case PopupType.Consumed:
                 SetTextColour(Color.black);
+                SetIconImage(itemData);
                 
                 if (itemData.name == "Key")
                 {
@@ -87,6 +92,7 @@ public class PopupUI : MonoBehaviour
         
         weightIcon.SetActive(true);
         valueIcon.SetActive(true);
+        icon.gameObject.SetActive(true);
     }
     
     private void HideItemInfo()
@@ -94,6 +100,7 @@ public class PopupUI : MonoBehaviour
         textNameNotif.SetText("");
         weightIcon.SetActive(false);
         valueIcon.SetActive(false);
+        icon.gameObject.SetActive(false);
         
         notificationText.gameObject.SetActive(true);
     }
@@ -103,5 +110,16 @@ public class PopupUI : MonoBehaviour
         textNameNotif.color = colour;
         textWeightNotif.color = colour;
         textValueNotif.color = colour;
+    }
+
+    private void SetIconImage(InventoryItemData itemData)
+    {
+        if (itemData.icon != null)
+        {
+            icon.sprite = itemData.icon;
+            icon.gameObject.SetActive(true);
+        }
+        else
+            icon.gameObject.SetActive(false);
     }
 }

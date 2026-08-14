@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
-  m_Name: InventoryItemData_bitcoin
+  m_Name: Item_SilverPocketWatch
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 0
   itemType: 0
-  itemName: Bitcoin
+  itemName: Silver Pocket Watch
   missionItem: 0
-  itemDescription: one hundred million billion
-  itemWeight: 4
-  itemPrice: 800
-  icon: {fileID: 0}
-  prefab: {fileID: 6738872543802313137, guid: 0f148b3bebe34b341adbdfd72eaf2164, type: 3}
+  isDroppable: 1
+  itemDescription: 
+  itemWeight: 0
+  itemPrice: 0
+  icon: {fileID: 21300000, guid: 202d60c10daa76649b5d992c4718ccab, type: 3}
+  prefab: {fileID: 0}
