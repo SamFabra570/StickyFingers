@@ -24,6 +24,8 @@ TagManager:
   - SortButton
   - ItemSlot
   - InteractionRadius
+  - ItemSpawnPoint
+  - Room
   layers:
   - Default
   - TransparentFX
