@@ -10,7 +10,7 @@ public class EnemyPatrolState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        
+
         enemy.fireEffect.SetActive(false);
 
         //If enemy doesn't have patrol target, find nearest waypoint
@@ -24,14 +24,29 @@ public class EnemyPatrolState : EnemyState
     {
         base.LogicUpdate();
 
-        //Switch to pursuit when player is detected
-        if (enemy.sight_sensor_.detected_object_ != null)
+        EnemyPerception perception = enemy.perception;
+
+        //Patrol asks perception, never the raw ray — and it can no longer jump straight into a chase.
+        //The most a glimpse can do from here is make the guard curious enough to walk over and look.
+        //Alert only lands here when something ELSE already made us certain (an ally shouting, a noise),
+        //and in that case committing immediately is the correct response, not a bug.
+        if (perception != null)
         {
-            stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            if (perception.Level == EnemyPerception.Awareness.Alert)
+            {
+                stateMachine.ChangeState(enemy.pursuitState);
+                return;
+            }
+
+            if (perception.Level == EnemyPerception.Awareness.Suspicious)
+            {
+                stateMachine.ChangeState(enemy.suspiciousState);
+                return;
+            }
         }
-        
+
         //Move to next waypoint when reached
-        else if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
+        if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
         {
             enemy.StartCoroutine(enemy.MoveToNextWaypoint());
         }

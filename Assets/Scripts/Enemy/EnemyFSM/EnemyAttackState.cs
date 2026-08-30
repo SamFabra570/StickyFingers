@@ -24,7 +24,7 @@ public class EnemyAttackState : EnemyState
         //Hold in Attack for the anim duration so the player sees the strike, then hand control back to Pursuit. Pursuit handles the cooldown/back-off from there.
         if (Time.time - startTime >= enemy.attackAnimHold)
         {
-            stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            stateMachine.ChangeState(enemy.pursuitState);
         }
     }
 

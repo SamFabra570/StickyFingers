@@ -19,6 +19,11 @@ public class Sight : MonoBehaviour
 
     public Collider detected_object_;
 
+    //How GOOD the current sighting is, 0..1. A target dead-centre and point-blank reads 1; one clipping
+    //the far edge of the cone reads near 0. EnemyPerception turns this into how FAST awareness builds,
+    //which is what stops "the guard saw my elbow at 20m" from being the same event as "he is on top of me".
+    [HideInInspector] public float detection_quality_;
+
     private bool _wasSeeingPlayer;   // tracks player-detection transitions for the detection vignette
 
     //new vision cone
@@ -35,6 +40,7 @@ public class Sight : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance_, sensor_layer_ | sensor_layer_2);
 
         detected_object_ = null;
+        detection_quality_ = 0.0f;
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -79,6 +85,20 @@ public class Sight : MonoBehaviour
             // Clear line of sight → detected
             Debug.DrawLine(transform.position, single_collider.bounds.center, Color.red);
             detected_object_ = single_collider;
+
+            // Quality of the sighting: centred beats peripheral, close beats far. Point-blank peripheral
+            // contact is always a perfect read — if they are touching you, you do not squint.
+            if (insidePeripheral && !insideCone)
+            {
+                detection_quality_ = 1.0f;
+            }
+            else
+            {
+                float angleFactor = 1.0f - Mathf.Clamp01(angle_to_collider / Mathf.Max(1.0f, angle_));
+                float rangeFactor = 1.0f - Mathf.Clamp01(distance_to_collider / Mathf.Max(0.01f, effectiveConeRange));
+                detection_quality_ = Mathf.Clamp01(0.2f + 0.8f * (0.5f * angleFactor + 0.5f * rangeFactor));
+            }
+
             break;
         }
 

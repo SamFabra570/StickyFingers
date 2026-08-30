@@ -10,7 +10,7 @@ public class EnemyScoutPatrolState : EnemyScoutState
     public override void Enter()
     {
         base.Enter();
-        
+
         enemy.fireEffect.SetActive(false);
 
         //If enemy doesn't have patrol target, find nearest waypoint
@@ -24,18 +24,29 @@ public class EnemyScoutPatrolState : EnemyScoutState
     {
         base.LogicUpdate();
 
-        bool seesPlayer = enemy.sight_sensor_.detected_object_ != null;
+        EnemyPerception perception = enemy.perception;
 
-        //Warmup: must keep the player in sight for detectionWarmup seconds before committing to the attack
-        if (enemy.AccumulateSuspicion(seesPlayer))
+        //Patrol asks perception, never the raw ray — and it can no longer jump straight into a chase.
+        //The most a glimpse can do from here is make the guard curious enough to walk over and look.
+        //Alert only lands here when something ELSE already made us certain (an ally shouting, a noise),
+        //and in that case committing immediately is the correct response, not a bug.
+        if (perception != null)
         {
-            enemy.suspicion = 0f;
-            stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Pursuit"));
-            return;
+            if (perception.Level == EnemyPerception.Awareness.Alert)
+            {
+                stateMachine.ChangeState(enemy.attackState);
+                return;
+            }
+
+            if (perception.Level == EnemyPerception.Awareness.Suspicious)
+            {
+                stateMachine.ChangeState(enemy.suspiciousState);
+                return;
+            }
         }
 
-        //Keep patrolling while not yet committed
-        if (!seesPlayer && enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
+        //Move to next waypoint when reached
+        if (enemy.currentTarget != null && !enemy.agent_.pathPending && enemy.agent_.remainingDistance <= enemy.agent_.stoppingDistance + 0.1f)
         {
             enemy.StartCoroutine(enemy.MoveToNextWaypoint());
         }

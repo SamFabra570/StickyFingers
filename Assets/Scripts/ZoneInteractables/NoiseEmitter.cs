@@ -12,6 +12,8 @@ namespace ZoneInteractables
         [Header("Settings")]
         [SerializeField] private float radius = 5f;
         [SerializeField] private float duration = -1f; // -1 = stays until manually destroyed
+        [Tooltip("How much awareness the burst dumps on everyone in range. ~70 is enough to make a guard come and look without making them certain.")]
+        [SerializeField] private float awarenessBump = 70f;
 
         private float _timer;
 
@@ -32,19 +34,11 @@ namespace ZoneInteractables
 
         public void AlertNearbyEnemies()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-            foreach (var hit in hits)
-                TrySendEnemy(hit.gameObject);
-        }
-
-        private void TrySendEnemy(GameObject obj)
-        {
-            if (obj.GetComponentInParent<BaseEnemy>() is BaseEnemy baseEnemy)
-                baseEnemy.agent_.SetDestination(transform.position);
-            else if (obj.GetComponentInParent<BaseScoutEnemy>() is BaseScoutEnemy scout)
-                scout.agent_.SetDestination(transform.position);
-            else if (obj.GetComponentInParent<BaseMageEnemy>() is BaseMageEnemy mage)
-                mage.agent_.SetDestination(transform.position);
+            //This used to reach past every enemy's FSM and write agent_.SetDestination directly, which the
+            //enemy's own Patrol state then overwrote on its very next LogicUpdate. The noise produced one
+            //frame of tugging and nothing else. Feeding perception instead means the enemy's brain decides
+            //to go and look — and it actually gets there.
+            EnemyAlertNetwork.ReportNoise(transform.position, radius, awarenessBump);
         }
 
         private void OnDrawGizmosSelected()

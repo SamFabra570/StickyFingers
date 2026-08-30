@@ -27,11 +27,20 @@ public class EnemyPursuitState : EnemyState
     {
         base.LogicUpdate();
 
-        bool sighted = enemy.sight_sensor_.detected_object_ != null;
+        EnemyPerception perception = enemy.perception;
 
-        if (sighted)
+        if (perception == null)
         {
-            Vector3 playerPos = enemy.sight_sensor_.detected_object_.transform.position;
+            //Should never happen — the enemy builds one in Awake. Fail towards searching, not freezing.
+            stateMachine.ChangeState(enemy.searchState);
+            return;
+        }
+
+        //Eyes-on. The raw sensor is the right source for WHERE, but only once perception has already
+        //decided we are committed: deciding and measuring are different jobs and must not share a source.
+        if (perception.HasVisual)
+        {
+            Vector3 playerPos = perception.VisualTarget.transform.position;
             enemy.lastKnownPlayerPosition = playerPos;
             enemy.lastSeenTime = Time.time;
             distanceToTarget = Vector3.Distance(enemy.transform.position, playerPos);
@@ -59,6 +68,7 @@ public class EnemyPursuitState : EnemyState
                     //Cornered against geometry: hold position instead of vibrating against the wall.
                     enemy.agent_.isStopped = true;
                 }
+
                 return;
             }
 
@@ -69,33 +79,44 @@ public class EnemyPursuitState : EnemyState
 
             if (!cooldownActive && distanceToTarget <= enemy.attack_distance_)
             {
-                stateMachine.ChangeState(new EnemyAttackState(enemy, stateMachine, animationController, "Attack"));
+                stateMachine.ChangeState(enemy.attackState);
             }
+
             return;
         }
 
-        //Lost sight: keep heading to the last known position during the grace period, only fall back to Search after it expires.
+        //Lost visual. Whether we give up is perception's call now, not a stopwatch: awareness holds flat
+        //through decayDelay, then falls, and cannot drop below the post-alert floor for a while. THAT is
+        //what stops "duck behind a wall for two seconds" from being a complete reset.
         enemy.agent_.updateRotation = true;
-        if (Time.time - enemy.lastSeenTime < enemy.loseSightGracePeriod)
+
+        if (perception.Level == EnemyPerception.Awareness.Alert)
         {
-            enemy.agent_.isStopped = false;
-            enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
+            if (perception.HasLastKnownPosition)
+            {
+                enemy.lastKnownPlayerPosition = perception.LastKnownPosition;
+                enemy.agent_.isStopped = false;
+                enemy.agent_.SetDestination(perception.LastKnownPosition);
+            }
+
             return;
         }
 
-        stateMachine.ChangeState(new EnemySearchState(enemy, stateMachine, animationController, "Search"));
+        stateMachine.ChangeState(enemy.searchState);
     }
 
     //Rotate to keep the player in front — used during back-off so the vision cone never loses them.
     private void FacePlayer(Vector3 playerPos)
     {
         enemy.agent_.updateRotation = false;
+
         Vector3 faceDir = playerPos - enemy.transform.position;
-        faceDir.y = 0f;
+        faceDir.y = 0.0f;
+
         if (faceDir.sqrMagnitude > 0.0001f)
         {
             Quaternion target = Quaternion.LookRotation(faceDir);
-            enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, target, Time.deltaTime * 8f);
+            enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, target, Time.deltaTime * 8.0f);
         }
     }
 }

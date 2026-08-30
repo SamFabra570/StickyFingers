@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyScoutSearchState : EnemyScoutState
 {
     private float searchEndTime;
-    
+
     public EnemyScoutSearchState(BaseScoutEnemy _enemy, EnemyScoutStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
@@ -12,23 +12,30 @@ public class EnemyScoutSearchState : EnemyScoutState
     public override void Enter()
     {
         base.Enter();
-        
+
         //Set search time when entering search state
         searchEndTime = Time.time + enemy.searchTime;
 
-        //Head straight for where the player was last seen
+        //Head for wherever perception last placed them — which may be an ally's report rather than our
+        //own eyes, so an enemy can now search a room it never personally saw anyone enter.
         enemy.agent_.isStopped = false;
-        enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
+
+        Vector3 destination = enemy.perception != null && enemy.perception.HasLastKnownPosition
+            ? enemy.perception.LastKnownPosition
+            : enemy.lastKnownPlayerPosition;
+
+        enemy.agent_.SetDestination(destination);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
-        //Scout alerts the Mage the instant it spots the player — straight to attack
-        if (enemy.sight_sensor_.detected_object_ != null)
+
+        EnemyPerception perception = enemy.perception;
+
+        if (perception != null && perception.Level == EnemyPerception.Awareness.Alert)
         {
-            stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Pursuit"));
+            stateMachine.ChangeState(enemy.attackState);
             return;
         }
 
@@ -40,11 +47,15 @@ public class EnemyScoutSearchState : EnemyScoutState
             enemy.agent_.SetDestination(forwardPoint);
         }
 
-        //Back to patrol when search time ends
+        //Search exhausted. Stand down EXPLICITLY so the post-alert floor is released — otherwise the
+        //guard would patrol for ever at a permanently raised awareness and re-trigger off nothing.
         if (Time.time > searchEndTime)
         {
+            if (perception != null)
+                perception.StandDown();
+
             enemy.currentTarget = null;
-            stateMachine.ChangeState(new EnemyScoutPatrolState(enemy, stateMachine, animationController, "Patrol"));
+            stateMachine.ChangeState(enemy.patrolState);
         }
     }
 }

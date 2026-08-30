@@ -20,30 +20,51 @@ public class EnemyScoutPursuitState : EnemyScoutState
     {
         base.LogicUpdate();
 
-        if (enemy.sight_sensor_.detected_object_ != null)
-        {
-            enemy.agent_.isStopped = false;
-            enemy.lastKnownPlayerPosition = enemy.sight_sensor_.detected_object_.transform.position;
-            enemy.lastSeenTime = Time.time;
-            enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
+        EnemyPerception perception = enemy.perception;
 
-            distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.sight_sensor_.detected_object_.transform.position);
+        if (perception == null)
+        {
+            //Should never happen — the enemy builds one in Awake. Fail towards searching, not freezing.
+            stateMachine.ChangeState(enemy.searchState);
+            return;
+        }
+
+        //Eyes-on. The raw sensor is the right source for WHERE, but only once perception has already
+        //decided we are committed: deciding and measuring are different jobs and must not share a source.
+        if (perception.HasVisual)
+        {
+            Vector3 playerPos = perception.VisualTarget.transform.position;
+
+            enemy.agent_.isStopped = false;
+            enemy.lastKnownPlayerPosition = playerPos;
+            enemy.lastSeenTime = Time.time;
+            enemy.agent_.SetDestination(playerPos);
+
+            distanceToTarget = Vector3.Distance(enemy.transform.position, playerPos);
 
             if (distanceToTarget <= enemy.attack_distance_)
             {
-                stateMachine.ChangeState(new EnemyScoutAttackState(enemy, stateMachine, animationController, "Attack"));
+                stateMachine.ChangeState(enemy.attackState);
             }
+
             return;
         }
 
-        //Lost sight: keep heading to the last known position during the grace period, only fall back to Search after it expires.
-        if (Time.time - enemy.lastSeenTime < enemy.loseSightGracePeriod)
+        //Lost visual. Giving up is perception's call now, not a stopwatch: awareness holds flat through
+        //decayDelay, then falls, and cannot drop below the post-alert floor for a while. That is what
+        //stops "duck behind a wall for two seconds" from being a complete reset.
+        if (perception.Level == EnemyPerception.Awareness.Alert)
         {
-            enemy.agent_.isStopped = false;
-            enemy.agent_.SetDestination(enemy.lastKnownPlayerPosition);
+            if (perception.HasLastKnownPosition)
+            {
+                enemy.lastKnownPlayerPosition = perception.LastKnownPosition;
+                enemy.agent_.isStopped = false;
+                enemy.agent_.SetDestination(perception.LastKnownPosition);
+            }
+
             return;
         }
 
-        stateMachine.ChangeState(new EnemyScoutSearchState(enemy, stateMachine, animationController, "Search"));
+        stateMachine.ChangeState(enemy.searchState);
     }
 }

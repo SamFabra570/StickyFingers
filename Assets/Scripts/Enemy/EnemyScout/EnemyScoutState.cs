@@ -24,7 +24,7 @@ public class EnemyScoutState
         isAnimationFinished = false;
         isExitingState = false;
         startTime = Time.time;
-        animationController.SetBool(animationName, true);
+        SetAnimatorBool(true);
     }
 
     public virtual void Exit()
@@ -32,7 +32,7 @@ public class EnemyScoutState
         isExitingState = true;
         if (!isAnimationFinished)
             isAnimationFinished = true;
-        animationController.SetBool(animationName, false);
+        SetAnimatorBool(false);
     }
 
     public virtual void LogicUpdate()
@@ -48,6 +48,34 @@ public class EnemyScoutState
     public virtual void TransitionChecks()
     {
         
+    }
+
+    //The shared enemy Animator only declares Patrol/Pursuit/Search/Attack. Writing a bool it does not
+    //have (e.g. "Stunned") logs a warning on every transition and silently animates nothing, so resolve
+    //once per state instance whether the parameter is really there.
+    private bool _animParamResolved;
+    private bool _animParamExists;
+
+    protected void SetAnimatorBool(bool value)
+    {
+        if (animationController == null || string.IsNullOrEmpty(animationName))
+            return;
+
+        if (!_animParamResolved)
+        {
+            _animParamResolved = true;
+            foreach (AnimatorControllerParameter parameter in animationController.parameters)
+            {
+                if (parameter.type == AnimatorControllerParameterType.Bool && parameter.name == animationName)
+                {
+                    _animParamExists = true;
+                    break;
+                }
+            }
+        }
+
+        if (_animParamExists)
+            animationController.SetBool(animationName, value);
     }
 
     public virtual void AnimationTrigger()
