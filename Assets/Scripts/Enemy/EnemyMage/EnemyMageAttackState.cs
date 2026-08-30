@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyMageAttackState : EnemyMageState
+public class EnemyMageAttackState : EnemyState
 {
     private float distanceToTarget;
 
@@ -12,7 +12,7 @@ public class EnemyMageAttackState : EnemyMageState
     //private bool isTeleporting = false;
     private Transform playerTransform;
     
-    public EnemyMageAttackState(BaseMageEnemy _enemy, EnemyMageStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyMageAttackState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }

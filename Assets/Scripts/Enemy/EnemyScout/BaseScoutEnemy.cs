@@ -1,275 +1,51 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class BaseScoutEnemy : MonoBehaviour
+public class BaseScoutEnemy : EnemyBrain
 {
-    public EnemyScoutStateMachine stateMachine;
-    public EnemyScoutState patrolState;
-    public EnemyScoutState searchState;
-    public EnemyScoutState suspiciousState;
-    public EnemyScoutState pursuitState;
-    public EnemyScoutState attackState;
-    
-    public Animator animationController;
-    
-    public Sight sight_sensor_;
-    [HideInInspector] public EnemyPerception perception;
-    public NavMeshAgent agent_;
-    
-    public GameObject fireEffect;
-    
-    //Patrolling
+    //Designer-placed patrol route.
     public List<Transform> waypoints;
     public Transform currentTarget;
-    private int index = 0;
-    private bool isMovingToWaypoint = false;
-    public float patrolWaitTime = 2.0f;
-    [Tooltip("Random +/- variation applied to patrolWaitTime so a route cannot be timed with a stopwatch.")]
-    public float patrolWaitJitter = 1.5f;
-    [Tooltip("How far the guard sweeps its vision cone left/right while paused at a waypoint.")]
-    public float patrolScanAngle = 65.0f;
-    [Tooltip("Chance at each waypoint that the guard turns around and walks the route backwards instead. A loop that always runs the same way is a loop you memorise once.")]
-    public float patrolReverseChance = 0.2f;
-    private int patrolDirection = 1;
-
-    //Searching for player
-    private Vector3 searchDir;
-    //private bool isSearching = false;
-    public float searchDistance = 5.0f;
-    public float searchTime = 10.0f;
-    public Vector3 lastKnownPlayerPosition;
-    private Vector3 forwardPoint;
-    
-    //Detection warmup — player must stay in sight this long before the scout commits to attacking
-    [Tooltip("Seconds the player must stay in sight before the scout commits to attacking.")]
-    public float detectionWarmup = 2.5f;
-     public float suspicion;   // 0..detectionWarmup, exposed for a future UI cue
-
-    //Attacking
-    public float attack_distance_ = 2.0f;
-    public float stop_attack_distance_multiplier = 1.2f;
-
-    //Detection memory: keep pursuing the last known position for this long after losing line of sight, so a single-frame occlusion (corner, lag, momentary cover) does not make the scout give up.
-    public float loseSightGracePeriod = 3.5f;
-    [HideInInspector] public float lastSeenTime = -Mathf.Infinity;
-    
-    [SerializeField] public bool isBeingSeen;
-
-    //Visibility-based speed — fast while the player is watching, slow while not. Pursuit overrides both with pursuitSpeed so the chase feels urgent.
-    public float hiddenSpeed = 1.5f;
-    public float visibleSpeed = 3.0f;
-    public float pursuitSpeed = 6.0f;
-    private DitherVisibility ditherVisibility_;
-
-    private void Awake()
-    {
-        agent_ = GetComponent<NavMeshAgent>();
-        ditherVisibility_ = GetComponentInChildren<DitherVisibility>();
-
-        //Perception is wired up in code rather than authored on the prefab, so nothing has to be
-        //re-serialised to get it. If someone later adds one by hand to tune the numbers, that one wins.
-        perception = GetComponent<EnemyPerception>();
-        if (perception == null)
-            perception = gameObject.AddComponent<EnemyPerception>();
-
-        perception.Initialise(sight_sensor_);
-    }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        fireEffect.SetActive(false);
-        
-        if (waypoints.Count > 0 && waypoints[0] != null)
-        {
-            //Set first target
-            currentTarget = waypoints[index];
-            
-            //Start moving towards first target
-            agent_.SetDestination(currentTarget.position);
-        }
-        
-        //Initialize state machine
-        stateMachine = new EnemyScoutStateMachine();
-        
-        //Create state instances
-        patrolState = new EnemyScoutPatrolState(this, stateMachine, animationController, "Patrol");
-        searchState = new EnemyScoutSearchState(this, stateMachine, animationController, "Search");
-        //No "Suspicious" bool exists on the shared Animator, so it borrows the Search look —
-        //which is exactly what the state is doing anyway: standing there, looking around.
-        suspiciousState = new EnemyScoutSuspiciousState(this, stateMachine, animationController, "Search");
-        pursuitState = new EnemyScoutPursuitState(this, stateMachine, animationController, "Pursuit");
-        attackState = new EnemyScoutAttackState(this, stateMachine, animationController, "Pursuit");
-
-        //Start patrol state
-        stateMachine.InitializeStateMachine(patrolState);
-    }
-
-    private void Update()
-    {
-        UpdateSpeed();
-
-        if (stateMachine._CurrentState == null)
-            return;
-
-        stateMachine._CurrentState.LogicUpdate();
-    }
-
-    //Move fast while the player can see this enemy, slow while they can't. Pursuit overrides this with pursuitSpeed.
-    private void UpdateSpeed()
-    {
-        if (stateMachine != null && stateMachine._CurrentState is EnemyScoutPursuitState)
-        {
-            agent_.speed = pursuitSpeed;
-            return;
-        }
-
-        if (ditherVisibility_ == null)
-            return;
-
-        agent_.speed = ditherVisibility_.IsVisible ? visibleSpeed : hiddenSpeed;
-    }
 
     //SUPERSEDED by EnemyPerception, which does this for every enemy with hysteresis and cover weighting
-    //instead of only for the scout. Nothing calls this any more; kept so `suspicion` and `detectionWarmup`
-    //keep deserialising off existing prefabs. Delete all three once you are happy with perception.
-    public bool AccumulateSuspicion(bool seeingPlayer)
-    {
-        if (seeingPlayer)
-        {
-            // Soft cover (Model C) slows how fast suspicion builds. An exposed player (concealment 0)
-            // fills at the normal rate; in cover the warmup takes proportionally longer.
-            float concealment = PlayerController.Instance != null ? PlayerController.Instance.Concealment : 0f;
-            suspicion += Time.deltaTime * (1f - concealment);
-        }
-        else
-            suspicion = Mathf.MoveTowards(suspicion, 0f, Time.deltaTime * 2f); // forgets twice as fast
+    //instead of only for the scout. Nothing reads these any more; kept so existing prefabs deserialise
+    //cleanly. Delete both once you are happy with perception.
+    [Tooltip("SUPERSEDED by EnemyPerception — tuning this does nothing.")]
+    public float detectionWarmup = 2.5f;
+    public float suspicion;
 
-        return suspicion >= detectionWarmup;
+    public override int PatrolPointCount => waypoints != null ? waypoints.Count : 0;
+
+    public override Vector3 GetPatrolPoint(int patrolIndex)
+    {
+        Transform point = waypoints[patrolIndex];
+        return point != null ? point.position : transform.position;
     }
 
-    void FixedUpdate()
+    public override bool HasPatrolTarget => currentTarget != null;
+
+    public override void SetPatrolTarget(int patrolIndex)
     {
-        if (stateMachine._CurrentState == null)
-            return;
-            
-        stateMachine._CurrentState.PhysicsUpdate();
+        currentTarget = waypoints[patrolIndex];
     }
 
-    //Sweeps the vision cone to both sides while the guard is paused at a waypoint. Aborts the moment we
-    //leave patrol so a stale sweep never fights Pursuit for control of the transform.
-    private IEnumerator ScanWhileWaiting(object patrolling)
+    public override void ClearPatrolTarget()
     {
-        float wait = Mathf.Max(0.25f, patrolWaitTime + UnityEngine.Random.Range(-patrolWaitJitter, patrolWaitJitter));
-
-        //The agent owns rotation while it steers; borrow it for the sweep and always hand it back.
-        bool hadUpdateRotation = agent_.updateRotation;
-        agent_.updateRotation = false;
-
-        yield return TurnBy(UnityEngine.Random.Range(-patrolScanAngle, patrolScanAngle), wait * 0.5f, patrolling);
-        yield return TurnBy(UnityEngine.Random.Range(-patrolScanAngle, patrolScanAngle), wait * 0.5f, patrolling);
-
-        agent_.updateRotation = hadUpdateRotation;
+        currentTarget = null;
     }
 
-    private IEnumerator TurnBy(float degrees, float duration, object patrolling)
+    //The scout does not fight. Certainty sends it to its "attack" state, which is really spot-the-intruder
+    //and go fetch a mage — so Alert must commit here rather than to a pursuit it would never win.
+    public override EnemyState AlertState => attackState;
+
+    protected override void CreateStates()
     {
-        Quaternion from = transform.rotation;
-        Quaternion to = from * Quaternion.Euler(0.0f, degrees, 0.0f);
-
-        for (float t = 0.0f; t < duration; t += Time.deltaTime)
-        {
-            if (!ReferenceEquals(stateMachine._CurrentState, patrolling))
-                yield break;
-
-            transform.rotation = Quaternion.Slerp(from, to, Mathf.Clamp01(t / duration));
-            yield return null;
-        }
-
-        transform.rotation = to;
-    }
-
-    public IEnumerator MoveToNextWaypoint()
-    {
-        //if moving, don't call again
-        if (isMovingToWaypoint)
-            yield break;
-
-        isMovingToWaypoint = true;
-
-        if (waypoints == null || waypoints.Count == 0)
-        {
-            isMovingToWaypoint = false;
-            yield break;
-        }
-        
-        //Pause movement at each waypoint
-        agent_.isStopped = true;
-        //A guard that pauses for exactly patrolWaitTime and stares at one wall is a guard you can time
-        //with a stopwatch. Randomise the pause and sweep the cone across it instead.
-        object patrolling = stateMachine._CurrentState;
-        yield return ScanWhileWaiting(patrolling);
-
-        //This coroutine outlives the state that started it: if we were pulled into Pursuit/Search while
-        //paused, do NOT carry on and overwrite the agent's destination with a patrol waypoint.
-        if (!ReferenceEquals(stateMachine._CurrentState, patrolling))
-        {
-            isMovingToWaypoint = false;
-            yield break;
-        }
-
-        //Clamp waypoint index
-        index = Mathf.Clamp(index, 0, waypoints.Count - 1);
-        
-        //Occasionally turn back the way we came, and wrap in whichever direction we are travelling.
-        if (UnityEngine.Random.value < patrolReverseChance)
-            patrolDirection = -patrolDirection;
-
-        index += patrolDirection;
-
-        if (index < 0)
-            index = waypoints.Count - 1;
-
-        //Loop if reached the last waypoint
-        if (index >= waypoints.Count)
-            index = 0;
-        
-        currentTarget = waypoints[index];
-        
-        //Move to next waypoint
-        agent_.isStopped = false;
-        agent_.SetDestination(currentTarget.position);
-        
-        isMovingToWaypoint = false;
-    }
-    
-    public void FindNearestWaypoint()
-    {
-        Transform nearestWaypoint = null;
-        float nearestDistance = float.MaxValue;
-
-        //Check distance of each waypoint, find nearest waypoint
-        for (int i = 0; i < waypoints.Count; i++)
-        {
-            float distance = Vector3.Distance(transform.position, waypoints[i].position);
-            
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestWaypoint = waypoints[i];
-            }
-        }
-        
-        //Go to nearest waypoint once it has been set
-        if (nearestWaypoint != null)
-        {
-            agent_.isStopped = false;
-            agent_.SetDestination(nearestWaypoint.position);
-            currentTarget = nearestWaypoint;
-            index = waypoints.IndexOf(nearestWaypoint);
-        }
+        patrolState = new EnemyPatrolState(this, stateMachine, animationController, "Patrol");
+        searchState = new EnemySearchState(this, stateMachine, animationController, "Search");
+        suspiciousState = new EnemySuspiciousState(this, stateMachine, animationController, "Search");
+        pursuitState = new EnemyPursuitState(this, stateMachine, animationController, "Pursuit");
+        //The scout has no attack animation because it never attacks — it runs at you to identify you,
+        //so the pursuit look is the correct one here.
+        attackState = new EnemyScoutAttackState(this, stateMachine, animationController, "Pursuit");
     }
 }

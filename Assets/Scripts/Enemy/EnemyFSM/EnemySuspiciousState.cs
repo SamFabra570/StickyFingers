@@ -1,20 +1,20 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-//The rung of the ladder that did not exist. Before this, a guard went from whistling on his route to
+//The rung of the ladder that did not exist. Before this, an enemy went from whistling on its route to
 //full pursuit in a single frame, because the only question ever asked was "is the ray clear right now".
 //
 //Suspicious is what a person actually does with a half-signal: stop, turn towards it, look. If the
 //feeling firms up, commit. If it does not, shrug and walk on. The player gets a window to react, and
-//the guard stops reading as omniscient.
+//the enemy stops reading as omniscient.
 public class EnemySuspiciousState : EnemyState
 {
-    //How long the guard stands and looks before deciding to walk over and check.
+    //How long the enemy stands and looks before deciding to walk over and check.
     private const float LookDuration = 1.25f;
 
     private bool _walking;
 
-    public EnemySuspiciousState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemySuspiciousState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -23,7 +23,9 @@ public class EnemySuspiciousState : EnemyState
     {
         base.Enter();
 
-        enemy.fireEffect.SetActive(false);
+        if (enemy.fireEffect != null)
+            enemy.fireEffect.SetActive(false);
+
         _walking = false;
 
         //Stand still for the first beat. Taking rotation off the agent lets us turn towards the stimulus
@@ -53,18 +55,18 @@ public class EnemySuspiciousState : EnemyState
             return;
         }
 
-        //Certainty won — commit to the chase.
+        //Certainty won — commit.
         if (perception.Level == EnemyPerception.Awareness.Alert)
         {
-            stateMachine.ChangeState(enemy.pursuitState);
+            stateMachine.ChangeState(enemy.AlertState);
             return;
         }
 
-        //Whatever it was, it did not hold up. Note this is the perception's decision, not a timer:
-        //awareness had to decay all the way back past the exit threshold to get here.
+        //Whatever it was, it did not hold up. Note this is perception's decision, not a timer: awareness
+        //had to decay all the way back past the exit threshold to get here.
         if (perception.Level == EnemyPerception.Awareness.Unaware)
         {
-            enemy.currentTarget = null;
+            enemy.ClearPatrolTarget();
             stateMachine.ChangeState(enemy.patrolState);
             return;
         }

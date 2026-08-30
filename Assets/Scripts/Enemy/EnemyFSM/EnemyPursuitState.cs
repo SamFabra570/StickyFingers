@@ -5,7 +5,7 @@ public class EnemyPursuitState : EnemyState
 {
     private float distanceToTarget;
 
-    public EnemyPursuitState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyPursuitState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -13,7 +13,9 @@ public class EnemyPursuitState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.fireEffect.SetActive(true);
+
+        if (enemy.fireEffect != null)
+            enemy.fireEffect.SetActive(true);
     }
 
     public override void Exit()
@@ -45,10 +47,13 @@ public class EnemyPursuitState : EnemyState
             enemy.lastSeenTime = Time.time;
             distanceToTarget = Vector3.Distance(enemy.transform.position, playerPos);
 
-            bool cooldownActive = Time.time < enemy.lastAttackTime + enemy.attackCooldown;
+            //Only enemies that opt in have a post-hit window at all; for the rest this is always false
+            //and the branch below behaves exactly as their old, simpler pursuit did.
+            bool cooldownActive = enemy.UsesPostAttackBackoff
+                                  && Time.time < enemy.lastAttackTime + enemy.attackCooldown;
 
-            //After a hit, give the (frozen) player room to escape: back AWAY while still FACING them, so we
-            //never turn our back (which would drop line of sight and make us "give up" mid-fight).
+            //After a hit, give the (frozen) player room to escape: back AWAY while still FACING them, so
+            //we never turn our back, which would drop line of sight and make us give up mid-fight.
             if (cooldownActive && distanceToTarget <= enemy.attack_distance_)
             {
                 FacePlayer(playerPos);
@@ -57,7 +62,7 @@ public class EnemyPursuitState : EnemyState
                 away = away.sqrMagnitude < 0.0001f ? -enemy.transform.forward : away.normalized;
                 Vector3 desired = enemy.transform.position + away * enemy.postAttackBackoffDistance;
 
-                //Only retreat to somewhere actually on the NavMesh — never path into a wall and grind against it.
+                //Only retreat somewhere actually on the NavMesh — never path into a wall and grind on it.
                 if (NavMesh.SamplePosition(desired, out NavMeshHit navHit, enemy.postAttackBackoffDistance, NavMesh.AllAreas))
                 {
                     enemy.agent_.isStopped = false;

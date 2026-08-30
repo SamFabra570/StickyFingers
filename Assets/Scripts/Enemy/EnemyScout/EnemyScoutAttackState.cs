@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-public class EnemyScoutAttackState : EnemyScoutState
+public class EnemyScoutAttackState : EnemyState
 {
     private float distanceToTarget;
 
@@ -8,7 +8,7 @@ public class EnemyScoutAttackState : EnemyScoutState
     private float lastAttackTime = -Mathf.Infinity;
     
     
-    public EnemyScoutAttackState(BaseScoutEnemy _enemy, EnemyScoutStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyScoutAttackState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }

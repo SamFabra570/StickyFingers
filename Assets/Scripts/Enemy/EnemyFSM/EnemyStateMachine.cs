@@ -6,9 +6,9 @@ public class EnemyStateMachine
 
     public void ChangeState(EnemyState newState)
     {
-        //States are shared instances owned by the enemy now, so asking to re-enter the state we are
-        //already in would fire Exit()+Enter() on the SAME object and flicker its animator bool for a
-        //frame. Doing nothing is the correct response to "go to where you already are".
+        //States are shared instances owned by the enemy, so asking to re-enter the state we are already
+        //in would fire Exit()+Enter() on the SAME object and flicker its animator bool for a frame.
+        //Doing nothing is the correct response to "go to where you already are".
         if (newState == null || newState == _CurrentState)
             return;
 

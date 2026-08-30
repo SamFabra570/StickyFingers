@@ -4,7 +4,7 @@ public class EnemySearchState : EnemyState
 {
     private float searchEndTime;
 
-    public EnemySearchState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemySearchState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -13,7 +13,6 @@ public class EnemySearchState : EnemyState
     {
         base.Enter();
 
-        //Set search time when entering search state
         searchEndTime = Time.time + enemy.searchTime;
 
         //Head for wherever perception last placed them — which may be an ally's report rather than our
@@ -35,7 +34,7 @@ public class EnemySearchState : EnemyState
 
         if (perception != null && perception.Level == EnemyPerception.Awareness.Alert)
         {
-            stateMachine.ChangeState(enemy.pursuitState);
+            stateMachine.ChangeState(enemy.AlertState);
             return;
         }
 
@@ -48,13 +47,13 @@ public class EnemySearchState : EnemyState
         }
 
         //Search exhausted. Stand down EXPLICITLY so the post-alert floor is released — otherwise the
-        //guard would patrol for ever at a permanently raised awareness and re-trigger off nothing.
+        //enemy would patrol for ever at a permanently raised awareness and re-trigger off nothing.
         if (Time.time > searchEndTime)
         {
             if (perception != null)
                 perception.StandDown();
 
-            enemy.currentTarget = null;
+            enemy.ClearPatrolTarget();
             stateMachine.ChangeState(enemy.patrolState);
         }
     }
