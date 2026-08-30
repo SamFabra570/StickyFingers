@@ -16,6 +16,8 @@ public class InventoryItemData : ScriptableObject
     
     public bool missionItem;
     public bool isDroppable = true;
+
+    public bool isSafetySlot;
     
     [TextArea]
     public string itemDescription;

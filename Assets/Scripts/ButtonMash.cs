@@ -31,7 +31,7 @@ public class ButtonMash : MonoBehaviour
                 timeRemaining = maxEventTime;
                 ToggleMashingEvent(false);
                 //UIManager.Instance.ToggleInteractText(false, "");
-                UIManager.Instance.mashBar.gameObject.SetActive(false);
+                UIManager.Instance.mashUI.gameObject.SetActive(false);
                 UIManager.Instance.isMashing = false;
                 Destroy(gameObject);
                 
@@ -76,7 +76,7 @@ public class ButtonMash : MonoBehaviour
 
                 player.buttonMashObj = GetComponent<ButtonMash>();
                 
-                UIManager.Instance.ToggleInteractText(true, "MashEvent");
+                UIManager.Instance.ToggleInteractText(false, "");
             
                 //Debug.Log("Register mash interactable");
                 
@@ -85,7 +85,7 @@ public class ButtonMash : MonoBehaviour
                 timeRemaining = maxEventTime;
                 
                 ToggleMashingEvent(true);
-                UIManager.Instance.mashBar.gameObject.SetActive(true);
+                UIManager.Instance.mashUI.gameObject.SetActive(true);
                 UIManager.Instance.SetTriggeredObject(gameObject);
             }
         }

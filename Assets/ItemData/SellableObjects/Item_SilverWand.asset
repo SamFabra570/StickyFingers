@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 2
   itemType: 0
-  itemName: Silver Wand
+  itemName: Wand
   missionItem: 0
   isDroppable: 1
   itemDescription: harry you are a wizard

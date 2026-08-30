@@ -12,7 +12,7 @@ public class InventorySystem
     private Dictionary<InventoryItemData, InventoryItem> m_itemDictionary;
     public List<InventoryItem> inventory;
     public ItemSlot[] itemSlots;
-    public int freeSlot = 0;
+    public int freeSlot;
     public float totalWeight;
     public float totalBounty;
 
@@ -24,7 +24,7 @@ public class InventorySystem
     public GameObject missionItemIcon;
     public GameObject dropItemText;
     
-    private int nextPickupOrder = 0;
+    private int nextPickupOrder;
 
     public bool isSorting;
     
@@ -34,7 +34,7 @@ public class InventorySystem
         Value,
         Weight
     }
-    public SortMode sortMode =  SortMode.None;
+    public SortMode sortMode = SortMode.None;
 
     public InventorySystem()
     {
@@ -74,6 +74,12 @@ public class InventorySystem
     {
         if (referenceData != null)
         {
+            if (referenceData.isSafetySlot)
+            {
+                UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.SafetySlot);
+                return;
+            }
+            
             if (m_itemDictionary.TryGetValue(referenceData, out InventoryItem value))
             {
                 value.RemoveFromStack();
@@ -96,11 +102,11 @@ public class InventorySystem
                 }
                 RefreshInventory();
             }
-            UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Stolen);
+            UIManager.Instance.ShowItemPopupUI(referenceData, popupType);
             UIManager.Instance.UpdateTotals();
         }
-        
-        UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Stolen);
+        else 
+            UIManager.Instance.ShowItemPopupUI(referenceData, popupType);
     }
 
     public void DeselectSlot()
@@ -181,11 +187,22 @@ public class InventorySystem
         //check safe slot-pending for dev
         if (runState)
         {
-            GameManager.Instance.remainingDebt-= totalBounty;
+            GameManager.Instance.remainingDebt -= totalBounty;
         }
         else
         {
-            Debug.Log("Run failed, lost all ur loot lol");
+            if (GameManager.Instance.PlayerPassives.Has(PassiveAbilities.SafetySlot))
+            {
+                if (InventoryMenu.Instance.safetySlot != null)
+                {
+                    GameManager.Instance.remainingDebt -= (InventoryMenu.Instance.safetySlot.item.stackSize * InventoryMenu.Instance.safetySlot.item.data.itemPrice);
+                }
+            }
+            else
+            {
+                Debug.Log("Run failed, lost all ur loot lol");
+            }
+            
         }
 
     }

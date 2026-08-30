@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,16 +18,24 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public Button valueSortButton;
     public Button weightSortButton;
-
+    
+    [Header ("Inventory")]
+    public GameObject selectionImage;
+    
+    public GameObject safetySlotImage;
+    public GameObject safetySlotButton;
+    
+    public ItemSlot safetySlot;
+    
+    public Transform inventoryDescriptionBackground;
+    
+    [HideInInspector] public InventorySystem inventory;
+    private ItemSlot currentItemSlot;
+    
+    
     [Header("Tutorial")] 
     public List<TutorialSegment> inventoryTutorial = new();
     public List<Transform> inventoryTutorialElements = new();
-    
-    [Header ("Inventory")]
-    [HideInInspector] public InventorySystem inventory;
-    private ItemSlot currentItem;
-    public GameObject selectionImage;
-    public Transform inventoryDescriptionBackground;
 
     private void Awake()
     {
@@ -73,21 +82,29 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         }
         else
             Debug.Log("First item null, cant select");
+        
+        if (!GameManager.Instance.PlayerPassives.Has(PassiveAbilities.SafetySlot)) 
+            safetySlotButton.SetActive(false);
 
         if (!selectionImage.activeSelf)
             selectionImage.SetActive(true);
+
+        if (safetySlot != null) 
+            safetySlotImage.SetActive(true);
+        else 
+            safetySlotImage.SetActive(false);
         
         selectionImage.transform.SetAsFirstSibling();
         
-        currentItem = lastSelected.GetComponent<ItemSlot>();
-        currentItem.ShowItemDetails();
-        selectionImage.transform.position = currentItem.transform.position;
+        currentItemSlot = lastSelected.GetComponent<ItemSlot>();
+        currentItemSlot.ShowItemDetails();
+        selectionImage.transform.position = currentItemSlot.transform.position;
     }
 
     public void OnHideMenu()
     {
         lastSelected = null;
-        currentItem = null;
+        currentItemSlot = null;
         
         inventory.DeselectSlot();
         inventory.itemDescriptionNameText.SetText("");
@@ -115,31 +132,73 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
                 if (lastSelected.CompareTag("ItemSlot"))
                 {
-                    currentItem = lastSelected.GetComponent<ItemSlot>();
+                    currentItemSlot = lastSelected.GetComponent<ItemSlot>();
 
                     if (!selectionImage.activeSelf)
                         selectionImage.SetActive(true);
+                    
+                    if (GameManager.Instance.PlayerPassives.Has(PassiveAbilities.SafetySlot)) 
+                        safetySlotButton.SetActive(true);
                 
-                    selectionImage.transform.position = currentItem.transform.position;
+                    selectionImage.transform.position = currentItemSlot.transform.position;
                     
                     //Debug.Log("sSHOW BITACHASSS");
                     
-                    currentItem.ShowItemDetails();
+                    currentItemSlot.ShowItemDetails();
                 }
                 else if (lastSelected.CompareTag("SortButton"))
                 {
-                    currentItem = null;
+                    currentItemSlot = null;
                     selectionImage.SetActive(false);
+                    safetySlotButton.SetActive(false);
                     inventory.dropItemText.SetActive(false);
                 }
             }
         }
     }
 
+    private void ToggleSafetySlotItem()
+    {
+        if (safetySlot != null)
+        {
+            if (safetySlot.item.data == currentItemSlot.item.data)
+            {
+                safetySlot.item.data.isSafetySlot = false;
+                safetySlot = null;
+                
+                safetySlotImage.SetActive(false);
+
+                return;
+            }
+            
+            safetySlot.item.data.isSafetySlot = false;
+        }
+        
+        safetySlotImage.transform.position = currentItemSlot.transform.position;
+        safetySlotImage.SetActive(true);
+        
+        safetySlot = currentItemSlot;
+        safetySlot.item.data.isSafetySlot = true;
+    }
+
     public void OnButtonNorth()
     {
-        if (currentItem != null) 
-            currentItem.DropItem();
+        if (currentItemSlot.item.data != null) 
+            currentItemSlot.DropItem();
+        else
+        {
+            Debug.Log("No item selected");
+        }
+    }
+
+    public void OnButtonWest()
+    {
+        if (currentItemSlot.item.data != null)
+        {
+            if (!GameManager.Instance.PlayerPassives.Has(PassiveAbilities.SafetySlot)) return;
+        
+            ToggleSafetySlotItem();
+        }
         else
         {
             Debug.Log("No item selected");

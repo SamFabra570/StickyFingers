@@ -111,6 +111,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             inventory.content.SetActive(false);
             
             inventory.dropItemText.SetActive(false);
+            InventoryMenu.Instance.safetySlotButton.SetActive(false);
             
             inventory.itemDescriptionNameText.SetText("");
             inventory.itemDescriptionText.SetText("");

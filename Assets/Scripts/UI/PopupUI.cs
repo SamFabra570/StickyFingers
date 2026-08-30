@@ -23,6 +23,7 @@ public class PopupUI : MonoBehaviour
         Pickup,
         Dropped,
         Stolen,
+        SafetySlot,
         Consumed,
         NeedKey
     }
@@ -65,9 +66,17 @@ public class PopupUI : MonoBehaviour
                 
                 SetIconImage(itemData);
                 
-                textNameNotif.SetText("- " + itemData.itemName);
+                textNameNotif.SetText(itemData.itemName + " stolen!");
                 textWeightNotif.SetText("-" + itemData.itemWeight);
                 textValueNotif.SetText("-" + itemData.itemPrice);
+                break;
+            case PopupType.SafetySlot:
+                SetTextColour(Color.purple);
+                
+                SetIconImage(itemData);
+                
+                HideItemInfo();
+                notificationText.SetText(itemData.itemName + " protected by safety slot!");
                 break;
             case PopupType.Consumed:
                 SetTextColour(Color.black);
@@ -80,6 +89,8 @@ public class PopupUI : MonoBehaviour
                 }
                 break;
             case PopupType.NeedKey:
+                SetTextColour(Color.darkRed);
+                
                 HideItemInfo();
                 notificationText.SetText("No keys in inventory!");
                 break;
@@ -107,6 +118,7 @@ public class PopupUI : MonoBehaviour
 
     private void SetTextColour(Color colour)
     {
+        notificationText.color = colour;
         textNameNotif.color = colour;
         textWeightNotif.color = colour;
         textValueNotif.color = colour;

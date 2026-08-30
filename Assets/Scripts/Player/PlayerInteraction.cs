@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (player.interactable != null)
         {
-            Debug.Log("Already interacting");
+            //Debug.Log("Already interacting");
             return;
         }
         

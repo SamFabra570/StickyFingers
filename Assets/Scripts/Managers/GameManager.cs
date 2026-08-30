@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
     public float deeperPocketsWeight = 500;
     //public bool runState;
 
+    //Used for post-game screen
     public bool successfulRun;
     public string endRunState;
-    public float extractedBounty;
+    public float extractedBounty; 
     public float timeRemaining;
 
     public bool isPaused;
@@ -98,7 +99,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            extractedBounty = 0;
+            if (PlayerPassives.Has(PassiveAbilities.SafetySlot))
+            {
+                if (InventoryMenu.Instance.safetySlot != null) 
+                    extractedBounty = InventoryMenu.Instance.safetySlot.item.stackSize * InventoryMenu.Instance.safetySlot.item.data.itemPrice;
+                else
+                    extractedBounty = 0;
+            }
+            else
+                extractedBounty = 0;
         }
         
         inv.inventorySystem.SellInventory(successfulRun);

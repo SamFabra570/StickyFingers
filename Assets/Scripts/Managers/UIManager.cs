@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public InputActionReference submitAction;
     public InputActionReference cancelAction;
     public InputActionReference buttonNorthAction;
+    public InputActionReference buttonWestAction;
     
     [Header ("UI Screen Refs")]
     public InventoryMenu inventoryMenu;
@@ -62,6 +63,7 @@ public class UIManager : MonoBehaviour
     public GameObject mageSpawnNotif;
 
     [Header("HUD UI Refs")] 
+    public GameObject interactTextUI;
     public TextMeshProUGUI interactText;
     public GameObject openInventoryText;
 
@@ -79,8 +81,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Object Trigger UI Refs")] 
     public GameObject triggeredObject;
-
-    public Slider mashBar;
+    public GameObject mashUI;
+    public Image mashBarFill;
     public bool isMashing;
     private ButtonMash mashScript;
     
@@ -137,7 +139,7 @@ public class UIManager : MonoBehaviour
         
         if (interactText == null)
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-        interactText.gameObject.SetActive(false);
+        interactTextUI.SetActive(false);
         
         //UIMenuStack.Clear();
     }
@@ -207,8 +209,6 @@ public class UIManager : MonoBehaviour
             if (openInventoryText != null) 
                 openInventoryText.SetActive(false);
         }
-        
-        
         
         InputIconManager.Instance.RefreshIcons();
 
@@ -299,7 +299,7 @@ public class UIManager : MonoBehaviour
         
         if (!showText)
         {
-            interactText.gameObject.SetActive(false);
+            interactTextUI.SetActive(false);
             //Debug.Log("turn off text");
             return;
         }
@@ -335,7 +335,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
         
-        interactText.gameObject.SetActive(true);
+        interactTextUI.SetActive(true);
     }
 
     public void ShowItemPopupUI(InventoryItemData itemData, PopupUI.PopupType popupType)
@@ -392,7 +392,7 @@ public class UIManager : MonoBehaviour
     private void UpdateMashBar()
     {
         float normalizedTimeRemaining = mashScript.timeRemaining / mashScript.maxEventTime;
-        mashBar.value = normalizedTimeRemaining;
+        mashBarFill.fillAmount = 1 - normalizedTimeRemaining;
     }
 
     public void UpdateTotals()
@@ -487,6 +487,9 @@ public class UIManager : MonoBehaviour
         
         buttonNorthAction.action.performed += OnButtonNorth;
         buttonNorthAction.action.Enable();
+        
+        buttonWestAction.action.performed += OnButtonWest;
+        buttonWestAction.action.Enable();
     }
 
     private void OnDisable()
@@ -502,6 +505,9 @@ public class UIManager : MonoBehaviour
         
         buttonNorthAction.action.performed -= OnButtonNorth;
         buttonNorthAction.action.Disable();
+        
+        buttonWestAction.action.performed -= OnButtonWest;
+        buttonWestAction.action.Disable();
     }
 
     private void OnNavigate(InputAction.CallbackContext context)
@@ -524,5 +530,10 @@ public class UIManager : MonoBehaviour
     private void OnButtonNorth(InputAction.CallbackContext context)
     {
         UIMenuStack.Current?.OnButtonNorth();
+    }
+
+    private void OnButtonWest(InputAction.CallbackContext context)
+    {
+        UIMenuStack.Current?.OnButtonWest();
     }
 }

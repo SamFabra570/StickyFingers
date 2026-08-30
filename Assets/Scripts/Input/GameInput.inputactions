@@ -509,6 +509,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ButtonWest",
+                    "type": "Button",
+                    "id": "87d56fca-9280-4a44-adc5-98904d556865",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Start",
                     "type": "Button",
                     "id": "65dfcbd4-fc4e-4492-a3e5-9701cb8a160b",
@@ -813,6 +822,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3917990-c50c-4217-bff6-f93b3ea19be4",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ButtonWest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9dd4e71-6e94-48da-a0f8-fce5d41940ab",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ButtonWest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

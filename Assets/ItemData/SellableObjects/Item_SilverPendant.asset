@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 1
   itemType: 0
-  itemName: Silver Pendant
+  itemName: Pendant
   missionItem: 0
   isDroppable: 1
   itemDescription: SIUUUU silver necklace

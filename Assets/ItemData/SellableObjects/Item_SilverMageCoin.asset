@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 0
   itemType: 0
-  itemName: Silver MageCoin
+  itemName: Magecoin
   missionItem: 0
   isDroppable: 1
   itemDescription: one hundred million billion
