@@ -1,25 +1,28 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyStunnedState : EnemyState
 {
+    //Everything else works off EnemyBrain, but the stun VFX is the guard's own, so keep a typed handle.
+    private readonly BaseEnemy guard;
+
     private float stunDuration;
 
-    public EnemyStunnedState(
-        BaseEnemy enemy,
-        EnemyStateMachine stateMachine,
-        Animator animator,
-        string animationName
-    ) : base(enemy, stateMachine, animator, animationName)
+    public EnemyStunnedState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animator, string _animationName)
+        : base(_enemy, _stateMachine, _animator, _animationName)
     {
+        guard = _enemy;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        enemy.fireEffect.SetActive(false);
-        enemy.stunEffect.SetActive(true);
+        if (enemy.fireEffect != null)
+            enemy.fireEffect.SetActive(false);
+
+        if (guard.stunEffect != null)
+            guard.stunEffect.SetActive(true);
+
         enemy.agent_.isStopped = true;
     }
 
@@ -27,7 +30,9 @@ public class EnemyStunnedState : EnemyState
     {
         base.Exit();
 
-        enemy.stunEffect.SetActive(false);
+        if (guard.stunEffect != null)
+            guard.stunEffect.SetActive(false);
+
         enemy.agent_.isStopped = false;
     }
 
@@ -35,12 +40,10 @@ public class EnemyStunnedState : EnemyState
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + stunDuration)
-        {
+        if (Time.time >= startTime + stunDuration)
             stateMachine.ChangeState(enemy.patrolState);
-        }
     }
-    
+
     public void SetStunDuration(float duration)
     {
         stunDuration = duration;

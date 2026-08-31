@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
-    public EnemyAttackState(BaseEnemy _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyAttackState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -24,7 +24,7 @@ public class EnemyAttackState : EnemyState
         //Hold in Attack for the anim duration so the player sees the strike, then hand control back to Pursuit. Pursuit handles the cooldown/back-off from there.
         if (Time.time - startTime >= enemy.attackAnimHold)
         {
-            stateMachine.ChangeState(new EnemyPursuitState(enemy, stateMachine, animationController, "Pursuit"));
+            stateMachine.ChangeState(enemy.pursuitState);
         }
     }
 

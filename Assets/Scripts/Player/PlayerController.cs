@@ -104,7 +104,9 @@ public class PlayerController : MonoBehaviour
     
     private bool gogglesUp;
     public InventoryItemData inventoryItem;
-    private Collider detectedEnemy; 
+    private Collider detectedEnemy;
+    [Tooltip("Awareness per second an enemy gains while it can hear the player. Sprinting widens the radius, so noise becomes a real risk rather than a cosmetic stat.")]
+    public float hearingAwarenessPerSecond = 45f;
     
     private CharacterController cc;
     private SoundPlayer soundPlayer;
@@ -321,12 +323,13 @@ public class PlayerController : MonoBehaviour
             detectedEnemy = soundPlayer.detected_object_;
             if (detectedEnemy != null)
             {
-                if (detectedEnemy.TryGetComponent(out BaseEnemy baseEnemy))
-                    baseEnemy.agent_.SetDestination(transform.position);
-                else if (detectedEnemy.TryGetComponent(out BaseScoutEnemy scout))
-                    scout.agent_.SetDestination(transform.position);
-                else if (detectedEnemy.TryGetComponent(out BaseMageEnemy mage))
-                    mage.agent_.SetDestination(transform.position);
+                //Hearing feeds PERCEPTION, never the NavMeshAgent. Writing the destination straight from
+                //here fought the enemy's own FSM for the agent on every single frame: the FSM set a patrol
+                //waypoint, this overwrote it with the player's position, and the guard stuttered between
+                //the two forever. Now being heard raises awareness and the enemy's brain decides what to do.
+                EnemyPerception heardBy = detectedEnemy.GetComponentInParent<EnemyPerception>();
+                if (heardBy != null)
+                    heardBy.ReportStimulus(transform.position, hearingAwarenessPerSecond * Time.deltaTime);
             }
         }
 

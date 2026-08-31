@@ -5559,7 +5559,7 @@ MonoBehaviour:
   isBeingSeen: 0
   hiddenSpeed: 1.5
   visibleSpeed: 3
-  pursuitSpeed: 4.5
+  pursuitSpeed: 6
 --- !u!95 &7169713535984091197
 Animator:
   serializedVersion: 7

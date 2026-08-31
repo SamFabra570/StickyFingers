@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyMageAttackState : EnemyMageState
+public class EnemyMageAttackState : EnemyState
 {
     private float distanceToTarget;
 
@@ -12,7 +12,7 @@ public class EnemyMageAttackState : EnemyMageState
     //private bool isTeleporting = false;
     private Transform playerTransform;
     
-    public EnemyMageAttackState(BaseMageEnemy _enemy, EnemyMageStateMachine _stateMachine, Animator _animController, string _animName)
+    public EnemyMageAttackState(EnemyBrain _enemy, EnemyStateMachine _stateMachine, Animator _animController, string _animName)
         : base(_enemy, _stateMachine, _animController, _animName)
     {
     }
@@ -85,13 +85,19 @@ public class EnemyMageAttackState : EnemyMageState
             //If player gets too far, switch back to pursuit
             if (distanceToTarget > enemy.attack_distance_ * enemy.stop_attack_distance_multiplier)
             {
-                stateMachine.ChangeState(new EnemyMagePursuitState(enemy, stateMachine, animationController, "Pursuit"));
+                stateMachine.ChangeState(enemy.pursuitState);
             }
         }
-        //If player no longer detected, go back to patrol
-        else if (enemy.sight_sensor_.detected_object_ == null)
+        //Losing sight mid-fight used to send the enemy straight back to its patrol route — the single
+        //most generous piece of amnesia in the whole AI: you were being hit a frame ago and now nobody
+        //is looking for you. Perception decides instead. Still certain? keep chasing. Otherwise search.
+        //Patrol is only ever reached once awareness has genuinely decayed, which takes real time.
+        else if (enemy.perception == null || !enemy.perception.HasVisual)
         {
-            stateMachine.ChangeState(new EnemyMagePatrolState(enemy, stateMachine, animationController, "Patrol"));
+            if (enemy.perception != null && enemy.perception.Level == EnemyPerception.Awareness.Alert)
+                stateMachine.ChangeState(enemy.pursuitState);
+            else
+                stateMachine.ChangeState(enemy.searchState);
         }
         
         
