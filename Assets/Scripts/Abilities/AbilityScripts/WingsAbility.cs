@@ -13,7 +13,6 @@ public class WingsAbility : Ability
         PlayerController.Instance.MovePlayerUp(flyHeight);
         
         PlayerController.Instance.abilityMoveSpeed = flySpeed;
-        PlayerController.Instance.wings.SetActive(true);
         PlayerController.Instance.SetPlayerColour(abilityColour);
         //Debug.Log("Wings Activated");
     }
@@ -22,7 +21,6 @@ public class WingsAbility : Ability
     {
         PlayerController.Instance.useGravity = true;
         PlayerController.Instance.abilityMoveSpeed = 0;
-        PlayerController.Instance.wings.SetActive(false);
         PlayerController.Instance.ResetColour();
         //Debug.Log("Wings Deactivated");
     }

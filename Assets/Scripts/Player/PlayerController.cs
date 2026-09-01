@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AbilityCooldownUI ability3UI;
     
     [Header ("Player Movement")]
-    private float currentSpeed;
     public bool isSprinting;
+    private float currentSpeed;
     [SerializeField] public float baseMoveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 7f;
     [SerializeField] private float frozenFloorSpeed = 12f;
@@ -117,6 +117,8 @@ public class PlayerController : MonoBehaviour
     [Header("Extra References")] 
     public PopupUI itemPickupUI;
     public GameObject itemDropUI;
+    
+    public PlayerVisualController playerVisualController;
 
     // How many enemy sensors currently see the player. >0 = detected (drives the detection vignette).
     private int _detectorCount;

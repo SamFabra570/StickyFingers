@@ -17,6 +17,10 @@ MonoBehaviour:
   abilityDescription: Points you towards the most valuable item
   icon: {fileID: 21300000, guid: fc965990e572e5c42b1476262bec59f5, type: 3}
   abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
+  playerVisuals:
+    front: {fileID: 21300000, guid: 23e605be3f9227145bfcebfe412566de, type: 3}
+    back: {fileID: 21300000, guid: 65c5bb6d15cec3c40be78e74c984eb86, type: 3}
+    side: {fileID: 21300000, guid: 4dfd7ff710611354788f874701a75749, type: 3}
   debtThreshold: 0.45
   unlockMission: {fileID: 11400000, guid: 6e51e58c0f0a9b1459dd6e4a0bacab9f, type: 2}
   unlockedByDefault: 0

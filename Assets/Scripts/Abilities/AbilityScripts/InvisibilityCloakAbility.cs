@@ -8,6 +8,8 @@ public class InvisibilityCloakAbility : Ability
     {
         PlayerController.Instance.SetPlayerColour(abilityColour);
         PlayerController.Instance.isInvisible = true;
+        
+        PlayerController.Instance.playerVisualController.SetSpriteOpacity(0.6f);
         //Debug.Log("Invisibility Activated");
     }
     
@@ -15,6 +17,8 @@ public class InvisibilityCloakAbility : Ability
     {
         PlayerController.Instance.ResetColour();
         PlayerController.Instance.isInvisible = false;
+        
+        PlayerController.Instance.playerVisualController.SetSpriteOpacity(1f);
         //Debug.Log("Invisibility Deactivated");
     }
 }

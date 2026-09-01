@@ -66,6 +66,8 @@ public class AbilityManager : MonoBehaviour
         
         slot.ability.Activate(gameObject);
         slot.BeginActive();
+        
+        PlayerController.Instance.playerVisualController.UpdateSpriteSet(slot.ability.playerVisuals);
     }
 
     public void DeactivateAbility(AbilitySlot slot)
@@ -73,6 +75,8 @@ public class AbilityManager : MonoBehaviour
         slot.ability.Deactivate(gameObject);
 
         slot.BeginCooldown();
+        
+        PlayerController.Instance.playerVisualController.UpdateSpriteSet(PlayerController.Instance.playerVisualController.basePlayerVisuals);
     }
     
     public bool IsAbilityActive()

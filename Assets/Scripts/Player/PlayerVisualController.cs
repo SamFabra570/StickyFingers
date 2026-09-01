@@ -8,6 +8,7 @@ public class PlayerVisualController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Sprites")]
+    public PlayerVisualSet basePlayerVisuals;
     [SerializeField] private Sprite frontSprite;
     [SerializeField] private Sprite backSprite;
     [SerializeField] private Sprite sideSprite;
@@ -71,6 +72,57 @@ public class PlayerVisualController : MonoBehaviour
         cameraForward.Normalize();
 
         transform.rotation = Quaternion.LookRotation(-cameraForward);
+    }
 
+    public void UpdateSpriteSet(PlayerVisualSet spriteSet)
+    {
+        frontSprite = spriteSet.front;
+        backSprite = spriteSet.back;
+        sideSprite = spriteSet.side;
+        
+        if (player.MovementDirection.sqrMagnitude > 0.01f)
+        {
+            UpdateSprite();
+        }
+        else
+        {
+            UpdateIdleSprite();
+        }
+    }
+    
+    public void SetSpriteOpacity(float opacity)
+    {
+        Color color = spriteRenderer.color;
+        color.a = opacity;
+        spriteRenderer.color = color;
+    }
+    
+    private void UpdateIdleSprite()
+    {
+        if (cam == null)
+            cam = Camera.main;
+
+        Quaternion cameraRotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+
+        // Use the player's current forward direction.
+        Vector3 facingDirection = player.transform.forward;
+
+        Vector3 localDirection = Quaternion.Inverse(cameraRotation) * facingDirection;
+
+        if (Mathf.Abs(localDirection.x) > Mathf.Abs(localDirection.z))
+        {
+            spriteRenderer.sprite = sideSprite;
+
+            spriteRenderer.flipX = localDirection.x > 0f;
+        }
+        else
+        {
+            if (localDirection.z < 0f)
+                spriteRenderer.sprite = frontSprite;
+            else
+                spriteRenderer.sprite = backSprite;
+
+            spriteRenderer.flipX = false;
+        }
     }
 }
