@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
     public float timeRemaining;
 
     public bool isPaused;
+    
+    [Header ("Inventory")]
+    public List<InventoryItem> postGameInventory = new List<InventoryItem>();
+    public InventoryItem safetySlotItem;
 
     private void Awake()
     {
@@ -91,6 +95,9 @@ public class GameManager : MonoBehaviour
 
         if (PlayerController.Instance.isFrozen)
             PlayerController.Instance.isFrozen = false;
+        
+        if (PlayerController.Instance.arrow.gameObject.activeSelf)
+            PlayerController.Instance.arrow.gameObject.SetActive(false);
 
         if (successfulRun)
         {
@@ -101,8 +108,11 @@ public class GameManager : MonoBehaviour
         {
             if (PlayerPassives.Has(PassiveAbilities.SafetySlot))
             {
-                if (InventoryMenu.Instance.safetySlot != null) 
-                    extractedBounty = InventoryMenu.Instance.safetySlot.item.stackSize * InventoryMenu.Instance.safetySlot.item.data.itemPrice;
+                if (InventoryMenu.Instance.safetySlot != null)
+                {
+                    safetySlotItem = InventoryMenu.Instance.safetySlot.item;
+                    extractedBounty = safetySlotItem.stackSize * safetySlotItem.data.itemPrice;
+                }
                 else
                     extractedBounty = 0;
             }
@@ -113,6 +123,20 @@ public class GameManager : MonoBehaviour
         inv.inventorySystem.SellInventory(successfulRun);
         
         SceneManager.LoadScene("Post-Game");
+    }
+    
+    public void SavePostGameInventory(List<InventoryItem> sourceInventory)
+    {
+        postGameInventory.Clear();
+
+        foreach (InventoryItem item in sourceInventory)
+        {
+            InventoryItem copy = new InventoryItem(item.data);
+            copy.stackSize = item.stackSize;
+            copy.pickupOrder = item.pickupOrder;
+
+            postGameInventory.Add(copy);
+        }
     }
 
     public float GetDebtPaidPercent()

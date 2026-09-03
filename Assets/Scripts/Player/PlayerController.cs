@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public GameObject forceField;
 
     public bool hasUsedSecondChance;
+    public bool hasUsedEmergencyExit;
 
     public bool isInvisible;
 
@@ -286,6 +287,25 @@ public class PlayerController : MonoBehaviour
             
             AbilityManager.Instance.ActivateAbility(2);
             feedback.GetAbilitySlot(2);
+        };
+        
+        inputMap.Player.EmergencyExit.performed += EmergencyExit_performed =>
+        {
+            if (SceneManager.GetActiveScene().name != ("Game"))
+                return;
+            
+            //Debug.Log("trying to emergency exit");
+
+            if (GameManager.Instance.PlayerPassives.Has(PassiveAbilities.EmergencyExit))
+            {
+                if (!hasUsedEmergencyExit)
+                {
+                    //Debug.Log("should have emergency exit");
+                    
+                    TimeManager.Instance.EmergencyExit();
+                    hasUsedEmergencyExit = true;
+                }
+            }
         };
         
         

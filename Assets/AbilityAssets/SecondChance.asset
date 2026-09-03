@@ -16,6 +16,7 @@ MonoBehaviour:
   passiveName: Second Chance
   passiveDescription: Saves you from the mage! One time per run!
   passiveColour: {fileID: 2100000, guid: bc2154baa1dad1b4882743effbff5c76, type: 2}
+  passiveInventoryIcon: {fileID: 21300000, guid: fe54111844f06aa46af1d0cd16c81e58, type: 3}
   debtThreshold: 0
   unlockMission: {fileID: 0}
-  unlockedByDefault: 0
+  unlockedByDefault: 1

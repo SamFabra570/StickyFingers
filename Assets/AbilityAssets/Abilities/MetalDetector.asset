@@ -21,7 +21,7 @@ MonoBehaviour:
     front: {fileID: 21300000, guid: 23e605be3f9227145bfcebfe412566de, type: 3}
     back: {fileID: 21300000, guid: 65c5bb6d15cec3c40be78e74c984eb86, type: 3}
     side: {fileID: 21300000, guid: 4dfd7ff710611354788f874701a75749, type: 3}
-  debtThreshold: 0.45
+  debtThreshold: 0.86
   unlockMission: {fileID: 11400000, guid: 6e51e58c0f0a9b1459dd6e4a0bacab9f, type: 2}
   unlockedByDefault: 0
   duration: 10

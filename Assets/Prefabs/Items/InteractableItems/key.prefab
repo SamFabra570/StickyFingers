@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6222266696682865114}
   - component: {fileID: 170817197570678825}
   - component: {fileID: 1697322971121303877}
-  - component: {fileID: 3353777817638508023}
   - component: {fileID: 1501165798365858913}
   - component: {fileID: -2419247091002498206}
   m_Layer: 0
@@ -31,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.48, y: 0.68, z: 4.27}
-  m_LocalScale: {x: 0.27713266, y: 0.3390347, z: 1.1246455}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.03320445, y: 0.08301112, z: 0.08301112}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6279566938188504417}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -5546940888850326318, guid: fcfaac37217381d4185ee0f0e687607d, type: 3}
 --- !u!23 &1697322971121303877
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -69,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 667519f09f97a9445ae14011402e73be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,27 +91,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3353777817638508023
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6279566938188504417}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1501165798365858913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   referenceItem: {fileID: 11400000, guid: b4e6862bada8c6147b9dfa2de5031937, type: 2}
-  isBeingSeen: 0
+  meshRenderer: {fileID: 0}
+  outlineMat: {fileID: 0}
 --- !u!64 &-2419247091002498206
 MeshCollider:
   m_ObjectHideFlags: 0

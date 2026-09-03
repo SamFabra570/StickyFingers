@@ -35,7 +35,7 @@ public class MissionManager : MonoBehaviour
         
         activeMission = mission;
         
-        missionUI.activeMissionIndicator.SetActive(true);
+        //missionUI.activeMissionIndicator.SetActive(true);
         
         Debug.Log("Started mission: " + mission.missionName);
     }

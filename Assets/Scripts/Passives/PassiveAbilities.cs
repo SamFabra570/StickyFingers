@@ -6,6 +6,7 @@ public enum PassiveAbilities
     SafetySlot,
     DeeperPockets,
     SecondChance,
-    ExtraTime
+    ExtraTime,
+    EmergencyExit
 }
 

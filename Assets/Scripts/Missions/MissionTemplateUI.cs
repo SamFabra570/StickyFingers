@@ -23,13 +23,13 @@ public class MissionTemplateUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI durationText;
     [SerializeField] private TextMeshProUGUI cooldownText;
 
-    [Header("Task Requirements")] 
-    public GameObject activeMissionIndicator;
-    public GameObject abilityUnlockedOverlay;
-    [SerializeField] private GameObject requirementPanel;
+    //[Header("Task Requirements")] 
+    // public GameObject activeMissionIndicator;
+    // public GameObject abilityUnlockedOverlay;
+    // [SerializeField] private GameObject requirementPanel;
     [SerializeField] private TextMeshProUGUI requirementDescriptionText;
-    //[SerializeField] private TextMeshProUGUI requirementItemName;
-    [SerializeField] private TextMeshProUGUI progressText;
+    // //[SerializeField] private TextMeshProUGUI requirementItemName;
+    // [SerializeField] private TextMeshProUGUI progressText;
 
     private void UpdateLockedPanel(AbilityUnlock abilityUnlock)
     {
@@ -37,7 +37,9 @@ public class MissionTemplateUI : MonoBehaviour
         lockedIcon.sprite = abilityUnlock.ability.icon;
         //lockedIconColor.color = abilityUnlock.ability.abilityColour.color;
 
-        progressionSlider.value = GetProgressionSliderFill(abilityUnlock);
+        //Fix this to go back to slider values per ability
+        //progressionSlider.value = GetProgressionSliderFill(abilityUnlock);
+        progressionSlider.value = GameManager.Instance.GetDebtPaidPercent();
     }
 
     private void UpdateUnlockedPanel(AbilityUnlock abilityUnlock)
@@ -49,35 +51,35 @@ public class MissionTemplateUI : MonoBehaviour
         durationText.text = ("" + abilityUnlock.ability.duration);
         cooldownText.text = ("" + abilityUnlock.ability.cooldown);
         
-        UpdateRequirements(abilityUnlock);
+        //UpdateRequirements(abilityUnlock);
     }
 
     private void UpdateRequirements(AbilityUnlock abilityUnlock)
     {
-        if (abilityUnlockedOverlay.activeSelf) 
-            abilityUnlockedOverlay.SetActive(false);
+        // if (abilityUnlockedOverlay.activeSelf) 
+        //     abilityUnlockedOverlay.SetActive(false);
+        //
+        // if (ProgressionManager.Instance.IsUnlocked(abilityUnlock.ability)) //If ability is fully unlocked
+        // {
+        //     abilityUnlockedOverlay.SetActive(true);
+        //     return;
+        // }
         
-        if (ProgressionManager.Instance.IsUnlocked(abilityUnlock.ability)) //If ability is fully unlocked
-        {
-            abilityUnlockedOverlay.SetActive(true);
-            return;
-        }
-        
-        requirementDescriptionText.text = abilityUnlock.ability.unlockMission.description;
-
-        if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission)
-        {
-            if (!MissionManager.Instance.IsComplete)
-            {
-                progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
-                activeMissionIndicator.SetActive(true);
-            }
-        }
-        else
-        {
-            activeMissionIndicator.SetActive(false);
-            progressText.text = ("0 / " + abilityUnlock.ability.unlockMission.requiredAmount);
-        }
+        //requirementDescriptionText.text = abilityUnlock.ability.unlockMission.description;
+    
+        // if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission)
+        // {
+        //     if (!MissionManager.Instance.IsComplete)
+        //     {
+        //         progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
+        //         activeMissionIndicator.SetActive(true);
+        //     }
+        // }
+        // else
+        // {
+        //     activeMissionIndicator.SetActive(false);
+        //     progressText.text = ("0 / " + abilityUnlock.ability.unlockMission.requiredAmount);
+        // }
     }
     
     private float GetProgressionSliderFill(AbilityUnlock abilityUnlock)

@@ -5,6 +5,7 @@ public abstract class Ability : ScriptableObject
     [Header("Ability")]
     public string abilityID;
     public string abilityName;
+    [TextArea]
     public string abilityDescription;
     
     public Sprite icon;

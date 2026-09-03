@@ -199,6 +199,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EmergencyExit"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b611e4a-63fa-4da3-874d-77813bcbb13f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -540,6 +549,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""RotateCameraLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e1f43d4-6a73-4939-a6e8-e9b61404c998"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""EmergencyExit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbea8200-203a-4f3f-b8fc-97a903df78c6"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""EmergencyExit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -975,6 +1006,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_ResetCooldown = m_Player.FindAction("ResetCooldown", throwIfNotFound: true);
+        m_Player_EmergencyExit = m_Player.FindAction("EmergencyExit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
@@ -1077,6 +1109,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_ResetCooldown;
+    private readonly InputAction m_Player_EmergencyExit;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1136,6 +1169,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ResetCooldown".
         /// </summary>
         public InputAction @ResetCooldown => m_Wrapper.m_Player_ResetCooldown;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EmergencyExit".
+        /// </summary>
+        public InputAction @EmergencyExit => m_Wrapper.m_Player_EmergencyExit;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1198,6 +1235,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @ResetCooldown.started += instance.OnResetCooldown;
             @ResetCooldown.performed += instance.OnResetCooldown;
             @ResetCooldown.canceled += instance.OnResetCooldown;
+            @EmergencyExit.started += instance.OnEmergencyExit;
+            @EmergencyExit.performed += instance.OnEmergencyExit;
+            @EmergencyExit.canceled += instance.OnEmergencyExit;
         }
 
         /// <summary>
@@ -1245,6 +1285,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @ResetCooldown.started -= instance.OnResetCooldown;
             @ResetCooldown.performed -= instance.OnResetCooldown;
             @ResetCooldown.canceled -= instance.OnResetCooldown;
+            @EmergencyExit.started -= instance.OnEmergencyExit;
+            @EmergencyExit.performed -= instance.OnEmergencyExit;
+            @EmergencyExit.canceled -= instance.OnEmergencyExit;
         }
 
         /// <summary>
@@ -1557,6 +1600,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnResetCooldown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EmergencyExit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEmergencyExit(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

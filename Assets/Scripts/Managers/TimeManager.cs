@@ -125,4 +125,9 @@ public class TimeManager : MonoBehaviour
         int secs = Mathf.FloorToInt(time % 60);
         return string.Format("{0}:{1:00}", mins, secs);
     }
+
+    public void EmergencyExit()
+    {
+        remainingTime = 61;
+    }
 }

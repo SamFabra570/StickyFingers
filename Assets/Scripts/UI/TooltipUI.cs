@@ -16,8 +16,11 @@ public class TooltipUI : MonoBehaviour
     [Header ("UI Refs")]
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private TextMeshProUGUI durationText;
-    [SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private GameObject passiveText;
+    [SerializeField] private GameObject durationText;
+    [SerializeField] private TextMeshProUGUI durationValue;
+    [SerializeField] private GameObject cooldownText;
+    [SerializeField] private TextMeshProUGUI cooldownValue;
     
     [Header("Positioning")]
     [SerializeField] private Vector2 rightOffset = new Vector2(-20, 0f);
@@ -86,13 +89,17 @@ public class TooltipUI : MonoBehaviour
                 return;
             }
         
-            if (!cooldownText.gameObject.activeSelf)
-                cooldownText.gameObject.SetActive(true);
+            if (!cooldownText.activeSelf)
+                cooldownText.SetActive(true);
+            if (!durationText.activeSelf)
+                durationText.SetActive(true);
+            if (passiveText.activeSelf)
+                passiveText.SetActive(false);
             
             nameText.text = selectedAbility.abilityName;
             descriptionText.text = selectedAbility.abilityDescription;
-            durationText.text = (selectedAbility.duration + "s");
-            cooldownText.text = (selectedAbility.cooldown + "s");
+            durationValue.text = (selectedAbility.duration + "");
+            cooldownValue.text = (selectedAbility.cooldown + "");
         }
         else if (item.CompareTag("Passive"))
         {
@@ -100,8 +107,9 @@ public class TooltipUI : MonoBehaviour
 
             nameText.text = passive.passiveName;
             descriptionText.text = passive.passiveDescription;
-            durationText.text = ("Passive");
-            cooldownText.gameObject.SetActive(false);
+            passiveText.SetActive(true);
+            cooldownText.SetActive(false);
+            durationText.SetActive(false);
         }
         else
         {

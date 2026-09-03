@@ -187,6 +187,8 @@ public class InventorySystem
         //check safe slot-pending for dev
         if (runState)
         {
+            GameManager.Instance.SavePostGameInventory(inventory);
+            
             GameManager.Instance.remainingDebt -= totalBounty;
         }
         else

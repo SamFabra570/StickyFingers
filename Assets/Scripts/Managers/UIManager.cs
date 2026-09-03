@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI totalBountyText;
 
-    public Image passiveBackground;
+    //public Image passiveBackground;
     public Image passiveIcon;
 
     [Header("Weight HUD Refs")] 
@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour
     public GameObject interactTextUI;
     public TextMeshProUGUI interactText;
     public GameObject openInventoryText;
+    public GameObject emergencyExitText;
 
     private String lastInteracted;
 
@@ -118,7 +119,7 @@ public class UIManager : MonoBehaviour
         {
             inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
             weightFill = GameObject.Find("WeightFill").GetComponent<Image>();
-            UpdatePassiveUI(GameManager.Instance.PlayerPassives.equippedPassive);
+            UpdatePassiveUI();
         }
         
         player = PlayerController.Instance;
@@ -136,10 +137,16 @@ public class UIManager : MonoBehaviour
         if (portalSpawnNotif != null)
             portalSpawnNotif.SetActive(false);
         
-        
         if (interactText == null)
             interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
         interactTextUI.SetActive(false);
+
+        if (GameManager.Instance.PlayerPassives.Has(PassiveAbilities.EmergencyExit))
+        {
+            if (emergencyExitText != null) 
+                emergencyExitText.SetActive(true);
+        }
+            
         
         //UIMenuStack.Clear();
     }
@@ -192,11 +199,18 @@ public class UIManager : MonoBehaviour
             totalBountyText.text = ("0");
     }
 
-    private void UpdatePassiveUI(Passive passive)
+    private void UpdatePassiveUI()
     {
-        if (passive != null)
+        if (GameManager.Instance.PlayerPassives.Has(PassiveAbilities.None))
         {
-            passiveBackground.color = passive.passiveColour.color;
+            if (passiveIcon.gameObject.activeSelf) 
+                passiveIcon.gameObject.SetActive(true);
+            
+            passiveIcon.sprite = GameManager.Instance.PlayerPassives.equippedPassive.passiveInventoryIcon;
+        }
+        else
+        {
+            passiveIcon.gameObject.SetActive(false);
         }
     }
 
