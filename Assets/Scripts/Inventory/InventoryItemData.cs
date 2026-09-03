@@ -24,6 +24,9 @@ public class InventoryItemData : ScriptableObject
     
     public float itemWeight;
     public float itemPrice;
+
+    [Range(0f, 1f)]
+    public float spawnRate;
     
     public Sprite icon;
     public GameObject prefab;

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
+  m_Name: Item_RoyalCrown
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
+  id: 108
+  itemType: 0
+  itemName: Royal Crown
+  missionItem: 0
+  isDroppable: 1
+  isSafetySlot: 0
+  itemDescription: The kind of haul that ends a debt.
+  itemWeight: 10
+  itemPrice: 1500
+  spawnRate: 0.03
+  icon: {fileID: 21300000, guid: d1d2e6d0406703a4b86ccc52d15eceb4, type: 3}
+  prefab: {fileID: 0}
+  itemRarity: 2
