@@ -46,8 +46,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             // weightText.SetText("" + item.data.itemWeight);
             // valueText.SetText("" + item.data.itemPrice);
             quantityText.SetText(""+item.stackSize);
-            stackWeightText.SetText(""+(item.data.itemWeight * item.stackSize));
-            stackValueText.SetText(""+(item.data.itemPrice * item.stackSize));
+            stackWeightText.SetText(""+item.data.itemWeight);
+            stackValueText.SetText(""+item.data.itemPrice);
         }
         else
         {
@@ -83,10 +83,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             inventory.content.SetActive(true);
             
-            inventory.itemDescriptionNameText.SetText(item.data.itemName);
+            inventory.itemDescriptionNameText.SetText(item.data.itemName + " (" + item.stackSize + ")");
             inventory.itemDescriptionText.SetText(item.data.itemDescription);
-            inventory.itemWeightText.SetText("" + item.data.itemWeight);
-            inventory.itemValueText.SetText("" + item.data.itemPrice);
+            inventory.itemWeightText.SetText("" + item.data.itemWeight * item.stackSize);
+            inventory.itemValueText.SetText("" + item.data.itemPrice * item.stackSize);
 
             if (item.data.missionItem)
             {
