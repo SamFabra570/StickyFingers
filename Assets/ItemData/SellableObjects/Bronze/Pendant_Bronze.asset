@@ -19,7 +19,7 @@ MonoBehaviour:
   isDroppable: 1
   isSafetySlot: 0
   itemDescription: SIUUUU bronze necklace
-  itemWeight: 1
+  itemWeight: 2.5
   itemPrice: 200
   spawnRate: 0
   icon: {fileID: 21300000, guid: abb2e2fcc148804419a71f7d1ac26293, type: 3}

@@ -30,4 +30,4 @@ MonoBehaviour:
   warningThreshold: 0.3
   cooldown: 10
   flyHeight: 1.2
-  flySpeed: 9
+  flySpeed: 7.5

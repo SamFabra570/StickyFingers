@@ -19,7 +19,7 @@ MonoBehaviour:
   isDroppable: 1
   isSafetySlot: 0
   itemDescription: one hundred million billion
-  itemWeight: 4
+  itemWeight: 6
   itemPrice: 800
   spawnRate: 0
   icon: {fileID: 21300000, guid: babc84fc2f0875648acaf65ea939f860, type: 3}
