@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,6 +18,8 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
 
     public Button valueSortButton;
     public Button weightSortButton;
+
+    public Image passiveIcon;
     
     [Header ("Inventory")]
     public GameObject selectionImage;
@@ -81,6 +84,8 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         }
         else
             Debug.Log("First item null, cant select");
+        
+        SetPassiveIcon();
         
         if (!GameManager.Instance.PlayerPassives.Has(PassiveAbilities.SafetySlot)) 
             safetySlotButton.SetActive(false);
@@ -178,6 +183,18 @@ public class InventoryMenu : MonoBehaviour, IUIMenu
         
         safetySlot = currentItemSlot;
         safetySlot.item.data.isSafetySlot = true;
+    }
+
+    private void SetPassiveIcon()
+    {
+        if (GameManager.Instance.PlayerPassives.equippedPassive != null)
+        {
+            passiveIcon.sprite = GameManager.Instance.PlayerPassives.equippedPassive.passiveInventoryIcon;
+            
+            passiveIcon.gameObject.SetActive(true);
+        }
+        else
+            passiveIcon.gameObject.SetActive(false);
     }
 
     public void OnButtonNorth()

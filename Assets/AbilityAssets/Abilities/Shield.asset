@@ -16,6 +16,8 @@ MonoBehaviour:
   abilityName: Shield
   abilityDescription: Protects you from guards, and stuns them if they get too close!
   icon: {fileID: 21300000, guid: 6b830a35807c534409dde9598b520d42, type: 3}
+  unlockedIcon: {fileID: 21300000, guid: 831d0d43ded27c64d9357abaa1f730e4, type: 3}
+  lockedIcon: {fileID: 21300000, guid: 1292d2046ba13c047a9ff5426ee8662b, type: 3}
   abilityColour: {fileID: 2100000, guid: e76b35b6a28903d44a3926c7940120a7, type: 2}
   playerVisuals:
     front: {fileID: 21300000, guid: acd1d920cde0fd24dbb3c49e4528b7eb, type: 3}
@@ -23,7 +25,7 @@ MonoBehaviour:
     side: {fileID: 21300000, guid: 28908f48e8ba86e4a84b535633796b1c, type: 3}
   debtThreshold: 0.43
   unlockMission: {fileID: 11400000, guid: c35f8249d2a88ab4d81aec01d978ad32, type: 2}
-  unlockedByDefault: 1
+  unlockedByDefault: 0
   duration: 7.5
   warningThreshold: 0.3
   cooldown: 25

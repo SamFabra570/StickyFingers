@@ -37,7 +37,20 @@ public class PopupUI : MonoBehaviour
         switch (state)
         {
             case PopupType.Pickup:
-                SetTextColour(Color.black);
+
+                switch (itemData.itemRarity)
+                {
+                    case ItemRarity.Bronze:
+                        SetTextColour(Color.sienna);
+                        break;
+                    case ItemRarity.Silver:
+                        SetTextColour(Color.lightSlateGray);
+                        break;
+                    case ItemRarity.Gold:
+                        SetTextColour(Color.goldenRod);
+                        break;
+                }
+                
                 SetIconImage(itemData);
                 
                 textNameNotif.SetText(itemData.itemName);
@@ -45,7 +58,7 @@ public class PopupUI : MonoBehaviour
                 textValueNotif.SetText("" + itemData.itemPrice);
                 break;
             case PopupType.Dropped:
-                SetTextColour(Color.yellowNice);
+                SetTextColour(Color.black);
                 SetIconImage(itemData);
                 
                 textNameNotif.SetText("- " + itemData.itemName);

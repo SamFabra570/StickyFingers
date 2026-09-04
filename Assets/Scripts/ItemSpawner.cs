@@ -212,11 +212,11 @@ public class ItemSpawner : MonoBehaviour
     {
         float roll = Random.value;
 
-        if (roll < commonSpawnChance) return ItemRarity.Common;
+        if (roll < commonSpawnChance) return ItemRarity.Bronze;
 
-        if (roll < commonSpawnChance + uncommonSpawnChance) return ItemRarity.Uncommon;
+        if (roll < commonSpawnChance + uncommonSpawnChance) return ItemRarity.Silver;
 
-        return ItemRarity.Rare;
+        return ItemRarity.Gold;
     }
 
     private InventoryItemData GetRandomItemByRarity(

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public enum ItemRarity
 {
-    Common,
-    Uncommon,
-    Rare
+    Bronze,
+    Silver,
+    Gold
 }
 
 [CreateAssetMenu(fileName = "InventoryItemData", menuName = "Inventory/InventoryItemData")]  

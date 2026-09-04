@@ -16,6 +16,8 @@ MonoBehaviour:
   abilityName: Wings
   abilityDescription: Lets you take flight! Increases speed and ignores current weight
   icon: {fileID: 21300000, guid: ef78365d59c79554b864c80af7c4e111, type: 3}
+  unlockedIcon: {fileID: 21300000, guid: 53ed92f95b1f3d94a8d44a7978bcc3b5, type: 3}
+  lockedIcon: {fileID: 21300000, guid: 3f6067f4afa6ffe48a7a713ccebfc878, type: 3}
   abilityColour: {fileID: 2100000, guid: 5d15444556022ba40b620f48140eaf54, type: 2}
   playerVisuals:
     front: {fileID: 21300000, guid: e265fd31c325f6f4ca6f0372ce807d84, type: 3}

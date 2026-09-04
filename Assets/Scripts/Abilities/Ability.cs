@@ -8,7 +8,10 @@ public abstract class Ability : ScriptableObject
     [TextArea]
     public string abilityDescription;
     
+    [Header ("UI")]
     public Sprite icon;
+    public Sprite unlockedIcon;
+    public Sprite lockedIcon;
     public Material abilityColour;
     
     [Header("Player Visuals")]

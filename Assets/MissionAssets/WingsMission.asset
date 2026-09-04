@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionID: Wings
   missionName: Unlock the Wings ability
-  description: Collect 5 feathers to unlock the wings
+  description: Collect 5 feathers
   targetItem: {fileID: 11400000, guid: 8862531a9cdcfbe40a40e815ce70de47, type: 2}
   itemPrefab: {fileID: 4408125531739160075, guid: 2a6e0165da6220d47830037b8686d08f, type: 3}
   requiredAmount: 5

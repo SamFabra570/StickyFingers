@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 9176007471326258055}
   - component: {fileID: 994032489772738492}
   - component: {fileID: 3088834102759606215}
+  - component: {fileID: 1096344090325673851}
   m_Layer: 5
   m_Name: AbilityIcon
   m_TagString: Untagged
@@ -212,3 +213,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1096344090325673851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797407077807631007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03d130c3c371cd41a3b915eb9d0cb80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityUnlockIcon
+  ability: {fileID: 0}
+  icon: {fileID: 0}
+  lockedIcon: {fileID: 0}
+  unlockedIcon: {fileID: 0}

@@ -16,6 +16,8 @@ MonoBehaviour:
   abilityName: Metal Detector
   abilityDescription: Points you towards the most valuable item
   icon: {fileID: 21300000, guid: fc965990e572e5c42b1476262bec59f5, type: 3}
+  unlockedIcon: {fileID: 21300000, guid: caf5c79c900bd0541806ea5303ae4e6b, type: 3}
+  lockedIcon: {fileID: 21300000, guid: 61b7e7fa7442d984eb56b17e86715f00, type: 3}
   abilityColour: {fileID: 2100000, guid: 98354ab6f0be43b44af7254bb53bfe77, type: 2}
   playerVisuals:
     front: {fileID: 21300000, guid: 23e605be3f9227145bfcebfe412566de, type: 3}

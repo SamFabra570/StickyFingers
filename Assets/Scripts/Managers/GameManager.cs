@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     
     public HashSet<string> completedTutorials = new();
     public HashSet<string> completedMissions = new();
+
+    private PlayerController player;
 
     public PassiveAbilityController PlayerPassives;
 
@@ -46,23 +49,32 @@ public class GameManager : MonoBehaviour
             remainingDebt = startingDebt;
         else 
             remainingDebt = maxDebt;
-            
     }
+
+    private void Update()
+    {
+        if (player == null)
+        {
+            if (PlayerController.Instance != null) 
+                player = PlayerController.Instance;
+        }
+    }
+
     public void PauseGame(int pauseState)
     {
         switch (pauseState)
         {
             case 0:
                 Time.timeScale = 1;
-                PlayerController.Instance.isPaused = false;
+                player.isPaused = false;
                 break;
             case 1:
                 Time.timeScale = 0;
-                PlayerController.Instance.isPaused = true;
+                player.isPaused = true;
                 break;
         }
         
-        isPaused = PlayerController.Instance.isPaused;
+        isPaused = player.isPaused;
     }
 
     public void StartGame()
@@ -79,7 +91,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (PlayerPassives.Has(PassiveAbilities.SecondChance))
-            PlayerController.Instance.hasUsedSecondChance = false;
+            player.hasUsedSecondChance = false;
         
         AbilityManager.Instance.ResetAbilityCooldowns();
     }
@@ -93,11 +105,13 @@ public class GameManager : MonoBehaviour
         
         AbilityManager.Instance.InterruptAllAbilities();
 
-        if (PlayerController.Instance.isFrozen)
-            PlayerController.Instance.isFrozen = false;
+        if (player.isFrozen)
+            player.isFrozen = false;
         
-        if (PlayerController.Instance.arrow.gameObject.activeSelf)
-            PlayerController.Instance.arrow.gameObject.SetActive(false);
+        if (player.arrow.gameObject.activeSelf)
+            player.arrow.gameObject.SetActive(false);
+        
+        player.playerVisualController.ResetSpriteSet();
 
         if (successfulRun)
         {

@@ -5,6 +5,7 @@ public class MissionData : ScriptableObject
 {
     public string missionID;
     public string missionName;
+    [TextArea]
     public string description;
     
     [Header ("Objective")]

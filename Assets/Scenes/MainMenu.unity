@@ -4191,6 +4191,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -398262943313541830, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}
     - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
+      propertyPath: buttonWestAction
+      value: 
+      objectReference: {fileID: 5429926655837065367, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}
+    - target: {fileID: 1840441000146231245, guid: 8cae096a2b8d8cd4cb2520c8c9a3587b, type: 3}
       propertyPath: buttonNorthAction
       value: 
       objectReference: {fileID: 8192285825193734478, guid: dd5dcc112ed3d674ba68d9ec75a85ca1, type: 3}

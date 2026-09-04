@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
+  m_Name: MageCoin_Gold
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
+  id: 0
+  itemType: 0
+  itemName: MageCoin
+  missionItem: 0
+  isDroppable: 1
+  isSafetySlot: 0
+  itemDescription: one hundred million billion
+  itemWeight: 4
+  itemPrice: 800
+  spawnRate: 0
+  icon: {fileID: 21300000, guid: babc84fc2f0875648acaf65ea939f860, type: 3}
+  prefab: {fileID: 4408125531739160075, guid: e1e79cf80913ba74bb74b079450edd83, type: 3}
+  itemRarity: 2

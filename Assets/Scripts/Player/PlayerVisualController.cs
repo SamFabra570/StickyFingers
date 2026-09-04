@@ -125,4 +125,11 @@ public class PlayerVisualController : MonoBehaviour
             spriteRenderer.flipX = false;
         }
     }
+
+    public void ResetSpriteSet()
+    {
+        frontSprite = basePlayerVisuals.front;
+        backSprite = basePlayerVisuals.back;
+        sideSprite = basePlayerVisuals.side;
+    }
 }

@@ -16,6 +16,8 @@ MonoBehaviour:
   abilityName: Vacuum
   abilityDescription: Lets you suck any enemies who come too close!
   icon: {fileID: 21300000, guid: 0f35ebea67edb0043b7e66b69352aa9a, type: 3}
+  unlockedIcon: {fileID: 21300000, guid: 702465ff74ace084388dca5816c10878, type: 3}
+  lockedIcon: {fileID: 21300000, guid: 9514d30913e1eb64fb2327228d2a6317, type: 3}
   abilityColour: {fileID: 2100000, guid: f99840d89d54a444f91e9fbe6fa78672, type: 2}
   playerVisuals:
     front: {fileID: 0}
