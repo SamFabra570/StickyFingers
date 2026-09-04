@@ -1,10 +1,12 @@
+using Unity.Collections;
 using UnityEngine;
 
 public enum ItemRarity
 {
     Bronze,
     Silver,
-    Gold
+    Gold,
+    Mission
 }
 
 [CreateAssetMenu(fileName = "InventoryItemData", menuName = "Inventory/InventoryItemData")]  
@@ -17,7 +19,7 @@ public class InventoryItemData : ScriptableObject
     public bool missionItem;
     public bool isDroppable = true;
 
-    public bool isSafetySlot;
+    [HideInInspector] public bool isSafetySlot;
     
     [TextArea]
     public string itemDescription;

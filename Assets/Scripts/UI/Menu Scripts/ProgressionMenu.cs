@@ -139,6 +139,11 @@ public class ProgressionMenu : MonoBehaviour, IUIMenu
         return readyButton;
     }
 
+    public void OnSubmit()
+    {
+        MissionManager.Instance.StartMission(lastSelected.GetComponent<AbilityUnlock>().ability.unlockMission);
+    }
+
     public void OnCancel()
     {
         UIManager.Instance.HideMenu();

@@ -88,6 +88,9 @@ public class PostGameManager : MonoBehaviour
                 safetySlot.image.sprite = GameManager.Instance.safetySlotItem.data.icon;
                 safetySlot.stackValueText.text = ("+ " + extractedBounty);
                 
+                //If item is part of a mission requirement, add to mission progress
+                MissionManager.Instance.AddProgress(GameManager.Instance.safetySlotItem.data, GameManager.Instance.safetySlotItem.stackSize);
+                
                 defeatScreenSafetySlot.gameObject.SetActive(true);
                 debt.position = debtPosDefeat.position;
             }

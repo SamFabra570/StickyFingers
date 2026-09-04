@@ -62,9 +62,6 @@ public class InventorySystem
             itemSlots[freeSlot].AddItem(newItem);
             freeSlot++;
         }
-        
-        //If item is part of a mission requirement, add to mission progress
-        MissionManager.Instance.AddProgress(referenceData, 1);
 
         UIManager.Instance.UpdateTotals();
         UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Pickup);
@@ -137,7 +134,7 @@ public class InventorySystem
                 break;
 
             case SortMode.Value:
-                inventory.Sort((a, b) => (b.data.itemPrice * b.stackSize).CompareTo(a.data.itemPrice * a.stackSize));
+                inventory.Sort((a, b) => (b.data.itemPrice).CompareTo(a.data.itemPrice));
                 
                 InventoryMenu.Instance.valueSortButton.GetComponent<Image>().color = Color.gray3;
                 InventoryMenu.Instance.weightSortButton.GetComponent<Image>().color = InventoryMenu.Instance.weightSortButton.colors.normalColor;
@@ -145,7 +142,7 @@ public class InventorySystem
                 break;
 
             case SortMode.Weight:
-                inventory.Sort((a, b) => (b.data.itemWeight * b.stackSize).CompareTo(a.data.itemWeight * a.stackSize));
+                inventory.Sort((a, b) => (b.data.itemWeight).CompareTo(a.data.itemWeight));
                 
                 InventoryMenu.Instance.weightSortButton.GetComponent<Image>().color = Color.gray3;
                 InventoryMenu.Instance.valueSortButton.GetComponent<Image>().color = InventoryMenu.Instance.valueSortButton.colors.normalColor;

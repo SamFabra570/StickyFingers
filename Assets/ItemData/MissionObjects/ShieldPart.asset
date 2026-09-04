@@ -16,10 +16,13 @@ MonoBehaviour:
   itemType: 0
   itemName: Shield Part
   missionItem: 1
-  isDroppable: 0
+  isDroppable: 1
+  isSafetySlot: 0
   itemDescription: Parts of a broken shield... maybe something can be made out of
     this
   itemWeight: 5
   itemPrice: 0
+  spawnRate: 0
   icon: {fileID: 0}
   prefab: {fileID: 0}
+  itemRarity: 3

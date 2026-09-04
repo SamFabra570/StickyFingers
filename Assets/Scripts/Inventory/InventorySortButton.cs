@@ -8,9 +8,7 @@ public class InventorySortButton : MonoBehaviour
 
     private void Start()
     {
-        inventory = GameObject.Find("InventoryContainer")
-            .GetComponent<InventoryContainer>()
-            .inventorySystem;
+        inventory = GameObject.Find("InventoryContainer").GetComponent<InventoryContainer>().inventorySystem;
     }
 
     public void ToggleSorting()

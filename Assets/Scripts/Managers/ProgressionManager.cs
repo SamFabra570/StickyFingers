@@ -7,7 +7,7 @@ public class ProgressionManager : MonoBehaviour
     public static ProgressionManager Instance { get; private set; }
     
     public List<string> unlockedAbilities = new();
-    public List<string> missionCompleteAbilities = new();
+    public List<string> completedMissions = new();
 
     public bool unlockingAbility;
 
@@ -24,10 +24,11 @@ public class ProgressionManager : MonoBehaviour
         Instance = this;
     }
     
-    public bool IsMissionCompleted(Ability ability)
-    {
-        return missionCompleteAbilities.Contains(ability.abilityID);
-    }
+    //Use this if you want to make interacting with progression screen required before ability unlock
+    // public bool IsMissionCompleted(Ability ability)
+    // {
+    //     return missionCompleteAbilities.Contains(ability.abilityID);
+    // }
     
     public bool IsUnlocked(Ability ability)
     {
@@ -42,7 +43,7 @@ public class ProgressionManager : MonoBehaviour
         return unlockedAbilities.Contains(ability.abilityID);
     }
 
-    public bool CanUnlock(Ability ability)
+    public bool IsMissionAvailable(Ability ability)
     {
         return GameManager.Instance.GetDebtPaidPercent() >= ability.debtThreshold;
     }

@@ -49,6 +49,9 @@ public class PopupUI : MonoBehaviour
                     case ItemRarity.Gold:
                         SetTextColour(Color.goldenRod);
                         break;
+                    case ItemRarity.Mission:
+                        SetTextColour(Color.black);
+                        break;
                 }
                 
                 SetIconImage(itemData);

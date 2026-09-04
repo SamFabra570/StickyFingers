@@ -32,10 +32,23 @@ public class MissionManager : MonoBehaviour
             Debug.Log(mission.missionName + " is already complete!");
             return;
         }
-        
+
+        if (activeMission == mission)
+        {
+            missionUI.activeMissionIcon.SetActive(false);
+            //missionUI.ShowMissionStatus(false);
+
+            activeMission = null;
+            
+            Debug.Log("Deselected mission: " + mission.missionName);
+            return;
+        }
+            
+        activeMission = null;
         activeMission = mission;
         
-        //missionUI.activeMissionIndicator.SetActive(true);
+        missionUI.activeMissionIcon.SetActive(true);
+        //missionUI.ShowMissionStatus(true);
         
         Debug.Log("Started mission: " + mission.missionName);
     }

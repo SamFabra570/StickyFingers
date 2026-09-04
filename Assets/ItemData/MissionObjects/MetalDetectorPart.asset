@@ -16,9 +16,12 @@ MonoBehaviour:
   itemType: 0
   itemName: Metal Detector Part
   missionItem: 1
-  isDroppable: 0
+  isDroppable: 1
+  isSafetySlot: 0
   itemDescription: This could be useful, need all the pieces though...
   itemWeight: 2
   itemPrice: 0
+  spawnRate: 0
   icon: {fileID: 0}
   prefab: {fileID: 0}
+  itemRarity: 3

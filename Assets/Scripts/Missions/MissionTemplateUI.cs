@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,32 +11,38 @@ public class MissionTemplateUI : MonoBehaviour
     
     [Header ("Locked Template")]
     [SerializeField] private Image lockedIcon;
-    //[SerializeField] private Image lockedIconColor;
     [SerializeField] private TextMeshProUGUI lockedAbilityNameText;
     public Slider progressionSlider;
-    //[SerializeField] private GameObject lockOverlay;
     
     [Header ("Unlocked Template")]
     [SerializeField] private Image icon;
-    //[SerializeField] private Image iconColor;
     [SerializeField] private TextMeshProUGUI abilityNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI durationText;
     [SerializeField] private TextMeshProUGUI cooldownText;
 
-    //[Header("Task Requirements")] 
-    // public GameObject activeMissionIndicator;
-    // public GameObject abilityUnlockedOverlay;
-    // [SerializeField] private GameObject requirementPanel;
-    [SerializeField] private TextMeshProUGUI requirementDescriptionText;
-    // //[SerializeField] private TextMeshProUGUI requirementItemName;
-    // [SerializeField] private TextMeshProUGUI progressText;
+    [SerializeField] private GameObject abilityUnlockedImage;
+
+    [Header("Mission Requirements")] 
+    [SerializeField] private GameObject missionBox;
+    [SerializeField] private TextMeshProUGUI missionNameText;
+    [SerializeField] private TextMeshProUGUI missionDescriptionText;
+    
+    [SerializeField] public GameObject activeMissionIcon;
+    [SerializeField] private GameObject missionStatusCheck;
+    
+    [SerializeField] private Image missionItemIcon;
+    [SerializeField] private TextMeshProUGUI progressText;
+    
+    [SerializeField] public TextMeshProUGUI missionStatusText;
+    
+    private Coroutine missionStatusCoroutine;
+    
 
     private void UpdateLockedPanel(AbilityUnlock abilityUnlock)
     {
         lockedAbilityNameText.text = abilityUnlock.ability.abilityName;
         lockedIcon.sprite = abilityUnlock.ability.icon;
-        //lockedIconColor.color = abilityUnlock.ability.abilityColour.color;
 
         //Fix this to go back to slider values per ability
         //progressionSlider.value = GetProgressionSliderFill(abilityUnlock);
@@ -46,40 +53,43 @@ public class MissionTemplateUI : MonoBehaviour
     {
         abilityNameText.text = abilityUnlock.ability.abilityName;
         icon.sprite = abilityUnlock.ability.icon;
-        //iconColor.color = abilityUnlock.ability.abilityColour.color;
+        
         descriptionText.text = abilityUnlock.ability.abilityDescription;
         durationText.text = ("" + abilityUnlock.ability.duration);
         cooldownText.text = ("" + abilityUnlock.ability.cooldown);
         
-        //UpdateRequirements(abilityUnlock);
+        UpdateMissionRequirements(abilityUnlock);
     }
 
-    private void UpdateRequirements(AbilityUnlock abilityUnlock)
+    private void UpdateMissionRequirements(AbilityUnlock abilityUnlock)
     {
-        // if (abilityUnlockedOverlay.activeSelf) 
-        //     abilityUnlockedOverlay.SetActive(false);
-        //
-        // if (ProgressionManager.Instance.IsUnlocked(abilityUnlock.ability)) //If ability is fully unlocked
-        // {
-        //     abilityUnlockedOverlay.SetActive(true);
-        //     return;
-        // }
+        if (ProgressionManager.Instance.IsUnlocked(abilityUnlock.ability)) //If ability is fully unlocked
+        {
+            abilityUnlockedImage.SetActive(true);
+            
+            missionBox.SetActive(false);
+            return;
+        }
         
-        //requirementDescriptionText.text = abilityUnlock.ability.unlockMission.description;
+        abilityUnlockedImage.SetActive(false);
+        missionBox.SetActive(true);
+        
+        missionNameText.text = abilityUnlock.ability.unlockMission.missionName;
+        missionDescriptionText.text = abilityUnlock.ability.unlockMission.description;
     
-        // if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission)
-        // {
-        //     if (!MissionManager.Instance.IsComplete)
-        //     {
-        //         progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
-        //         activeMissionIndicator.SetActive(true);
-        //     }
-        // }
-        // else
-        // {
-        //     activeMissionIndicator.SetActive(false);
-        //     progressText.text = ("0 / " + abilityUnlock.ability.unlockMission.requiredAmount);
-        // }
+        if (MissionManager.Instance.activeMission == abilityUnlock.ability.unlockMission)
+        {
+            if (!MissionManager.Instance.IsComplete)
+            {
+                progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
+                activeMissionIcon.SetActive(true);
+            }
+        }
+        else
+        {
+            activeMissionIcon.SetActive(false);
+            progressText.text = (abilityUnlock.ability.unlockMission.currentAmount + " / " + abilityUnlock.ability.unlockMission.requiredAmount);
+        }
     }
     
     private float GetProgressionSliderFill(AbilityUnlock abilityUnlock)
@@ -105,7 +115,7 @@ public class MissionTemplateUI : MonoBehaviour
             return;
         }
         
-        if (!ProgressionManager.Instance.CanUnlock(abilityUnlock.ability)) //If ability mission is locked
+        if (!ProgressionManager.Instance.IsMissionAvailable(abilityUnlock.ability)) //If ability mission is locked
         {
             Debug.Log("Ability mission is locked");
             
@@ -116,9 +126,9 @@ public class MissionTemplateUI : MonoBehaviour
             
             UpdateLockedPanel(abilityUnlock);
         }
-        else if (ProgressionManager.Instance.CanUnlock(abilityUnlock.ability)) //If ability mission is unlocked
+        else if (ProgressionManager.Instance.IsMissionAvailable(abilityUnlock.ability)) //If ability mission is unlocked
         {
-            Debug.Log("Ability mission is unlocked");
+            //Debug.Log("Ability mission is unlocked");
             
             if (lockedTemplate.activeSelf)
                 lockedTemplate.SetActive(false);
@@ -128,5 +138,29 @@ public class MissionTemplateUI : MonoBehaviour
             UpdateUnlockedPanel(abilityUnlock);
         }
         
+    }
+
+    public void ShowMissionStatus(bool isActive)
+    {
+        if (missionStatusCoroutine != null)
+            StopCoroutine(missionStatusCoroutine);
+        
+        missionStatusCoroutine = StartCoroutine(ShowMissionStatusText(isActive));
+    }
+    
+    private IEnumerator ShowMissionStatusText(bool isActive)
+    {
+        if (isActive)
+            missionStatusText.text = "Mission activated!";
+        else
+            missionStatusText.text = "Mission deactivated!";
+        
+        missionStatusText.gameObject.SetActive(true);
+        
+        yield return new WaitForSeconds(2f);
+
+        missionStatusText.gameObject.SetActive(false);
+        
+        missionStatusCoroutine = null;
     }
 }

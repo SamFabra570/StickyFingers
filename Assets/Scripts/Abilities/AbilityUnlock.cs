@@ -80,11 +80,11 @@ public class AbilityUnlock : MonoBehaviour
         }
         
         unlocked = progressionManager.IsUnlocked(ability);
-        canUnlock = progressionManager.CanUnlock(ability);
+        canUnlock = progressionManager.IsMissionAvailable(ability);
 
         if (canUnlock)
         {
-            unlockButton.onClick.AddListener(StartMission);
+            //unlockButton.onClick.AddListener(StartMission);
             abilityIcon.color = Color.white;
         }
             

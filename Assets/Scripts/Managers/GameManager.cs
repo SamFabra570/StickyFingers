@@ -150,6 +150,9 @@ public class GameManager : MonoBehaviour
             copy.pickupOrder = item.pickupOrder;
 
             postGameInventory.Add(copy);
+            
+            //If item is part of a mission requirement, add to mission progress
+            MissionManager.Instance.AddProgress(copy.data, copy.stackSize);
         }
     }
 

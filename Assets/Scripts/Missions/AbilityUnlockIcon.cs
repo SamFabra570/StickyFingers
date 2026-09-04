@@ -29,7 +29,7 @@ public class AbilityUnlockIcon : MonoBehaviour
         {
             icon.sprite = ability.lockedIcon;
             
-            if (progressionManager.CanUnlock(ability))
+            if (progressionManager.IsMissionAvailable(ability))
                 icon.color = Color.white;
             else
                 icon.color = Color.gray6;

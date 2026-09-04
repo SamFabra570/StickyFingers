@@ -83,7 +83,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             inventory.content.SetActive(true);
             
-            inventory.itemDescriptionNameText.SetText(item.data.itemRarity + " "+ item.data.itemName + " (" + item.stackSize + ")");
+            if (item.data.missionItem) 
+                inventory.itemDescriptionNameText.SetText(item.data.itemName + " (" + item.stackSize + ")");
+            else
+                inventory.itemDescriptionNameText.SetText(item.data.itemRarity + " "+ item.data.itemName + " (" + item.stackSize + ")");
+            
             inventory.itemDescriptionText.SetText(item.data.itemDescription);
             inventory.itemWeightText.SetText("" + item.data.itemWeight * item.stackSize);
             inventory.itemValueText.SetText("" + item.data.itemPrice * item.stackSize);

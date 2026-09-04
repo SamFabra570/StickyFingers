@@ -16,9 +16,12 @@ MonoBehaviour:
   itemType: 0
   itemName: Feather
   missionItem: 1
-  isDroppable: 0
+  isDroppable: 1
+  isSafetySlot: 0
   itemDescription: These feathers seem to have an enchantment of some kind...
   itemWeight: 1
   itemPrice: 0
+  spawnRate: 0
   icon: {fileID: 0}
   prefab: {fileID: 0}
+  itemRarity: 3

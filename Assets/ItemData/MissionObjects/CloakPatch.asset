@@ -16,9 +16,12 @@ MonoBehaviour:
   itemType: 0
   itemName: Cloak Patch
   missionItem: 1
-  isDroppable: 0
+  isDroppable: 1
+  isSafetySlot: 0
   itemDescription: These seem to go together to create something... invisible?
   itemWeight: 3
   itemPrice: 0
+  spawnRate: 0
   icon: {fileID: 0}
   prefab: {fileID: 0}
+  itemRarity: 3
