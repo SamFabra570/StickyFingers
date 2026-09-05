@@ -39,9 +39,14 @@ public class PostGameManager : MonoBehaviour
 
     [Header("Mission Info")] 
     [SerializeField] private GameObject missionRequirements;
-    [SerializeField] private Image missionRewardIcon;
+
+    [SerializeField] private GameObject missionStatusCheckmark;
+    
+    [SerializeField] private TextMeshProUGUI missionNameText;
     [SerializeField] private TextMeshProUGUI missionDescriptionText;
     [SerializeField] private TextMeshProUGUI progressText;
+    
+    [SerializeField] private Image missionItemIcon;
 
     private void Start()
     {
@@ -75,6 +80,8 @@ public class PostGameManager : MonoBehaviour
             
             victoryScreen.SetActive(true);
             debt.position = debtPosVictory.position;
+            
+            UpdateMissionInfo();
         }
         //Failed run
         else
@@ -93,6 +100,8 @@ public class PostGameManager : MonoBehaviour
                 
                 defeatScreenSafetySlot.gameObject.SetActive(true);
                 debt.position = debtPosDefeat.position;
+                
+                UpdateMissionInfo();
             }
             //Does not have safety slot
             else
@@ -140,18 +149,16 @@ public class PostGameManager : MonoBehaviour
         if (!missionRequirements.activeSelf) 
             missionRequirements.SetActive(true);
         
-        if (!MissionManager.Instance.IsComplete)
-        {
-            missionDescriptionText.text = MissionManager.Instance.activeMission.description;
-            
-        }
-        else if (MissionManager.Instance.IsComplete)
-        {
-            missionDescriptionText.text = "MISSION COMPLETE!";
-        }
+        missionNameText.text = MissionManager.Instance.activeMission.missionName;
+        missionDescriptionText.text = MissionManager.Instance.activeMission.description;
 
-        missionRewardIcon.sprite = MissionManager.Instance.activeMission.rewardAbility.icon;
+        missionItemIcon.sprite = MissionManager.Instance.activeMission.targetItem.icon;
         progressText.text = (MissionManager.Instance.activeMission.currentAmount + " / " + MissionManager.Instance.activeMission.requiredAmount);
+        
+        if (MissionManager.Instance.IsComplete) 
+            missionStatusCheckmark.SetActive(true);
+        else
+            missionStatusCheckmark.SetActive(false);
     }
     
     private void UpdateDebtInfo()

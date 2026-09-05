@@ -34,7 +34,7 @@ public class DitherVisibility : MonoBehaviour
 
     private void Awake()
     {
-        var all = GetComponentsInChildren<Renderer>();
+        var all = GetComponents<Renderer>();
         var dither = new List<Renderer>();
         var toggle = new List<Renderer>();
 
@@ -98,11 +98,18 @@ public class DitherVisibility : MonoBehaviour
     {
         foreach (Renderer r in _ditherRenderers)
         {
-            r.GetPropertyBlock(_propBlock);
-            Color col = _propBlock.GetVector(ColorID);
-            if (col == Color.clear)
-                col = r.sharedMaterial.GetColor(ColorID);
+            // r.GetPropertyBlock(_propBlock);
+            // Color col = _propBlock.GetVector(ColorID);
+            // if (col == Color.clear)
+            //     col = r.sharedMaterial.GetColor(ColorID);
+            // col.a = alpha;
+            // _propBlock.SetColor(ColorID, col);
+            // r.SetPropertyBlock(_propBlock);
+            
+            Color col = r.sharedMaterial.GetColor(ColorID);
             col.a = alpha;
+
+            r.GetPropertyBlock(_propBlock);
             _propBlock.SetColor(ColorID, col);
             r.SetPropertyBlock(_propBlock);
         }
