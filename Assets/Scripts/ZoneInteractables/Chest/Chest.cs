@@ -6,8 +6,8 @@ public class Chest : MonoBehaviour, IInteractable
     [Header("References")]
     [SerializeField] private ObjectSpawner objectSpawner;
 
-    [Header("Lock Settings")]
-    [SerializeField] private int requiredKeyId;
+    //[Header("Lock Settings")]
+    //[SerializeField] private int requiredKeyId;
 
     private bool _isOpen;
 
@@ -15,7 +15,7 @@ public class Chest : MonoBehaviour, IInteractable
     {
         if (_isOpen) return;
 
-        if (HasMatchingKey(out KeyItemData key))
+        if (HasKey(out KeyItemData key))
         {
             ConsumeKey(key);
             Open();
@@ -30,7 +30,26 @@ public class Chest : MonoBehaviour, IInteractable
         Debug.Log("[Chest] Locked. You need a key or the Lockpick ability.");
     }
 
-    private bool HasMatchingKey(out KeyItemData matchingKey)
+    // private bool HasMatchingKey(out KeyItemData matchingKey)
+    // {
+    //     matchingKey = null;
+    //
+    //     var inventory = GetInventory();
+    //     if (inventory == null) return false;
+    //
+    //     foreach (var item in inventory.inventory)
+    //     {
+    //         if (item.data is KeyItemData keyData && keyData.keyId == requiredKeyId)
+    //         {
+    //             matchingKey = keyData;
+    //             return true;
+    //         }
+    //     }
+    //
+    //     return false;
+    // }
+    
+    private bool HasKey(out KeyItemData matchingKey)
     {
         matchingKey = null;
 
@@ -39,7 +58,7 @@ public class Chest : MonoBehaviour, IInteractable
 
         foreach (var item in inventory.inventory)
         {
-            if (item.data is KeyItemData keyData && keyData.keyId == requiredKeyId)
+            if (item.data is KeyItemData keyData)
             {
                 matchingKey = keyData;
                 return true;
@@ -69,7 +88,12 @@ public class Chest : MonoBehaviour, IInteractable
         _isOpen = true;
 
         if (objectSpawner != null)
+        {
             objectSpawner.TriggerSpawn();
+            
+            gameObject.SetActive(false);
+        }
+            
         else
             Debug.LogWarning("[Chest] No ObjectSpawner assigned.");
     }

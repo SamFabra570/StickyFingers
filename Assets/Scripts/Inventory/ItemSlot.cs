@@ -83,7 +83,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             inventory.content.SetActive(true);
             
-            if (item.data.missionItem) 
+            if (item.data.itemRarity == ItemRarity.Mission) 
                 inventory.itemDescriptionNameText.SetText(item.data.itemName + " (" + item.stackSize + ")");
             else
                 inventory.itemDescriptionNameText.SetText(item.data.itemRarity + " "+ item.data.itemName + " (" + item.stackSize + ")");
