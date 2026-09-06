@@ -18,7 +18,7 @@ MonoBehaviour:
   missionItem: 0
   isDroppable: 1
   isSafetySlot: 0
-  itemDescription: harry you are a wizard
+  itemDescription: Awkward to carry. Collectors pay anyway.
   itemWeight: 4
   itemPrice: 450
   spawnRate: 0

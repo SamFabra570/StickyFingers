@@ -6,6 +6,8 @@ public class PlayerVisualController : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private Camera cam;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    
+    [SerializeField] private Animator animator;
 
     [Header("Sprites")]
     public PlayerVisualSet basePlayerVisuals;
@@ -17,6 +19,9 @@ public class PlayerVisualController : MonoBehaviour
     {
         UpdateSprite();
         FaceCamera();
+        
+        bool isMoving = player.MovementDirection.sqrMagnitude >= 0.01f;
+        animator.SetBool("Moving", isMoving);
     }
 
     private void UpdateSprite()

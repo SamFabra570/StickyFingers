@@ -6,6 +6,8 @@ public class EnemyVisualController : MonoBehaviour
     [SerializeField] private EnemyBrain enemy;
     [SerializeField] private Camera cam;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    
+    [SerializeField] private Animator animator;
 
     [Header("Sprites")]
     [SerializeField] private Sprite frontSprite;
@@ -16,6 +18,12 @@ public class EnemyVisualController : MonoBehaviour
     {
         UpdateSprite();
         FaceCamera();
+
+        if (animator != null)
+        {
+            bool isMoving = enemy.agent_.velocity.sqrMagnitude >= 0.01f;
+            animator.SetBool("Moving", isMoving);
+        }
     }
 
     private void UpdateSprite()

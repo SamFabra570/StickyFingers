@@ -18,7 +18,7 @@ MonoBehaviour:
   missionItem: 0
   isDroppable: 1
   isSafetySlot: 0
-  itemDescription: one hundred million billion
+  itemDescription: Struck for a currency nobody spends any more.
   itemWeight: 6
   itemPrice: 800
   spawnRate: 0
