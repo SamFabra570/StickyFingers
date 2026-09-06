@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,12 +15,31 @@ public class PlayerVisionConeVisual : MonoBehaviour
     [Tooltip("Triangle count of the cone fan — higher = smoother edge.")]
     public int resolution = 120;
 
+    [Header("Silhouette")]
+    [Tooltip("Distance gap between two neighbouring rays that counts as an occluder edge rather than a slope.")]
+    public float edgeDistanceThreshold = 0.35f;
+
+    [Tooltip("Bisection steps used to pin down each occluder edge. 0 disables refinement.")]
+    [Range(0, 10)]
+    public int edgeRefineSteps = 6;
+
     private Mesh _coneMesh;
     private MeshFilter _meshFilter;
+
+    // Reused every frame so the cone allocates nothing once it is running.
+    private readonly List<Vector3> _vertices = new List<Vector3>();
+    private readonly List<int> _triangles = new List<int>();
 
     // Same Mesh instance is reused every frame (Clear + reassign), so a fog-of-war revealer can share
     // this reference once and stay in sync automatically — the cone already respects wall occlusion.
     public Mesh ConeMesh => _coneMesh;
+
+    // One ray of the fan: the angle it was cast at and how far it got.
+    private struct Sample
+    {
+        public float Angle;
+        public float Distance;
+    }
 
     private void Awake()
     {
@@ -27,7 +47,7 @@ public class PlayerVisionConeVisual : MonoBehaviour
             visionCone = GetComponentInParent<PlayerVisionCone>();
 
         _meshFilter = GetComponent<MeshFilter>();
-        _coneMesh = new Mesh();
+        _coneMesh = new Mesh { name = "PlayerVisionCone" };
         _meshFilter.mesh = _coneMesh;
     }
 
@@ -42,40 +62,93 @@ public class PlayerVisionConeVisual : MonoBehaviour
 
     private void DrawCone(float range, float angle, LayerMask obstructionMask)
     {
-        int[] triangles = new int[(resolution - 1) * 3];
-        Vector3[] vertices = new Vector3[resolution + 1];
-        vertices[0] = Vector3.zero;
+        int rays = Mathf.Max(2, resolution);
 
-        float currentAngle = -angle / 2f;
-        float angleIncrement = angle / (resolution - 1);
+        _vertices.Clear();
+        _triangles.Clear();
+        _vertices.Add(Vector3.zero);
 
-        for (int i = 0; i < resolution; i++)
+        float half = angle * 0.5f;
+        float angleIncrement = angle / (rays - 1);
+
+        Sample previous = Cast(-half, range, obstructionMask);
+        _vertices.Add(ToLocal(previous));
+
+        for (int i = 1; i < rays; i++)
         {
-            float sine = Mathf.Sin(currentAngle);
-            float cosine = Mathf.Cos(currentAngle);
+            Sample current = Cast(-half + angleIncrement * i, range, obstructionMask);
 
-            // Raycast in world space, but build the mesh vertex in local space.
-            Vector3 rayDirection  = (transform.forward * cosine) + (transform.right * sine);
-            Vector3 vertDirection = (Vector3.forward * cosine) + (Vector3.right * sine);
+            // A depth jump between neighbouring rays is an occluder edge, not a slope. Left alone the
+            // fan stretches one triangle across the whole gap and the cut reads as a diagonal smear
+            // that drifts by up to a full angular step. Bisect the gap to find where the edge actually
+            // sits, then emit both of its sides so the silhouette comes out straight.
+            if (Mathf.Abs(current.Distance - previous.Distance) > edgeDistanceThreshold)
+            {
+                Sample near = previous;
+                Sample far = current;
 
-            if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, range, obstructionMask))
-                vertices[i + 1] = vertDirection * hit.distance;
-            else
-                vertices[i + 1] = vertDirection * range;
+                for (int step = 0; step < edgeRefineSteps; step++)
+                {
+                    Sample mid = Cast((near.Angle + far.Angle) * 0.5f, range, obstructionMask);
 
-            currentAngle += angleIncrement;
+                    // Replace whichever side the midpoint belongs to, so the pair keeps straddling
+                    // the jump and stays ordered by angle.
+                    if (Mathf.Abs(mid.Distance - near.Distance) <= Mathf.Abs(mid.Distance - far.Distance))
+                        near = mid;
+                    else
+                        far = mid;
+                }
+
+                _vertices.Add(ToLocal(near));
+                _vertices.Add(ToLocal(far));
+            }
+
+            _vertices.Add(ToLocal(current));
+            previous = current;
         }
 
-        for (int i = 0, j = 0; i < triangles.Length; i += 3, j++)
+        for (int i = 1; i < _vertices.Count - 1; i++)
         {
-            triangles[i]     = 0;
-            triangles[i + 1] = j + 1;
-            triangles[i + 2] = j + 2;
+            _triangles.Add(0);
+            _triangles.Add(i);
+            _triangles.Add(i + 1);
         }
 
         _coneMesh.Clear();
-        _coneMesh.vertices = vertices;
-        _coneMesh.triangles = triangles;
+        _coneMesh.SetVertices(_vertices);
+        _coneMesh.SetTriangles(_triangles, 0);
         _coneMesh.RecalculateNormals();
+    }
+
+    private Sample Cast(float angle, float range, LayerMask obstructionMask)
+    {
+        float sine = Mathf.Sin(angle);
+        float cosine = Mathf.Cos(angle);
+
+        // Raycast in world space; the mesh vertex is built in local space by ToLocal.
+        Vector3 rayDirection = (transform.forward * cosine) + (transform.right * sine);
+
+        // Ignore triggers, exactly like PlayerVisionCone.ScanCone. Pickup radii, room volumes and
+        // pressure plates block nothing, so they must not carve notches out of the drawn cone either.
+        bool blocked = Physics.Raycast(transform.position, rayDirection, out RaycastHit hit,
+                                       range, obstructionMask, QueryTriggerInteraction.Ignore);
+
+        return new Sample { Angle = angle, Distance = blocked ? hit.distance : range };
+    }
+
+    private static Vector3 ToLocal(Sample sample)
+    {
+        Vector3 direction = (Vector3.forward * Mathf.Cos(sample.Angle)) + (Vector3.right * Mathf.Sin(sample.Angle));
+        return direction * sample.Distance;
+    }
+
+    // Optional: visualize cone in editor
+    private void OnDrawGizmosSelected()
+    {
+        if (visionCone == null)
+            return;
+
+        Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, visionCone.visionRadius);
     }
 }
