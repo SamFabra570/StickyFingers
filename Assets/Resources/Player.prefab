@@ -1096,6 +1096,7 @@ GameObject:
   - component: {fileID: 7722021146040734886}
   - component: {fileID: 2617575605871734327}
   - component: {fileID: 1922161662797066510}
+  - component: {fileID: 2525507767463182419}
   m_Layer: 6
   m_Name: Vision
   m_TagString: Untagged
@@ -1188,6 +1189,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisionConeVisual
   visionCone: {fileID: 0}
   resolution: 120
+  edgeDistanceThreshold: 0.35
+  edgeRefineSteps: 6
+--- !u!114 &2525507767463182419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4889067557452573055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc69d1d36feaa448aea2355bd93721d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisionConeDebug
+  reportKey: 290
+  drawRays: 1
 --- !u!1 &5057462561091067554
 GameObject:
   m_ObjectHideFlags: 0
