@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   id: 400
   itemType: 0
-  itemName: BagOfCoins
+  itemName: Bag of Coins
   missionItem: 0
   isDroppable: 1
   isSafetySlot: 0

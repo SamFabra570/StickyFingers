@@ -45,6 +45,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             // weightText.SetText("" + item.data.itemWeight);
             // valueText.SetText("" + item.data.itemPrice);
+            image.sprite = item.data.icon;
             quantityText.SetText(""+item.stackSize);
             stackWeightText.SetText(""+item.data.itemWeight);
             stackValueText.SetText(""+item.data.itemPrice);
