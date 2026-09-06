@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635825f9069b44b4b9bf16f73132e8b3, type: 3}
+  m_Name: BagOfCoins_Silver
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
+  id: 300
+  itemType: 0
+  itemName: BagOfCoins
+  missionItem: 0
+  isDroppable: 1
+  isSafetySlot: 0
+  itemDescription: Coins by the fistful. Heavy, but it all counts.
+  itemWeight: 12
+  itemPrice: 450
+  spawnRate: 0.0167
+  icon: {fileID: 21300000, guid: 4928c9b3fd80af745bb6ce142c0d34f7, type: 3}
+  prefab: {fileID: 0}
+  itemRarity: 1
