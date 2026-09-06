@@ -112,6 +112,8 @@ public class TimeManager : MonoBehaviour
     {
         portalSpawner.SpawnPortal();
         lastMinuteEffect.SetActive(true);
+        
+        MusicManager.Instance.PlayFinalMusic();
     }
 
     private void UpdateTimerText()
