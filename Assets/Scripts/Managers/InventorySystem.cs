@@ -65,6 +65,18 @@ public class InventorySystem
 
         UIManager.Instance.UpdateTotals();
         UIManager.Instance.ShowItemPopupUI(referenceData, PopupUI.PopupType.Pickup);
+
+        switch (sortMode)
+        {
+            case SortMode.None:
+                break;
+            case SortMode.Value:
+                SortInventory(SortMode.Value);
+                break;
+            case SortMode.Weight:
+                SortInventory(SortMode.Weight);
+                break;
+        }
     }
     
     public void Remove(InventoryItemData referenceData, PopupUI.PopupType popupType)
@@ -98,12 +110,25 @@ public class InventorySystem
                     //DeselectSlot();
                 }
                 RefreshInventory();
+                
             }
             UIManager.Instance.ShowItemPopupUI(referenceData, popupType);
             UIManager.Instance.UpdateTotals();
         }
         else 
             UIManager.Instance.ShowItemPopupUI(referenceData, popupType);
+        
+        switch (sortMode)
+        {
+            case SortMode.None:
+                break;
+            case SortMode.Value:
+                SortInventory(SortMode.Value);
+                break;
+            case SortMode.Weight:
+                SortInventory(SortMode.Weight);
+                break;
+        }
     }
 
     public void DeselectSlot()

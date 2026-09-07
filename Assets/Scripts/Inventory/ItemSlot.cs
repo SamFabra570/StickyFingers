@@ -140,5 +140,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             PlayerController.Instance.GetComponent<PlayerSoundController>()?.PlayDrop();
         
         UIManager.Instance.UpdateInventoryUI();
+        ShowItemDetails();
     }
 }

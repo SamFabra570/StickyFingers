@@ -372,13 +372,13 @@ public class PlayerController : MonoBehaviour
             currentState = WeightState.Light;
         }
         //Medium
-        else if (currentWeight >= mediumThreshold && currentWeight <= heavyThreshold) //More than medium, less than heavy
+        else if (currentWeight >= mediumThreshold && currentWeight < heavyThreshold) //More than medium, less than heavy
         {
             currentState = WeightState.Medium;
             //currentSpeed = sprintSpeed + encumberedSpeedModifier;
         }
         //Heavy
-        else if (currentWeight > heavyThreshold && currentWeight < 1) //More than heavy, less than maximum
+        else if (currentWeight >= heavyThreshold && currentWeight < 1) //More than heavy, less than maximum
         {
             currentState = WeightState.Heavy;
             //currentSpeed = sprintSpeed + overencumberedSpeedModifier;
@@ -594,7 +594,7 @@ public class PlayerController : MonoBehaviour
         objectToSteal.Pickup();
         GetComponent<PlayerSoundController>()?.PlaySteal();
         UIManager.Instance.DisablePreview();
-        Debug.Log("Add " + objectToSteal.name + " to inventory");
+        //Debug.Log("Add " + objectToSteal.name + " to inventory");
 
         interactable = null;
     }

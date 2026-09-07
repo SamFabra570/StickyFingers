@@ -13,6 +13,8 @@ namespace ZoneInteractables
         [SerializeField] private bool spawnOnStart = false;
 
         private bool _shouldSpawn = false;
+        
+        [SerializeField] private ItemDatabase itemDatabase;
 
         public bool ShouldSpawn
         {
@@ -38,13 +40,18 @@ namespace ZoneInteractables
                 Debug.LogWarning("[ObjectSpawner] No prefab assigned.");
                 return;
             }
+            
+            InventoryItemData item = itemDatabase.GetRandomItemByRarity(ItemRarity.Gold);
 
             Vector3 pos = spawnPoint != null ? spawnPoint.position : transform.position;
             Quaternion rot = spawnPoint != null ? spawnPoint.rotation : transform.rotation;
             
             pos.y += spawnYOffset;
 
-            Instantiate(prefabToSpawn, pos, rot);
+            GameObject spawnedObject = Instantiate(prefabToSpawn, pos, rot);
+            
+            spawnedObject.GetComponent<ItemController>().referenceItem = item;
+            
             Destroy(gameObject);
         }
 

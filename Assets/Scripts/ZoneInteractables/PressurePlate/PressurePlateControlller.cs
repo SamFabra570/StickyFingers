@@ -29,7 +29,7 @@ public class PressurePlateController : MonoBehaviour
 
         if (PlayerController.Instance.currentState == PlayerController.WeightState.Light) return;
         _triggered = true;
-        objectSpawner.TriggerSpawn();
+        
         StartCoroutine(SinkAndDestroy());
     }
 
@@ -47,6 +47,9 @@ public class PressurePlateController : MonoBehaviour
         }
 
         transform.position = targetPos;
+        
+        objectSpawner.TriggerSpawn();
+        
         Destroy(gameObject);
     }
 }
