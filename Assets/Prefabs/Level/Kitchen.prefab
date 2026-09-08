@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 3700529820568097398}
   - component: {fileID: 1188574257041065990}
   - component: {fileID: 1127081137307017695}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Objeto_3294.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1842,7 +1842,7 @@ GameObject:
   - component: {fileID: 3031239896933663171}
   - component: {fileID: 8385690071702161783}
   - component: {fileID: 4892283575444850523}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2420,7 +2420,7 @@ GameObject:
   - component: {fileID: 4594288690892985348}
   - component: {fileID: 8064209596968811633}
   - component: {fileID: 3169001427204643341}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2730,7 +2730,7 @@ GameObject:
   - component: {fileID: 8614342369589794406}
   - component: {fileID: 5809689636600534556}
   - component: {fileID: 1268789699841871345}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3129,7 +3129,7 @@ GameObject:
   - component: {fileID: 6248704589644787946}
   - component: {fileID: 4357556807221535823}
   - component: {fileID: 5468141100513574460}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Objeto_3294.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3420,7 +3420,7 @@ GameObject:
   - component: {fileID: 4325162377532216143}
   - component: {fileID: 2852445543277035944}
   - component: {fileID: 6351253436293670009}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3821,7 +3821,7 @@ GameObject:
   - component: {fileID: 7592367645232700520}
   - component: {fileID: 5162882949196423240}
   - component: {fileID: 3319086675501624010}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4086,7 +4086,7 @@ GameObject:
   - component: {fileID: 2928449967707868474}
   - component: {fileID: 7997266059532445216}
   - component: {fileID: 4453764250775425292}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Objeto_3294.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4465,7 +4465,7 @@ GameObject:
   - component: {fileID: 6701057726466932231}
   - component: {fileID: 9016196330305179264}
   - component: {fileID: 2221686275064507769}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Objeto_3294.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6894,7 +6894,7 @@ GameObject:
   - component: {fileID: 4841604172570621427}
   - component: {fileID: 5631107278548360647}
   - component: {fileID: 6963178838196350664}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7969,7 +7969,7 @@ GameObject:
   - component: {fileID: 6697553422753998210}
   - component: {fileID: 449873095676562508}
   - component: {fileID: 2416150329966875425}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Objeto_3294.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10220,7 +10220,7 @@ GameObject:
   - component: {fileID: 2598314792377891039}
   - component: {fileID: 232503134626296688}
   - component: {fileID: 2328191898310784932}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HITBOX_6 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
