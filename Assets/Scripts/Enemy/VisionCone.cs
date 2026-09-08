@@ -40,15 +40,14 @@ public class VisionCone : MonoBehaviour
             Sine = Mathf.Sin(Currentangle);
             Cosine = Mathf.Cos(Currentangle);
             Vector3 RaycastDirection = (transform.forward * Cosine) + (transform.right * Sine);
-            Vector3 VertForward = (Vector3.forward * Cosine) + (Vector3.right * Sine);
-            if (Physics.Raycast(transform.position, RaycastDirection, out RaycastHit hit, VisionRange, VisionObstructingLayer))
-            {
-                Vertices[i + 1] = VertForward * hit.distance;
-            }
-            else
-            {
-                Vertices[i + 1] = VertForward * VisionRange;
-            }
+            //The ray measures world metres but the vertex is stored in local space, where the transform's
+            //scale is applied on the way out. Round-trip through the transform so the drawn edge lands on
+            //the point the ray actually hit. No-op at scale 1 (every enemy today), but the player cone had
+            //exactly this bug and drew at 70% of its real reach because its root is scaled 0.7.
+            float reach = Physics.Raycast(transform.position, RaycastDirection, out RaycastHit hit, VisionRange, VisionObstructingLayer)
+                ? hit.distance
+                : VisionRange;
+            Vertices[i + 1] = transform.InverseTransformPoint(transform.position + RaycastDirection * reach);
 
 
             Currentangle += angleIcrement;

@@ -136,10 +136,17 @@ public class PlayerVisionConeVisual : MonoBehaviour
         return new Sample { Angle = angle, Distance = blocked ? hit.distance : range };
     }
 
-    private static Vector3 ToLocal(Sample sample)
+    // The ray travels in WORLD space, so its distance is in world metres - but the vertex it produces
+    // is stored in LOCAL space, where the transform's scale gets applied on the way back out. The player
+    // root is scaled (0.7, 1, 0.7), so a hit 5.26m away was being drawn at 5.26 x 0.7 = 3.68m and the
+    // cone stopped a third short of where it actually sees. Enemies never showed it: their scale is 1.
+    //
+    // Round-trip through the transform instead of assuming local and world agree. This is exact for any
+    // scale or rotation, and a no-op when the scale is 1.
+    private Vector3 ToLocal(Sample sample)
     {
-        Vector3 direction = (Vector3.forward * Mathf.Cos(sample.Angle)) + (Vector3.right * Mathf.Sin(sample.Angle));
-        return direction * sample.Distance;
+        Vector3 worldDirection = (transform.forward * Mathf.Cos(sample.Angle)) + (transform.right * Mathf.Sin(sample.Angle));
+        return transform.InverseTransformPoint(transform.position + worldDirection * sample.Distance);
     }
 
     // Optional: visualize cone in editor
