@@ -160,6 +160,9 @@ public class PlayerController : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Game")
                 UIManager.Instance.StartTutorial();
             
+            if (SceneManager.GetActiveScene().name == "HUB")
+                HUBTutorialManager.Instance.StartHUBTutorial();
+            
             inputData = Movement_performed.ReadValue<Vector2>();
         };
         

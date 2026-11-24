@@ -90,6 +90,9 @@ public class ExitPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (!TutorialMenu.Instance.HasCompletedTutorial(LoadoutMenu.Instance.segments[0]))
+                return;
+            
             state = PortalState.Charging;
             StartChargeLoop();
         }

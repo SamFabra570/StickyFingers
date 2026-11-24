@@ -49,7 +49,10 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
 
     public bool HasCompletedTutorial(TutorialSegment tutorial)
     {
-        return GameManager.Instance.completedTutorials.Contains(tutorial.id);
+        if (GameManager.Instance.skipTutorials)
+            return true;
+        
+        return GameManager.Instance.CompletedTutorials.Contains(tutorial.id);
     }
 
     private void ShowTutorialUI()
@@ -68,7 +71,7 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
 
     private void CompleteTutorial()
     {
-        GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
+        GameManager.Instance.CompletedTutorials.Add(tutorialSegments[index].id);
         
         if (tutorialSegments[index].needsFocusedElement) 
             UnfocusTutorialSegment();
@@ -104,7 +107,8 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
         {
             tutorialSegments.Add(segments[i]);
             
-            elementsToFocus.Add(elements[i]);
+            if (elements != null) 
+                elementsToFocus.Add(elements[i]);
         }
     }
 
@@ -135,7 +139,7 @@ public class TutorialMenu : MonoBehaviour, IUIMenu
     {
         Debug.Log("Skipping tutorial");
         
-        GameManager.Instance.completedTutorials.Add(tutorialSegments[index].id);
+        GameManager.Instance.CompletedTutorials.Add(tutorialSegments[index].id);
         
         tutorialSegments.Clear();
         elementsToFocus.Clear();

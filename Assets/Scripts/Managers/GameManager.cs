@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
-    public HashSet<string> completedTutorials = new();
-    public HashSet<string> completedMissions = new();
 
     private PlayerController player;
 
@@ -29,6 +26,12 @@ public class GameManager : MonoBehaviour
     public float timeRemaining;
 
     public bool isPaused;
+    
+    [Header ("Tutorials")]
+    public bool skipTutorials;
+    
+    public HashSet<string> CompletedTutorials = new();
+    public HashSet<string> CompletedMissions = new();
     
     [Header ("Inventory")]
     public List<InventoryItem> postGameInventory = new List<InventoryItem>();

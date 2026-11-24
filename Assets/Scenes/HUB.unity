@@ -4019,6 +4019,55 @@ RectTransform:
   m_AnchoredPosition: {x: -22.45987, y: 0.95661545}
   m_SizeDelta: {x: -125.4306, y: -36.1317}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &509482746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 509482748}
+  - component: {fileID: 509482747}
+  m_Layer: 0
+  m_Name: HUBTutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &509482747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509482746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5a6db7553189a40bc2b45f452ecf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  loadoutMenuPrompt: {fileID: 1286362384}
+  progressionMenuPrompt: {fileID: 1390254229}
+  portalPrompt: {fileID: 2003879018467287144}
+  segments:
+  - {fileID: 11400000, guid: 6dae8e4b7f4408648a439709d67698c1, type: 2}
+--- !u!4 &509482748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509482746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.33434, y: 0.16174, z: -2.21988}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &525183913 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3620559507068312950, guid: db72f5c5aae9ee441a8d470d74ddb152, type: 3}
@@ -6550,7 +6599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7261484417627561182, guid: 30afdaa8d74a8d7418f176d248d4b57e, type: 3}
       propertyPath: m_Name
-      value: Popup_Canvas
+      value: DemonPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 9222314437770225819, guid: 30afdaa8d74a8d7418f176d248d4b57e, type: 3}
       propertyPath: m_Pivot.x
@@ -9454,7 +9503,7 @@ GameObject:
   - component: {fileID: 1286362387}
   - component: {fileID: 1286362386}
   m_Layer: 5
-  m_Name: Popup_Canvas (1)
+  m_Name: PlanningPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10087,6 +10136,11 @@ RectTransform:
   m_AnchoredPosition: {x: -29.03479, y: 1.8028107}
   m_SizeDelta: {x: 397.59955, y: 175.295}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1390254229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7261484417627561182, guid: 30afdaa8d74a8d7418f176d248d4b57e, type: 3}
+  m_PrefabInstance: {fileID: 956195184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1403315438
 GameObject:
   m_ObjectHideFlags: 0
@@ -18488,7 +18542,7 @@ GameObject:
   - component: {fileID: 7801535734406504358}
   - component: {fileID: 7250594314514980686}
   m_Layer: 5
-  m_Name: Popup_Canvas
+  m_Name: PortalPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22883,6 +22937,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 17741110}
   - {fileID: 1702677056}
+  - {fileID: 509482748}
   - {fileID: 242676564}
   - {fileID: 12965931}
   - {fileID: 274653647}
