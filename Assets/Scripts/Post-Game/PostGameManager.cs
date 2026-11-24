@@ -168,6 +168,20 @@ public class PostGameManager : MonoBehaviour
         //totalDebtText.text = ("" + GameManager.Instance.maxDebt);
     }
     
+    //USE THIS TO INCREMENT SCORE UI GRADUALLY
+    // private IEnumerator ScoreUpdater()
+    // {
+    //     while(true)
+    //     {
+    //         if(displayScore < score)
+    //         {
+    //             displayScore ++; //Increment the display score by 1
+    //             scoreUI.text = displayScore.ToString(); //Write it to the UI
+    //         }
+    //         yield return new WaitForSeconds(0.2f); // I used .2 secs but you can update it as fast as you want
+    //     }
+    // }
+    
     private void PopulateInventory()
     {
         List<InventoryItem> inventory = GameManager.Instance.postGameInventory;
